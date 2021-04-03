@@ -25,6 +25,8 @@ package eu.mihosoft.freerouting.designforms.specctra;
 
 import eu.mihosoft.freerouting.logger.FRLogger;
 
+import static eu.mihosoft.freerouting.designforms.specctra.Keyword.*;
+
 /**
  *
  * @author Alfons Wirtz
@@ -46,7 +48,7 @@ public class PartLibrary  extends ScopeKeyword
             Object prev_token = next_token;
             try
             {
-                next_token = p_par.scanner.next_token();
+                next_token = p_par.scanner.nextToken();
             }
             catch (java.io.IOException e)
             {
@@ -166,21 +168,21 @@ public class PartLibrary  extends ScopeKeyword
     {
         try
         {
-            Object next_token = p_scanner.next_token();
+            Object next_token = p_scanner.nextToken();
             if (!(next_token instanceof String))
             {
                 FRLogger.warn("PartLibrary.read_logical_part_mapping: string expected");
                 return null;
             }
             String name = (String) next_token;
-            next_token = p_scanner.next_token();
+            next_token = p_scanner.nextToken();
             if (next_token != OPEN_BRACKET)
             {
                 FRLogger.warn("PartLibrary.read_logical_part_mapping: open bracket expected");
                 return null;
             }
-            next_token = p_scanner.next_token();
-            if (next_token != COMPONENT_SCOPE)
+            next_token = p_scanner.nextToken();
+            if (next_token != ScopeKeywordLib.COMPONENT_SCOPE)
             {
                 FRLogger.warn("PartLibrary.read_logical_part_mapping: Keyword.COMPONENT_SCOPE expected");
                 return null;
@@ -189,7 +191,7 @@ public class PartLibrary  extends ScopeKeyword
             for(;;)
             {
                 p_scanner.yybegin(SpecctraFileScanner.NAME);
-                next_token = p_scanner.next_token();
+                next_token = p_scanner.nextToken();
                 if (next_token == CLOSED_BRACKET)
                 {
                     break;
@@ -201,7 +203,7 @@ public class PartLibrary  extends ScopeKeyword
                 }
                 result.add((String) next_token);
             }
-            next_token = p_scanner.next_token();
+            next_token = p_scanner.nextToken();
             if (next_token != CLOSED_BRACKET)
             {
                 FRLogger.warn("PartLibrary.read_logical_part_mapping: closing bracket expected");
@@ -222,7 +224,7 @@ public class PartLibrary  extends ScopeKeyword
         Object next_token = null;
         try
         {
-            next_token = p_scanner.next_token();
+            next_token = p_scanner.nextToken();
         }
         catch (java.io.IOException e)
         {
@@ -240,7 +242,7 @@ public class PartLibrary  extends ScopeKeyword
             Object prev_token = next_token;
             try
             {
-                next_token = p_scanner.next_token();
+                next_token = p_scanner.nextToken();
             }
             catch (java.io.IOException e)
             {
@@ -287,28 +289,28 @@ public class PartLibrary  extends ScopeKeyword
         try
         {
             p_scanner.yybegin(SpecctraFileScanner.NAME);
-            Object next_token = p_scanner.next_token();
+            Object next_token = p_scanner.nextToken();
             if (!(next_token instanceof String))
             {
                 FRLogger.warn("PartLibrary.read_part_pin: string expected");
                 return null;
             }
             String pin_name = (String) next_token;
-            next_token = p_scanner.next_token();
+            next_token = p_scanner.nextToken();
             if (!(next_token instanceof Integer))
             {
                 FRLogger.warn("PartLibrary.read_part_pin: integer expected");
                 return null;
             }
             p_scanner.yybegin(SpecctraFileScanner.NAME);
-            next_token = p_scanner.next_token();
+            next_token = p_scanner.nextToken();
             if (!(next_token instanceof String))
             {
                 FRLogger.warn("PartLibrary.read_part_pin: string expected");
                 return null;
             }
             String gate_name = (String) next_token;
-            next_token = p_scanner.next_token();
+            next_token = p_scanner.nextToken();
             if (!(next_token instanceof Integer))
             {
                 FRLogger.warn("PartLibrary.read_part_pin: integer expected");
@@ -316,14 +318,14 @@ public class PartLibrary  extends ScopeKeyword
             }
             int gate_swap_code = (Integer) next_token;
             p_scanner.yybegin(SpecctraFileScanner.NAME);
-            next_token = p_scanner.next_token();
+            next_token = p_scanner.nextToken();
             if (!(next_token instanceof String))
             {
                 FRLogger.warn("PartLibrary.read_part_pin: string expected");
                 return null;
             }
             String gate_pin_name = (String) next_token;
-            next_token = p_scanner.next_token();
+            next_token = p_scanner.nextToken();
             if (!(next_token instanceof Integer))
             {
                 FRLogger.warn("PartLibrary.read_part_pin: integer expected");
@@ -333,7 +335,7 @@ public class PartLibrary  extends ScopeKeyword
             // overread subgates
             for (;;)
             {
-                next_token = p_scanner.next_token();
+                next_token = p_scanner.nextToken();
                 if (next_token == CLOSED_BRACKET)
                 {
                     break;

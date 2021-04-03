@@ -52,7 +52,7 @@ public class DynamicRouteState extends RouteState
     {
         if (this.observers_activated)
         {
-            hdlg.get_routing_board().end_notify_observers();
+            hdlg.getRoutingBoard().end_notify_observers();
             this.observers_activated = false;
         }
         if (activityReplayFile != null)

@@ -60,7 +60,7 @@ public class DsnFile
         {
             try
             {
-                curr_token = scanner.next_token();
+                curr_token = scanner.nextToken();
             }
             catch (java.io.IOException e)
             {
@@ -74,7 +74,7 @@ public class DsnFile
             }
             else if (i == 1)
             {
-                keyword_ok = (curr_token == Keyword.PCB_SCOPE);
+                keyword_ok = (curr_token == ScopeKeyword.ScopeKeywordLib.PCB_SCOPE);
                 scanner.yybegin(SpecctraFileScanner.NAME); // to overread the name of the pcb for i = 2
             }
             if (!keyword_ok)
@@ -85,7 +85,7 @@ public class DsnFile
         }
         ReadScopeParameter read_scope_par =
                 new ReadScopeParameter(scanner, p_board_handling, p_observers, p_item_id_no_generator, p_test_level);
-        boolean read_ok = Keyword.PCB_SCOPE.read_scope(read_scope_par);
+        boolean read_ok = ScopeKeyword.ScopeKeywordLib.PCB_SCOPE.read_scope(read_scope_par);
         ReadResult result;
         if (read_ok)
         {
@@ -116,7 +116,7 @@ public class DsnFile
      */
     private static boolean adjust_plane_autoroute_settings(eu.mihosoft.freerouting.interactive.IBoardHandling p_board_handling)
     {
-        BasicBoard routing_board = p_board_handling.get_routing_board();
+        BasicBoard routing_board = p_board_handling.getRoutingBoard();
         eu.mihosoft.freerouting.board.LayerStructure board_layer_structure = routing_board.layer_structure;
         if (board_layer_structure.arr.length <= 2)
         {
@@ -267,17 +267,17 @@ public class DsnFile
     private static void write_pcb_scope(eu.mihosoft.freerouting.interactive.BoardHandling p_board_handling, IndentFileWriter p_file, String p_design_name, boolean p_compat_mode)
             throws java.io.IOException
     {
-        BasicBoard routing_board = p_board_handling.get_routing_board();
+        BasicBoard routing_board = p_board_handling.getRoutingBoard();
         WriteScopeParameter write_scope_parameter =
                 new WriteScopeParameter(routing_board, p_board_handling.settings.autorouteSettings, p_file,
-                                        routing_board.communication.specctra_parser_info.string_quote,
-                                        routing_board.communication.coordinate_transform, p_compat_mode);
+                                        routing_board.communication.specctraParserInfo.string_quote,
+                                        routing_board.communication.coordinateTransform, p_compat_mode);
 
         p_file.start_scope();
         p_file.write("PCB ");
         write_scope_parameter.identifier_type.write(p_design_name, p_file);
         Parser.write_scope(write_scope_parameter.file,
-                write_scope_parameter.board.communication.specctra_parser_info, write_scope_parameter.identifier_type, false);
+                           write_scope_parameter.board.communication.specctraParserInfo, write_scope_parameter.identifier_type, false);
         Resolution.write_scope(p_file, routing_board.communication);
         Structure.write_scope(write_scope_parameter);
         Placement.write_scope(write_scope_parameter);
@@ -292,7 +292,7 @@ public class DsnFile
     {
         try
         {
-            Object next_token = p_scanner.next_token();
+            Object next_token = p_scanner.nextToken();
             boolean result = false;
             if (next_token == Keyword.ON)
             {
@@ -317,7 +317,7 @@ public class DsnFile
         try
         {
             int value;
-            Object next_token = p_scanner.next_token();
+            Object next_token = p_scanner.nextToken();
             if (next_token instanceof Integer)
             {
                 value = ((Integer) next_token).intValue();
@@ -327,7 +327,7 @@ public class DsnFile
                 FRLogger.warn("DsnFile.read_integer_scope: number expected");
                 return 0;
             }
-            next_token = p_scanner.next_token();
+            next_token = p_scanner.nextToken();
             if (next_token != Keyword.CLOSED_BRACKET)
             {
                 FRLogger.warn("DsnFile.read_integer_scope: closing bracket expected");
@@ -347,7 +347,7 @@ public class DsnFile
         try
         {
             double value;
-            Object next_token = p_scanner.next_token();
+            Object next_token = p_scanner.nextToken();
             if (next_token instanceof Double)
             {
                 value = ((Double) next_token).doubleValue();
@@ -361,7 +361,7 @@ public class DsnFile
                 FRLogger.warn("DsnFile.read_float_scope: number expected");
                 return 0;
             }
-            next_token = p_scanner.next_token();
+            next_token = p_scanner.nextToken();
             if (next_token != Keyword.CLOSED_BRACKET)
             {
                 FRLogger.warn("DsnFile.read_float_scope: closing bracket expected");
@@ -381,14 +381,14 @@ public class DsnFile
         try
         {
             p_scanner.yybegin(SpecctraFileScanner.NAME);
-            Object next_token = p_scanner.next_token();
+            Object next_token = p_scanner.nextToken();
             if (!(next_token instanceof String))
             {
                 FRLogger.warn("DsnFile:read_string_scope: String expected");
                 return null;
             }
             String result = (String) next_token;
-            next_token = p_scanner.next_token();
+            next_token = p_scanner.nextToken();
             if (next_token != Keyword.CLOSED_BRACKET)
             {
                 FRLogger.warn("DsnFile.read_string_scope: closing bracket expected");
@@ -410,7 +410,7 @@ public class DsnFile
             for (;;)
             {
                 p_scanner.yybegin(SpecctraFileScanner.NAME);
-                Object next_token = p_scanner.next_token();
+                Object next_token = p_scanner.nextToken();
                 if (next_token == Keyword.CLOSED_BRACKET)
                 {
                     break;

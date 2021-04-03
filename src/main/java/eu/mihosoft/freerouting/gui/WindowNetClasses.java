@@ -48,7 +48,7 @@ public class WindowNetClasses extends BoardSavableSubWindow
         this.main_panel = new javax.swing.JPanel();
         this.main_panel.setLayout(new java.awt.BorderLayout());
 
-        eu.mihosoft.freerouting.board.BasicBoard routing_board = p_board_frame.boardPanel.boardHandling.get_routing_board();
+        eu.mihosoft.freerouting.board.BasicBoard routing_board = p_board_frame.boardPanel.boardHandling.getRoutingBoard();
 
         this.cl_class_combo_box = new javax.swing.JComboBox<>();
         this.via_rule_combo_box = new javax.swing.JComboBox<>();
@@ -166,7 +166,7 @@ public class WindowNetClasses extends BoardSavableSubWindow
 
     private void add_combobox_items()
     {
-        eu.mihosoft.freerouting.board.RoutingBoard routing_board = board_frame.boardPanel.boardHandling.get_routing_board();
+        eu.mihosoft.freerouting.board.RoutingBoard routing_board = board_frame.boardPanel.boardHandling.getRoutingBoard();
         for (int i = 0; i < routing_board.rules.clearance_matrix.get_class_count(); ++i)
         {
             cl_class_combo_box.addItem(routing_board.rules.clearance_matrix.get_name(i));
@@ -209,7 +209,7 @@ public class WindowNetClasses extends BoardSavableSubWindow
 
         public void actionPerformed(java.awt.event.ActionEvent p_evt)
         {
-            board_frame.boardPanel.boardHandling.get_routing_board().rules.append_net_class(board_frame.get_locale());
+            board_frame.boardPanel.boardHandling.getRoutingBoard().rules.append_net_class(board_frame.get_locale());
             adjust_table();
         }
     }
@@ -221,7 +221,7 @@ public class WindowNetClasses extends BoardSavableSubWindow
         {
             if (table_model.getRowCount() <= 1)
             {
-                board_frame.screen_messages.set_status_message(resources.getString("message_1"));
+                board_frame.screenMessages.setStatusMessage(resources.getString("message_1"));
                 return;
             }
             int selected_row = table.getSelectedRow();
@@ -234,7 +234,7 @@ public class WindowNetClasses extends BoardSavableSubWindow
             {
                 return;
             }
-            BoardRules board_rules = board_frame.boardPanel.boardHandling.get_routing_board().rules;
+            BoardRules board_rules = board_frame.boardPanel.boardHandling.getRoutingBoard().rules;
             NetClass net_rule = board_rules.net_classes.get((String) net_class_name);
             // Check, if net_rule is used in a net of the net list
             for (int i = 1; i < board_rules.nets.max_net_no(); ++i)
@@ -243,7 +243,7 @@ public class WindowNetClasses extends BoardSavableSubWindow
                 if (curr_net.get_class() == net_rule)
                 {
                     String message = resources.getString("message_2") + " " + curr_net.name;
-                    board_frame.screen_messages.set_status_message(message);
+                    board_frame.screenMessages.setStatusMessage(message);
                     return;
                 }
             }
@@ -252,7 +252,7 @@ public class WindowNetClasses extends BoardSavableSubWindow
                 adjust_table();
                 String message = resources.getString("net_class") + " " + net_rule.get_name() + " " +
                         resources.getString("removed");
-                board_frame.screen_messages.set_status_message(message);
+                board_frame.screenMessages.setStatusMessage(message);
             }
         }
     }
@@ -276,7 +276,7 @@ public class WindowNetClasses extends BoardSavableSubWindow
             {
                 return;
             }
-            eu.mihosoft.freerouting.board.RoutingBoard routing_board = board_frame.boardPanel.boardHandling.get_routing_board();
+            eu.mihosoft.freerouting.board.RoutingBoard routing_board = board_frame.boardPanel.boardHandling.getRoutingBoard();
             NetClass[] selected_class_arr = new NetClass[selected_rows.length];
             for (int i = 0; i < selected_class_arr.length; ++i)
             {
@@ -329,7 +329,7 @@ public class WindowNetClasses extends BoardSavableSubWindow
                 return;
             }
             eu.mihosoft.freerouting.interactive.BoardHandling board_handling = board_frame.boardPanel.boardHandling;
-            eu.mihosoft.freerouting.rules.BoardRules board_rules = board_handling.get_routing_board().rules;
+            eu.mihosoft.freerouting.rules.BoardRules board_rules = board_handling.getRoutingBoard().rules;
             NetClass[] selected_class_arr = new NetClass[selected_rows.length];
             for (int i = 0; i < selected_class_arr.length; ++i)
             {
@@ -365,7 +365,7 @@ public class WindowNetClasses extends BoardSavableSubWindow
                 return;
             }
             eu.mihosoft.freerouting.interactive.BoardHandling board_handling = board_frame.boardPanel.boardHandling;
-            eu.mihosoft.freerouting.rules.BoardRules board_rules = board_handling.get_routing_board().rules;
+            eu.mihosoft.freerouting.rules.BoardRules board_rules = board_handling.getRoutingBoard().rules;
             NetClass[] selected_class_arr = new NetClass[selected_rows.length];
             for (int i = 0; i < selected_class_arr.length; ++i)
             {
@@ -452,7 +452,7 @@ public class WindowNetClasses extends BoardSavableSubWindow
         /** Calculates the the valus in this table */
         public void set_values()
         {
-            eu.mihosoft.freerouting.rules.BoardRules board_rules = board_frame.boardPanel.boardHandling.get_routing_board().rules;
+            eu.mihosoft.freerouting.rules.BoardRules board_rules = board_frame.boardPanel.boardHandling.getRoutingBoard().rules;
             this.data = new Object[board_rules.net_classes.count()][];
             for (int i = 0; i < data.length; ++i)
             {
@@ -494,7 +494,7 @@ public class WindowNetClasses extends BoardSavableSubWindow
         {
             Float trace_width;
             eu.mihosoft.freerouting.interactive.BoardHandling board_handling = board_frame.boardPanel.boardHandling;
-            eu.mihosoft.freerouting.rules.BoardRules board_rules = board_handling.get_routing_board().rules;
+            eu.mihosoft.freerouting.rules.BoardRules board_rules = board_handling.getRoutingBoard().rules;
             NetClass curr_net_class = board_rules.net_classes.get(p_rule_no);
             if (p_layer.index == ComboBoxLayer.ALL_LAYER_INDEX)
             {
@@ -521,7 +521,7 @@ public class WindowNetClasses extends BoardSavableSubWindow
                 else
                 {
                     int first_inner_signal_layer_no = 1;
-                    eu.mihosoft.freerouting.board.LayerStructure layer_structure = board_handling.get_routing_board().layer_structure;
+                    eu.mihosoft.freerouting.board.LayerStructure layer_structure = board_handling.getRoutingBoard().layer_structure;
                     while (!layer_structure.arr[first_inner_signal_layer_no].is_signal)
                     {
                         ++first_inner_signal_layer_no;
@@ -567,7 +567,7 @@ public class WindowNetClasses extends BoardSavableSubWindow
 
         public void setValueAt(Object p_value, int p_row, int p_col)
         {
-            eu.mihosoft.freerouting.board.RoutingBoard routing_board = board_frame.boardPanel.boardHandling.get_routing_board();
+            eu.mihosoft.freerouting.board.RoutingBoard routing_board = board_frame.boardPanel.boardHandling.getRoutingBoard();
             BoardRules board_rules = routing_board.rules;
             Object net_class_name = getValueAt(p_row, ColumnName.NAME.ordinal());
             if (!(net_class_name instanceof String))

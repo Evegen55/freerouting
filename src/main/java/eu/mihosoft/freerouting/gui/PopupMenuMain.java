@@ -82,7 +82,7 @@ class PopupMenuMain extends PopupMenuDisplay
             }
         });
         
-        if (board_panel.boardHandling.get_routing_board().get_test_level() != eu.mihosoft.freerouting.board.TestLevel.RELEASE_VERSION)
+        if (board_panel.boardHandling.getRoutingBoard().get_test_level() != eu.mihosoft.freerouting.board.TestLevel.RELEASE_VERSION)
         {
             create_obstacle_menu.add(create_tile_item);
         }
@@ -127,7 +127,7 @@ class PopupMenuMain extends PopupMenuDisplay
         
         // Insert the pin swap item.
         
-        if (board_panel.boardHandling.get_routing_board().library.logical_parts.count() > 0)
+        if (board_panel.boardHandling.getRoutingBoard().library.logical_parts.count() > 0)
         {
             // the board contains swappable gates or pins
             javax.swing.JMenuItem swap_pin_item = new javax.swing.JMenuItem();

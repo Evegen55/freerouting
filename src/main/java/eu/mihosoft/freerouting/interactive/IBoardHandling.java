@@ -14,7 +14,7 @@ import eu.mihosoft.freerouting.rules.BoardRules;
 public interface IBoardHandling {
     java.util.Locale get_locale();
 
-    RoutingBoard get_routing_board();
+    RoutingBoard getRoutingBoard();
 
     void initialize_manual_trace_half_widths();
 

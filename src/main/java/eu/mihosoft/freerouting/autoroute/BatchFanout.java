@@ -55,7 +55,7 @@ public class BatchFanout
     private BatchFanout(InteractiveActionThread p_thread)
     {
         this.thread = p_thread;
-        this.routing_board = p_thread.hdlg.get_routing_board();
+        this.routing_board = p_thread.hdlg.getRoutingBoard();
         Collection<eu.mihosoft.freerouting.board.Pin> board_smd_pin_list = routing_board.get_smd_pins();
         this.sorted_components = new java.util.TreeSet<Component>();
         for (int i = 1; i <= routing_board.components.count(); ++i)

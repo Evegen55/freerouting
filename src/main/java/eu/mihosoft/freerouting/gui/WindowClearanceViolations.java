@@ -53,7 +53,7 @@ public class WindowClearanceViolations extends WindowObjectListWithFilter
         eu.mihosoft.freerouting.interactive.BoardHandling board_handling = this.board_frame.boardPanel.boardHandling;
         
         ClearanceViolations clearance_violations =
-                new ClearanceViolations(board_handling.get_routing_board().get_items());
+                new ClearanceViolations(board_handling.getRoutingBoard().get_items());
         java.util.SortedSet<ViolationInfo> sorted_set = new java.util.TreeSet<ViolationInfo>();
         for (ClearanceViolation curr_violation : clearance_violations.list)
         {
@@ -142,7 +142,7 @@ public class WindowClearanceViolations extends WindowObjectListWithFilter
         
         public String toString()
         {
-            eu.mihosoft.freerouting.board.LayerStructure layer_structure =  board_frame.boardPanel.boardHandling.get_routing_board().layer_structure;
+            eu.mihosoft.freerouting.board.LayerStructure layer_structure =  board_frame.boardPanel.boardHandling.getRoutingBoard().layer_structure;
             String result = item_info(violation.first_item) + " - " + item_info(violation.second_item)
             + " " + resources.getString("at") + " " + location.to_string(board_frame.get_locale()) + " "
                     + resources.getString("on_layer") + " " + layer_structure.arr[violation.layer].name;

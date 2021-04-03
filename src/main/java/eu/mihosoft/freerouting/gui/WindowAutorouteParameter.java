@@ -85,7 +85,7 @@ public class WindowAutorouteParameter extends BoardSavableSubWindow {
         this.horizontal = resources.getString("horizontal");
         this.vertical = resources.getString("vertical");
 
-        eu.mihosoft.freerouting.board.LayerStructure layer_structure = board_handling.get_routing_board().layer_structure;
+        eu.mihosoft.freerouting.board.LayerStructure layer_structure = board_handling.getRoutingBoard().layer_structure;
         int signal_layer_count = layer_structure.signal_layer_count();
         signal_layer_name_arr = new javax.swing.JLabel[signal_layer_count];
         signal_layer_active_arr = new javax.swing.JCheckBox[signal_layer_count];
@@ -186,7 +186,7 @@ public class WindowAutorouteParameter extends BoardSavableSubWindow {
      */
     public void refresh() {
         eu.mihosoft.freerouting.interactive.AutorouteSettings settings = this.board_handling.settings.autorouteSettings;
-        eu.mihosoft.freerouting.board.LayerStructure layer_structure = this.board_handling.get_routing_board().layer_structure;
+        eu.mihosoft.freerouting.board.LayerStructure layer_structure = this.board_handling.getRoutingBoard().layer_structure;
 
         this.vias_allowed.setSelected(settings.get_vias_allowed());
         this.fanout_pass_button.setSelected(settings.get_with_fanout());
@@ -243,7 +243,7 @@ public class WindowAutorouteParameter extends BoardSavableSubWindow {
         }
 
         public void actionPerformed(java.awt.event.ActionEvent p_evt) {
-            int curr_layer_no = board_handling.get_routing_board().layer_structure.get_layer_no(this.signal_layer_no);
+            int curr_layer_no = board_handling.getRoutingBoard().layer_structure.get_layer_no(this.signal_layer_no);
             board_handling.settings.autorouteSettings.set_layer_active(curr_layer_no, signal_layer_active_arr[this.signal_layer_no].isSelected());
         }
 
@@ -257,7 +257,7 @@ public class WindowAutorouteParameter extends BoardSavableSubWindow {
         }
 
         public void actionPerformed(java.awt.event.ActionEvent p_evt) {
-            int curr_layer_no = board_handling.get_routing_board().layer_structure.get_layer_no(this.signal_layer_no);
+            int curr_layer_no = board_handling.getRoutingBoard().layer_structure.get_layer_no(this.signal_layer_no);
             board_handling.settings.autorouteSettings.set_preferred_direction_is_horizontal(curr_layer_no,
                                                                                              signalLayerComboBoxList.get(signal_layer_no).getSelectedItem() == horizontal);
         }

@@ -105,7 +105,7 @@ public class WindowSelectParameter extends BoardSavableSubWindow
         
         // Create buttongroup for the current layer:
         
-        eu.mihosoft.freerouting.board.LayerStructure layer_structure = this.board_handling.get_routing_board().layer_structure;
+        eu.mihosoft.freerouting.board.LayerStructure layer_structure = this.board_handling.getRoutingBoard().layer_structure;
         int signal_layer_count = layer_structure.signal_layer_count();
         javax.swing.JLabel current_layer_label = new javax.swing.JLabel(resources.getString("current_layer"));
         current_layer_label.setToolTipText(resources.getString("current_layer_tooltip"));
@@ -163,7 +163,7 @@ public class WindowSelectParameter extends BoardSavableSubWindow
                 this.item_selection_choices[i].setSelected(item_selection_filter.is_selected(filter_values[i])) ;
             }
         }
-        eu.mihosoft.freerouting.board.LayerStructure layer_structure = this.board_handling.get_routing_board().layer_structure;
+        eu.mihosoft.freerouting.board.LayerStructure layer_structure = this.board_handling.getRoutingBoard().layer_structure;
         eu.mihosoft.freerouting.board.Layer current_layer = layer_structure.arr[this.board_handling.settings.get_layer()];
         layer_name_arr[layer_structure.get_signal_layer_no(current_layer)].setSelected(true);
     }

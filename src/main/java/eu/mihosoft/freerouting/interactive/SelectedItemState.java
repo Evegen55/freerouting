@@ -219,7 +219,7 @@ public class SelectedItemState extends InteractiveState
      */
     public InteractiveState assign_items_to_new_net()
     {
-        RoutingBoard board = hdlg.get_routing_board();
+        RoutingBoard board = hdlg.getRoutingBoard();
         // make the situation restorable by undo
         board.generateSnapshot();
         boolean items_already_connected = false;
@@ -247,11 +247,11 @@ public class SelectedItemState extends InteractiveState
         }
         if (items_already_connected)
         {
-            hdlg.screen_messages.set_status_message(resources.getString("some_items_are_not_changed_because_they_are_already_connected"));
+            hdlg.screen_messages.setStatusMessage(resources.getString("some_items_are_not_changed_because_they_are_already_connected"));
         }
         else
         {
-            hdlg.screen_messages.set_status_message(resources.getString("new_net_created_from_selected_items"));
+            hdlg.screen_messages.setStatusMessage(resources.getString("new_net_created_from_selected_items"));
         }
         if (this.activityReplayFile != null)
         {
@@ -267,7 +267,7 @@ public class SelectedItemState extends InteractiveState
      */
     public InteractiveState assign_items_to_new_group()
     {
-        RoutingBoard board = hdlg.get_routing_board();
+        RoutingBoard board = hdlg.getRoutingBoard();
         board.generateSnapshot();
         // Take the gravity point of all item centers for the location of the new component.
         double gravity_x = 0;
@@ -335,7 +335,7 @@ public class SelectedItemState extends InteractiveState
      */
     public InteractiveState delete_items()
     {
-        hdlg.get_routing_board().generateSnapshot();
+        hdlg.getRoutingBoard().generateSnapshot();
 
         // calculate the changed nets for updating the ratsnest
         Set<Integer> changed_nets = new TreeSet<Integer>();
@@ -351,20 +351,20 @@ public class SelectedItemState extends InteractiveState
                 }
             }
         }
-        boolean with_delete_fixed = hdlg.get_routing_board().get_test_level() != TestLevel.RELEASE_VERSION;
+        boolean with_delete_fixed = hdlg.getRoutingBoard().get_test_level() != TestLevel.RELEASE_VERSION;
         boolean all_items_removed;
         if (hdlg.settings.push_enabled)
         {
-            all_items_removed = hdlg.get_routing_board().remove_items_and_pull_tight(item_list,
-                    hdlg.settings.trace_pull_tight_region_width, hdlg.settings.trace_pull_tight_accuracy, with_delete_fixed);
+            all_items_removed = hdlg.getRoutingBoard().remove_items_and_pull_tight(item_list,
+                                                                                   hdlg.settings.trace_pull_tight_region_width, hdlg.settings.trace_pull_tight_accuracy, with_delete_fixed);
         }
         else
         {
-            all_items_removed = hdlg.get_routing_board().remove_items(item_list, with_delete_fixed);
+            all_items_removed = hdlg.getRoutingBoard().remove_items(item_list, with_delete_fixed);
         }
         if (!all_items_removed)
         {
-            hdlg.screen_messages.set_status_message(resources.getString("some_items_are_fixed_and_could_therefore_not_be_removed"));
+            hdlg.screen_messages.setStatusMessage(resources.getString("some_items_are_fixed_and_could_therefore_not_be_removed"));
         }
         if (this.activityReplayFile != null)
         {
@@ -398,7 +398,7 @@ public class SelectedItemState extends InteractiveState
         if (p_stoppable_thread != null)
         {
             String start_message = resources.getString("autoroute") + " " + resources.getString("stop_message");
-            hdlg.screen_messages.set_status_message(start_message);
+            hdlg.screen_messages.setStatusMessage(start_message);
         }
         Integer not_found_count = 0;
         Integer found_count = 0;
@@ -438,7 +438,7 @@ public class SelectedItemState extends InteractiveState
                 continue;
             }
             boolean contains_plane = false;
-            eu.mihosoft.freerouting.rules.Net route_net = hdlg.get_routing_board().rules.nets.get(curr_item.get_net_no(0));
+            eu.mihosoft.freerouting.rules.Net route_net = hdlg.getRoutingBoard().rules.nets.get(curr_item.get_net_no(0));
             if (route_net != null)
             {
                 contains_plane = route_net.contains_plane();
@@ -452,9 +452,9 @@ public class SelectedItemState extends InteractiveState
             {
                 via_costs = hdlg.settings.autorouteSettings.get_via_costs();
             }
-            hdlg.get_routing_board().start_marking_changed_area();
+            hdlg.getRoutingBoard().start_marking_changed_area();
             AutorouteEngine.AutorouteResult autoroute_result =
-                    hdlg.get_routing_board().autoroute(curr_item, hdlg.settings, via_costs, p_stoppable_thread, null);
+                    hdlg.getRoutingBoard().autoroute(curr_item, hdlg.settings, via_costs, p_stoppable_thread, null);
             if (autoroute_result == AutorouteEngine.AutorouteResult.ROUTED)
             {
                 ++found_count;
@@ -482,7 +482,7 @@ public class SelectedItemState extends InteractiveState
             String end_message = resources.getString("autoroute") + " " + curr_message + ": " + found_count.toString() +
                     " " + resources.getString("connections_found") + ", " + not_found_count.toString() +
                     " " + resources.getString("connections_not_found");
-            hdlg.screen_messages.set_status_message(end_message);
+            hdlg.screen_messages.setStatusMessage(end_message);
         }
         hdlg.set_board_read_only(saved_board_read_only);
         if (this.activityReplayFile != null)
@@ -508,7 +508,7 @@ public class SelectedItemState extends InteractiveState
         if (p_stoppable_thread != null)
         {
             String start_message = resources.getString("fanout") + " " + resources.getString("stop_message");
-            hdlg.screen_messages.set_status_message(start_message);
+            hdlg.screen_messages.setStatusMessage(start_message);
         }
         Integer not_found_count = 0;
         Integer found_count = 0;
@@ -538,9 +538,9 @@ public class SelectedItemState extends InteractiveState
                 interrupted = true;
                 break;
             }
-            hdlg.get_routing_board().start_marking_changed_area();
+            hdlg.getRoutingBoard().start_marking_changed_area();
             AutorouteEngine.AutorouteResult autoroute_result =
-                    hdlg.get_routing_board().fanout(curr_pin, hdlg.settings, -1, p_stoppable_thread, null);
+                    hdlg.getRoutingBoard().fanout(curr_pin, hdlg.settings, -1, p_stoppable_thread, null);
             if (autoroute_result == AutorouteEngine.AutorouteResult.ROUTED)
             {
                 ++found_count;
@@ -569,7 +569,7 @@ public class SelectedItemState extends InteractiveState
             String end_message = resources.getString("fanout") + " " + curr_message + ": " + found_count.toString() +
                     " " + resources.getString("connections_found") + ", " + not_found_count.toString() +
                     " " + resources.getString("connections_not_found");
-            hdlg.screen_messages.set_status_message(end_message);
+            hdlg.screen_messages.setStatusMessage(end_message);
         }
         hdlg.set_board_read_only(saved_board_read_only);
         if (this.activityReplayFile != null)
@@ -595,9 +595,9 @@ public class SelectedItemState extends InteractiveState
         if (p_stoppable_thread != null)
         {
             String start_message = resources.getString("pull_tight") + " " + resources.getString("stop_message");
-            hdlg.screen_messages.set_status_message(start_message);
+            hdlg.screen_messages.setStatusMessage(start_message);
         }
-        hdlg.get_routing_board().start_marking_changed_area();
+        hdlg.getRoutingBoard().start_marking_changed_area();
         boolean interrupted = false;
         for (Item curr_item : item_list)
         {
@@ -623,16 +623,16 @@ public class SelectedItemState extends InteractiveState
             }
             else if (curr_item instanceof Via)
             {
-                OptViaAlgo.opt_via_location(hdlg.get_routing_board(), (Via) curr_item,
-                        null, hdlg.settings.trace_pull_tight_accuracy, 10);
+                OptViaAlgo.opt_via_location(hdlg.getRoutingBoard(), (Via) curr_item,
+                                            null, hdlg.settings.trace_pull_tight_accuracy, 10);
             }
         }
         String curr_message;
 
         if (hdlg.settings.push_enabled && !interrupted)
         {
-            hdlg.get_routing_board().opt_changed_area(new int[0], null,
-                    hdlg.settings.trace_pull_tight_accuracy, null, p_stoppable_thread, 0);
+            hdlg.getRoutingBoard().opt_changed_area(new int[0], null,
+                                                    hdlg.settings.trace_pull_tight_accuracy, null, p_stoppable_thread, 0);
         }
 
         if (p_stoppable_thread != null)
@@ -646,7 +646,7 @@ public class SelectedItemState extends InteractiveState
                 curr_message = resources.getString("completed");
             }
             String end_message = resources.getString("pull_tight") + " " + curr_message;
-            hdlg.screen_messages.set_status_message(end_message);
+            hdlg.screen_messages.setStatusMessage(end_message);
         }
         hdlg.set_board_read_only(saved_board_read_only);
         if (this.activityReplayFile != null)
@@ -662,7 +662,7 @@ public class SelectedItemState extends InteractiveState
      */
     public InteractiveState assign_clearance_class(int p_cl_class_index)
     {
-        eu.mihosoft.freerouting.board.BasicBoard routing_board = this.hdlg.get_routing_board();
+        eu.mihosoft.freerouting.board.BasicBoard routing_board = this.hdlg.getRoutingBoard();
         if (p_cl_class_index < 0 || p_cl_class_index >= routing_board.rules.clearance_matrix.get_class_count())
         {
             return this.return_state;
@@ -710,7 +710,7 @@ public class SelectedItemState extends InteractiveState
         while (it2.hasNext())
         {
             int curr_net_no = it2.next();
-            new_selected_items.addAll(hdlg.get_routing_board().get_connectable_items(curr_net_no));
+            new_selected_items.addAll(hdlg.getRoutingBoard().get_connectable_items(curr_net_no));
         }
         this.item_list = new_selected_items;
         if (new_selected_items.isEmpty())
@@ -749,7 +749,7 @@ public class SelectedItemState extends InteractiveState
         while (it2.hasNext())
         {
             int curr_group_no = it2.next();
-            new_selected_items.addAll(hdlg.get_routing_board().get_component_items(curr_group_no));
+            new_selected_items.addAll(hdlg.getRoutingBoard().get_component_items(curr_group_no));
         }
         if (new_selected_items.isEmpty())
         {
@@ -875,12 +875,12 @@ public class SelectedItemState extends InteractiveState
             clearance_violations = new ClearanceViolations(this.item_list);
             Integer violation_count = Integer.valueOf(clearance_violations.list.size());
             String curr_message = violation_count.toString() + " " + resources.getString("clearance_violations_found");
-            hdlg.screen_messages.set_status_message(curr_message);
+            hdlg.screen_messages.setStatusMessage(curr_message);
         }
         else
         {
             clearance_violations = null;
-            hdlg.screen_messages.set_status_message("");
+            hdlg.screen_messages.setStatusMessage("");
         }
         hdlg.repaint();
     }
@@ -944,7 +944,7 @@ public class SelectedItemState extends InteractiveState
 
     public void display_default_message()
     {
-        hdlg.screen_messages.set_status_message(resources.getString("in_select_item_mode"));
+        hdlg.screen_messages.setStatusMessage(resources.getString("in_select_item_mode"));
     }
     private Set<Item> item_list;
     private ClearanceViolations clearance_violations = null;

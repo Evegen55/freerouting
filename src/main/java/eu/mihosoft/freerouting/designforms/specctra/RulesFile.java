@@ -32,7 +32,7 @@ import eu.mihosoft.freerouting.logger.FRLogger;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 
 /**
@@ -44,11 +44,11 @@ public class RulesFile {
 
     public static void write(eu.mihosoft.freerouting.interactive.BoardHandling p_board_handling, java.io.OutputStream p_output_stream, String p_design_name) {
         IndentFileWriter output_file = new IndentFileWriter(p_output_stream);
-        BasicBoard routing_board = p_board_handling.get_routing_board();
+        BasicBoard routing_board = p_board_handling.getRoutingBoard();
         WriteScopeParameter write_scope_parameter =
                 new WriteScopeParameter(routing_board, p_board_handling.settings.autorouteSettings,
-                                        output_file, routing_board.communication.specctra_parser_info.string_quote,
-                                        routing_board.communication.coordinate_transform, false);
+                                        output_file, routing_board.communication.specctraParserInfo.string_quote,
+                                        routing_board.communication.coordinateTransform, false);
         try {
             write_rules(write_scope_parameter, p_design_name);
         } catch (java.io.IOException e) {
@@ -67,94 +67,96 @@ public class RulesFile {
             final String designName,
             final BoardHandling boardHandling
     ) {
-        File rulesFile = parentName == null ? new File(rulesFileName) : new File(parentName, rulesFileName);
+        final File rulesFile = parentName == null ?
+                new File(rulesFileName) :
+                new File(parentName, rulesFileName);
 
-        InputStream inputStream;
-        try {
-            inputStream = new FileInputStream(rulesFile);
-        } catch (FileNotFoundException e) {
-            FRLogger.error("File '" + rulesFileName + "' was not found.", null);
-            return false;
-        }
-        BasicBoard routing_board = boardHandling.get_routing_board();
-        Scanner scanner = new SpecctraFileScanner(inputStream);
-        try {
-            Object curr_token = scanner.next_token();
-            if (curr_token != Keyword.OPEN_BRACKET) {
-                FRLogger.warn("RulesFile.read: open bracket expected");
-                return false;
-            }
-            curr_token = scanner.next_token();
-            if (curr_token != Keyword.RULES) {
-                FRLogger.warn("RulesFile.read: keyword rules expected");
-                return false;
-            }
-            curr_token = scanner.next_token();
-            if (curr_token != Keyword.PCB_SCOPE) {
-                FRLogger.warn("RulesFile.read: keyword pcb expected");
-                return false;
-            }
-            scanner.yybegin(SpecctraFileScanner.NAME);
-            curr_token = scanner.next_token();
-            if (!(curr_token instanceof String) || !curr_token.equals(designName)) {
-                FRLogger.warn("RulesFile.read: design_name not matching");
-            }
-        } catch (java.io.IOException e) {
-            FRLogger.error("RulesFile.read: IO error scanning file", e);
-            return false;
-        }
-        LayerStructure layer_structure = new LayerStructure(routing_board.layer_structure);
-        CoordinateTransform coordinate_transform = routing_board.communication.coordinate_transform;
-        Object next_token = null;
-        for (; ; ) {
-            Object prev_token = next_token;
+        try (InputStream inputStream = new FileInputStream(rulesFile)) {
+            BasicBoard routingBoard = boardHandling.getRoutingBoard();
+            Scanner scanner = new SpecctraFileScanner(inputStream);
             try {
-                next_token = scanner.next_token();
+                Object currToken = scanner.nextToken();
+                if (currToken != Keyword.OPEN_BRACKET) {
+                    FRLogger.warn("RulesFile.read: open bracket expected");
+                    return false;
+                }
+                currToken = scanner.nextToken();
+                if (currToken != Keyword.RULES) {
+                    FRLogger.warn("RulesFile.read: keyword rules expected");
+                    return false;
+                }
+                currToken = scanner.nextToken();
+                if (currToken != ScopeKeyword.ScopeKeywordLib.PCB_SCOPE) {
+                    FRLogger.warn("RulesFile.read: keyword pcb expected");
+                    return false;
+                }
+                scanner.yybegin(SpecctraFileScanner.NAME);
+                currToken = scanner.nextToken();
+                if (!(currToken instanceof String) ||
+                    !currToken.equals(designName)
+                ) {
+                    FRLogger.warn("RulesFile.read: design_name not matching");
+                }
             } catch (java.io.IOException e) {
                 FRLogger.error("RulesFile.read: IO error scanning file", e);
                 return false;
             }
-            if (next_token == null) {
-                FRLogger.warn("Structure.read_scope: unexpected end of file");
-                return false;
-            }
-            if (next_token == Keyword.CLOSED_BRACKET) {
-                // end of scope
-                break;
-            }
-            boolean read_ok = true;
-            if (prev_token == Keyword.OPEN_BRACKET) {
-                if (next_token == Keyword.RULE) {
-                    add_rules(Rule.read_scope(scanner), routing_board, null);
-                } else if (next_token == Keyword.LAYER) {
-                    add_layer_rules(scanner, routing_board);
-                } else if (next_token == Keyword.PADSTACK) {
-                    Library.read_padstack_scope(scanner, layer_structure, coordinate_transform, routing_board.library.padstacks);
-                } else if (next_token == Keyword.VIA) {
-                    read_via_info(scanner, routing_board);
-                } else if (next_token == Keyword.VIA_RULE) {
-                    read_via_rule(scanner, routing_board);
-                } else if (next_token == Keyword.CLASS) {
-                    read_net_class(scanner, layer_structure, routing_board);
-                } else if (next_token == Keyword.SNAP_ANGLE) {
+            LayerStructure layerStructure = new LayerStructure(routingBoard.layer_structure);
+            CoordinateTransform coordinate_transform = routingBoard.communication.coordinateTransform;
+            Object next_token = null;
+            for (; ; ) {
+                Object prev_token = next_token;
+                try {
+                    next_token = scanner.nextToken();
+                } catch (java.io.IOException e) {
+                    FRLogger.error("RulesFile.read: IO error scanning file", e);
+                    return false;
+                }
+                if (next_token == null) {
+                    FRLogger.warn("Structure.read_scope: unexpected end of file");
+                    return false;
+                }
+                if (next_token == Keyword.CLOSED_BRACKET) {
+                    // end of scope
+                    break;
+                }
+                boolean read_ok = true;
+                if (prev_token == Keyword.OPEN_BRACKET) {
+                    if (next_token == Keyword.RULE) {
+                        add_rules(Rule.read_scope(scanner), routingBoard, null);
+                    } else if (next_token == Keyword.LAYER) {
+                        add_layer_rules(scanner, routingBoard);
+                    } else if (next_token == Keyword.PADSTACK) {
+                        Library.read_padstack_scope(scanner, layerStructure, coordinate_transform, routingBoard.library.padstacks);
+                    } else if (next_token == Keyword.VIA) {
+                        read_via_info(scanner, routingBoard);
+                    } else if (next_token == Keyword.VIA_RULE) {
+                        read_via_rule(scanner, routingBoard);
+                    } else if (next_token == Keyword.CLASS) {
+                        read_net_class(scanner, layerStructure, routingBoard);
+                    } else if (next_token == Keyword.SNAP_ANGLE) {
 
-                    eu.mihosoft.freerouting.board.AngleRestriction snap_angle = Structure.read_snap_angle(scanner);
-                    if (snap_angle != null) {
-                        routing_board.rules.set_trace_angle_restriction(snap_angle);
+                        eu.mihosoft.freerouting.board.AngleRestriction snap_angle = Structure.read_snap_angle(scanner);
+                        if (snap_angle != null) {
+                            routingBoard.rules.set_trace_angle_restriction(snap_angle);
+                        }
+                    } else if (next_token == Keyword.AUTOROUTE_SETTINGS) {
+                        eu.mihosoft.freerouting.interactive.AutorouteSettings autoroute_settings
+                                = AutorouteSettings.read_scope(scanner, layerStructure);
+                        if (autoroute_settings != null) {
+                            boardHandling.settings.autorouteSettings = autoroute_settings;
+                        }
+                    } else {
+                        ScopeKeyword.skip_scope(scanner);
                     }
-                } else if (next_token == Keyword.AUTOROUTE_SETTINGS) {
-                    eu.mihosoft.freerouting.interactive.AutorouteSettings autoroute_settings
-                            = AutorouteSettings.read_scope(scanner, layer_structure);
-                    if (autoroute_settings != null) {
-                        boardHandling.settings.autorouteSettings = autoroute_settings;
-                    }
-                } else {
-                    ScopeKeyword.skip_scope(scanner);
+                }
+                if (!read_ok) {
+                    return false;
                 }
             }
-            if (!read_ok) {
-                return false;
-            }
+        } catch (IOException e) {
+            FRLogger.error("File '" + rulesFileName + "' was not found.", null);
+            return false;
         }
         return true;
     }
@@ -189,8 +191,8 @@ public class RulesFile {
                 FRLogger.warn("RulesFile.add_rules: layer not found");
             }
         }
-        CoordinateTransform coordinate_transform = p_board.communication.coordinate_transform;
-        String string_quote = p_board.communication.specctra_parser_info.string_quote;
+        CoordinateTransform coordinate_transform = p_board.communication.coordinateTransform;
+        String string_quote = p_board.communication.specctraParserInfo.string_quote;
         for (Rule curr_rule : p_rules) {
             if (curr_rule instanceof Rule.WidthRule) {
                 double wire_width = ((Rule.WidthRule) curr_rule).value;
@@ -208,26 +210,26 @@ public class RulesFile {
 
     private static boolean add_layer_rules(Scanner p_scanner, BasicBoard p_board) {
         try {
-            Object next_token = p_scanner.next_token();
+            Object next_token = p_scanner.nextToken();
             if (!(next_token instanceof String)) {
                 FRLogger.warn("RulesFile.add_layer_rules: String expected");
                 return false;
             }
             String layer_string = (String) next_token;
-            next_token = p_scanner.next_token();
+            next_token = p_scanner.nextToken();
             while (next_token != Keyword.CLOSED_BRACKET) {
                 if (next_token != Keyword.OPEN_BRACKET) {
                     FRLogger.warn("RulesFile.add_layer_rules: ( expected");
                     return false;
                 }
-                next_token = p_scanner.next_token();
+                next_token = p_scanner.nextToken();
                 if (next_token == Keyword.RULE) {
                     java.util.Collection<Rule> curr_rules = Rule.read_scope(p_scanner);
                     add_rules(curr_rules, p_board, layer_string);
                 } else {
                     ScopeKeyword.skip_scope(p_scanner);
                 }
-                next_token = p_scanner.next_token();
+                next_token = p_scanner.nextToken();
             }
             return true;
         } catch (java.io.IOException e) {
@@ -264,7 +266,7 @@ public class RulesFile {
         if (curr_class == null) {
             return false;
         }
-        Network.insert_net_class(curr_class, p_layer_structure, p_board, p_board.communication.coordinate_transform, false);
+        Network.insert_net_class(curr_class, p_layer_structure, p_board, p_board.communication.coordinateTransform, false);
         return true;
     }
 }

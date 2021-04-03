@@ -41,7 +41,7 @@ public class SelectRegionState extends InteractiveState
     
     public InteractiveState button_released()
     {
-        hdlg.screen_messages.set_status_message("");
+        hdlg.screen_messages.setStatusMessage("");
         return complete();
     }
     

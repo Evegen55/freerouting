@@ -78,23 +78,23 @@ public class HoleConstructionState extends CornerItemConstructionState
           ItemSelectionFilter.SelectableChoices.CONDUCTION
         };
         ItemSelectionFilter selection_filter = new ItemSelectionFilter(selectable_choices);
-        java.util.Collection<eu.mihosoft.freerouting.board.Item> found_items = hdlg.get_routing_board().pick_items(pick_location,
-                hdlg.settings.layer, selection_filter);
+        java.util.Collection<eu.mihosoft.freerouting.board.Item> found_items = hdlg.getRoutingBoard().pick_items(pick_location,
+                                                                                                                 hdlg.settings.layer, selection_filter);
         if (found_items.size() != 1)
         {
-            hdlg.screen_messages.set_status_message(resources.getString("no_item_found_for_adding_hole"));
+            hdlg.screen_messages.setStatusMessage(resources.getString("no_item_found_for_adding_hole"));
             return false;
         }
         eu.mihosoft.freerouting.board.Item found_item = found_items.iterator().next();
         if (!(found_item instanceof ObstacleArea))
         {
-            hdlg.screen_messages.set_status_message(resources.getString("no_obstacle_area_found_for_adding_hole"));
+            hdlg.screen_messages.setStatusMessage(resources.getString("no_obstacle_area_found_for_adding_hole"));
             return false;
         }
         this.item_to_modify = (ObstacleArea)found_item;
         if (item_to_modify.get_area() instanceof Circle)
         {
-            hdlg.screen_messages.set_status_message(resources.getString("adding_hole_to_circle_not_yet_implemented"));
+            hdlg.screen_messages.setStatusMessage(resources.getString("adding_hole_to_circle_not_yet_implemented"));
             return false;
         }
         if (this.activityReplayFile != null)
@@ -178,29 +178,29 @@ public class HoleConstructionState extends CornerItemConstructionState
             }
             else
             {
-                this.observers_activated = !hdlg.get_routing_board().observers_active();
+                this.observers_activated = !hdlg.getRoutingBoard().observers_active();
                 if (this.observers_activated)
                 {
-                    hdlg.get_routing_board().start_notify_observers();
+                    hdlg.getRoutingBoard().start_notify_observers();
                 }
-                hdlg.get_routing_board().generateSnapshot();
-                hdlg.get_routing_board().remove_item( item_to_modify);
-                hdlg.get_routing_board().insert_obstacle(new_obs_area, item_to_modify.get_layer(),
-                        item_to_modify.clearance_class_no(), eu.mihosoft.freerouting.board.FixedState.UNFIXED);
+                hdlg.getRoutingBoard().generateSnapshot();
+                hdlg.getRoutingBoard().remove_item(item_to_modify);
+                hdlg.getRoutingBoard().insert_obstacle(new_obs_area, item_to_modify.get_layer(),
+                                                       item_to_modify.clearance_class_no(), eu.mihosoft.freerouting.board.FixedState.UNFIXED);
                 if (this.observers_activated)
                 {
-                    hdlg.get_routing_board().end_notify_observers();
+                    hdlg.getRoutingBoard().end_notify_observers();
                     this.observers_activated = false;
                 }
             }
         }
         if (construction_succeeded)
         {
-            hdlg.screen_messages.set_status_message(resources.getString("adding_hole_completed"));
+            hdlg.screen_messages.setStatusMessage(resources.getString("adding_hole_completed"));
         }
         else
         {
-            hdlg.screen_messages.set_status_message(resources.getString("adding_hole_failed"));
+            hdlg.screen_messages.setStatusMessage(resources.getString("adding_hole_failed"));
         }
         if (activityReplayFile != null)
         {
@@ -211,7 +211,7 @@ public class HoleConstructionState extends CornerItemConstructionState
     
     public void display_default_message()
     {
-        hdlg.screen_messages.set_status_message(resources.getString("adding_hole_to_obstacle_area"));
+        hdlg.screen_messages.setStatusMessage(resources.getString("adding_hole_to_obstacle_area"));
     }
     
     private ObstacleArea item_to_modify = null;

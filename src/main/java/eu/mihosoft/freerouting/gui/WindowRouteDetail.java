@@ -123,7 +123,7 @@ public class WindowRouteDetail extends BoardSavableSubWindow
      */
     public void refresh()
     {
-        if (this.board_handling.get_routing_board().search_tree_manager.is_clearance_compensation_used())
+        if (this.board_handling.getRoutingBoard().search_tree_manager.is_clearance_compensation_used())
         {
             this.on_button.setSelected(true);
         }
@@ -131,7 +131,7 @@ public class WindowRouteDetail extends BoardSavableSubWindow
         {
             this.off_button.setSelected(true);
         }
-        BoardOutline outline = this.board_handling.get_routing_board().get_outline();
+        BoardOutline outline = this.board_handling.getRoutingBoard().get_outline();
         if (outline != null)
         {
             this.outline_keepout_check_box.setSelected(outline.keepout_outside_outline_generated());
@@ -184,7 +184,7 @@ public class WindowRouteDetail extends BoardSavableSubWindow
             {
                 return;
             }
-            BoardOutline outline = board_handling.get_routing_board().get_outline();
+            BoardOutline outline = board_handling.getRoutingBoard().get_outline();
             if (outline != null)
             {
                 outline.generate_keepout_outside(outline_keepout_check_box.isSelected());

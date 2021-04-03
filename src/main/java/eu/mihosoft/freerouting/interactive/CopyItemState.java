@@ -148,7 +148,7 @@ public class CopyItemState extends InteractiveState
         }
         Map<Padstack, Padstack> padstack_pairs = new TreeMap<Padstack, Padstack>(); // Contains old and new padstacks after layer change.
         
-        RoutingBoard board = hdlg.get_routing_board();
+        RoutingBoard board = hdlg.getRoutingBoard();
         if (layer_changed)
         {
             // create new via padstacks
@@ -254,11 +254,11 @@ public class CopyItemState extends InteractiveState
         }
         if (all_items_inserted)
         {
-            hdlg.screen_messages.set_status_message(resources.getString("all_items_inserted"));
+            hdlg.screen_messages.setStatusMessage(resources.getString("all_items_inserted"));
         }
         else
         {
-            hdlg.screen_messages.set_status_message(resources.getString("some_items_not_inserted_because_of_obstacles"));
+            hdlg.screen_messages.setStatusMessage(resources.getString("some_items_not_inserted_because_of_obstacles"));
         }
         if (activityReplayFile != null)
         {

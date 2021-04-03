@@ -172,7 +172,7 @@ public abstract class InteractiveActionThread extends Thread implements eu.mihos
             boolean saved_board_read_only = hdlg.is_board_read_only();
             hdlg.set_board_read_only(true);
             String start_message = resources.getString("logfile") + " " + resources.getString("stop_message");
-            hdlg.screen_messages.set_status_message(start_message);
+            hdlg.screen_messages.setStatusMessage(start_message);
             hdlg.screen_messages.set_write_protected(true);
             boolean done = false;
             InteractiveState previous_state = hdlg.interactive_state;
@@ -237,7 +237,7 @@ public abstract class InteractiveActionThread extends Thread implements eu.mihos
                 curr_message = resources.getString("completed");
             }
             String end_message = resources.getString("logfile") + " " + curr_message;
-            hdlg.screen_messages.set_status_message(end_message);
+            hdlg.screen_messages.setStatusMessage(end_message);
             hdlg.set_board_read_only(saved_board_read_only);
             hdlg.get_panel().boardFrame.repaint_all();
         }

@@ -84,33 +84,33 @@ public class PolygonShapeConstructionState extends CornerItemConstructionState
             }
             else
             {
-                construction_succeeded = hdlg.get_routing_board().check_shape(obstacle_shape,
-                        hdlg.settings.layer, new int[0], cl_class);
+                construction_succeeded = hdlg.getRoutingBoard().check_shape(obstacle_shape,
+                                                                            hdlg.settings.layer, new int[0], cl_class);
             }
             if (construction_succeeded)
             {
-                this.observers_activated = !hdlg.get_routing_board().observers_active();
+                this.observers_activated = !hdlg.getRoutingBoard().observers_active();
                 if (this.observers_activated)
                 {
-                    hdlg.get_routing_board().start_notify_observers();
+                    hdlg.getRoutingBoard().start_notify_observers();
                 }
-                hdlg.get_routing_board().generateSnapshot();
-                hdlg.get_routing_board().insert_obstacle(obstacle_shape, hdlg.settings.layer, cl_class, eu.mihosoft.freerouting.board.FixedState.UNFIXED);
-                hdlg.get_routing_board().end_notify_observers();
+                hdlg.getRoutingBoard().generateSnapshot();
+                hdlg.getRoutingBoard().insert_obstacle(obstacle_shape, hdlg.settings.layer, cl_class, eu.mihosoft.freerouting.board.FixedState.UNFIXED);
+                hdlg.getRoutingBoard().end_notify_observers();
                         if (this.observers_activated)
         {
-            hdlg.get_routing_board().end_notify_observers();
+            hdlg.getRoutingBoard().end_notify_observers();
             this.observers_activated = false;
         }
             }
         }
         if (construction_succeeded)
         {
-            hdlg.screen_messages.set_status_message(resources.getString("keepout_successful_completed"));
+            hdlg.screen_messages.setStatusMessage(resources.getString("keepout_successful_completed"));
         }
         else
         {
-            hdlg.screen_messages.set_status_message(resources.getString("keepout_cancelled_because_of_overlaps"));
+            hdlg.screen_messages.setStatusMessage(resources.getString("keepout_cancelled_because_of_overlaps"));
         }
         if (activityReplayFile != null)
         {
@@ -121,7 +121,7 @@ public class PolygonShapeConstructionState extends CornerItemConstructionState
     
     public void display_default_message()
     {
-        hdlg.screen_messages.set_status_message(resources.getString("creating_polygonshape"));
+        hdlg.screen_messages.setStatusMessage(resources.getString("creating_polygonshape"));
     }
     
 }

@@ -130,7 +130,7 @@ public class WindowVia extends BoardSavableSubWindow
         this.main_panel.add(list_scroll_pane, java.awt.BorderLayout.CENTER);
         
         // fill the list
-        BoardRules board_rules = board_frame.boardPanel.boardHandling.get_routing_board().rules;
+        BoardRules board_rules = board_frame.boardPanel.boardHandling.getRoutingBoard().rules;
         for (ViaRule curr_rule : board_rules.via_rules)
         {
             this.rule_list_model.addElement(curr_rule);
@@ -172,7 +172,7 @@ public class WindowVia extends BoardSavableSubWindow
     {
         // reinsert the elements in the rule list
         this.rule_list_model.removeAllElements();
-        BoardRules board_rules = board_frame.boardPanel.boardHandling.get_routing_board().rules;
+        BoardRules board_rules = board_frame.boardPanel.boardHandling.getRoutingBoard().rules;
         for (ViaRule curr_rule : board_rules.via_rules)
         {
             this.rule_list_model.addElement(curr_rule);
@@ -228,7 +228,7 @@ public class WindowVia extends BoardSavableSubWindow
         public void actionPerformed(java.awt.event.ActionEvent p_evt)
         {
             java.util.Collection<WindowObjectInfo.Printable> object_list = new java.util.LinkedList<WindowObjectInfo.Printable>();
-            eu.mihosoft.freerouting.library.BoardLibrary board_library = board_frame.boardPanel.boardHandling.get_routing_board().library;
+            eu.mihosoft.freerouting.library.BoardLibrary board_library = board_frame.boardPanel.boardHandling.getRoutingBoard().library;
             for (int i = 0; i < board_library.via_padstack_count(); ++i)
             {
                 object_list.add( board_library.get_via_padstack(i));
@@ -248,7 +248,7 @@ public class WindowVia extends BoardSavableSubWindow
     {
         public void actionPerformed(java.awt.event.ActionEvent p_evt)
         {
-            eu.mihosoft.freerouting.board.BasicBoard pcb = board_frame.boardPanel.boardHandling.get_routing_board();
+            eu.mihosoft.freerouting.board.BasicBoard pcb = board_frame.boardPanel.boardHandling.getRoutingBoard();
             if (pcb.layer_structure.arr.length <= 1)
             {
                 return;
@@ -374,7 +374,7 @@ public class WindowVia extends BoardSavableSubWindow
             this.setLayout(gridbag);
             java.awt.GridBagConstraints gridbag_constraints = new java.awt.GridBagConstraints();
             
-            eu.mihosoft.freerouting.board.LayerStructure layer_structure = board_frame.boardPanel.boardHandling.get_routing_board().layer_structure;
+            eu.mihosoft.freerouting.board.LayerStructure layer_structure = board_frame.boardPanel.boardHandling.getRoutingBoard().layer_structure;
             int from_layer_no =  layer_structure.get_no(p_from_layer);
             int to_layer_no = layer_structure.get_no(p_to_layer);
             int layer_count = to_layer_no - from_layer_no + 1;
@@ -406,7 +406,7 @@ public class WindowVia extends BoardSavableSubWindow
     {
         public void actionPerformed(java.awt.event.ActionEvent p_evt)
         {
-            eu.mihosoft.freerouting.board.BasicBoard pcb = board_frame.boardPanel.boardHandling.get_routing_board();
+            eu.mihosoft.freerouting.board.BasicBoard pcb = board_frame.boardPanel.boardHandling.getRoutingBoard();
             eu.mihosoft.freerouting.library.Padstack[] via_padstacks = pcb.library.get_via_padstacks();
             Object selected_value = javax.swing.JOptionPane.showInputDialog(null,
                     resources.getString("choose_padstack_to_remove"), resources.getString("remove_via_padstack"),
@@ -429,7 +429,7 @@ public class WindowVia extends BoardSavableSubWindow
             {
                 String message =
                         resources.getString("message_4") +  " " + via_with_selected_padstack.get_name();
-                board_frame.screen_messages.set_status_message(message);
+                board_frame.screenMessages.setStatusMessage(message);
                 return;
             }
             pcb.library.remove_via_padstack(selected_padstack, pcb);
@@ -441,7 +441,7 @@ public class WindowVia extends BoardSavableSubWindow
         public void actionPerformed(java.awt.event.ActionEvent p_evt)
         {
             java.util.Collection<WindowObjectInfo.Printable> object_list = new java.util.LinkedList<WindowObjectInfo.Printable>();
-            eu.mihosoft.freerouting.rules.ViaInfos via_infos = board_frame.boardPanel.boardHandling.get_routing_board().rules.via_infos;
+            eu.mihosoft.freerouting.rules.ViaInfos via_infos = board_frame.boardPanel.boardHandling.getRoutingBoard().rules.via_infos;
             for (int i = 0; i < via_infos.count(); ++i)
             {
                 object_list.add(via_infos.get(i));
@@ -499,7 +499,7 @@ public class WindowVia extends BoardSavableSubWindow
             {
                 return;
             }
-            eu.mihosoft.freerouting.rules.BoardRules board_rules = board_frame.boardPanel.boardHandling.get_routing_board().rules;
+            eu.mihosoft.freerouting.rules.BoardRules board_rules = board_frame.boardPanel.boardHandling.getRoutingBoard().rules;
             WindowViaRule new_window = new WindowViaRule(selected_object, board_rules.via_infos, board_frame);
             java.awt.Point loc = getLocation();
             java.awt.Point new_window_location =
@@ -524,7 +524,7 @@ public class WindowVia extends BoardSavableSubWindow
                 return;
             }
             ViaRule new_via_rule = new ViaRule(new_name);
-            eu.mihosoft.freerouting.rules.BoardRules board_rules = board_frame.boardPanel.boardHandling.get_routing_board().rules;
+            eu.mihosoft.freerouting.rules.BoardRules board_rules = board_frame.boardPanel.boardHandling.getRoutingBoard().rules;
             board_rules.via_rules.add(new_via_rule);
             rule_list_model.addElement(new_via_rule);
             board_frame.refreshWindows();
@@ -544,7 +544,7 @@ public class WindowVia extends BoardSavableSubWindow
             String message = resources.getString("remove_via_rule") + " " + selected_rule.name + "?";
             if (WindowMessage.confirm(message))
             {
-                eu.mihosoft.freerouting.rules.BoardRules board_rules = board_frame.boardPanel.boardHandling.get_routing_board().rules;
+                eu.mihosoft.freerouting.rules.BoardRules board_rules = board_frame.boardPanel.boardHandling.getRoutingBoard().rules;
                 board_rules.via_rules.remove(selected_rule);
                 rule_list_model.removeElement(selected_rule);
             }

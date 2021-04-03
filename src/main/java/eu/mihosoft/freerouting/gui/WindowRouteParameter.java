@@ -267,7 +267,7 @@ public class WindowRouteParameter extends BoardSavableSubWindow
         this.detail_listener = new DetailListener();
         detail_button.addActionListener(detail_listener);
         gridbag.setConstraints(detail_button, gridbag_constraints);
-        if (this.board_handling.get_routing_board().get_test_level() != eu.mihosoft.freerouting.board.TestLevel.RELEASE_VERSION)
+        if (this.board_handling.getRoutingBoard().get_test_level() != eu.mihosoft.freerouting.board.TestLevel.RELEASE_VERSION)
         {
             main_panel.add(detail_button);
         }
@@ -330,7 +330,7 @@ public class WindowRouteParameter extends BoardSavableSubWindow
      */
     public void refresh()
     {
-        eu.mihosoft.freerouting.board.AngleRestriction snap_angle = this.board_handling.get_routing_board().rules.get_trace_angle_restriction();
+        eu.mihosoft.freerouting.board.AngleRestriction snap_angle = this.board_handling.getRoutingBoard().rules.get_trace_angle_restriction();
         
         if (snap_angle == eu.mihosoft.freerouting.board.AngleRestriction.NINETY_DEGREE)
         {
@@ -370,11 +370,11 @@ public class WindowRouteParameter extends BoardSavableSubWindow
         this.shove_check_box.setSelected(this.board_handling.settings.get_push_enabled());
         this.drag_component_check_box.setSelected(this.board_handling.settings.get_drag_components_enabled());
         this.via_snap_to_smd_center_check_box.setSelected(this.board_handling.settings.get_via_snap_to_smd_center());
-        this.ignore_conduction_check_box.setSelected(this.board_handling.get_routing_board().rules.get_ignore_conduction());
+        this.ignore_conduction_check_box.setSelected(this.board_handling.getRoutingBoard().rules.get_ignore_conduction());
         this.hilight_routing_obstacle_check_box.setSelected(this.board_handling.settings.get_hilight_routing_obstacle());
         this.neckdown_check_box.setSelected(this.board_handling.settings.get_automatic_neckdown());
         
-        double edge_to_turn_dist = this.board_handling.get_routing_board().rules.get_pin_edge_to_turn_dist();
+        double edge_to_turn_dist = this.board_handling.getRoutingBoard().rules.get_pin_edge_to_turn_dist();
         edge_to_turn_dist = this.board_handling.coordinate_transform.board_to_user(edge_to_turn_dist);
         this.edge_to_turn_dist_field.setValue(edge_to_turn_dist);
         this.restrict_pin_exit_directions_check_box.setSelected(edge_to_turn_dist > 0);
@@ -462,11 +462,11 @@ public class WindowRouteParameter extends BoardSavableSubWindow
     {
         public void actionPerformed(java.awt.event.ActionEvent p_evt)
         {
-            if (board_handling.get_routing_board().rules.get_trace_angle_restriction() == eu.mihosoft.freerouting.board.AngleRestriction.NINETY_DEGREE)
+            if (board_handling.getRoutingBoard().rules.get_trace_angle_restriction() == eu.mihosoft.freerouting.board.AngleRestriction.NINETY_DEGREE)
             {
                 return;
             }
-            Collection<eu.mihosoft.freerouting.board.Trace> trace_list = board_handling.get_routing_board().get_traces();
+            Collection<eu.mihosoft.freerouting.board.Trace> trace_list = board_handling.getRoutingBoard().get_traces();
             boolean free_angle_traces_found = false;
             for (eu.mihosoft.freerouting.board.Trace curr_trace : trace_list)
             {
@@ -498,11 +498,11 @@ public class WindowRouteParameter extends BoardSavableSubWindow
     {
         public void actionPerformed(java.awt.event.ActionEvent p_evt)
         {
-            if (board_handling.get_routing_board().rules.get_trace_angle_restriction() == eu.mihosoft.freerouting.board.AngleRestriction.FORTYFIVE_DEGREE)
+            if (board_handling.getRoutingBoard().rules.get_trace_angle_restriction() == eu.mihosoft.freerouting.board.AngleRestriction.FORTYFIVE_DEGREE)
             {
                 return;
             }
-            Collection<eu.mihosoft.freerouting.board.Trace> trace_list = board_handling.get_routing_board().get_traces();
+            Collection<eu.mihosoft.freerouting.board.Trace> trace_list = board_handling.getRoutingBoard().get_traces();
             boolean free_angle_traces_found = false;
             for (eu.mihosoft.freerouting.board.Trace curr_trace : trace_list)
             {
@@ -653,7 +653,7 @@ public class WindowRouteParameter extends BoardSavableSubWindow
         {
             if (restrict_pin_exit_directions_check_box.isSelected())
             {
-                eu.mihosoft.freerouting.rules.BoardRules board_rules = board_handling.get_routing_board().rules;
+                eu.mihosoft.freerouting.rules.BoardRules board_rules = board_handling.getRoutingBoard().rules;
                 double edge_to_turn_dist =
                         board_handling.coordinate_transform.board_to_user(board_rules.get_min_trace_half_width());
                 board_handling.set_pin_edge_to_turn_dist(edge_to_turn_dist);
@@ -697,7 +697,7 @@ public class WindowRouteParameter extends BoardSavableSubWindow
             if (!key_input_completed)
             {
                 // restore the text field.
-                double edge_to_turn_dist = board_handling.get_routing_board().rules.get_pin_edge_to_turn_dist();
+                double edge_to_turn_dist = board_handling.getRoutingBoard().rules.get_pin_edge_to_turn_dist();
                 edge_to_turn_dist = board_handling.coordinate_transform.board_to_user(edge_to_turn_dist);
                 edge_to_turn_dist_field.setValue(edge_to_turn_dist);
                 key_input_completed = true;

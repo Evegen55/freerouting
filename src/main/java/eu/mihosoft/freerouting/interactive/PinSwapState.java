@@ -41,10 +41,10 @@ public class PinSwapState extends InteractiveState
         PinSwapState new_state = new PinSwapState(p_pin_to_swap, p_return_state, p_board_handling, p_activityReplayFile);
         if (new_state.swappable_pins.isEmpty())
         {
-            new_state.hdlg.screen_messages.set_status_message(new_state.resources.getString("no_swappable_pin_found"));
+            new_state.hdlg.screen_messages.setStatusMessage(new_state.resources.getString("no_swappable_pin_found"));
             return p_return_state;
         }
-        new_state.hdlg.screen_messages.set_status_message(new_state.resources.getString("please_click_second_pin_with_the_left_mouse_button"));
+        new_state.hdlg.screen_messages.setStatusMessage(new_state.resources.getString("please_click_second_pin_with_the_left_mouse_button"));
         return new_state;
     }
     /** Creates a new instance of PinSwapState */
@@ -62,13 +62,13 @@ public class PinSwapState extends InteractiveState
         java.util.Collection<Item> picked_items = hdlg.pick_items(p_location, selection_filter);
         if (picked_items.isEmpty())
         {
-            this.hdlg.screen_messages.set_status_message(resources.getString("no_pin_selected"));
+            this.hdlg.screen_messages.setStatusMessage(resources.getString("no_pin_selected"));
             return this.cancel();
         }
         Item to_item = picked_items.iterator().next();
         if (!(to_item instanceof Pin))
         {
-            hdlg.screen_messages.set_status_message(resources.getString("picked_pin_expected"));
+            hdlg.screen_messages.setStatusMessage(resources.getString("picked_pin_expected"));
             return this.cancel();
         }
         
@@ -84,7 +84,7 @@ public class PinSwapState extends InteractiveState
     {
         if (this.from_pin == null || this.to_pin == null)
         {
-            hdlg.screen_messages.set_status_message(resources.getString("pin_to_swap_missing"));
+            hdlg.screen_messages.setStatusMessage(resources.getString("pin_to_swap_missing"));
             return this.cancel();
         }
         if (this.from_pin.net_count() > 1 || this.to_pin.net_count() > 1)
@@ -110,17 +110,17 @@ public class PinSwapState extends InteractiveState
         {
             to_net_no = -1;
         }
-        if (!hdlg.get_routing_board().check_change_net(this.from_pin, to_net_no))
+        if (!hdlg.getRoutingBoard().check_change_net(this.from_pin, to_net_no))
         {
-            hdlg.screen_messages.set_status_message(resources.getString("pin_not_swapped_because_it_is_already_connected"));
+            hdlg.screen_messages.setStatusMessage(resources.getString("pin_not_swapped_because_it_is_already_connected"));
             return this.cancel();
         }
-        if (!hdlg.get_routing_board().check_change_net(this.to_pin, from_net_no))
+        if (!hdlg.getRoutingBoard().check_change_net(this.to_pin, from_net_no))
         {
-            hdlg.screen_messages.set_status_message(resources.getString("pin_not_swapped_because_second_pin_is_already_connected"));
+            hdlg.screen_messages.setStatusMessage(resources.getString("pin_not_swapped_because_second_pin_is_already_connected"));
             return this.cancel();
         }
-        hdlg.get_routing_board().generateSnapshot();
+        hdlg.getRoutingBoard().generateSnapshot();
         this.from_pin.swap(this.to_pin);
         for (int i = 0; i < this.from_pin.net_count(); ++i)
         {
@@ -130,7 +130,7 @@ public class PinSwapState extends InteractiveState
         {
             hdlg.update_ratsnest(this.to_pin.get_net_no(i));
         }
-        hdlg.screen_messages.set_status_message(resources.getString("pin_swap_completed"));
+        hdlg.screen_messages.setStatusMessage(resources.getString("pin_swap_completed"));
         return this.return_state;
     }
     

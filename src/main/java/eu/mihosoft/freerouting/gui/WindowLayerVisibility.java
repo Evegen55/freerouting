@@ -38,7 +38,7 @@ public class WindowLayerVisibility extends WindowVisibility
                 java.util.ResourceBundle.getBundle("eu.mihosoft.freerouting.gui.Default", p_board_frame.get_locale());
         String title = resources.getString("layer_visibility");
         String header_message = resources.getString("layer_visibility_header");
-        eu.mihosoft.freerouting.board.LayerStructure layer_structure = board_panel.boardHandling.get_routing_board().layer_structure;
+        eu.mihosoft.freerouting.board.LayerStructure layer_structure = board_panel.boardHandling.getRoutingBoard().layer_structure;
         String [] message_arr = new String [layer_structure.arr.length];
         for (int i = 0; i < message_arr.length; ++i)
         {

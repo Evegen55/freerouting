@@ -46,7 +46,7 @@ public class AutorouteSettings
             Object prev_token = next_token;
             try
             {
-                next_token = p_scanner.next_token();
+                next_token = p_scanner.nextToken();
             } catch (java.io.IOException e)
             {
                 FRLogger.error("AutorouteSettings.read_scope: IO error scanning file", e);
@@ -123,7 +123,7 @@ public class AutorouteSettings
         Object next_token;
         try
         {
-            next_token = p_scanner.next_token();
+            next_token = p_scanner.nextToken();
         } catch (java.io.IOException e)
         {
             FRLogger.error("AutorouteSettings.read_layer_rule: IO error scanning file", e);
@@ -145,7 +145,7 @@ public class AutorouteSettings
             Object prev_token = next_token;
             try
             {
-                next_token = p_scanner.next_token();
+                next_token = p_scanner.nextToken();
             } catch (java.io.IOException e)
             {
                 FRLogger.error("AutorouteSettings.read_layer_rule: IO error scanning file", e);
@@ -172,7 +172,7 @@ public class AutorouteSettings
                     try
                     {
                         boolean pref_dir_is_horizontal = true;
-                        next_token = p_scanner.next_token();
+                        next_token = p_scanner.nextToken();
                         if (next_token == Keyword.VERTICAL)
                         {
                             pref_dir_is_horizontal = false;
@@ -183,7 +183,7 @@ public class AutorouteSettings
                             return null;
                         }
                         p_settings.set_preferred_direction_is_horizontal(layer_no, pref_dir_is_horizontal);
-                        next_token = p_scanner.next_token();
+                        next_token = p_scanner.nextToken();
                         if (next_token != Keyword.CLOSED_BRACKET)
                         {
                             FRLogger.warn("AutorouteSettings.read_layer_rule: uclosing bracket expected");

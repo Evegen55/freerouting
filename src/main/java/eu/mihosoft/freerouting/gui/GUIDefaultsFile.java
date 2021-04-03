@@ -1322,7 +1322,7 @@ public class GUIDefaultsFile
         out_file.start_scope();
         out_file.write("ignore_conduction_areas ");
         out_file.new_line();
-        if (this.board_handling.get_routing_board().rules.get_ignore_conduction())
+        if (this.board_handling.getRoutingBoard().rules.get_ignore_conduction())
         {
             out_file.write("on");
         }
@@ -1563,7 +1563,7 @@ public class GUIDefaultsFile
         out_file.start_scope();
         out_file.write("clearance_compensation ");
         out_file.new_line();
-        if (this.board_handling.get_routing_board().search_tree_manager.is_clearance_compensation_used())
+        if (this.board_handling.getRoutingBoard().search_tree_manager.is_clearance_compensation_used())
         {
             out_file.write("on");
         }

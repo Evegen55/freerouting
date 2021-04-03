@@ -50,7 +50,7 @@ public class WindowRouteStubs extends WindowObjectListWithFilter
     
     protected void fill_list()
     {
-        eu.mihosoft.freerouting.board.BasicBoard routing_board = this.board_frame.boardPanel.boardHandling.get_routing_board();
+        eu.mihosoft.freerouting.board.BasicBoard routing_board = this.board_frame.boardPanel.boardHandling.getRoutingBoard();
         
         SortedSet<RouteStubInfo> route_stub_info_set = new java.util.TreeSet<RouteStubInfo>();
         
@@ -167,7 +167,7 @@ public class WindowRouteStubs extends WindowObjectListWithFilter
             this.location = board_handling.coordinate_transform.board_to_user(p_location);
             this.layer_no  = p_layer_no;
             int net_no = p_stub.get_net_no(0);
-            this.net = board_handling.get_routing_board().rules.nets.get(net_no);
+            this.net = board_handling.getRoutingBoard().rules.nets.get(net_no);
         }
         
         public String toString()
@@ -181,7 +181,7 @@ public class WindowRouteStubs extends WindowObjectListWithFilter
             {
                 item_string = resources.getString("via");
             }
-            String layer_name = board_frame.boardPanel.boardHandling.get_routing_board().layer_structure.arr[layer_no].name;
+            String layer_name = board_frame.boardPanel.boardHandling.getRoutingBoard().layer_structure.arr[layer_no].name;
             String result = item_string + " " + resources.getString("stub_net") + " " + this.net.name + " " +
                     resources.getString("at") + " " + this.location.to_string(board_frame.get_locale()) + " " +
                     resources.getString("on_layer") + " " + layer_name;

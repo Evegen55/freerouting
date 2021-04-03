@@ -81,7 +81,7 @@ public class BatchAutorouter
     {
         this.thread = p_thread;
         this.hdlg = p_thread.hdlg;
-        this.routing_board = this.hdlg.get_routing_board();
+        this.routing_board = this.hdlg.getRoutingBoard();
         this.remove_unconnected_vias = p_remove_unconnected_vias;
         if (p_with_preferred_directions)
         {
@@ -136,7 +136,7 @@ public class BatchAutorouter
             }
 
             String start_message = resources.getString("batch_autorouter") + " " + resources.getString("stop_message") + "        " + resources.getString("pass") + " " + curr_pass_no.toString() + ": ";
-            hdlg.screen_messages.set_status_message(start_message);
+            hdlg.screen_messages.setStatusMessage(start_message);
 
             BasicBoard boardBefore = this.routing_board.clone();
 

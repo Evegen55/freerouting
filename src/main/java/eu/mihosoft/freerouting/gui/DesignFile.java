@@ -29,12 +29,21 @@ import eu.mihosoft.freerouting.interactive.BoardHandling;
 import eu.mihosoft.freerouting.logger.FRLogger;
 
 import javax.swing.*;
+import java.awt.*;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.ResourceBundle;
+
+import static java.util.ResourceBundle.getBundle;
 
 /**
- * File functionality with security restrictions used, when the application is opened with Java Webstart
+ * File functionality
  *
  * @author Alfons Wirtz
  */
@@ -60,15 +69,14 @@ public class DesignFile {
     }
 
     /**
-     * Shows a file chooser for opening a design file. If p_is_webstart there are security restrictions because the
-     * application was opened with java web start.
+     * Shows a file chooser for opening a design file.
      */
-    public static DesignFile openDialog(final String pDesignDirName) {
-        JFileChooser fileChooser = new JFileChooser(pDesignDirName);
-        FileFilter file_filter = new FileFilter(ALL_FILE_EXTENSIONS);
+    public static DesignFile openViaFileDialog(final String designDirName) {
+        final JFileChooser fileChooser = new JFileChooser(designDirName);
+        final FileFilter file_filter = new FileFilter(ALL_FILE_EXTENSIONS);
         fileChooser.setFileFilter(file_filter);
         fileChooser.showOpenDialog(null);
-        File currDesignFile = fileChooser.getSelectedFile();
+        final File currDesignFile = fileChooser.getSelectedFile();
         if (currDesignFile == null) {
             return null;
         }
@@ -79,18 +87,18 @@ public class DesignFile {
      * Creates a new instance of DesignFile.
      */
     private DesignFile(
-            File designFile,
-            JFileChooser fileChooser
+            final File designFile,
+            final JFileChooser fileChooser
     ) {
         this.fileChooser = fileChooser;
         this.inputFile = designFile;
         this.outputFile = designFile;
         if (designFile != null) {
-            String file_name = designFile.getName();
-            String[] nameParts = file_name.split("\\.");
-            if (nameParts[nameParts.length - 1].compareToIgnoreCase(BINARY_FILE_EXTENSION) != 0) {
-                String binfileName = nameParts[0] + "." + BINARY_FILE_EXTENSION;
-                this.outputFile = new File(designFile.getParent(), binfileName);
+            final String designFileName = designFile.getName();
+            final String[] nameParts = designFileName.split("\\.");
+            if (!nameParts[nameParts.length - 1].equalsIgnoreCase(BINARY_FILE_EXTENSION)) {
+                final String binfileName = nameParts[0] + "." + BINARY_FILE_EXTENSION;
+                outputFile = new File(designFile.getParent(), binfileName);
             }
         }
     }
@@ -99,9 +107,6 @@ public class DesignFile {
      * Gets an InputStream from the file. Returns null, if the algorithm failed.
      */
     public InputStream getInputStream() {
-        if (this.inputFile == null) {
-            return null;
-        }
         try {
             return new FileInputStream(this.inputFile);
         } catch (Exception e) {
@@ -119,53 +124,66 @@ public class DesignFile {
                 null;
     }
 
-    public void save_as_dialog(java.awt.Component p_parent, BoardFrame p_board_frame) {
-        final java.util.ResourceBundle resources =
-                java.util.ResourceBundle.getBundle("eu.mihosoft.freerouting.gui.BoardMenuFile", p_board_frame.get_locale());
-        String[] file_name_parts = this.getName().split("\\.", 2);
-        String design_name = file_name_parts[0];
+    public void saveAsDialog(
+            final Component component,
+            final BoardFrame boardFrame
+    ) {
+        final ResourceBundle resources = getBundle("eu.mihosoft.freerouting.gui.BoardMenuFile", boardFrame.get_locale());
+        final String[] fileNameParts = getName().split("\\.", 2);
+        final String designName = fileNameParts[0];
 
-        if (this.fileChooser == null) {
-            String design_dir_name;
-            if (this.outputFile == null) {
-                design_dir_name = null;
+        if (fileChooser == null) {
+            String designDirName;
+            if (outputFile == null) {
+                designDirName = null;
             } else {
-                design_dir_name = this.outputFile.getParent();
+                designDirName = outputFile.getParent();
             }
-            this.fileChooser = new javax.swing.JFileChooser(design_dir_name);
-            FileFilter file_filter = new FileFilter(ALL_FILE_EXTENSIONS);
-            this.fileChooser.setFileFilter(file_filter);
+            fileChooser = new JFileChooser(designDirName);//sets default dir for whole system for given user if designDirName = null
+            FileFilter fileFilter = new FileFilter(ALL_FILE_EXTENSIONS);
+            fileChooser.setFileFilter(fileFilter);
         }
 
-        this.fileChooser.showSaveDialog(p_parent);
-        java.io.File new_file = fileChooser.getSelectedFile();
-        if (new_file == null) {
-            p_board_frame.screen_messages.set_status_message(resources.getString("message_1"));
+        fileChooser.showSaveDialog(component);
+        final File selectedFile = fileChooser.getSelectedFile();
+        if (selectedFile == null) {
+            boardFrame.screenMessages.setStatusMessage(resources.getString("message_1"));
             return;
         }
-        String new_file_name = new_file.getName();
-        FRLogger.info("Saving '" + new_file_name + "'...");
-        String[] new_name_parts = new_file_name.split("\\.");
-        String found_file_extension = new_name_parts[new_name_parts.length - 1];
-        if (found_file_extension.compareToIgnoreCase(BINARY_FILE_EXTENSION) == 0) {
-            p_board_frame.screen_messages.set_status_message(resources.getString("message_2") + " " + new_file.getName());
-            this.outputFile = new_file;
-            p_board_frame.save();
+
+        final String selectedFileName = selectedFile.getName();
+        FRLogger.info("Saving '" + selectedFileName + "'...");
+        final String[] newNameParts = selectedFileName.split("\\.");
+        final String foundFileExtension = newNameParts[newNameParts.length - 1];
+        if (foundFileExtension.equalsIgnoreCase(BINARY_FILE_EXTENSION)) {
+            boardFrame.screenMessages.setStatusMessage(resources.getString("message_2") + " " + selectedFile.getName());
+            outputFile = selectedFile;
+            boardFrame.save();
         } else {
-            if (found_file_extension.compareToIgnoreCase("dsn") != 0) {
-                p_board_frame.screen_messages.set_status_message(resources.getString("message_3"));
+            if (foundFileExtension.compareToIgnoreCase("dsn") != 0) {
+                boardFrame.screenMessages.setStatusMessage(resources.getString("message_3"));
                 return;
             }
-            java.io.OutputStream output_stream;
-            try {
-                output_stream = new java.io.FileOutputStream(new_file);
-            } catch (Exception e) {
-                output_stream = null;
-            }
-            if (p_board_frame.boardPanel.boardHandling.exportToDsnFile(output_stream, design_name, false)) {
-                p_board_frame.screen_messages.set_status_message(resources.getString("message_4") + " " + new_file_name + " " + resources.getString("message_5"));
-            } else {
-                p_board_frame.screen_messages.set_status_message(resources.getString("message_6") + " " + new_file_name + " " + resources.getString("message_7"));
+            try (OutputStream outputStream = new FileOutputStream(selectedFile)) {
+                if (boardFrame.getBoardPanel()
+                        .getBoardHandling()
+                        .exportToDsnFile(outputStream, designName, false)
+                ) {
+                    boardFrame.screenMessages
+                            .setStatusMessage(resources.getString("message_4") +
+                                              " " + selectedFileName +
+                                              " " + resources.getString("message_5"));
+                } else {
+                    boardFrame.screenMessages
+                            .setStatusMessage(resources.getString("message_6") +
+                                              " " + selectedFileName +
+                                              " " + resources.getString("message_7"));
+                }
+            } catch (IOException e) {
+                boardFrame.screenMessages
+                        .setStatusMessage(resources.getString("message_6") +
+                                          " " + selectedFileName +
+                                          " " + resources.getString("message_7"));
             }
         }
     }
@@ -173,35 +191,38 @@ public class DesignFile {
     /**
      * Writes a Specctra Session File to update the design file in the host system. Returns false, if the write failed
      */
-    public boolean write_specctra_session_file(BoardFrame p_board_frame) {
-        final java.util.ResourceBundle resources =
-                java.util.ResourceBundle.getBundle("eu.mihosoft.freerouting.gui.BoardMenuFile", p_board_frame.get_locale());
-        String design_file_name = this.getName();
-        String[] file_name_parts = design_file_name.split("\\.", 2);
-        String design_name = file_name_parts[0];
+    public boolean writeSpecctraSessionFile(final BoardFrame boardFrame) {
+        final ResourceBundle resources = getBundle("eu.mihosoft.freerouting.gui.BoardMenuFile", boardFrame.get_locale());
+        final String designFileName = getName();
+        final String[] fileNameParts = designFileName.split("\\.", 2);
+        final String designName = fileNameParts[0];
+        final String outputFileName = designName + ".ses";
+        FRLogger.info("Saving '" + outputFileName + "'...");
+        final File currOutputFile = new File(getParent(), outputFileName);
 
-        {
-            String output_file_name = design_name + ".ses";
-            FRLogger.info("Saving '" + output_file_name + "'...");
-            java.io.File curr_output_file = new java.io.File(get_parent(), output_file_name);
-            java.io.OutputStream output_stream;
-            try {
-                output_stream = new java.io.FileOutputStream(curr_output_file);
-            } catch (Exception e) {
-                output_stream = null;
-            }
-
-            if (p_board_frame.boardPanel.boardHandling.exportSpecctraSessionFile(design_file_name, output_stream)) {
-                p_board_frame.screen_messages.set_status_message(resources.getString("message_11") + " " +
-                                                                 output_file_name + " " + resources.getString("message_12"));
+        try (OutputStream outputStream = new FileOutputStream(currOutputFile)) {
+            if (boardFrame.getBoardPanel()
+                    .getBoardHandling()
+                    .exportSpecctraSessionFile(designFileName, outputStream)
+            ) {
+                boardFrame.screenMessages.setStatusMessage(resources.getString("message_11") +
+                                                           " " + outputFileName +
+                                                           " " + resources.getString("message_12"));
             } else {
-                p_board_frame.screen_messages.set_status_message(resources.getString("message_13") + " " +
-                                                                 output_file_name + " " + resources.getString("message_7"));
+                boardFrame.screenMessages.setStatusMessage(resources.getString("message_13") +
+                                                           " " + outputFileName +
+                                                           " " + resources.getString("message_7"));
                 return false;
             }
+        } catch (IOException e) {
+            boardFrame.screenMessages.setStatusMessage(resources.getString("message_13") +
+                                                       " " + outputFileName +
+                                                       " " + resources.getString("message_7"));
+            return false;
         }
+
         if (WindowMessage.confirm(resources.getString("confirm"))) {
-            return write_rules_file(design_name, p_board_frame.boardPanel.boardHandling);
+            return writeRulesFile(designName, boardFrame.boardPanel.boardHandling);
         }
         return true;
     }
@@ -209,26 +230,23 @@ public class DesignFile {
     /**
      * Saves the board rule to file, so that they can be reused later on.
      */
-    private boolean write_rules_file(String p_design_name, eu.mihosoft.freerouting.interactive.BoardHandling p_board_handling) {
-        String rules_file_name = p_design_name + RULES_FILE_EXTENSION;
-        java.io.OutputStream output_stream;
-
-        FRLogger.info("Saving '" + rules_file_name + "'...");
-
-        java.io.File rules_file = new java.io.File(this.get_parent(), rules_file_name);
-        try {
-            output_stream = new java.io.FileOutputStream(rules_file);
-        } catch (java.io.IOException e) {
+    private boolean writeRulesFile(
+            final String designName,
+            final BoardHandling boardHandling
+    ) {
+        final String rulesFileName = designName + RULES_FILE_EXTENSION;
+        FRLogger.info("Saving '" + rulesFileName + "'...");
+        final File rulesFile = new File(getParent(), rulesFileName);
+        try (OutputStream outputStream = new FileOutputStream(rulesFile);) {
+            RulesFile.write(boardHandling, outputStream, designName);
+        } catch (IOException e) {
             FRLogger.error("unable to create rules file", e);
             return false;
         }
-
-        RulesFile.write(p_board_handling, output_stream, p_design_name);
         return true;
     }
 
     /**
-     *
      * @param designName
      * @param parentName
      * @param rulesFileName
@@ -243,10 +261,10 @@ public class DesignFile {
             final BoardHandling boardHandling,
             final String confirmMessage
     ) {
-        boolean dsnFileGeneratedByHost = boardHandling.get_routing_board()
+        boolean dsnFileGeneratedByHost = boardHandling.getRoutingBoard()
                 .communication
-                .specctra_parser_info
-                .dsn_file_generated_by_host;
+                .specctraParserInfo
+                .dsnFileGeneratedByHost;
 
         if (dsnFileGeneratedByHost &&
             (confirmMessage == null || WindowMessage.confirm(confirmMessage))
@@ -258,61 +276,71 @@ public class DesignFile {
         }
     }
 
-    public void update_eagle(BoardFrame p_board_frame) {
-        final java.util.ResourceBundle resources =
-                java.util.ResourceBundle.getBundle("eu.mihosoft.freerouting.gui.BoardMenuFile", p_board_frame.get_locale());
-        String design_file_name = getName();
-        java.io.ByteArrayOutputStream session_output_stream = new java.io.ByteArrayOutputStream();
-        if (!p_board_frame.boardPanel.boardHandling.exportSpecctraSessionFile(design_file_name, session_output_stream)) {
+    /**
+     *
+     * @param boardFrame
+     */
+    public void updateEagle(final BoardFrame boardFrame) {
+        final ResourceBundle resources = getBundle("eu.mihosoft.freerouting.gui.BoardMenuFile", boardFrame.get_locale());
+        final String designFileName = getName();
+        ByteArrayOutputStream sessionOutputStream = new ByteArrayOutputStream();
+        if (!boardFrame.getBoardPanel()
+                .getBoardHandling()
+                .exportSpecctraSessionFile(designFileName, sessionOutputStream)) {
             return;
         }
-        java.io.InputStream input_stream = new java.io.ByteArrayInputStream(session_output_stream.toByteArray());
 
-        String[] file_name_parts = design_file_name.split("\\.", 2);
-        String design_name = file_name_parts[0];
-        String output_file_name = design_name + ".scr";
-        FRLogger.info("Saving '" + output_file_name + "'...");
+        final String[] fileNameParts = designFileName.split("\\.", 2);
+        final String designName = fileNameParts[0];
+        final String outputFileName = designName + ".scr";
+        FRLogger.info("Saving to'" + outputFileName + "'...");
 
-        {
-            java.io.File curr_output_file = new java.io.File(get_parent(), output_file_name);
-            java.io.OutputStream output_stream;
-            try {
-                output_stream = new java.io.FileOutputStream(curr_output_file);
-            } catch (Exception e) {
-                output_stream = null;
-            }
-
-            if (p_board_frame.boardPanel.boardHandling.exportEagleSessionFile(input_stream, output_stream)) {
-                p_board_frame.screen_messages.set_status_message(resources.getString("message_14") + " " + output_file_name + " " + resources.getString("message_15"));
+        try (final InputStream inputStream = new ByteArrayInputStream(sessionOutputStream.toByteArray());
+             final OutputStream outputStream = new FileOutputStream(new File(getParent(), outputFileName))) {
+            if (boardFrame.getBoardPanel()
+                    .getBoardHandling()
+                    .exportEagleSessionFile(inputStream, outputStream)) {
+                boardFrame.screenMessages
+                        .setStatusMessage(resources.getString("message_14") +
+                                          " " + outputFileName +
+                                          " " + resources.getString("message_15"));
             } else {
-                p_board_frame.screen_messages.set_status_message(resources.getString("message_16") + " " + output_file_name + " " + resources.getString("message_7"));
+                boardFrame.screenMessages
+                        .setStatusMessage(resources.getString("message_16") +
+                                          " " + outputFileName +
+                                          " " + resources.getString("message_7"));
             }
+        } catch (Exception e) {
+            boardFrame.screenMessages
+                    .setStatusMessage(resources.getString("message_16") +
+                                      " " + outputFileName +
+                                      " " + resources.getString("message_7"));
         }
+
         if (WindowMessage.confirm(resources.getString("confirm"))) {
-            write_rules_file(design_name, p_board_frame.boardPanel.boardHandling);
+            writeRulesFile(designName, boardFrame.boardPanel.boardHandling);
         }
     }
 
     /**
-     * Gets the binary file for saving or null, if the design file is not available because the application is run with
-     * Java Web Start.
+     * Gets the binary file for saving or null, if the design file is not available
      */
-    public java.io.File get_output_file() {
-        return this.outputFile;
+    public File getOutputFile() {
+        return outputFile;
     }
 
-    public java.io.File get_input_file() {
-        return this.inputFile;
+    public File getInputFile() {
+        return inputFile;
     }
 
-    public String get_parent() {
+    public String getParent() {
         if (inputFile != null) {
             return inputFile.getParent();
         }
         return null;
     }
 
-    public java.io.File get_parent_file() {
+    public File getParentFile() {
         if (inputFile != null) {
             return inputFile.getParentFile();
         }
@@ -320,6 +348,6 @@ public class DesignFile {
     }
 
     public boolean isCreatedFromTextFile() {
-        return this.inputFile != this.outputFile;
+        return !inputFile.equals(outputFile);
     }
 }

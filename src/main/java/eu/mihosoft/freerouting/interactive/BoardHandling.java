@@ -369,10 +369,10 @@ public class BoardHandling extends BoardHandlingImpl {
             clearance_violations = new ClearanceViolations(this.board.get_items());
             Integer violation_count = Integer.valueOf((clearance_violations.list.size() + 1) / 2);
             String curr_message = violation_count.toString() + " " + resources.getString("clearance_violations_found");
-            screen_messages.set_status_message(curr_message);
+            screen_messages.setStatusMessage(curr_message);
         } else {
             clearance_violations = null;
-            screen_messages.set_status_message("");
+            screen_messages.setStatusMessage("");
         }
         repaint();
     }
@@ -390,7 +390,7 @@ public class BoardHandling extends BoardHandlingImpl {
         } else {
             curr_message = incomplete_count.toString() + " " + resources.getString("incompletes") + " " + length_violation_count.toString() + " " + resources.getString("length_violations");
         }
-        screen_messages.set_status_message(curr_message);
+        screen_messages.setStatusMessage(curr_message);
     }
 
     /**
@@ -487,7 +487,7 @@ public class BoardHandling extends BoardHandlingImpl {
                            p_board_communication, p_test_level);
 
         // create the interactive settings with default
-        double unit_factor = p_board_communication.coordinate_transform.board_to_dsn(1);
+        double unit_factor = p_board_communication.coordinateTransform.board_to_dsn(1);
         this.coordinate_transform = new CoordinateTransform(1, p_board_communication.unit, unit_factor, p_board_communication.unit);
 
         // create a graphics context for the board
@@ -617,9 +617,9 @@ public class BoardHandling extends BoardHandlingImpl {
                 // a batch autorouter is undone.
                 this.settings.autorouteSettings.set_start_pass_no(1);
             }
-            screen_messages.set_status_message(resources.getString("undo"));
+            screen_messages.setStatusMessage(resources.getString("undo"));
         } else {
-            screen_messages.set_status_message(resources.getString("no_more_undo_possible"));
+            screen_messages.setStatusMessage(resources.getString("no_more_undo_possible"));
         }
         activityReplayFile.start_scope(ActivityReplayFileScope.UNDO);
         repaint();
@@ -637,9 +637,9 @@ public class BoardHandling extends BoardHandlingImpl {
             for (Integer changed_net : changed_nets) {
                 this.update_ratsnest(changed_net);
             }
-            screen_messages.set_status_message(resources.getString("redo"));
+            screen_messages.setStatusMessage(resources.getString("redo"));
         } else {
-            screen_messages.set_status_message(resources.getString("no_more_redo_possible"));
+            screen_messages.setStatusMessage(resources.getString("no_more_redo_possible"));
         }
         activityReplayFile.start_scope(ActivityReplayFileScope.REDO);
         repaint();
@@ -814,7 +814,7 @@ public class BoardHandling extends BoardHandlingImpl {
      */
     public void set_select_menu_state() {
         this.interactive_state = SelectMenuState.get_instance(this, activityReplayFile);
-        screen_messages.set_status_message(resources.getString("select_menu"));
+        screen_messages.setStatusMessage(resources.getString("select_menu"));
     }
 
     /**
@@ -822,7 +822,7 @@ public class BoardHandling extends BoardHandlingImpl {
      */
     public void set_route_menu_state() {
         this.interactive_state = RouteMenuState.get_instance(this, activityReplayFile);
-        screen_messages.set_status_message(resources.getString("route_menu"));
+        screen_messages.setStatusMessage(resources.getString("route_menu"));
     }
 
     /**
@@ -830,7 +830,7 @@ public class BoardHandling extends BoardHandlingImpl {
      */
     public void set_drag_menu_state() {
         this.interactive_state = DragMenuState.get_instance(this, activityReplayFile);
-        screen_messages.set_status_message(resources.getString("drag_menu"));
+        screen_messages.setStatusMessage(resources.getString("drag_menu"));
     }
 
     /**
@@ -933,7 +933,7 @@ public class BoardHandling extends BoardHandlingImpl {
         if (boardIsReadOnly) {
             return false;
         }
-        return SessionFile.write(this.get_routing_board(), p_output_stream, p_design_name);
+        return SessionFile.write(getRoutingBoard(), p_output_stream, p_design_name);
     }
 
     /**
@@ -947,7 +947,7 @@ public class BoardHandling extends BoardHandlingImpl {
             p_object_stream.writeObject(coordinate_transform);
             p_object_stream.writeObject(graphicsContext);
         } catch (Exception e) {
-            screen_messages.set_status_message(resources.getString("save_error"));
+            screen_messages.setStatusMessage(resources.getString("save_error"));
             result = false;
         }
         return result;

@@ -76,7 +76,7 @@ public class CutoutRouteState extends SelectRegionState
         {
             new_instance.activityReplayFile.add_corner(p_location);
         }
-        new_instance.hdlg.screen_messages.set_status_message(new_instance.resources.getString("drag_left_mouse_button_to_select_cutout_rectangle"));
+        new_instance.hdlg.screen_messages.setStatusMessage(new_instance.resources.getString("drag_left_mouse_button_to_select_cutout_rectangle"));
         return new_instance;
     }
     
@@ -93,7 +93,7 @@ public class CutoutRouteState extends SelectRegionState
     
     public InteractiveState complete()
     {
-        hdlg.screen_messages.set_status_message("");
+        hdlg.screen_messages.setStatusMessage("");
         corner2 = hdlg.get_current_mouse_position();
         if (activityReplayFile != null)
         {
@@ -113,7 +113,7 @@ public class CutoutRouteState extends SelectRegionState
             return;
         }
         
-        hdlg.get_routing_board().generateSnapshot();
+        hdlg.getRoutingBoard().generateSnapshot();
         
         IntPoint p1 = this.corner1.round() ;
         IntPoint p2 = this.corner2.round() ;

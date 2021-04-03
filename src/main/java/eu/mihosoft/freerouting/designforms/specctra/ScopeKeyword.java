@@ -4,7 +4,7 @@
  *
  *   Copyright (C) 2017 Michael Hoffer <info@michaelhoffer.de>
  *   Website www.freerouting.mihosoft.eu
-*
+ *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
  *   the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +13,7 @@
  *   This program is distributed in the hope that it will be useful,
  *   but WITHOUT ANY WARRANTY; without even the implied warranty of
  *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License at <http://www.gnu.org/licenses/> 
+ *   GNU General Public License at <http://www.gnu.org/licenses/>
  *   for more details.
  *
  * ScopeKeyword.java
@@ -24,102 +24,106 @@
 package eu.mihosoft.freerouting.designforms.specctra;
 
 import eu.mihosoft.freerouting.logger.FRLogger;
+import static eu.mihosoft.freerouting.designforms.specctra.Keyword.*;
 
-/** Keywords defining a scope object */
-public class ScopeKeyword extends Keyword
-{
-    public ScopeKeyword(String p_name)
-    {
-        super(p_name);
+/**
+ * Keywords defining a scope object
+ */
+public class ScopeKeyword {
+
+    private final String name;
+
+    public ScopeKeyword(String name) {
+        this.name = name;
     }
-    
+
     /**
-     * Scips the current scope while reading a dsn file.
-     * Returns false, if no legal scope was found.
+     * Returns the name string of this Keyword. The name is used for debugging purposes.
      */
-    public static boolean skip_scope(Scanner p_scanner)
-    {
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * Scips the current scope while reading a dsn file. Returns false, if no legal scope was found.
+     */
+    public static boolean skip_scope(Scanner p_scanner) {
         int open_bracked_count = 1;
-        while (open_bracked_count > 0)
-        {
+        while (open_bracked_count > 0) {
             p_scanner.yybegin(SpecctraFileScanner.NAME);
             Object curr_token = null;
-            try
-            {
-                curr_token = p_scanner.next_token();
-            }
-            catch (Exception e)
-            {
+            try {
+                curr_token = p_scanner.nextToken();
+            } catch (Exception e) {
                 FRLogger.error("ScopeKeyword.skip_scope: Error while scanning file", e);
                 return false;
             }
-            if (curr_token == null)
-            {
+            if (curr_token == null) {
                 return false; // end of file
             }
-            if (curr_token == Keyword.OPEN_BRACKET)
-            {
+            if (curr_token == Keyword.OPEN_BRACKET) {
                 ++open_bracked_count;
-            }
-            else if (curr_token == Keyword.CLOSED_BRACKET)
-            {
+            } else if (curr_token == Keyword.CLOSED_BRACKET) {
                 --open_bracked_count;
             }
         }
         return true;
     }
-    
+
     /**
      * Reads the next scope of this keyword from dsn file.
      */
-    public boolean read_scope(ReadScopeParameter p_par)
-    {
+    public boolean read_scope(ReadScopeParameter p_par) {
         Object next_token = null;
-        for (;;)
-        {
+        for (; ; ) {
             Object prev_token = next_token;
-            try
-            {
-                next_token = p_par.scanner.next_token();
-            }
-            catch (java.io.IOException e)
-            {
+            try {
+                next_token = p_par.scanner.nextToken();
+            } catch (java.io.IOException e) {
                 FRLogger.error("ScopeKeyword.read_scope: IO error scanning file", e);
                 return false;
             }
-            if (next_token == null)
-            {
+            if (next_token == null) {
                 // end of file
                 return true;
             }
-            if (next_token == CLOSED_BRACKET)
-            {
+            if (next_token == CLOSED_BRACKET) {
                 // end of scope
                 break;
             }
-            
-            if (prev_token == OPEN_BRACKET)
-            {
+
+            if (prev_token == OPEN_BRACKET) {
                 ScopeKeyword next_scope;
                 // a new scope is expected
-                if (next_token instanceof ScopeKeyword)
-                {
+                if (next_token instanceof ScopeKeyword) {
                     next_scope = (ScopeKeyword) next_token;
-                    if (!next_scope.read_scope(p_par))
-                    {
+                    if (!next_scope.read_scope(p_par)) {
                         return false;
                     }
-                    
-                }
-                else
-                {
+
+                } else {
                     // skip unknown scope
                     skip_scope(p_par.scanner);
                 }
-                
+
             }
         }
         return true;
+    }
+
+    public static class ScopeKeywordLib {
+        public static final ScopeKeyword COMPONENT_SCOPE = new Component();
+        public static final ScopeKeyword LIBRARY_SCOPE = new Library();
+        public static final ScopeKeyword NETWORK_SCOPE = new Network();
+        public static final ScopeKeyword PART_LIBRARY_SCOPE = new PartLibrary();
+        public static final ScopeKeyword PARSER_SCOPE = new Parser();
+        public static final ScopeKeyword PCB_SCOPE = new ScopeKeyword("pcb");
+        public static final ScopeKeyword PLACE_CONTROL = new PlaceControl();
+        public static final ScopeKeyword PLACEMENT_SCOPE = new Placement();
+        public static final ScopeKeyword PLANE_SCOPE = new Plane();
+        public static final ScopeKeyword STRUCTURE_SCOPE = new Structure();
+        public static final ScopeKeyword WIRING_SCOPE = new Wiring();
+        public static final ScopeKeyword RESOLUTION_SCOPE = new Resolution();
     }
 }
 

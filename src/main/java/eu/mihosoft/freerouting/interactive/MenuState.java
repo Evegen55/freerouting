@@ -66,7 +66,7 @@ public class MenuState extends InteractiveState
         if (something_found)
         {
             result = SelectedItemState.get_instance(picked_items, this, hdlg, this.activityReplayFile);
-            hdlg.screen_messages.set_status_message(resources.getString("in_select_mode"));
+            hdlg.screen_messages.setStatusMessage(resources.getString("in_select_mode"));
             if (activityReplayFile != null)
             {
                 activityReplayFile.start_scope(ActivityReplayFileScope.START_SELECT, p_location);
@@ -98,7 +98,7 @@ public class MenuState extends InteractiveState
         }
         else
         {
-            hdlg.screen_messages.set_status_message(resources.getString("no_pin_selected"));
+            hdlg.screen_messages.setStatusMessage(resources.getString("no_pin_selected"));
         }
         hdlg.repaint();
         return result;
@@ -120,7 +120,7 @@ public class MenuState extends InteractiveState
         }
         else if (p_key_char == 'e')
         {
-            if (hdlg.get_routing_board().get_test_level() != TestLevel.RELEASE_VERSION)
+            if (hdlg.getRoutingBoard().get_test_level() != TestLevel.RELEASE_VERSION)
             {
                 curr_return_state = ExpandTestState.get_instance(hdlg.get_current_mouse_position(), this, hdlg);
             }
@@ -165,7 +165,7 @@ public class MenuState extends InteractiveState
         else if (p_key_char == '+')
         {
             // increase the current layer to the next signal layer
-            eu.mihosoft.freerouting.board.LayerStructure layer_structure = hdlg.get_routing_board().layer_structure;
+            eu.mihosoft.freerouting.board.LayerStructure layer_structure = hdlg.getRoutingBoard().layer_structure;
             int current_layer_no = hdlg.settings.layer;
             for(;;)
             {
@@ -183,7 +183,7 @@ public class MenuState extends InteractiveState
         else if (p_key_char == '-')
         {
             // decrease the current layer to the previous signal layer
-            eu.mihosoft.freerouting.board.LayerStructure layer_structure = hdlg.get_routing_board().layer_structure;
+            eu.mihosoft.freerouting.board.LayerStructure layer_structure = hdlg.getRoutingBoard().layer_structure;
             int current_layer_no = hdlg.settings.layer;
             for(;;)
             {

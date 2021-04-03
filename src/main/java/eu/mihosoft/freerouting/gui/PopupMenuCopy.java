@@ -35,7 +35,7 @@ public class PopupMenuCopy extends PopupMenuDisplay
     PopupMenuCopy(BoardFrame p_board_frame)
     {
         super(p_board_frame);
-        eu.mihosoft.freerouting.board.LayerStructure layer_structure = board_panel.boardHandling.get_routing_board().layer_structure;
+        eu.mihosoft.freerouting.board.LayerStructure layer_structure = board_panel.boardHandling.getRoutingBoard().layer_structure;
         
         if (layer_structure.arr.length > 0)
         {

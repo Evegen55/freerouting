@@ -51,7 +51,7 @@ public class WindowUnconnectedRoute extends WindowObjectListWithFilter
     
     protected void fill_list()
     {
-        eu.mihosoft.freerouting.board.BasicBoard routing_board = this.board_frame.boardPanel.boardHandling.get_routing_board();
+        eu.mihosoft.freerouting.board.BasicBoard routing_board = this.board_frame.boardPanel.boardHandling.getRoutingBoard();
         
         Set<Item> handled_items = new java.util.TreeSet<Item>();
         

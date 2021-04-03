@@ -78,7 +78,7 @@ public class BoardFrame extends javax.swing.JFrame {
      */
     private final BoardPanelStatus message_panel;
 
-    final ScreenMessages screen_messages;
+    final ScreenMessages screenMessages;
 
     private final TestLevel test_level;
 
@@ -184,7 +184,7 @@ public class BoardFrame extends javax.swing.JFrame {
         if (!read_ok) {
             String error_message = "Unable to read design file with pathname " + p_design_file_path_name;
             board_frame.setVisible(true); // to be able to display the status message
-            board_frame.screen_messages.set_status_message(error_message);
+            board_frame.screenMessages.setStatusMessage(error_message);
         }
         return board_frame;
     }
@@ -269,7 +269,7 @@ public class BoardFrame extends javax.swing.JFrame {
 
         this.select_toolbar = new BoardToolbarSelectedItem(this, p_option == Option.EXTENDED_TOOL_BAR);
 
-        this.screen_messages =
+        this.screenMessages =
                 new ScreenMessages(this.message_panel.status_message, this.message_panel.add_message,
                                    this.message_panel.current_layer, this.message_panel.mouse_position, this.locale);
 
@@ -279,7 +279,7 @@ public class BoardFrame extends javax.swing.JFrame {
         this.add(scroll_pane, java.awt.BorderLayout.CENTER);
 
         this.boardPanel = new BoardPanel(
-                screen_messages,
+                screenMessages,
                 this,
                 p_locale
         );
@@ -294,7 +294,7 @@ public class BoardFrame extends javax.swing.JFrame {
     /**
      * Returns the currently used locale for the language dependent output.
      */
-    public java.util.Locale get_locale() {
+    public Locale get_locale() {
         return this.locale;
     }
 
@@ -410,7 +410,7 @@ public class BoardFrame extends javax.swing.JFrame {
             java.io.InputStream input_stream = null;
             boolean defaults_file_found;
 
-            File defaults_file = new File(this.design_file.get_parent(), GUI_DEFAULTS_FILE_NAME);
+            File defaults_file = new File(this.design_file.getParent(), GUI_DEFAULTS_FILE_NAME);
             defaults_file_found = true;
             try {
                 input_stream = new java.io.FileInputStream(defaults_file);
@@ -421,7 +421,7 @@ public class BoardFrame extends javax.swing.JFrame {
             if (defaults_file_found) {
                 boolean read_ok = GUIDefaultsFile.read(this, boardPanel.boardHandling, input_stream);
                 if (!read_ok) {
-                    screen_messages.set_status_message(resources.getString("error_1"));
+                    screenMessages.setStatusMessage(resources.getString("error_1"));
                 }
                 try {
                     input_stream.close();
@@ -442,18 +442,18 @@ public class BoardFrame extends javax.swing.JFrame {
         if (this.design_file == null) {
             return false;
         }
-        FRLogger.info("Saving '" + design_file.get_output_file().getName() + "'...");
+        FRLogger.info("Saving '" + design_file.getOutputFile().getName() + "'...");
 
         java.io.OutputStream output_stream = null;
         java.io.ObjectOutputStream object_stream = null;
         try {
-            output_stream = new java.io.FileOutputStream(this.design_file.get_output_file());
+            output_stream = new java.io.FileOutputStream(this.design_file.getOutputFile());
             object_stream = new java.io.ObjectOutputStream(output_stream);
         } catch (java.io.IOException e) {
-            screen_messages.set_status_message(resources.getString("error_2"));
+            screenMessages.setStatusMessage(resources.getString("error_2"));
             return false;
         } catch (java.security.AccessControlException e) {
-            screen_messages.set_status_message(resources.getString("error_3"));
+            screenMessages.setStatusMessage(resources.getString("error_3"));
             return false;
         }
         boolean save_ok = boardPanel.boardHandling.save_design_file(object_stream);
@@ -465,7 +465,7 @@ public class BoardFrame extends javax.swing.JFrame {
             object_stream.writeObject(this.getLocation());
             object_stream.writeObject(this.getBounds());
         } catch (java.io.IOException e) {
-            screen_messages.set_status_message(resources.getString("error_4"));
+            screenMessages.setStatusMessage(resources.getString("error_4"));
             return false;
         }
         for (int i = 0; i < this.permanent_subwindows.length; ++i) {
@@ -475,7 +475,7 @@ public class BoardFrame extends javax.swing.JFrame {
             object_stream.flush();
             output_stream.close();
         } catch (java.io.IOException e) {
-            screen_messages.set_status_message(resources.getString("error_5"));
+            screenMessages.setStatusMessage(resources.getString("error_5"));
             return false;
         }
         return true;
@@ -793,6 +793,10 @@ public class BoardFrame extends javax.swing.JFrame {
         private WindowObjectListWithFilter.SnapshotInfo nets_selection;
         private WindowObjectListWithFilter.SnapshotInfo components_selection;
         private WindowObjectListWithFilter.SnapshotInfo padstacks_selection;
+    }
+
+    public DesignFile getDesignFile() {
+        return design_file;
     }
 }
 

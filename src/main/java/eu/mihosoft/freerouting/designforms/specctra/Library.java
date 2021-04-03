@@ -33,7 +33,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
-
+import static eu.mihosoft.freerouting.designforms.specctra.Keyword.*;
 
 /**
  * Class for reading and writing library scopes from dsn-files.
@@ -51,8 +51,8 @@ public class Library extends ScopeKeyword
     
     public boolean read_scope(ReadScopeParameter p_par)
     {
-        eu.mihosoft.freerouting.board.RoutingBoard board = p_par.board_handling.get_routing_board();
-        board.library.padstacks = new eu.mihosoft.freerouting.library.Padstacks(p_par.board_handling.get_routing_board().layer_structure);
+        eu.mihosoft.freerouting.board.RoutingBoard board = p_par.board_handling.getRoutingBoard();
+        board.library.padstacks = new eu.mihosoft.freerouting.library.Padstacks(p_par.board_handling.getRoutingBoard().layer_structure);
         Collection<Package> package_list = new LinkedList<Package>();
         Object next_token = null;
         for (;;)
@@ -60,7 +60,7 @@ public class Library extends ScopeKeyword
             Object prev_token = next_token;
             try
             {
-                next_token = p_par.scanner.next_token();
+                next_token = p_par.scanner.nextToken();
             }
             catch (java.io.IOException e)
             {
@@ -287,7 +287,7 @@ public class Library extends ScopeKeyword
         Collection<Shape> shape_list = new LinkedList<Shape>();
         try
         {
-            Object next_token = p_scanner.next_token();
+            Object next_token = p_scanner.nextToken();
             if (next_token instanceof String)
             {
                 padstack_name = (String) next_token;
@@ -301,7 +301,7 @@ public class Library extends ScopeKeyword
             while (next_token != Keyword.CLOSED_BRACKET)
             {
                 Object prev_token = next_token;
-                next_token  = p_scanner.next_token();
+                next_token  = p_scanner.nextToken();
                 if (prev_token == Keyword.OPEN_BRACKET)
                 {
                     if (next_token == Keyword.SHAPE)
@@ -312,11 +312,11 @@ public class Library extends ScopeKeyword
                             shape_list.add(curr_shape);
                         }
                         // overread the closing bracket and unknown scopes.
-                        Object curr_next_token  = p_scanner.next_token();
+                        Object curr_next_token  = p_scanner.nextToken();
                         while (curr_next_token == Keyword.OPEN_BRACKET)
                         {
                             ScopeKeyword.skip_scope(p_scanner);
-                            curr_next_token  = p_scanner.next_token();
+                            curr_next_token  = p_scanner.nextToken();
                         }
                         if (curr_next_token != Keyword.CLOSED_BRACKET)
                         {

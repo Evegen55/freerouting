@@ -109,18 +109,14 @@ public class MainGUI extends JFrame {
 
         demonstrationButton.setText(resources.getString("router_demonstrations"));
         demonstrationButton.setToolTipText(resources.getString("router_demonstrations_tooltip"));
-        demonstrationButton.addActionListener((java.awt.event.ActionEvent evt) -> {
-            windowNetDemonstrations.setVisible(true);
-        });
+        demonstrationButton.addActionListener(actionEvent -> windowNetDemonstrations.setVisible(true));
 
         gridbag.setConstraints(demonstrationButton, gridBagConstraints);
         mainPanel.add(demonstrationButton, gridBagConstraints);
 
         sampleBoardButton.setText(resources.getString("sample_designs"));
         sampleBoardButton.setToolTipText(resources.getString("sample_designs_tooltip"));
-        sampleBoardButton.addActionListener((java.awt.event.ActionEvent evt) -> {
-            windowNetSampleDesigns.setVisible(true);
-        });
+        sampleBoardButton.addActionListener(actionEvent -> windowNetSampleDesigns.setVisible(true));
 
         gridbag.setConstraints(sampleBoardButton, gridBagConstraints);
         mainPanel.add(sampleBoardButton, gridBagConstraints);
@@ -130,7 +126,7 @@ public class MainGUI extends JFrame {
      * opens a board design from a binary file or a specctra dsn file.
      */
     private void openBoardDesignAction(ActionEvent evt) {
-        DesignFile designFile = DesignFile.openDialog(designDirName);
+        DesignFile designFile = DesignFile.openViaFileDialog(designDirName);
 
         if (designFile == null) {
             messageField.setText(resources.getString("message_3"));
@@ -138,9 +134,11 @@ public class MainGUI extends JFrame {
         }
         FRLogger.info("Opening '" + designFile.getName() + "'...");
         BoardFrame.Option option;
+
 //        if (this.isWebstart) { //todo check thi logic branch
 //            option = BoardFrame.Option.WEBSTART;
 //        } else {
+
         option = BoardFrame.Option.FROM_START_MENU;
 //        }
         String message = resources.getString("loading_design") + " " + designFile.getName();
@@ -184,8 +182,7 @@ public class MainGUI extends JFrame {
     ) {
         final ResourceBundle resources = getBundle("eu.mihosoft.freerouting.gui.MainApplication", locale);
 
-        final InputStream inputStream = designFile.getInputStream();
-        if (inputStream == null) {
+        if (!designFile.getInputFile().exists()) {
             if (messageField != null) {
                 messageField.setText(resources.getString("message_8") + " " + designFile.getName());
             }
@@ -203,11 +200,12 @@ public class MainGUI extends JFrame {
 
         boolean createdFromTextFile = designFile.isCreatedFromTextFile();
 
-        boolean readOk = newFrame.read(inputStream, createdFromTextFile, messageField);
+        boolean readOk = newFrame.read(designFile.getInputStream(), createdFromTextFile, messageField);
         if (!readOk) {
             return null;
         }
-        newFrame.getMenubar().addDesignDependentItems();
+        newFrame.getMenubar()
+                .addDesignDependentItems();
 
         if (createdFromTextFile) {
             // Read the file  with the saved rules, if it is existing.
@@ -221,7 +219,7 @@ public class MainGUI extends JFrame {
             String confirmImportRulesMessage = null;
 
             if (designRulesFile == null) {
-                parentFolderName = designFile.get_parent();
+                parentFolderName = designFile.getParent();
                 rulesFileName = designName + ".rules";
                 confirmImportRulesMessage = resources.getString("confirm_import_rules");
             } else {
@@ -232,7 +230,8 @@ public class MainGUI extends JFrame {
                     designName,
                     parentFolderName,
                     rulesFileName,
-                    newFrame.getBoardPanel().getBoardHandling(),
+                    newFrame.getBoardPanel()
+                            .getBoardHandling(),
                     confirmImportRulesMessage
             );
 

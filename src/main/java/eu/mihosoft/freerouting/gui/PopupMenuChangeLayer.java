@@ -36,7 +36,7 @@ class PopupMenuChangeLayer extends javax.swing.JMenu
     {
         this.board_frame = p_board_frame;
         
-        eu.mihosoft.freerouting.board.LayerStructure layer_structure = board_frame.boardPanel.boardHandling.get_routing_board().layer_structure;
+        eu.mihosoft.freerouting.board.LayerStructure layer_structure = board_frame.boardPanel.boardHandling.getRoutingBoard().layer_structure;
         this.item_arr = new LayermenuItem[layer_structure.signal_layer_count()];
         java.util.ResourceBundle resources = 
                 java.util.ResourceBundle.getBundle("eu.mihosoft.freerouting.gui.Default", p_board_frame.get_locale());
@@ -93,8 +93,8 @@ class PopupMenuChangeLayer extends javax.swing.JMenu
                     final BoardPanel board_panel = board_frame.boardPanel;
                     if (board_panel.boardHandling.change_layer_action(layer_no))
                     {
-                        String layer_name = board_panel.boardHandling.get_routing_board().layer_structure.arr[layer_no].name;
-                        board_panel.screenMessages.set_status_message(message1 + layer_name);
+                        String layer_name = board_panel.boardHandling.getRoutingBoard().layer_structure.arr[layer_no].name;
+                        board_panel.screenMessages.setStatusMessage(message1 + layer_name);
                     }
                     // If change_layer failed the status message is set inside change_layer_action
                     // because the information of the cause of the failing is missing here.

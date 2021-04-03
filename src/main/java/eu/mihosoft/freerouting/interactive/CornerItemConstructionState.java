@@ -121,18 +121,18 @@ public class CornerItemConstructionState extends InteractiveState
      */
     protected void add_corner_for_snap_angle()
     {
-        if (hdlg.get_routing_board().rules.get_trace_angle_restriction() == AngleRestriction.NONE)
+        if (hdlg.getRoutingBoard().rules.get_trace_angle_restriction() == AngleRestriction.NONE)
         {
             return;
         }
         IntPoint first_corner =  corner_list.getFirst();
         IntPoint last_corner =  corner_list.getLast();
         IntPoint add_corner = null;
-        if (hdlg.get_routing_board().rules.get_trace_angle_restriction() == AngleRestriction.NINETY_DEGREE)
+        if (hdlg.getRoutingBoard().rules.get_trace_angle_restriction() == AngleRestriction.NINETY_DEGREE)
         {
             add_corner = last_corner.ninety_degree_corner(first_corner, true);
         }
-        else if (hdlg.get_routing_board().rules.get_trace_angle_restriction() == AngleRestriction.FORTYFIVE_DEGREE)
+        else if (hdlg.getRoutingBoard().rules.get_trace_angle_restriction() == AngleRestriction.FORTYFIVE_DEGREE)
         {
             add_corner = last_corner.fortyfive_degree_corner(first_corner, true);
         }
@@ -150,12 +150,12 @@ public class CornerItemConstructionState extends InteractiveState
     {
         IntPoint result;
         boolean list_empty = (corner_list.size() == 0);
-        if (hdlg.get_routing_board().rules.get_trace_angle_restriction() == AngleRestriction.NINETY_DEGREE && !list_empty)
+        if (hdlg.getRoutingBoard().rules.get_trace_angle_restriction() == AngleRestriction.NINETY_DEGREE && !list_empty)
         {
             IntPoint last_corner = corner_list.getLast();
             result = p_point.orthogonal_projection(last_corner);
         }
-        else if (hdlg.get_routing_board().rules.get_trace_angle_restriction() == AngleRestriction.FORTYFIVE_DEGREE && !list_empty)
+        else if (hdlg.getRoutingBoard().rules.get_trace_angle_restriction() == AngleRestriction.FORTYFIVE_DEGREE && !list_empty)
         {
             IntPoint last_corner = corner_list.getLast();
             result = p_point.fortyfive_degree_projection(last_corner);

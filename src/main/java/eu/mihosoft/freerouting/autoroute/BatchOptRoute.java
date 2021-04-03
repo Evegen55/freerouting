@@ -50,7 +50,7 @@ public class BatchOptRoute
     public BatchOptRoute(InteractiveActionThread p_thread)
     {
         this.thread = p_thread;
-        this.routing_board = p_thread.hdlg.get_routing_board();
+        this.routing_board = p_thread.hdlg.getRoutingBoard();
         this.sorted_route_items = null;
     }
 
@@ -120,7 +120,7 @@ public class BatchOptRoute
         java.util.ResourceBundle resources =
                 java.util.ResourceBundle.getBundle("eu.mihosoft.freerouting.interactive.InteractiveState", this.thread.hdlg.get_locale());
         String start_message = resources.getString("batch_optimizer") + " " + resources.getString("stop_message") + "        " + resources.getString("pass") + " " + (Integer.valueOf(p_pass_no)).toString() + ": ";
-        this.thread.hdlg.screen_messages.set_status_message(start_message);
+        this.thread.hdlg.screen_messages.setStatusMessage(start_message);
         this.thread.hdlg.remove_ratsnest();
         int incomplete_count_before = this.thread.hdlg.get_ratsnest().incomplete_count();
         int via_count_before = this.routing_board.get_vias().size();

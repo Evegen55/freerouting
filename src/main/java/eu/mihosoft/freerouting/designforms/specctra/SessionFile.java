@@ -67,7 +67,7 @@ public class SessionFile
         try
         {
             String [] reserved_chars = {"(", ")", " ", "-"};
-            IdentifierType identifier_type = new IdentifierType(reserved_chars, p_board.communication.specctra_parser_info.string_quote);
+            IdentifierType identifier_type = new IdentifierType(reserved_chars, p_board.communication.specctraParserInfo.string_quote);
             write_session_scope(p_board, identifier_type, output_file, session_name, p_design_name);
         }
         catch (java.io.IOException e)
@@ -90,7 +90,7 @@ public class SessionFile
     private static void write_session_scope(BasicBoard p_board, IdentifierType p_identifier_type,
             IndentFileWriter p_file, String p_session_name, String p_design_name) throws java.io.IOException
     {
-        double scale_factor =  p_board.communication.coordinate_transform.dsn_to_board(1)/p_board.communication.resolution;
+        double scale_factor = p_board.communication.coordinateTransform.dsn_to_board(1) / p_board.communication.resolution;
         CoordinateTransform coordinate_transform = new CoordinateTransform(scale_factor, 0, 0);
         p_file.start_scope();
         p_file.write("session ");
@@ -245,7 +245,7 @@ public class SessionFile
         p_file.start_scope();
         p_file.write("routes ");
         Resolution.write_scope(p_file, p_board.communication);
-        Parser.write_scope(p_file,p_board.communication.specctra_parser_info, p_identifier_type, true);
+        Parser.write_scope(p_file, p_board.communication.specctraParserInfo, p_identifier_type, true);
         write_library(p_board, p_identifier_type, p_coordinate_transform, p_file);
         write_network(p_board, p_identifier_type, p_coordinate_transform, p_file);
         p_file.end_scope();

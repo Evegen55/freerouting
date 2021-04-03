@@ -48,7 +48,7 @@ public class StitchRouteState extends RouteState
     public InteractiveState add_corner(FloatPoint p_location)
     {
         // make the current situation restorable by undo
-        hdlg.get_routing_board().generateSnapshot();
+        hdlg.getRoutingBoard().generateSnapshot();
         return super.add_corner(p_location);
     }
     
@@ -85,9 +85,9 @@ public class StitchRouteState extends RouteState
         double display_width = hdlg.get_trace_halfwidth(route.net_no_arr[0], hdlg.settings.layer);
         int clearance_draw_width = 50;
         double radius_with_clearance = display_width;
-        eu.mihosoft.freerouting.rules.NetClass default_net_class = hdlg.get_routing_board().rules.get_default_net_class();
+        eu.mihosoft.freerouting.rules.NetClass default_net_class = hdlg.getRoutingBoard().rules.get_default_net_class();
         int cl_class = default_net_class.default_item_clearance_classes.get(eu.mihosoft.freerouting.rules.DefaultItemClearanceClasses.ItemClass.TRACE);
-        radius_with_clearance +=  hdlg.get_routing_board().clearance_value(cl_class, cl_class, hdlg.settings.layer);
+        radius_with_clearance +=  hdlg.getRoutingBoard().clearance_value(cl_class, cl_class, hdlg.settings.layer);
         hdlg.graphicsContext.draw(draw_points, display_width, draw_color, p_graphics, 0.5);
         // draw the clearance boundary around the end point
         hdlg.graphicsContext.draw_circle(draw_points[1], radius_with_clearance, clearance_draw_width, draw_color, p_graphics, 0.5);

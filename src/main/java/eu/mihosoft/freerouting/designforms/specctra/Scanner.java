@@ -33,7 +33,7 @@ public interface Scanner
     /**
      * Reads the next token from the input file.
      */
-    Object next_token() throws java.io.IOException;
+    Object nextToken() throws java.io.IOException;
     
     /**
      * Starts a new state.
