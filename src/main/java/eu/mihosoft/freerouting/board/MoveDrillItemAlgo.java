@@ -91,7 +91,7 @@ public class MoveDrillItemAlgo
         {
             attach_allowed = ((Via)p_drill_item).attach_allowed;
         }
-        ShapeSearchTree search_tree = p_board.search_tree_manager.get_default_tree();
+        ShapeSearchTree search_tree = p_board.searchTreeManager.get_default_tree();
         for (int curr_layer = p_drill_item.first_layer(); curr_layer <= p_drill_item.last_layer(); ++curr_layer)
         {
             int curr_ind = curr_layer - p_drill_item.first_layer();
@@ -144,7 +144,7 @@ public class MoveDrillItemAlgo
         ForcedPadAlgo forced_pad_algo = new ForcedPadAlgo(p_board);
         Collection<Item> ignore_items = new java.util.LinkedList<Item>();
         ignore_items.add(p_drill_item);
-        ShapeSearchTree search_tree = p_board.search_tree_manager.get_default_tree();
+        ShapeSearchTree search_tree = p_board.searchTreeManager.get_default_tree();
         for (int curr_layer = p_drill_item.first_layer(); curr_layer <= p_drill_item.last_layer(); ++curr_layer)
         {
             int curr_ind = curr_layer - p_drill_item.first_layer();
@@ -192,7 +192,7 @@ public class MoveDrillItemAlgo
             int p_max_via_recursion_depth, boolean p_copper_sharing_allowed,
             RoutingBoard p_board)
     {
-        ShapeSearchTree search_tree = p_board.search_tree_manager.get_default_tree();
+        ShapeSearchTree search_tree = p_board.searchTreeManager.get_default_tree();
         ShapeTraceEntries shape_entries =
                 new ShapeTraceEntries(p_obstacle_shape, p_layer, p_net_no_arr, p_cl_type, p_from_side, p_board);
         Collection<Item> obstacles =
@@ -269,7 +269,7 @@ public class MoveDrillItemAlgo
     static IntPoint[] try_shove_via_points(TileShape p_obstacle_shape, int p_layer, Via p_via, int  p_cl_class_no,
             boolean p_extended_check, RoutingBoard p_board)
     {
-        ShapeSearchTree search_tree = p_board.search_tree_manager.get_default_tree();
+        ShapeSearchTree search_tree = p_board.searchTreeManager.get_default_tree();
         TileShape curr_via_shape = p_via.get_tree_shape_on_layer(search_tree, p_layer);
         if (curr_via_shape == null)
         {

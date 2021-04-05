@@ -68,7 +68,7 @@ class DrillPage implements ExpandableObject
         {
             this.net_no = p_autoroute_engine.get_net_no();
             this.drills = new LinkedList<ExpansionDrill>();
-            ShapeSearchTree search_tree = this.board.search_tree_manager.get_default_tree();
+            ShapeSearchTree search_tree = this.board.searchTreeManager.get_default_tree();
             Collection<TreeEntry> overlaps = new LinkedList<TreeEntry>();
             search_tree.overlapping_tree_entries(this.shape, -1, overlaps);
             Collection<TileShape> cutout_shapes = new LinkedList<TileShape>();

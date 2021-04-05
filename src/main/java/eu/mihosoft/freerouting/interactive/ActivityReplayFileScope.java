@@ -1079,11 +1079,11 @@ public abstract class ActivityReplayFileScope
             int new_clearance_type = p_activityReplayFile.read_int();
             if (new_clearance_type == 0)
             {
-                p_board_handling.getRoutingBoard().search_tree_manager.set_clearance_compensation_used(false);
+                p_board_handling.getRoutingBoard().searchTreeManager.set_clearance_compensation_used(false);
             }
             else
             {
-                p_board_handling.getRoutingBoard().search_tree_manager.set_clearance_compensation_used(true);
+                p_board_handling.getRoutingBoard().searchTreeManager.set_clearance_compensation_used(true);
             }
             return p_return_state;
         }

@@ -64,7 +64,7 @@ public class ShapeSearchTree45Degree extends ShapeSearchTree
     public Collection<IncompleteFreeSpaceExpansionRoom> complete_shape(IncompleteFreeSpaceExpansionRoom p_room,
                                                                        int p_net_no, SearchTreeObject p_ignore_object, TileShape p_ignore_shape)
     {
-        if (!(p_room.get_contained_shape().is_IntOctagon()) && this.board.get_test_level() != TestLevel.RELEASE_VERSION)
+        if (!(p_room.get_contained_shape().is_IntOctagon()) && this.board.getTestLevel() != TestLevel.RELEASE_VERSION)
         {
             FRLogger.warn("ShapeSearchTree45Degree.complete_shape: unexpected p_shape_to_be_contained");
             return new LinkedList<IncompleteFreeSpaceExpansionRoom>();
@@ -248,7 +248,7 @@ public class ShapeSearchTree45Degree extends ShapeSearchTree
         Collection<IncompleteFreeSpaceExpansionRoom> result = new LinkedList<IncompleteFreeSpaceExpansionRoom>();
         if (p_incomplete_room.get_contained_shape().is_empty())
         {
-            if (this.board.get_test_level().ordinal() >= TestLevel.ALL_DEBUGGING_OUTPUT.ordinal())
+            if (this.board.getTestLevel().ordinal() >= TestLevel.ALL_DEBUGGING_OUTPUT.ordinal())
             {
                 FRLogger.warn("ShapeSearchTree45Degree.restrain_shape: p_shape_to_be_contained is empty");
             }

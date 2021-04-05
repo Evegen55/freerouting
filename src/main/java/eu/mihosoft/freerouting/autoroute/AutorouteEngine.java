@@ -64,7 +64,7 @@ public class AutorouteEngine
         this.board = p_board;
         this.maintain_database = p_maintain_database;
         this.net_no = -1;
-        this.autoroute_search_tree = p_board.search_tree_manager.get_autoroute_tree(p_trace_clearance_class_no);
+        this.autoroute_search_tree = p_board.searchTreeManager.get_autoroute_tree(p_trace_clearance_class_no);
         int max_drill_page_width = (int) (5 * p_board.rules.get_default_via_diameter());
         max_drill_page_width = Math.max(max_drill_page_width, 10000);
         this.drill_page_array = new DrillPageArray(this.board, max_drill_page_width);
@@ -142,7 +142,7 @@ public class AutorouteEngine
             {
                 autoroute_result =
                         LocateFoundConnectionAlgo.get_instance(search_result, p_ctrl, this.autoroute_search_tree,
-                        board.rules.get_trace_angle_restriction(), p_ripped_item_list, board.get_test_level());
+                        board.rules.get_trace_angle_restriction(), p_ripped_item_list, board.getTestLevel());
             } catch (Exception e)
             {
                 FRLogger.error("AutorouteEngine.autoroute_connection: Exception in LocateFoundConnectionAlgo.get_instance", e);
@@ -162,7 +162,7 @@ public class AutorouteEngine
         }
         if (autoroute_result.connection_items == null)
         {
-            if (this.board.get_test_level().ordinal() >= TestLevel.CRITICAL_DEBUGGING_OUTPUT.ordinal())
+            if (this.board.getTestLevel().ordinal() >= TestLevel.CRITICAL_DEBUGGING_OUTPUT.ordinal())
             {
                 FRLogger.warn("AutorouteEngine.autoroute_connection: result_items != null expected");
             }

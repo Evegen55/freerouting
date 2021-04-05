@@ -319,10 +319,10 @@ public class PolylineTrace extends Trace implements java.io.Serializable
         {
             // consecutive parallel lines where skipped at the join location
             // combine without performance optimation
-            board.search_tree_manager.remove(this);
+            board.searchTreeManager.remove(this);
             this.lines = joined_polyline;
             this.clear_derived_data();
-            board.search_tree_manager.insert(this);
+            board.searchTreeManager.insert(this);
         }
         else
         {
@@ -333,7 +333,7 @@ public class PolylineTrace extends Trace implements java.io.Serializable
             {
                 --to_no;
             }
-            board.search_tree_manager.merge_entries_in_front(other_trace, this, joined_polyline,
+            board.searchTreeManager.merge_entries_in_front(other_trace, this, joined_polyline,
                     other_lines.length - 3, to_no);
             other_trace.clear_search_tree_entries();
             this.lines = joined_polyline;
@@ -444,11 +444,11 @@ public class PolylineTrace extends Trace implements java.io.Serializable
         {
             // consecutive parallel lines where skipped at the join location
             // combine without performance optimation
-            board.search_tree_manager.remove(this);
+            board.searchTreeManager.remove(this);
             this.clear_search_tree_entries();
             this.lines = joined_polyline;
             this.clear_derived_data();
-            board.search_tree_manager.insert(this);
+            board.searchTreeManager.insert(this);
         }
         else
         {
@@ -459,7 +459,7 @@ public class PolylineTrace extends Trace implements java.io.Serializable
             {
                 --to_no;
             }
-            board.search_tree_manager.merge_entries_at_end(other_trace, this, joined_polyline, this_lines.length - 3, to_no);
+            board.searchTreeManager.merge_entries_at_end(other_trace, this, joined_polyline, this_lines.length - 3, to_no);
             other_trace.clear_search_tree_entries();
             this.lines = joined_polyline;
         }
@@ -493,7 +493,7 @@ public class PolylineTrace extends Trace implements java.io.Serializable
             return result;
         }
         boolean own_trace_split = false;
-        ShapeSearchTree default_tree = board.search_tree_manager.get_default_tree();
+        ShapeSearchTree default_tree = board.searchTreeManager.get_default_tree();
         for (int i = 0; i < this.lines.arr.length - 2; ++i)
         {
             if (p_clip_shape != null)
@@ -1038,7 +1038,7 @@ public class PolylineTrace extends Trace implements java.io.Serializable
         }
         int keep_at_start_count = Math.max(index_of_first_different_line - 2, 0);
         int keep_at_end_count = Math.max(p_new_polyline.arr.length - index_of_last_different_line - 3, 0);
-        board.search_tree_manager.change_entries(this, p_new_polyline, keep_at_start_count, keep_at_end_count);
+        board.searchTreeManager.change_entries(this, p_new_polyline, keep_at_start_count, keep_at_end_count);
         lines = p_new_polyline;
 
         // let the observers syncronize the changes

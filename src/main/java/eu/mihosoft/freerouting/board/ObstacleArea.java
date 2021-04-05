@@ -268,7 +268,7 @@ public class ObstacleArea extends Item implements java.io.Serializable
         p_graphics_context.fill_area(this.get_area(), p_g, color, intensity);
         if (intensity > 0 && display_tree_shapes)
         {
-            ShapeSearchTree default_tree = this.board.search_tree_manager.get_default_tree();
+            ShapeSearchTree default_tree = this.board.searchTreeManager.get_default_tree();
             for (int i = 0; i < this.tree_shape_count(default_tree); ++i)
             {
                 p_graphics_context.draw_boundary(this.get_tree_shape(default_tree, i), 1, Color.white, p_g, 1);

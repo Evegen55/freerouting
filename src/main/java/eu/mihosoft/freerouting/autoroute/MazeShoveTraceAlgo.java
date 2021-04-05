@@ -295,7 +295,7 @@ public class MazeShoveTraceAlgo
                 FloatLine curr_door_segment = curr_door_shape.diagonal_corner_segment();
                 if (curr_door_segment == null)
                 {
-                    if (p_board.get_test_level() == eu.mihosoft.freerouting.board.TestLevel.ALL_DEBUGGING_OUTPUT)
+                    if (p_board.getTestLevel() == eu.mihosoft.freerouting.board.TestLevel.ALL_DEBUGGING_OUTPUT)
                     {
                         FRLogger.warn("MazeShoveTraceAlgo.check_shove_trace_line: door shape is empty");
                     }

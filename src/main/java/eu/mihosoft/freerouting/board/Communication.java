@@ -57,7 +57,7 @@ public class Communication implements java.io.Serializable {
              new CoordinateTransform(1, 0, 0), new eu.mihosoft.freerouting.board.ItemIdNoGenerator(), new BoardObserverAdaptor());
     }
 
-    public boolean host_cad_is_eagle() {
+    public boolean hostCadIsEagle() {
         return specctraParserInfo != null && specctraParserInfo.host_cad != null
                && specctraParserInfo.host_cad.equalsIgnoreCase("CadSoft");
     }

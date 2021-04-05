@@ -34,9 +34,12 @@ class BoardMenuBar extends JMenuBar {
 
     private final BoardMenuFile fileMenu;
 
-    private BoardMenuBar(final BoardFrame boardFrame, boolean sessionFileOption) {
+    private BoardMenuBar(
+            final BoardFrame boardFrame,
+            final boolean sessionFileOption
+    ) {
         fileMenu = BoardMenuFile.getInstance(boardFrame, sessionFileOption);
-        this.add(fileMenu);
+        add(fileMenu);
     }
 
     /**
@@ -48,15 +51,15 @@ class BoardMenuBar extends JMenuBar {
             final boolean sessionFileOption
     ) {
         final BoardMenuBar menuBar = new BoardMenuBar(boardFrame, sessionFileOption);
-        JMenu displayMenu = BoardMenuDisplay.get_instance(boardFrame);
+        final JMenu displayMenu = BoardMenuDisplay.getInstance(boardFrame);
         menuBar.add(displayMenu);
-        JMenu parameterMenu = BoardMenuParameter.get_instance(boardFrame);
+        final JMenu parameterMenu = BoardMenuParameter.getInstance(boardFrame);
         menuBar.add(parameterMenu);
-        JMenu rulesMenu = BoardMenuRules.get_instance(boardFrame);
+        final JMenu rulesMenu = BoardMenuRules.getInstance(boardFrame);
         menuBar.add(rulesMenu);
-        JMenu infoMenu = BoardMenuInfo.get_instance(boardFrame);
+        final JMenu infoMenu = BoardMenuInfo.getInstance(boardFrame);
         menuBar.add(infoMenu);
-        JMenu otherMenu = BoardMenuOther.get_instance(boardFrame);
+        final JMenu otherMenu = BoardMenuOther.getInstance(boardFrame);
         menuBar.add(otherMenu);
         final JMenu helpMenu;
         if (helpSystemUsed) {

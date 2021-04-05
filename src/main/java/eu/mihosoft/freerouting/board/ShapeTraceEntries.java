@@ -147,7 +147,7 @@ public class ShapeTraceEntries
         }
         PolylineTrace curr_trace = entries[0].trace;
         TileShape offset_shape;
-        ShapeSearchTree search_tree = this.board.search_tree_manager.get_default_tree();
+        ShapeSearchTree search_tree = this.board.searchTreeManager.get_default_tree();
         if (search_tree.is_clearance_compensation_used())
         {
             double curr_offset = curr_trace.get_compensated_half_width(search_tree) + c_offset_add;
@@ -256,7 +256,7 @@ public class ShapeTraceEntries
         }
         ConvexShape offset_shape;
         BasicBoard board = p_trace.board;
-        ShapeSearchTree search_tree = board.search_tree_manager.get_default_tree();
+        ShapeSearchTree search_tree = board.searchTreeManager.get_default_tree();
         if (search_tree.is_clearance_compensation_used())
         {
             double curr_offset = p_trace.get_compensated_half_width(search_tree) + c_offset_add;
@@ -311,7 +311,7 @@ public class ShapeTraceEntries
         board.item_list.insert(end_piece);
         end_piece.set_on_the_board(true);
         
-        board.search_tree_manager.reuse_entries_after_cutout(p_trace, start_piece, end_piece);
+        board.searchTreeManager.reuse_entries_after_cutout(p_trace, start_piece, end_piece);
         board.remove_item(p_trace);
         
         board.communication.observers.notify_new(start_piece);
@@ -325,7 +325,7 @@ public class ShapeTraceEntries
      */
     private boolean store_trace( PolylineTrace p_trace)
     {
-        ShapeSearchTree search_tree = this.board.search_tree_manager.get_default_tree();
+        ShapeSearchTree search_tree = this.board.searchTreeManager.get_default_tree();
         TileShape offset_shape;
         if (search_tree.is_clearance_compensation_used())
         {

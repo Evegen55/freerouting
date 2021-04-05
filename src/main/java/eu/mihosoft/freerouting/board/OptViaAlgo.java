@@ -61,7 +61,7 @@ public class OptViaAlgo
         }
         if (p_max_recursion_depth <= 0)
         {
-            if (p_board.get_test_level().ordinal() >= TestLevel.CRITICAL_DEBUGGING_OUTPUT.ordinal())
+            if (p_board.getTestLevel().ordinal() >= TestLevel.CRITICAL_DEBUGGING_OUTPUT.ordinal())
             {
                 FRLogger.warn("OptViaAlgo.opt_via_location: probably endless loop") ;
             }
@@ -212,7 +212,7 @@ public class OptViaAlgo
     {
         if (p_max_recursion_depth <= 0)
         {
-            if (p_board.get_test_level().ordinal() >= TestLevel.CRITICAL_DEBUGGING_OUTPUT.ordinal())
+            if (p_board.getTestLevel().ordinal() >= TestLevel.CRITICAL_DEBUGGING_OUTPUT.ordinal())
             {
                 FRLogger.warn("OptViaAlgo.opt_plane_or_fanout_via: probably endless loop") ;
             }
@@ -447,7 +447,7 @@ public class OptViaAlgo
         
         if (from_location.equals(p_to_location))
         {
-            if (p_board.get_test_level() == TestLevel.ALL_DEBUGGING_OUTPUT)
+            if (p_board.getTestLevel() == TestLevel.ALL_DEBUGGING_OUTPUT)
             {
                 FRLogger.warn("OptViaAlgo.reposition_via: from_location equal p_to_location");
             }

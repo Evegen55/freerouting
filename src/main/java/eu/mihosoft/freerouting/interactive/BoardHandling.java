@@ -265,7 +265,7 @@ public class BoardHandling extends BoardHandlingImpl {
         if (boardIsReadOnly) {
             return;
         }
-        board.search_tree_manager.set_clearance_compensation_used(p_value);
+        board.searchTreeManager.set_clearance_compensation_used(p_value);
         activityReplayFile.start_scope(ActivityReplayFileScope.SET_CLEARANCE_COMPENSATION, p_value);
     }
 

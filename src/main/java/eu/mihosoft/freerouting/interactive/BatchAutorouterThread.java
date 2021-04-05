@@ -126,7 +126,7 @@ public class BatchAutorouterThread extends InteractiveActionThread
             }
 
             hdlg.get_panel().boardFrame.refreshWindows();
-            if (hdlg.getRoutingBoard().rules.get_trace_angle_restriction() == eu.mihosoft.freerouting.board.AngleRestriction.FORTYFIVE_DEGREE && hdlg.getRoutingBoard().get_test_level() != eu.mihosoft.freerouting.board.TestLevel.RELEASE_VERSION)
+            if (hdlg.getRoutingBoard().rules.get_trace_angle_restriction() == eu.mihosoft.freerouting.board.AngleRestriction.FORTYFIVE_DEGREE && hdlg.getRoutingBoard().getTestLevel() != eu.mihosoft.freerouting.board.TestLevel.RELEASE_VERSION)
             {
                 eu.mihosoft.freerouting.tests.Validate.multiple_of_45_degree("after eu.mihosoft.freerouting.autoroute: ", hdlg.getRoutingBoard());
             }

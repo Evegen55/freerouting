@@ -38,8 +38,8 @@ public class WindowRouteParameter extends BoardSavableSubWindow
     {
         this.board_handling = p_board_frame.boardPanel.boardHandling;
         this.current_locale = p_board_frame.get_locale();
-        this.detail_window = new WindowRouteDetail(p_board_frame);
-        this.manual_rule_window = new WindowManualRules(p_board_frame);
+        this.detailWindow = new WindowRouteDetail(p_board_frame);
+        this.manualRuleWindow = new WindowManualRules(p_board_frame);
         
         java.util.ResourceBundle resources = 
                 java.util.ResourceBundle.getBundle("eu.mihosoft.freerouting.gui.WindowRouteParameter", p_board_frame.get_locale());
@@ -267,7 +267,7 @@ public class WindowRouteParameter extends BoardSavableSubWindow
         this.detail_listener = new DetailListener();
         detail_button.addActionListener(detail_listener);
         gridbag.setConstraints(detail_button, gridbag_constraints);
-        if (this.board_handling.getRoutingBoard().get_test_level() != eu.mihosoft.freerouting.board.TestLevel.RELEASE_VERSION)
+        if (this.board_handling.getRoutingBoard().getTestLevel() != eu.mihosoft.freerouting.board.TestLevel.RELEASE_VERSION)
         {
             main_panel.add(detail_button);
         }
@@ -281,8 +281,8 @@ public class WindowRouteParameter extends BoardSavableSubWindow
     
     public void dispose()
     {
-        detail_window.dispose();
-        manual_rule_window.dispose();
+        detailWindow.dispose();
+        manualRuleWindow.dispose();
         super.dispose();
     }
     
@@ -298,12 +298,12 @@ public class WindowRouteParameter extends BoardSavableSubWindow
         {
             return false;
         }
-        read_ok = manual_rule_window.read(p_object_stream);
+        read_ok = manualRuleWindow.read(p_object_stream);
         if(!read_ok)
         {
             return false;
         }
-        read_ok = detail_window.read(p_object_stream);
+        read_ok = detailWindow.read(p_object_stream);
         if(!read_ok)
         {
             return false;
@@ -321,8 +321,8 @@ public class WindowRouteParameter extends BoardSavableSubWindow
     public void save(java.io.ObjectOutputStream p_object_stream)
     {
         super.save(p_object_stream);
-        manual_rule_window.save(p_object_stream);
-        detail_window.save(p_object_stream);
+        manualRuleWindow.save(p_object_stream);
+        detailWindow.save(p_object_stream);
     }
     
     /**
@@ -357,9 +357,9 @@ public class WindowRouteParameter extends BoardSavableSubWindow
         if(this.board_handling.settings.get_manual_rule_selection())
         {
             manual_button.setSelected(true);
-            if (this.manual_rule_window != null)
+            if (this.manualRuleWindow != null)
             {
-                this.manual_rule_window.setVisible(true);
+                this.manualRuleWindow.setVisible(true);
             }
         }
         else
@@ -384,27 +384,27 @@ public class WindowRouteParameter extends BoardSavableSubWindow
         region_slider.setValue(region_slider_value);
         region_width_field.setValue(region_slider_value);
         
-        if (this.manual_rule_window != null)
+        if (this.manualRuleWindow != null)
         {
-            this.manual_rule_window.refresh();
+            this.manualRuleWindow.refresh();
         }
-        if (this.detail_window != null)
+        if (this.detailWindow != null)
         {
-            this.detail_window.refresh();
+            this.detailWindow.refresh();
         }
     }
     
     public void parentIconified()
     {
-        manual_rule_window.parentIconified();
-        detail_window.parentIconified();
+        manualRuleWindow.parentIconified();
+        detailWindow.parentIconified();
         super.parentIconified();
     }
     
     public void parentDeiconified()
     {
-        manual_rule_window.parentDeiconified();
-        detail_window.parentDeiconified();
+        manualRuleWindow.parentDeiconified();
+        detailWindow.parentDeiconified();
         super.parentDeiconified();
     }
     
@@ -430,8 +430,8 @@ public class WindowRouteParameter extends BoardSavableSubWindow
     
     private final eu.mihosoft.freerouting.interactive.BoardHandling board_handling;
     private final java.util.Locale current_locale;
-    final WindowManualRules manual_rule_window;
-    final WindowRouteDetail detail_window;
+    final WindowManualRules manualRuleWindow;
+    final WindowRouteDetail detailWindow;
     private final javax.swing.JSlider region_slider;
     private final javax.swing.JFormattedTextField region_width_field;
     private final javax.swing.JFormattedTextField edge_to_turn_dist_field;
@@ -561,10 +561,10 @@ public class WindowRouteParameter extends BoardSavableSubWindow
             if (first_time)
             {
                 java.awt.Point location = getLocation();
-                detail_window.setLocation((int)location.getX() + 200, (int)location.getY() + 300);
+                detailWindow.setLocation((int)location.getX() + 200, (int)location.getY() + 300);
                 first_time = false;
             }
-            detail_window.setVisible(true);
+            detailWindow.setVisible(true);
         }
         private boolean first_time = true;
     }
@@ -573,7 +573,7 @@ public class WindowRouteParameter extends BoardSavableSubWindow
     {
         public void actionPerformed(java.awt.event.ActionEvent p_evt)
         {
-            manual_rule_window.setVisible(false);
+            manualRuleWindow.setVisible(false);
             board_handling.settings.set_manual_tracewidth_selection(false);
         }
     }
@@ -585,10 +585,10 @@ public class WindowRouteParameter extends BoardSavableSubWindow
             if (first_time)
             {
                 java.awt.Point location = getLocation();
-                manual_rule_window.setLocation((int)location.getX() + 200, (int)location.getY() + 200);
+                manualRuleWindow.setLocation((int)location.getX() + 200, (int)location.getY() + 200);
                 first_time = false;
             }
-            manual_rule_window.setVisible(true);
+            manualRuleWindow.setVisible(true);
             board_handling.settings.set_manual_tracewidth_selection(true);
         }
         

@@ -123,7 +123,7 @@ public class WindowRouteDetail extends BoardSavableSubWindow
      */
     public void refresh()
     {
-        if (this.board_handling.getRoutingBoard().search_tree_manager.is_clearance_compensation_used())
+        if (this.board_handling.getRoutingBoard().searchTreeManager.is_clearance_compensation_used())
         {
             this.on_button.setSelected(true);
         }

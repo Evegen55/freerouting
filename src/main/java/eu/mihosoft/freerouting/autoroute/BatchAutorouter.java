@@ -271,7 +271,7 @@ public class BatchAutorouter
                     }
                 }
             }
-            if (routing_board.get_test_level() != eu.mihosoft.freerouting.board.TestLevel.ALL_DEBUGGING_OUTPUT)
+            if (routing_board.getTestLevel() != eu.mihosoft.freerouting.board.TestLevel.ALL_DEBUGGING_OUTPUT)
             {
                 Item.StopConnectionOption stop_connection_option;
                 if (this.remove_unconnected_vias)

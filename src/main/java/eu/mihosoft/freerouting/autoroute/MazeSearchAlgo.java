@@ -549,7 +549,7 @@ public class MazeSearchAlgo
             TileShape door_shape = p_door.get_shape();
             if (door_shape.is_empty())
             {
-                if (this.autoroute_engine.board.get_test_level().ordinal() >= eu.mihosoft.freerouting.board.TestLevel.ALL_DEBUGGING_OUTPUT.ordinal())
+                if (this.autoroute_engine.board.getTestLevel().ordinal() >= eu.mihosoft.freerouting.board.TestLevel.ALL_DEBUGGING_OUTPUT.ordinal())
                 {
                     FRLogger.warn("MazeSearchAlgo:check_door_width door_shape is empty");
                 }

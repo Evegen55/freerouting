@@ -181,7 +181,7 @@ public abstract class PullTightAlgo
             int[] p_net_no_arr, int p_cl_type, Set<Pin> p_contact_pins)
     {
         curr_layer = p_layer;
-        ShapeSearchTree search_tree = this.board.search_tree_manager.get_default_tree();
+        ShapeSearchTree search_tree = this.board.searchTreeManager.get_default_tree();
         curr_half_width = p_half_width + search_tree.clearance_compensation_value(p_cl_type, p_layer);
         curr_net_no_arr = p_net_no_arr;
         curr_cl_type = p_cl_type;
@@ -203,7 +203,7 @@ public abstract class PullTightAlgo
             return false;
         }
         boolean time_limit_exceeded = this.time_limit.limit_exceeded();
-        if (time_limit_exceeded && this.board.get_test_level().ordinal() >= TestLevel.CRITICAL_DEBUGGING_OUTPUT.ordinal())
+        if (time_limit_exceeded && this.board.getTestLevel().ordinal() >= TestLevel.CRITICAL_DEBUGGING_OUTPUT.ordinal())
         {
             FRLogger.warn("PullTightAlgo.is_stop_requested: time limit exceeded");
         }

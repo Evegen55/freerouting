@@ -186,7 +186,7 @@ public class WindowSnapshot extends BoardSavableSubWindow {
                 board_handling.graphicsContext.other_color_table =
                         new eu.mihosoft.freerouting.boardgraphics.OtherColorTableModel(curr_snapshot.graphics_context.other_color_table);
 
-                board_frame.colorManager.set_table_models(board_handling.graphicsContext);
+                board_frame.getColorManager().set_table_models(board_handling.graphicsContext);
             }
 
             if (curr_snapshot.settings.get_snapshot_attributes().display_region) {

@@ -31,12 +31,11 @@ package eu.mihosoft.freerouting.gui;
  */
 public class BoardTemporarySubWindow extends BoardSubWindow {
 
-    /**
-     * Creates a new instance of BoardTemporarySubWindow
-     */
-    public BoardTemporarySubWindow(BoardFrame p_board_frame) {
-        this.board_frame = p_board_frame;
-        p_board_frame.temporarySubWindows.add(this);
+    protected final BoardFrame boardFrame;
+
+    public BoardTemporarySubWindow(BoardFrame boardFrame) {
+        this.boardFrame = boardFrame;
+        boardFrame.getTemporarySubWindows().add(this);
 
         this.addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -53,9 +52,7 @@ public class BoardTemporarySubWindow extends BoardSubWindow {
     }
 
     public void dispose() {
-        this.board_frame.temporarySubWindows.remove(this);
+        boardFrame.getTemporarySubWindows().remove(this);
         super.dispose();
     }
-
-    protected final BoardFrame board_frame;
 }

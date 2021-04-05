@@ -4,7 +4,7 @@
  *
  *   Copyright (C) 2017 Michael Hoffer <info@michaelhoffer.de>
  *   Website www.freerouting.mihosoft.eu
-*
+ *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
  *   the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +13,7 @@
  *   This program is distributed in the hope that it will be useful,
  *   but WITHOUT ANY WARRANTY; without even the implied warranty of
  *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License at <http://www.gnu.org/licenses/> 
+ *   GNU General Public License at <http://www.gnu.org/licenses/>
  *   for more details.
  *
  * BoardRulesMenu.java
@@ -23,77 +23,55 @@
 
 package eu.mihosoft.freerouting.gui;
 
+import javax.swing.*;
+
+import static java.util.ResourceBundle.getBundle;
+
 /**
  * Creates the rules menu of a board frame.
  *
  * @author Alfons Wirtz
  */
-public class BoardMenuRules extends javax.swing.JMenu
-{
-    
-    /** Returns a new windows menu for the board frame. */
-    public static BoardMenuRules get_instance(BoardFrame p_board_frame)
-    {
-        final BoardMenuRules rules_menu = new BoardMenuRules(p_board_frame);
-        
-        rules_menu.setText(rules_menu.resources.getString("rules"));
-        
-        javax.swing.JMenuItem clearance_window = new javax.swing.JMenuItem();
-        clearance_window.setText(rules_menu.resources.getString("clearance_matrix"));
-        clearance_window.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                rules_menu.board_frame.clearanceMatrixWindow.setVisible(true);
-            }
-        });
-        rules_menu.add(clearance_window);
-        
-        javax.swing.JMenuItem via_window = new javax.swing.JMenuItem();
-        via_window.setText(rules_menu.resources.getString("vias"));
-        via_window.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                rules_menu.board_frame.viaWindow.setVisible(true);
-            }
-        });
-        rules_menu.add(via_window);
-        
-        javax.swing.JMenuItem nets_window = new javax.swing.JMenuItem();
-        nets_window.setText(rules_menu.resources.getString("nets"));
-        nets_window.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                rules_menu.board_frame.netInfoWindow.setVisible(true);
-            }
-        });
-        
-        rules_menu.add(nets_window);
-        
-        javax.swing.JMenuItem net_class_window = new javax.swing.JMenuItem();
-        net_class_window.setText(rules_menu.resources.getString("net_classes"));
-        net_class_window.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                rules_menu.board_frame.editNetRulesWindow.setVisible(true);
-            }
-        });
-        rules_menu.add(net_class_window);
-        
-        return rules_menu;
-    }
-    
-    /** Creates a new instance of BoardRulesMenu */
-    private BoardMenuRules(BoardFrame p_board_frame)
-    {
-        board_frame = p_board_frame;
-        resources = java.util.ResourceBundle.getBundle("eu.mihosoft.freerouting.gui.BoardMenuRules", p_board_frame.get_locale());
-    }
-    
-    
-    private final BoardFrame board_frame;
+public class BoardMenuRules extends JMenu {
+
+    private final BoardFrame boardFrame;
     private final java.util.ResourceBundle resources;
+
+    private BoardMenuRules(BoardFrame boardFrame) {
+        this.boardFrame = boardFrame;
+        resources = getBundle("eu.mihosoft.freerouting.gui.BoardMenuRules", boardFrame.get_locale());
+    }
+
+    /**
+     * Returns a new windows menu for the board frame.
+     */
+    public static BoardMenuRules getInstance(BoardFrame boardFrame) {
+        final BoardMenuRules rulesMenu = new BoardMenuRules(boardFrame);
+
+        rulesMenu.setText(rulesMenu.resources.getString("rules"));
+
+        final JMenuItem clearanceWindow = new JMenuItem();
+        clearanceWindow.setText(rulesMenu.resources.getString("clearance_matrix"));
+        clearanceWindow.addActionListener(evt -> rulesMenu.boardFrame.getClearanceMatrixWindow().setVisible(true));
+        rulesMenu.add(clearanceWindow);
+
+        final JMenuItem viaWindow = new JMenuItem();
+        viaWindow.setText(rulesMenu.resources.getString("vias"));
+        viaWindow.addActionListener(evt -> rulesMenu.boardFrame.getViaWindow().setVisible(true));
+        rulesMenu.add(viaWindow);
+
+        final JMenuItem netsWindow = new JMenuItem();
+        netsWindow.setText(rulesMenu.resources.getString("nets"));
+        netsWindow.addActionListener(evt -> rulesMenu.boardFrame.getNetInfoWindow().setVisible(true));
+
+        rulesMenu.add(netsWindow);
+
+        final JMenuItem netClassWindow = new JMenuItem();
+        netClassWindow.setText(rulesMenu.resources.getString("net_classes"));
+        netClassWindow.addActionListener(evt -> rulesMenu.boardFrame.getEditNetRulesWindow().setVisible(true));
+        rulesMenu.add(netClassWindow);
+
+        return rulesMenu;
+    }
+
 }

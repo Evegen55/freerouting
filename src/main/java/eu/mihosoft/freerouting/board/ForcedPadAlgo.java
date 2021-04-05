@@ -71,7 +71,7 @@ public class ForcedPadAlgo
             this.board.set_shove_failing_obstacle(board.get_outline());
             return CheckDrillResult.NOT_DRILLABLE;
         }
-        ShapeSearchTree search_tree = this.board.search_tree_manager.get_default_tree();
+        ShapeSearchTree search_tree = this.board.searchTreeManager.get_default_tree();
         ShapeTraceEntries shape_entries =
                 new ShapeTraceEntries(p_pad_shape, p_layer, p_net_no_arr, p_cl_type, p_from_side, board);
         Collection<Item> obstacles = search_tree.overlapping_items_with_clearance(p_pad_shape, p_layer, new int[0], p_cl_type);
@@ -203,7 +203,7 @@ public class ForcedPadAlgo
         {
             return false;
         }
-        ShapeSearchTree search_tree = this.board.search_tree_manager.get_default_tree();
+        ShapeSearchTree search_tree = this.board.searchTreeManager.get_default_tree();
         ShapeTraceEntries shape_entries =
                 new ShapeTraceEntries(p_pad_shape, p_layer, p_net_no_arr, p_cl_type, p_from_side, board);
         Collection<Item> obstacles = search_tree.overlapping_items_with_clearance(p_pad_shape, p_layer, new int[0], p_cl_type);

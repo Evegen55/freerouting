@@ -59,7 +59,7 @@ public class BatchOptRoute
      */
     public void optimize_board()
     {
-        if (routing_board.get_test_level() != TestLevel.RELEASE_VERSION)
+        if (routing_board.getTestLevel() != TestLevel.RELEASE_VERSION)
         {
             FRLogger.warn("Before optimize: Via count: " + routing_board.get_vias().size() + ", trace length: " + Math.round(routing_board.cumulative_trace_length()));
         }

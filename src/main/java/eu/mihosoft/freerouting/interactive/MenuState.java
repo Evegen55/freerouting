@@ -120,7 +120,7 @@ public class MenuState extends InteractiveState
         }
         else if (p_key_char == 'e')
         {
-            if (hdlg.getRoutingBoard().get_test_level() != TestLevel.RELEASE_VERSION)
+            if (hdlg.getRoutingBoard().getTestLevel() != TestLevel.RELEASE_VERSION)
             {
                 curr_return_state = ExpandTestState.get_instance(hdlg.get_current_mouse_position(), this, hdlg);
             }

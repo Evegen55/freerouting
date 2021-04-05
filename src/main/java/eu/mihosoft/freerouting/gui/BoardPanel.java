@@ -28,13 +28,16 @@ import eu.mihosoft.freerouting.interactive.BoardHandling;
 import eu.mihosoft.freerouting.interactive.ScreenMessages;
 import eu.mihosoft.freerouting.logger.FRLogger;
 
-
-import java.awt.*;
-import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
-import java.awt.geom.*;
+import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
+import java.awt.geom.Point2D;
 import java.util.Locale;
 
 

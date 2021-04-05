@@ -104,7 +104,7 @@ public class BoardFrame extends JFrame {
     private final BoardObservers boardObservers;
     private final IdNoGenerator itemIdNoGenerator;
 
-    WindowAbout windowAbout = null;
+    private WindowAbout windowAbout = null;
     WindowRouteParameter routeParameterWindow = null;
     WindowAutorouteParameter autorouteParameterWindow = null;
     WindowSelectParameter selectParameterWindow = null;
@@ -127,7 +127,7 @@ public class BoardFrame extends JFrame {
     WindowObjectVisibility objectVisibilityWindow = null;
     WindowDisplayMisc displayMiscWindow = null;
     WindowSnapshot snapshotWindow = null;
-    ColorManager colorManager = null;
+    private ColorManager colorManager = null;
     BoardSavableSubWindow[] permanentSubwindows = new BoardSavableSubWindow[24];//The windows above stored in an array
 
     Collection<BoardTemporarySubWindow> temporarySubWindows = new LinkedList<>();
@@ -313,6 +313,106 @@ public class BoardFrame extends JFrame {
 
     public BoardPanel getBoardPanel() {
         return boardPanel;
+    }
+
+    public WindowAbout getWindowAbout() {
+        return windowAbout;
+    }
+
+    public WindowRouteParameter getRouteParameterWindow() {
+        return routeParameterWindow;
+    }
+
+    public WindowAutorouteParameter getAutorouteParameterWindow() {
+        return autorouteParameterWindow;
+    }
+
+    public WindowSelectParameter getSelectParameterWindow() {
+        return selectParameterWindow;
+    }
+
+    public WindowMoveParameter getMoveParameterWindow() {
+        return moveParameterWindow;
+    }
+
+    public WindowClearanceMatrix getClearanceMatrixWindow() {
+        return clearanceMatrixWindow;
+    }
+
+    public WindowVia getViaWindow() {
+        return viaWindow;
+    }
+
+    public WindowEditVias getEditViasWindow() {
+        return editViasWindow;
+    }
+
+    public WindowNetClasses getEditNetRulesWindow() {
+        return editNetRulesWindow;
+    }
+
+    public WindowAssignNetClass getAssignNetClassesWindow() {
+        return assignNetClassesWindow;
+    }
+
+    public WindowPadstacks getPadstacksWindow() {
+        return padstacksWindow;
+    }
+
+    public WindowPackages getPackagesWindow() {
+        return packagesWindow;
+    }
+
+    public WindowIncompletes getIncompletesWindow() {
+        return incompletesWindow;
+    }
+
+    public WindowNets getNetInfoWindow() {
+        return netInfoWindow;
+    }
+
+    public WindowClearanceViolations getClearanceViolationsWindow() {
+        return clearanceViolationsWindow;
+    }
+
+    public WindowLengthViolations getLengthViolationsWindow() {
+        return lengthViolationsWindow;
+    }
+
+    public WindowUnconnectedRoute getUnconnectedRouteWindow() {
+        return unconnectedRouteWindow;
+    }
+
+    public WindowRouteStubs getRouteStubsWindow() {
+        return routeStubsWindow;
+    }
+
+    public WindowComponents getComponentsWindow() {
+        return componentsWindow;
+    }
+
+    public WindowLayerVisibility getLayerVisibilityWindow() {
+        return layerVisibilityWindow;
+    }
+
+    public WindowObjectVisibility getObjectVisibilityWindow() {
+        return objectVisibilityWindow;
+    }
+
+    public WindowDisplayMisc getDisplayMiscWindow() {
+        return displayMiscWindow;
+    }
+
+    public WindowSnapshot getSnapshotWindow() {
+        return snapshotWindow;
+    }
+
+    public ColorManager getColorManager() {
+        return colorManager;
+    }
+
+    public Collection<BoardTemporarySubWindow> getTemporarySubWindows() {
+        return temporarySubWindows;
     }
 
     /**

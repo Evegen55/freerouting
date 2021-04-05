@@ -74,7 +74,7 @@ public class InsertFoundConnectionAlgo
             curr_layer = curr_new_item.layer;
             if (!new_instance.insert_trace(curr_new_item))
             {
-                if (p_board.get_test_level().ordinal() >= TestLevel.CRITICAL_DEBUGGING_OUTPUT.ordinal())
+                if (p_board.getTestLevel().ordinal() >= TestLevel.CRITICAL_DEBUGGING_OUTPUT.ordinal())
                 {
                     FRLogger.warn("InsertFoundConnectionAlgo: insert trace failed for net #" + p_ctrl.net_no);
                 }
@@ -200,7 +200,7 @@ public class InsertFoundConnectionAlgo
                         --from_corner_no;
                     }
                 }
-                if (board.get_test_level().ordinal() >= TestLevel.ALL_DEBUGGING_OUTPUT.ordinal())
+                if (board.getTestLevel().ordinal() >= TestLevel.ALL_DEBUGGING_OUTPUT.ordinal())
                 {
                     FRLogger.warn("InsertFoundConnectionAlgo: violation corrected");
                 }
@@ -211,7 +211,7 @@ public class InsertFoundConnectionAlgo
                 break;
             }
         }
-        if (board.get_test_level().ordinal() < TestLevel.ALL_DEBUGGING_OUTPUT.ordinal())
+        if (board.getTestLevel().ordinal() < TestLevel.ALL_DEBUGGING_OUTPUT.ordinal())
         {
             for (int i = 0; i < p_trace.corners.length - 1; ++i)
             {
@@ -390,7 +390,7 @@ public class InsertFoundConnectionAlgo
         }
         if (via_info == null)
         {
-            if (this.board.get_test_level().ordinal() >= TestLevel.CRITICAL_DEBUGGING_OUTPUT.ordinal())
+            if (this.board.getTestLevel().ordinal() >= TestLevel.CRITICAL_DEBUGGING_OUTPUT.ordinal())
             {
                 FRLogger.warn("InsertFoundConnectionAlgo: via mask not found for net #" + ctrl.net_no);
             }
@@ -401,7 +401,7 @@ public class InsertFoundConnectionAlgo
                 this.ctrl.trace_clearance_class_no, this.ctrl.trace_half_width,
                 this.ctrl.max_shove_trace_recursion_depth, this.ctrl.max_shove_via_recursion_depth, this.board))
         {
-            if (this.board.get_test_level().ordinal() >= TestLevel.CRITICAL_DEBUGGING_OUTPUT.ordinal())
+            if (this.board.getTestLevel().ordinal() >= TestLevel.CRITICAL_DEBUGGING_OUTPUT.ordinal())
             {
                 FRLogger.warn("InsertFoundConnectionAlgo: forced via failed for net #" + ctrl.net_no);
             }

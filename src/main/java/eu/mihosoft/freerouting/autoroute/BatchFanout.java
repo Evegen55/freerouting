@@ -113,7 +113,7 @@ public class BatchFanout
             }
             --components_to_go;
         }
-        if (this.routing_board.get_test_level() != eu.mihosoft.freerouting.board.TestLevel.RELEASE_VERSION)
+        if (this.routing_board.getTestLevel() != eu.mihosoft.freerouting.board.TestLevel.RELEASE_VERSION)
         {
             FRLogger.warn("fanout pass: " + (p_pass_no + 1) + ", routed: " + routed_count
                     + ", not routed: " + not_routed_count + ", errors: " + insert_error_count);

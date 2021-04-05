@@ -78,7 +78,7 @@ public class ShoveTraceAlgo
         }
         ShapeTraceEntries shape_entries =
                 new ShapeTraceEntries(p_trace_shape, p_layer, p_net_no_arr, p_cl_type, p_from_side, board);
-        ShapeSearchTree search_tree = this.board.search_tree_manager.get_default_tree();
+        ShapeSearchTree search_tree = this.board.searchTreeManager.get_default_tree();
         Collection<Item> obstacles =
                 search_tree.overlapping_items_with_clearance(p_trace_shape, p_layer, new int[0], p_cl_type);
         obstacles.removeAll(get_ignore_items_at_tie_pins(p_trace_shape, p_layer, p_net_no_arr));
@@ -205,7 +205,7 @@ public class ShoveTraceAlgo
     public static double check(RoutingBoard p_board, LineSegment p_line_segment, boolean p_shove_to_the_left, int p_layer, int[] p_net_no_arr, int p_trace_half_width,
             int p_cl_type, int p_max_recursion_depth, int p_max_via_recursion_depth)
     {
-        ShapeSearchTree search_tree = p_board.search_tree_manager.get_default_tree();
+        ShapeSearchTree search_tree = p_board.searchTreeManager.get_default_tree();
         if (search_tree.is_clearance_compensation_used())
         {
             p_trace_half_width += search_tree.clearance_compensation_value(p_cl_type, p_layer);
@@ -388,7 +388,7 @@ public class ShoveTraceAlgo
         }
         ShapeTraceEntries shape_entries =
                 new ShapeTraceEntries(p_trace_shape, p_layer, p_net_no_arr, p_cl_type, p_from_side, board);
-        ShapeSearchTree search_tree = this.board.search_tree_manager.get_default_tree();
+        ShapeSearchTree search_tree = this.board.searchTreeManager.get_default_tree();
         Collection<Item> obstacles =
                 search_tree.overlapping_items_with_clearance(p_trace_shape, p_layer, new int[0], p_cl_type);
         obstacles.removeAll(get_ignore_items_at_tie_pins(p_trace_shape, p_layer, p_net_no_arr));
@@ -531,7 +531,7 @@ public class ShoveTraceAlgo
     {
         Item found_obstacle = null;
         IntBox found_obstacle_bounding_box = null;
-        ShapeSearchTree search_tree = this.board.search_tree_manager.get_default_tree();
+        ShapeSearchTree search_tree = this.board.searchTreeManager.get_default_tree();
         int[] check_net_no_arr;
         if (p_contact_pins == null)
         {

@@ -44,7 +44,7 @@ class CalcShapeAndFromSide
      */
     CalcShapeAndFromSide(PolylineTrace p_trace,  int p_index, boolean p_orthogonal, boolean p_in_shove_check)
     {
-        ShapeSearchTree search_tree = p_trace.board.search_tree_manager.get_default_tree();
+        ShapeSearchTree search_tree = p_trace.board.searchTreeManager.get_default_tree();
         TileShape curr_shape = p_trace.get_tree_shape(search_tree, p_index);
         CalcFromSide curr_from_side = null;
         boolean cut_off_at_start = false;
@@ -111,7 +111,7 @@ class CalcShapeAndFromSide
     private static Line calc_cutline_at_end(int p_index, PolylineTrace p_trace)
     {
         Polyline trace_lines = p_trace.polyline();
-        ShapeSearchTree search_tree = p_trace.board.search_tree_manager.get_default_tree();
+        ShapeSearchTree search_tree = p_trace.board.searchTreeManager.get_default_tree();
         if (p_index == trace_lines.arr.length - 3 ||
                 trace_lines.corner_approx(trace_lines.arr.length - 2).distance(trace_lines.corner_approx(p_index + 1))
                 < p_trace.get_compensated_half_width(search_tree))
@@ -136,7 +136,7 @@ class CalcShapeAndFromSide
     private static Line calc_cutline_at_start(int p_index, PolylineTrace p_trace)
     {
         Polyline trace_lines = p_trace.polyline();
-        ShapeSearchTree search_tree = p_trace.board.search_tree_manager.get_default_tree();
+        ShapeSearchTree search_tree = p_trace.board.searchTreeManager.get_default_tree();
         if (p_index == 0 ||
                 trace_lines.corner_approx(0).distance(trace_lines.corner_approx(p_index))
                 < p_trace.get_compensated_half_width(search_tree))

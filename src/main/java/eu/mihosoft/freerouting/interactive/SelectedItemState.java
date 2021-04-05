@@ -351,7 +351,7 @@ public class SelectedItemState extends InteractiveState
                 }
             }
         }
-        boolean with_delete_fixed = hdlg.getRoutingBoard().get_test_level() != TestLevel.RELEASE_VERSION;
+        boolean with_delete_fixed = hdlg.getRoutingBoard().getTestLevel() != TestLevel.RELEASE_VERSION;
         boolean all_items_removed;
         if (hdlg.settings.push_enabled)
         {

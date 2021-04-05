@@ -121,7 +121,7 @@ public class WindowAutorouteDetailParameter extends BoardSavableSubWindow
         speed_combo_box.addItem(this.speed_slow);
         speed_combo_box.addActionListener(new SpeedListener());
 
-        if (this.board_handling.getRoutingBoard().get_test_level() != eu.mihosoft.freerouting.board.TestLevel.RELEASE_VERSION)
+        if (this.board_handling.getRoutingBoard().getTestLevel() != eu.mihosoft.freerouting.board.TestLevel.RELEASE_VERSION)
         {
             gridbag_constraints.gridwidth = 2;
             javax.swing.JLabel speed_label = new javax.swing.JLabel();
@@ -458,7 +458,7 @@ public class WindowAutorouteDetailParameter extends BoardSavableSubWindow
             if (old_is_slow != new_is_slow)
             {
                 board_handling.getRoutingBoard().rules.set_slow_autoroute_algorithm(new_is_slow);
-                board_handling.getRoutingBoard().search_tree_manager.reset_compensated_trees();
+                board_handling.getRoutingBoard().searchTreeManager.reset_compensated_trees();
             }
         }
     }

@@ -150,7 +150,7 @@ public abstract class Item implements Drawable, SearchTreeObject, ObjectInfoPane
             FRLogger.warn("Item.get_tile_shape: eu.mihosoft.freerouting.board is null");
             return null;
         }
-        return get_tree_shape(this.board.search_tree_manager.get_default_tree(), p_index);
+        return get_tree_shape(this.board.searchTreeManager.get_default_tree(), p_index);
     }
 
     public int tree_shape_count(ShapeTree p_tree)
@@ -273,9 +273,9 @@ public abstract class Item implements Drawable, SearchTreeObject, ObjectInfoPane
     public void move_by(Vector p_vector)
     {
         board.item_list.save_for_undo(this);
-        board.search_tree_manager.remove(this);
+        board.searchTreeManager.remove(this);
         this.translate_by(p_vector);
-        board.search_tree_manager.insert(this);
+        board.searchTreeManager.insert(this);
         // let the observers syncronize the changes
         board.communication.observers.notify_changed(this);
     }
@@ -355,7 +355,7 @@ public abstract class Item implements Drawable, SearchTreeObject, ObjectInfoPane
         {
             return result;
         }
-        ShapeSearchTree default_tree = board.search_tree_manager.get_default_tree();
+        ShapeSearchTree default_tree = board.searchTreeManager.get_default_tree();
         for (int i = 0; i < tile_shape_count(); ++i)
         {
             TileShape curr_tile_shape = get_tile_shape(i);
@@ -421,7 +421,7 @@ public abstract class Item implements Drawable, SearchTreeObject, ObjectInfoPane
                         FRLogger.warn("Item.clearance_violations: unexpected  null shape");
                         continue;
                     }
-                    if (!this.board.search_tree_manager.is_clearance_compensation_used())
+                    if (!this.board.searchTreeManager.is_clearance_compensation_used())
                     {
                         double cl_offset = 0.5 *
                                 board.rules.clearance_matrix.value(curr_item.clearance_class, this.clearance_class, shape_layer(i));
@@ -852,7 +852,7 @@ public abstract class Item implements Drawable, SearchTreeObject, ObjectInfoPane
     public boolean validate()
     {
         boolean result = true;
-        if (!board.search_tree_manager.validate_entries(this))
+        if (!board.searchTreeManager.validate_entries(this))
         {
             result = false;
         }
@@ -1076,11 +1076,11 @@ public abstract class Item implements Drawable, SearchTreeObject, ObjectInfoPane
         }
         clearance_class = p_index;
         this.clear_derived_data();
-        if (this.board != null && this.board.search_tree_manager.is_clearance_compensation_used())
+        if (this.board != null && this.board.searchTreeManager.is_clearance_compensation_used())
         {
             // reinsert the item into the search tree, because the compensated shape has changed.
-            this.board.search_tree_manager.remove(this);
-            this.board.search_tree_manager.insert(this);
+            this.board.searchTreeManager.remove(this);
+            this.board.searchTreeManager.insert(this);
         }
     }
 

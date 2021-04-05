@@ -67,7 +67,7 @@ public class SortedRoomNeighbours
     public static CompleteExpansionRoom calculate(ExpansionRoom p_room, AutorouteEngine p_autoroute_engine)
     {
         int net_no = p_autoroute_engine.get_net_no();
-        TestLevel test_level = p_autoroute_engine.board.get_test_level();
+        TestLevel test_level = p_autoroute_engine.board.getTestLevel();
         SortedRoomNeighbours room_neighbours = calculate_neighbours(p_room, net_no, p_autoroute_engine.autoroute_search_tree,
                 p_autoroute_engine.generate_room_id_no(), test_level);
         

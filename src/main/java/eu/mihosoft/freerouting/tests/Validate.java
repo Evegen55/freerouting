@@ -51,7 +51,7 @@ public class Validate
      */
     public static boolean check(String p_s, BasicBoard p_board)
     {
-        if (p_board.get_test_level() == eu.mihosoft.freerouting.board.TestLevel.RELEASE_VERSION)
+        if (p_board.getTestLevel() == eu.mihosoft.freerouting.board.TestLevel.RELEASE_VERSION)
         {
             return true;
         }
@@ -150,8 +150,8 @@ public class Validate
         for (int i = 0; i < offset_shapes.length; ++i)
         {
             Collection<Item> obstacles =
-                    p_board.search_tree_manager.get_default_tree().overlapping_items_with_clearance(offset_shapes[i],
-                    p_layer, p_net_no_arr, p_cl_type);
+                    p_board.searchTreeManager.get_default_tree().overlapping_items_with_clearance(offset_shapes[i],
+                                                                                                  p_layer, p_net_no_arr, p_cl_type);
             Iterator<Item> it = obstacles.iterator();
             while(it.hasNext())
             {

@@ -198,10 +198,10 @@ public class WindowClearanceMatrix extends BoardSavableSubWindow
             return;
         }
         clearance_matrix.append_class(new_name);
-        if (routing_board.get_test_level() == eu.mihosoft.freerouting.board.TestLevel.RELEASE_VERSION)
+        if (routing_board.getTestLevel() == eu.mihosoft.freerouting.board.TestLevel.RELEASE_VERSION)
         {
             // clearance compensation is only used, if there are only the clearance classes default and null.
-            routing_board.search_tree_manager.set_clearance_compensation_used(false);
+            routing_board.searchTreeManager.set_clearance_compensation_used(false);
         }
         adjust_clearance_table();
     }
@@ -235,7 +235,7 @@ public class WindowClearanceMatrix extends BoardSavableSubWindow
                             FRLogger.warn("WindowClearanceMatrix.prune_clearance_matrix error removing clearance class");
                             return;
                         }
-                        routing_board.search_tree_manager.clearance_class_removed(i);
+                        routing_board.searchTreeManager.clearance_class_removed(i);
                         adjust_clearance_table();
                     }
                     break;
@@ -471,7 +471,7 @@ public class WindowClearanceMatrix extends BoardSavableSubWindow
             if (items_already_assigned)
             {
                 // force reinserting all item into the searck tree, because their tree shapes may have changed
-                board_handling.getRoutingBoard().search_tree_manager.clearance_value_changed();
+                board_handling.getRoutingBoard().searchTreeManager.clearance_value_changed();
             }
         }
         

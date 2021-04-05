@@ -289,7 +289,7 @@ public class RoutingBoard extends BasicBoard implements java.io.Serializable
         FloatPoint to_point = p_line_segment.end_point_approx();
         double line_length = to_point.distance(from_point);
         double ok_length = Integer.MAX_VALUE;
-        ShapeSearchTree default_tree = this.search_tree_manager.get_default_tree();
+        ShapeSearchTree default_tree = this.searchTreeManager.get_default_tree();
 
         Collection<TreeEntry> obstacle_entries = default_tree.overlapping_tree_entries_with_clearance(shape_to_check, p_layer, p_net_no_arr, p_cl_class_no);
 
@@ -661,7 +661,7 @@ public class RoutingBoard extends BasicBoard implements java.io.Serializable
             int p_clearance_class_no, int p_max_recursion_depth, int p_max_via_recursion_depth,
             int p_max_spring_over_recursion_depth)
     {
-        ShapeSearchTree search_tree = search_tree_manager.get_default_tree();
+        ShapeSearchTree search_tree = searchTreeManager.get_default_tree();
         int compensated_half_width = p_half_width + search_tree.clearance_compensation_value(p_clearance_class_no, p_layer);
         TileShape[] trace_shapes = p_polyline.offset_shapes(compensated_half_width,
                 0, p_polyline.arr.length - 1);
@@ -726,7 +726,7 @@ public class RoutingBoard extends BasicBoard implements java.io.Serializable
                 picked_trace = curr_picked_trace;
             }
         }
-        ShapeSearchTree search_tree = search_tree_manager.get_default_tree();
+        ShapeSearchTree search_tree = searchTreeManager.get_default_tree();
         int compensated_half_width = p_half_width + search_tree.clearance_compensation_value(p_clearance_class_no, p_layer);
         ShoveTraceAlgo shove_trace_algo = new ShoveTraceAlgo(this);
         Polyline new_polyline = shove_trace_algo.spring_over_obstacles(p_polyline,
@@ -1240,7 +1240,7 @@ public class RoutingBoard extends BasicBoard implements java.io.Serializable
         this.rules.set_ignore_conduction(!p_value);
         if (something_changed)
         {
-            this.search_tree_manager.reinsert_tree_items();
+            this.searchTreeManager.reinsert_tree_items();
         }
     }
 
