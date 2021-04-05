@@ -82,7 +82,7 @@ public class InteractiveState
     public InteractiveState mouse_moved()
     {
         FloatPoint mouse_position =
-                hdlg.coordinate_transform.board_to_user(hdlg.get_current_mouse_position());
+                hdlg.coordinateTransform.board_to_user(hdlg.get_current_mouse_position());
         hdlg.screen_messages.set_mouse_position(mouse_position);
         return this;
     }
@@ -115,7 +115,7 @@ public class InteractiveState
     public InteractiveState mouseWheelMoved(int p_rotation)
     {
         java.awt.geom.Point2D screen_mouse_pos =
-                hdlg.graphicsContext.coordinate_transform.board_to_screen(hdlg.get_current_mouse_position());
+                hdlg.graphicsContext.coordinateTransform.board_to_screen(hdlg.get_current_mouse_position());
         hdlg.get_panel().zoomWithMouseWheel(screen_mouse_pos, p_rotation);
         return this;
     }
@@ -128,10 +128,10 @@ public class InteractiveState
     {
         InteractiveState result = this;
         java.awt.geom.Point2D screen_mouse_pos =
-                hdlg.graphicsContext.coordinate_transform.board_to_screen(hdlg.get_current_mouse_position());
+                hdlg.graphicsContext.coordinateTransform.board_to_screen(hdlg.get_current_mouse_position());
         if (p_key_char == 'a')
         {
-            hdlg.get_panel().boardFrame.zoom_all();
+            hdlg.get_panel().boardFrame.zoomAll();
         }
         else if (p_key_char == 'c')
         {
@@ -143,15 +143,15 @@ public class InteractiveState
         }
         else if (p_key_char =='h')
         {
-            hdlg.get_panel().boardFrame.select_previous_snapshot();
+            hdlg.get_panel().boardFrame.selectPreviousSnapshot();
         }
         if (p_key_char == 'j')
         {
-            hdlg.get_panel().boardFrame.goto_selected_snapshot();
+            hdlg.get_panel().boardFrame.gotoSelectedSnapshot();
         }
         else if (p_key_char =='k')
         {
-            hdlg.get_panel().boardFrame.select_next_snapshot();
+            hdlg.get_panel().boardFrame.selectNextSnapshot();
         }
         else if (p_key_char == 'o')
         {

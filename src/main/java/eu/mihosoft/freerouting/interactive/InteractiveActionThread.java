@@ -239,7 +239,7 @@ public abstract class InteractiveActionThread extends Thread implements eu.mihos
             String end_message = resources.getString("logfile") + " " + curr_message;
             hdlg.screen_messages.setStatusMessage(end_message);
             hdlg.set_board_read_only(saved_board_read_only);
-            hdlg.get_panel().boardFrame.repaint_all();
+            hdlg.get_panel().boardFrame.repaintAll();
         }
         private final java.io.InputStream input_stream;
     }

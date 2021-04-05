@@ -83,7 +83,7 @@ public class BatchOptRoute
     {
         boolean route_improved = false;
         int via_count_before = this.routing_board.get_vias().size();
-        double trace_length_before = this.thread.hdlg.coordinate_transform.board_to_user(this.routing_board.cumulative_trace_length());
+        double trace_length_before = this.thread.hdlg.coordinateTransform.board_to_user(this.routing_board.cumulative_trace_length());
         this.thread.hdlg.screen_messages.set_post_route_info(via_count_before, trace_length_before);
         this.sorted_route_items = new ReadSortedRouteItems();
         this.min_cumulative_trace_length_before = calc_weighted_trace_length(routing_board);
@@ -194,7 +194,7 @@ public class BatchOptRoute
                 this.min_cumulative_trace_length_before = Math.min(this.min_cumulative_trace_length_before, trace_length_after);
             }
             routing_board.pop_snapshot();
-            double new_trace_length = this.thread.hdlg.coordinate_transform.board_to_user(this.routing_board.cumulative_trace_length());
+            double new_trace_length = this.thread.hdlg.coordinateTransform.board_to_user(this.routing_board.cumulative_trace_length());
             this.thread.hdlg.screen_messages.set_post_route_info(via_count_after, new_trace_length);
         }
         else

@@ -224,6 +224,6 @@ public class MenuState extends InteractiveState
     
     public void set_toolbar()
     {
-        hdlg.get_panel().boardFrame.set_menu_toolbar();
+        hdlg.get_panel().boardFrame.setMenuToolbar();
     }
 }

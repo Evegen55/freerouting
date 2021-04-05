@@ -46,7 +46,7 @@ public class WindowUnconnectedRoute extends WindowObjectListWithFilter
         this.resources = java.util.ResourceBundle.getBundle("eu.mihosoft.freerouting.gui.CleanupWindows", p_board_frame.get_locale());
         this.setTitle(resources.getString("unconnected_route"));
         this.list_empty_message.setText(resources.getString("no_unconnected_route_found"));
-        p_board_frame.set_context_sensitive_help(this, "WindowObjectList_UnconnectedRoute");
+        p_board_frame.setContextSensitiveHelp(this, "WindowObjectList_UnconnectedRoute");
     }
     
     protected void fill_list()

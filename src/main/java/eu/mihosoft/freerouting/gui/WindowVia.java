@@ -161,7 +161,7 @@ public class WindowVia extends BoardSavableSubWindow
         remove_rule_button.addActionListener(new RemoveViaRuleListener());
         via_rule_button_panel.add(remove_rule_button);
         
-        p_board_frame.set_context_sensitive_help(this, "WindowVia");
+        p_board_frame.setContextSensitiveHelp(this, "WindowVia");
         
         this.add(main_panel);
         this.pack();
@@ -201,9 +201,9 @@ public class WindowVia extends BoardSavableSubWindow
                 curr_subwindow.dispose();
             }
         }
-        if (board_frame.edit_vias_window != null)
+        if (board_frame.editViasWindow != null)
         {
-            board_frame.edit_vias_window.dispose();
+            board_frame.editViasWindow.dispose();
         }
         super.dispose();
     }
@@ -233,7 +233,7 @@ public class WindowVia extends BoardSavableSubWindow
             {
                 object_list.add( board_library.get_via_padstack(i));
             }
-            eu.mihosoft.freerouting.board.CoordinateTransform coordinate_transform = board_frame.boardPanel.boardHandling.coordinate_transform;
+            eu.mihosoft.freerouting.board.CoordinateTransform coordinate_transform = board_frame.boardPanel.boardHandling.coordinateTransform;
             WindowObjectInfo new_window =
                     WindowObjectInfo.display(resources.getString("available_via_padstacks"), object_list, board_frame, coordinate_transform);
             java.awt.Point loc = getLocation();
@@ -338,7 +338,7 @@ public class WindowVia extends BoardSavableSubWindow
             int from_layer_no =  pcb.layer_structure.get_no(start_layer);
             int to_layer_no = pcb.layer_structure.get_no(end_layer);
             eu.mihosoft.freerouting.geometry.planar.ConvexShape[] padstack_shapes = new eu.mihosoft.freerouting.geometry.planar.ConvexShape[pcb.layer_structure.arr.length];
-            eu.mihosoft.freerouting.board.CoordinateTransform coordinate_transform = board_frame.boardPanel.boardHandling.coordinate_transform;
+            eu.mihosoft.freerouting.board.CoordinateTransform coordinate_transform = board_frame.boardPanel.boardHandling.coordinateTransform;
             boolean shape_exists = false;
             for (int i = from_layer_no; i <= to_layer_no; ++i)
             {
@@ -446,7 +446,7 @@ public class WindowVia extends BoardSavableSubWindow
             {
                 object_list.add(via_infos.get(i));
             }
-            eu.mihosoft.freerouting.board.CoordinateTransform coordinate_transform = board_frame.boardPanel.boardHandling.coordinate_transform;
+            eu.mihosoft.freerouting.board.CoordinateTransform coordinate_transform = board_frame.boardPanel.boardHandling.coordinateTransform;
             WindowObjectInfo new_window =
                     WindowObjectInfo.display(resources.getString("available_vias"), object_list, board_frame, coordinate_transform);
             java.awt.Point loc = getLocation();
@@ -461,7 +461,7 @@ public class WindowVia extends BoardSavableSubWindow
     {
         public void actionPerformed(java.awt.event.ActionEvent p_evt)
         {
-            board_frame.edit_vias_window.setVisible(true);
+            board_frame.editViasWindow.setVisible(true);
         }
     }
     
@@ -479,7 +479,7 @@ public class WindowVia extends BoardSavableSubWindow
             {
                 object_list.add(selected_objects.get(i));
             }
-            eu.mihosoft.freerouting.board.CoordinateTransform coordinate_transform = board_frame.boardPanel.boardHandling.coordinate_transform;
+            eu.mihosoft.freerouting.board.CoordinateTransform coordinate_transform = board_frame.boardPanel.boardHandling.coordinateTransform;
             WindowObjectInfo new_window =
                     WindowObjectInfo.display(resources.getString("selected_rule"), object_list, board_frame, coordinate_transform);
             java.awt.Point loc = getLocation();

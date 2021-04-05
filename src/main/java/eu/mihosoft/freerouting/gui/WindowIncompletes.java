@@ -42,7 +42,7 @@ public class WindowIncompletes extends WindowObjectListWithFilter
                 java.util.ResourceBundle.getBundle("eu.mihosoft.freerouting.gui.Default", p_board_frame.get_locale());
         this.setTitle(resources.getString("incompletes"));
         this.list_empty_message.setText(resources.getString("route_completed"));
-        p_board_frame.set_context_sensitive_help(this, "WindowObjectList_Incompletes");
+        p_board_frame.setContextSensitiveHelp(this, "WindowObjectList_Incompletes");
     }
     
     

@@ -242,27 +242,27 @@ public class GUIDefaultsFile
         out_file.start_scope();
         out_file.write("windows");
         write_frame_scope(this.board_frame, "board_frame");
-        write_frame_scope(this.board_frame.color_manager, "color_manager");
-        write_frame_scope(this.board_frame.layer_visibility_window, "layer_visibility");
-        write_frame_scope(this.board_frame.object_visibility_window, "object_visibility");
-        write_frame_scope(this.board_frame.display_misc_window, "display_miscellanious");
-        write_frame_scope(this.board_frame.snapshot_window, "snapshots");
-        write_frame_scope(this.board_frame.select_parameter_window, "select_parameter");
-        write_frame_scope(this.board_frame.route_parameter_window, "route_parameter");
-        write_frame_scope(this.board_frame.route_parameter_window.manual_rule_window, "manual_rules");
-        write_frame_scope(this.board_frame.route_parameter_window.detail_window, "route_details");
-        write_frame_scope(this.board_frame.move_parameter_window, "move_parameter");
-        write_frame_scope(this.board_frame.clearance_matrix_window, "clearance_matrix");
-        write_frame_scope(this.board_frame.via_window, "via_rules");
-        write_frame_scope(this.board_frame.edit_vias_window, "edit_vias");
-        write_frame_scope(this.board_frame.edit_net_rules_window, "edit_net_rules");
-        write_frame_scope(this.board_frame.assign_net_classes_window, "assign_net_rules");
-        write_frame_scope(this.board_frame.padstacks_window, "padstack_info");
-        write_frame_scope(this.board_frame.packages_window, "package_info");
-        write_frame_scope(this.board_frame.components_window, "component_info");
-        write_frame_scope(this.board_frame.net_info_window, "net_info");
-        write_frame_scope(this.board_frame.incompletes_window, "incompletes_info");
-        write_frame_scope(this.board_frame.clearance_violations_window, "violations_info");
+        write_frame_scope(this.board_frame.colorManager, "color_manager");
+        write_frame_scope(this.board_frame.layerVisibilityWindow, "layer_visibility");
+        write_frame_scope(this.board_frame.objectVisibilityWindow, "object_visibility");
+        write_frame_scope(this.board_frame.displayMiscWindow, "display_miscellanious");
+        write_frame_scope(this.board_frame.snapshotWindow, "snapshots");
+        write_frame_scope(this.board_frame.selectParameterWindow, "select_parameter");
+        write_frame_scope(this.board_frame.routeParameterWindow, "route_parameter");
+        write_frame_scope(this.board_frame.routeParameterWindow.manual_rule_window, "manual_rules");
+        write_frame_scope(this.board_frame.routeParameterWindow.detail_window, "route_details");
+        write_frame_scope(this.board_frame.moveParameterWindow, "move_parameter");
+        write_frame_scope(this.board_frame.clearanceMatrixWindow, "clearance_matrix");
+        write_frame_scope(this.board_frame.viaWindow, "via_rules");
+        write_frame_scope(this.board_frame.editViasWindow, "edit_vias");
+        write_frame_scope(this.board_frame.editNetRulesWindow, "edit_net_rules");
+        write_frame_scope(this.board_frame.assignNetClassesWindow, "assign_net_rules");
+        write_frame_scope(this.board_frame.padstacksWindow, "padstack_info");
+        write_frame_scope(this.board_frame.packagesWindow, "package_info");
+        write_frame_scope(this.board_frame.componentsWindow, "component_info");
+        write_frame_scope(this.board_frame.netInfoWindow, "net_info");
+        write_frame_scope(this.board_frame.incompletesWindow, "incompletes_info");
+        write_frame_scope(this.board_frame.clearanceViolationsWindow, "violations_info");
         out_file.end_scope();
     }
     
@@ -316,87 +316,87 @@ public class GUIDefaultsFile
         }
         else if (p_frame == Keyword.COLOR_MANAGER)
         {
-            curr_frame = this.board_frame.color_manager;
+            curr_frame = this.board_frame.colorManager;
         }
         else if (p_frame == Keyword.OBJECT_VISIBILITY)
         {
-            curr_frame = this.board_frame.object_visibility_window;
+            curr_frame = this.board_frame.objectVisibilityWindow;
         }
         else if (p_frame == Keyword.LAYER_VISIBILITY)
         {
-            curr_frame = this.board_frame.layer_visibility_window;
+            curr_frame = this.board_frame.layerVisibilityWindow;
         }
         else if (p_frame == Keyword.DISPLAY_MISCELLANIOUS)
         {
-            curr_frame = this.board_frame.display_misc_window;
+            curr_frame = this.board_frame.displayMiscWindow;
         }
         else if (p_frame == Keyword.SNAPSHOTS)
         {
-            curr_frame = this.board_frame.snapshot_window;
+            curr_frame = this.board_frame.snapshotWindow;
         }
         else if (p_frame == Keyword.SELECT_PARAMETER)
         {
-            curr_frame = this.board_frame.select_parameter_window;
+            curr_frame = this.board_frame.selectParameterWindow;
         }
         else if (p_frame == Keyword.ROUTE_PARAMETER)
         {
-            curr_frame = this.board_frame.route_parameter_window;
+            curr_frame = this.board_frame.routeParameterWindow;
         }
         else if (p_frame == Keyword.MANUAL_RULES)
         {
-            curr_frame = this.board_frame.route_parameter_window.manual_rule_window;
+            curr_frame = this.board_frame.routeParameterWindow.manual_rule_window;
         }
         else if (p_frame == Keyword.ROUTE_DETAILS)
         {
-            curr_frame = this.board_frame.route_parameter_window.detail_window;
+            curr_frame = this.board_frame.routeParameterWindow.detail_window;
         }
         else if (p_frame == Keyword.MOVE_PARAMETER)
         {
-            curr_frame = this.board_frame.move_parameter_window;
+            curr_frame = this.board_frame.moveParameterWindow;
         }
         else if (p_frame == Keyword.CLEARANCE_MATRIX)
         {
-            curr_frame = this.board_frame.clearance_matrix_window;
+            curr_frame = this.board_frame.clearanceMatrixWindow;
         }
         else if (p_frame == Keyword.VIA_RULES)
         {
-            curr_frame = this.board_frame.via_window;
+            curr_frame = this.board_frame.viaWindow;
         }
         else if (p_frame == Keyword.EDIT_VIAS)
         {
-            curr_frame = this.board_frame.edit_vias_window;
+            curr_frame = this.board_frame.editViasWindow;
         }
         else if (p_frame == Keyword.EDIT_NET_RULES)
         {
-            curr_frame = this.board_frame.edit_net_rules_window;
+            curr_frame = this.board_frame.editNetRulesWindow;
         }
         else if (p_frame == Keyword.ASSIGN_NET_RULES)
         {
-            curr_frame = this.board_frame.assign_net_classes_window;
+            curr_frame = this.board_frame.assignNetClassesWindow;
         }
         else if (p_frame == Keyword.PADSTACK_INFO)
         {
-            curr_frame = this.board_frame.padstacks_window;
+            curr_frame = this.board_frame.padstacksWindow;
         }
         else if (p_frame == Keyword.PACKAGE_INFO)
         {
-            curr_frame = this.board_frame.packages_window;
+            curr_frame = this.board_frame.packagesWindow;
         }
         else if (p_frame == Keyword.COMPONENT_INFO)
         {
-            curr_frame = this.board_frame.components_window;
+            curr_frame = this.board_frame.componentsWindow;
         }
         else if (p_frame == Keyword.NET_INFO)
         {
-            curr_frame = this.board_frame.net_info_window;
+            curr_frame = this.board_frame.netInfoWindow;
         }
         else if (p_frame == Keyword.INCOMPLETES_INFO)
         {
-            curr_frame = this.board_frame.incompletes_window;
+            curr_frame = this.board_frame.incompletesWindow;
         }
         else if (p_frame == Keyword.VIOLATIONS_INFO)
         {
-            curr_frame = this.board_frame.clearance_violations_window;
+            curr_frame = this.board_frame.clearanceViolationsWindow;
         }
         else
         {
@@ -724,7 +724,7 @@ public class GUIDefaultsFile
             return false;
         }
         this.board_handling.graphicsContext.other_color_table.set_background_color(curr_color);
-        this.board_frame.set_board_background(curr_color);
+        this.board_frame.setBoardBackground(curr_color);
         Object next_token = this.scanner.next_token();
         if (next_token != Keyword.CLOSED_BRACKET)
         {

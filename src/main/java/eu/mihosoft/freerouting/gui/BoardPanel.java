@@ -89,12 +89,16 @@ public class BoardPanel extends JPanel {
             robot = null;
         }
         this.boardFrame = boardFrame;
-        this.scrollPane = this.boardFrame.scroll_pane;
+        this.scrollPane = this.boardFrame.scrollPane;
         defaultInit(locale);
     }
 
     public BoardHandling getBoardHandling() {
         return boardHandling;
+    }
+
+    public void setBoardHandling(final BoardHandling boardHandling) {
+        this.boardHandling = boardHandling;
     }
 
     private void defaultInit(Locale locale) {
@@ -199,7 +203,7 @@ public class BoardPanel extends JPanel {
             if (curr_menu != null) {
                 int curr_x = evt.getX();
                 int curr_y = evt.getY();
-                if (curr_menu == popupMenuDynamicRoute && boardFrame.is_web_start) {
+                if (curr_menu == popupMenuDynamicRoute && false) { // TODO: 04.04.2021 remove after checking 
                     int dx = curr_menu.getWidth();
                     if (dx <= 0) {
                         // force the width to be calculated
@@ -359,8 +363,8 @@ public class BoardPanel extends JPanel {
      * Selects the p_signal_layer_no-th layer in the select_parameter_window.
      */
     public void setSelectedSignalLayer(int p_signal_layer_no) {
-        if (boardFrame.select_parameter_window != null) {
-            boardFrame.select_parameter_window.select(p_signal_layer_no);
+        if (boardFrame.selectParameterWindow != null) {
+            boardFrame.selectParameterWindow.select(p_signal_layer_no);
             popupMenuDynamicRoute.disable_layer_item(p_signal_layer_no);
             popupMenuStitchRoute.disable_layer_item(p_signal_layer_no);
             popupMenuCopy.disable_layer_item(p_signal_layer_no);
@@ -408,7 +412,7 @@ public class BoardPanel extends JPanel {
         if (robot == null) {
             return;
         }
-        Point absolute_panel_location = boardFrame.absolute_panel_location();
+        Point absolute_panel_location = boardFrame.absolutePanelLocation();
         Point viewPosition = getViewportPosition();
         int x = (int) Math.round(absolute_panel_location.getX() - viewPosition.getX() + p_location.getX()) + 1;
         int y = (int) Math.round(absolute_panel_location.getY() - viewPosition.getY() + p_location.getY() + 1);

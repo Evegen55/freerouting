@@ -44,7 +44,7 @@ public class WindowClearanceViolations extends WindowObjectListWithFilter
         this.resources = java.util.ResourceBundle.getBundle("eu.mihosoft.freerouting.gui.WindowClearanceViolations", p_board_frame.get_locale());
         this.setTitle(resources.getString("title"));
         this.list_empty_message.setText(resources.getString("list_empty_message"));
-        p_board_frame.set_context_sensitive_help(this, "WindowObjectList_ClearanceViolations");
+        p_board_frame.setContextSensitiveHelp(this, "WindowObjectList_ClearanceViolations");
     }
     
     
@@ -137,7 +137,7 @@ public class WindowClearanceViolations extends WindowObjectListWithFilter
         {
             this.violation = p_violation;
             FloatPoint board_location = p_violation.shape.centre_of_gravity();
-            this.location = board_frame.boardPanel.boardHandling.coordinate_transform.board_to_user(board_location);
+            this.location = board_frame.boardPanel.boardHandling.coordinateTransform.board_to_user(board_location);
         }
         
         public String toString()

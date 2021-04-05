@@ -38,14 +38,6 @@ public class MainGUI extends JFrame {
      * The list of open board frames
      */
     private final Collection<BoardFrame> boardFrames = new LinkedList<>();
-    /**
-     * A Frame with routing demonstrations in the net.
-     */
-    private WindowNetSamples windowNetDemonstrations;
-    /**
-     * A Frame with sample board designs in the net.
-     */
-    private WindowNetSamples windowNetSampleDesigns;
 
     private static final TestLevel DEBUG_LEVEL = TestLevel.CRITICAL_DEBUGGING_OUTPUT;
 
@@ -87,39 +79,9 @@ public class MainGUI extends JFrame {
         gridbag.setConstraints(messageField, gridBagConstraints);
         mainPanel.add(messageField, gridBagConstraints);
 
-        if (startupOptions.getDemoOption()) {
-            addDemoButtons(gridbag, gridBagConstraints);
-        }
-
         this.addWindowListener(new WindowStateListener());
         pack();
         setSize(620, 300);
-    }
-
-    private void addDemoButtons(final GridBagLayout gridbag, final GridBagConstraints gridBagConstraints) {
-        final JButton demonstrationButton = new JButton();
-        final JButton sampleBoardButton = new JButton();
-
-        windowNetDemonstrations = new WindowNetDemonstrations(locale);
-        final Point location = getLocation();
-        windowNetDemonstrations.setLocation((int) location.getX() + 50, (int) location.getY() + 50);
-
-        windowNetSampleDesigns = new WindowNetSampleDesigns(locale);
-        windowNetSampleDesigns.setLocation((int) location.getX() + 90, (int) location.getY() + 90);
-
-        demonstrationButton.setText(resources.getString("router_demonstrations"));
-        demonstrationButton.setToolTipText(resources.getString("router_demonstrations_tooltip"));
-        demonstrationButton.addActionListener(actionEvent -> windowNetDemonstrations.setVisible(true));
-
-        gridbag.setConstraints(demonstrationButton, gridBagConstraints);
-        mainPanel.add(demonstrationButton, gridBagConstraints);
-
-        sampleBoardButton.setText(resources.getString("sample_designs"));
-        sampleBoardButton.setToolTipText(resources.getString("sample_designs_tooltip"));
-        sampleBoardButton.addActionListener(actionEvent -> windowNetSampleDesigns.setVisible(true));
-
-        gridbag.setConstraints(sampleBoardButton, gridBagConstraints);
-        mainPanel.add(sampleBoardButton, gridBagConstraints);
     }
 
     /**
@@ -281,16 +243,6 @@ public class MainGUI extends JFrame {
             if (exitProgram) {
                 exitForm(evt);
             }
-        }
-
-        @Override
-        public void windowIconified(WindowEvent evt) {
-            windowNetSampleDesigns.parent_iconified();
-        }
-
-        @Override
-        public void windowDeiconified(WindowEvent evt) {
-            windowNetSampleDesigns.parent_deiconified();
         }
     }
 

@@ -45,7 +45,7 @@ public class WindowPadstacks extends WindowObjectListWithFilter
         java.util.ResourceBundle resources = 
                 java.util.ResourceBundle.getBundle("eu.mihosoft.freerouting.gui.Default", p_board_frame.get_locale());
         this.setTitle(resources.getString("padstacks"));
-        p_board_frame.set_context_sensitive_help(this, "WindowObjectList_LibraryPadstacks");
+        p_board_frame.setContextSensitiveHelp(this, "WindowObjectList_LibraryPadstacks");
     }
     
     /**

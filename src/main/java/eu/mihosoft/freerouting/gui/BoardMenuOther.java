@@ -45,7 +45,7 @@ public class BoardMenuOther extends javax.swing.JMenu
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
             {
-                other_menu.board_frame.snapshot_window.setVisible(true);
+                other_menu.board_frame.snapshotWindow.setVisible(true);
             }
         });
         

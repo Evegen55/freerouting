@@ -42,7 +42,7 @@ public class BoardMenuInfo extends javax.swing.JMenu
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
             {
-                info_menu.board_frame.packages_window.setVisible(true);
+                info_menu.board_frame.packagesWindow.setVisible(true);
             }
         });
         info_menu.add(package_window);
@@ -53,7 +53,7 @@ public class BoardMenuInfo extends javax.swing.JMenu
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
             {
-                info_menu.board_frame.padstacks_window.setVisible(true);
+                info_menu.board_frame.padstacksWindow.setVisible(true);
             }
         });
         info_menu.add(padstacks_window);
@@ -64,7 +64,7 @@ public class BoardMenuInfo extends javax.swing.JMenu
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
             {
-                info_menu.board_frame.components_window.setVisible(true);
+                info_menu.board_frame.componentsWindow.setVisible(true);
             }
         });
         info_menu.add(components_window);
@@ -75,7 +75,7 @@ public class BoardMenuInfo extends javax.swing.JMenu
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
             {
-                info_menu.board_frame.incompletes_window.setVisible(true);
+                info_menu.board_frame.incompletesWindow.setVisible(true);
             }
         });
         info_menu.add(incompletes_window);
@@ -87,7 +87,7 @@ public class BoardMenuInfo extends javax.swing.JMenu
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
             {
-                info_menu.board_frame.length_violations_window.setVisible(true);
+                info_menu.board_frame.lengthViolationsWindow.setVisible(true);
             }
         });
         info_menu.add(length_violations_window);
@@ -98,7 +98,7 @@ public class BoardMenuInfo extends javax.swing.JMenu
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
             {
-                info_menu.board_frame.clearance_violations_window.setVisible(true);
+                info_menu.board_frame.clearanceViolationsWindow.setVisible(true);
             }
         });
         info_menu.add(clearance_violations_window);
@@ -109,7 +109,7 @@ public class BoardMenuInfo extends javax.swing.JMenu
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
             {
-                info_menu.board_frame.unconnected_route_window.setVisible(true);
+                info_menu.board_frame.unconnectedRouteWindow.setVisible(true);
             }
         });
         info_menu.add(unconnnected_route_window);
@@ -120,7 +120,7 @@ public class BoardMenuInfo extends javax.swing.JMenu
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
             {
-                info_menu.board_frame.route_stubs_window.setVisible(true);
+                info_menu.board_frame.routeStubsWindow.setVisible(true);
             }
         });
         info_menu.add(route_stubs_window);

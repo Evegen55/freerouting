@@ -31,6 +31,7 @@ import java.awt.geom.Point2D;
 import java.io.File;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.util.Collection;
 import java.util.Set;
@@ -144,7 +145,7 @@ public class BoardHandling extends BoardHandlingImpl {
         if (boardIsReadOnly) {
             return;
         }
-        double edge_to_turn_dist = this.coordinate_transform.user_to_board(p_value);
+        double edge_to_turn_dist = this.coordinateTransform.user_to_board(p_value);
         if (edge_to_turn_dist != board.rules.get_pin_edge_to_turn_dist()) {
             // unfix the pin exit stubs
             Collection<eu.mihosoft.freerouting.board.Pin> pin_list = board.get_pins();
@@ -357,7 +358,7 @@ public class BoardHandling extends BoardHandlingImpl {
      */
     public void toggle_ratsnest() {
         if (ratsnest == null || ratsnest.is_hidden()) {
-            create_ratsnest();
+            createRatsnest();
         } else {
             ratsnest = null;
         }
@@ -380,7 +381,7 @@ public class BoardHandling extends BoardHandlingImpl {
     /**
      * Displays all incomplete connections.
      */
-    public void create_ratsnest() {
+    public void createRatsnest() {
         ratsnest = new RatsNest(this.board, this.locale);
         Integer incomplete_count = ratsnest.incomplete_count();
         Integer length_violation_count = ratsnest.length_violation_count();
@@ -488,7 +489,7 @@ public class BoardHandling extends BoardHandlingImpl {
 
         // create the interactive settings with default
         double unit_factor = p_board_communication.coordinateTransform.board_to_dsn(1);
-        this.coordinate_transform = new CoordinateTransform(1, p_board_communication.unit, unit_factor, p_board_communication.unit);
+        this.coordinateTransform = new CoordinateTransform(1, p_board_communication.unit, unit_factor, p_board_communication.unit);
 
         // create a graphics context for the board
         Dimension panel_size = panel.getPreferredSize();
@@ -499,9 +500,9 @@ public class BoardHandling extends BoardHandlingImpl {
      * Changes the factor of the user unit.
      */
     public void change_user_unit_factor(double p_new_factor) {
-        CoordinateTransform old_transform = this.coordinate_transform;
-        this.coordinate_transform =
-                new CoordinateTransform(p_new_factor, old_transform.user_unit,
+        CoordinateTransform old_transform = this.coordinateTransform;
+        this.coordinateTransform =
+                new CoordinateTransform(p_new_factor, old_transform.userUnit,
                                         old_transform.board_unit_factor, old_transform.board_unit);
     }
 
@@ -509,9 +510,9 @@ public class BoardHandling extends BoardHandlingImpl {
      * Changes the user unit.
      */
     public void change_user_unit(Unit p_unit) {
-        CoordinateTransform old_transform = this.coordinate_transform;
-        this.coordinate_transform =
-                new CoordinateTransform(old_transform.user_unit_factor, p_unit,
+        CoordinateTransform old_transform = this.coordinateTransform;
+        this.coordinateTransform =
+                new CoordinateTransform(old_transform.userUnitFactor, p_unit,
                                         old_transform.board_unit_factor, old_transform.board_unit);
     }
 
@@ -658,7 +659,7 @@ public class BoardHandling extends BoardHandlingImpl {
         }
         if (interactive_state != null && graphicsContext != null) {
             FloatPoint location =
-                    graphicsContext.coordinate_transform.screen_to_board(p_point);
+                    graphicsContext.coordinateTransform.screen_to_board(p_point);
             InteractiveState return_state =
                     interactive_state.left_button_clicked(location);
             if (return_state != interactive_state && return_state != null) {
@@ -678,7 +679,7 @@ public class BoardHandling extends BoardHandlingImpl {
         }
         if (interactive_state != null && graphicsContext != null) {
             this.current_mouse_position =
-                    graphicsContext.coordinate_transform.screen_to_board(p_point);
+                    graphicsContext.coordinateTransform.screen_to_board(p_point);
             InteractiveState return_state = interactive_state.mouse_moved();
             // An automatic repaint here would slow down the display
             // performance in interactive route.
@@ -697,7 +698,7 @@ public class BoardHandling extends BoardHandlingImpl {
     public void mousePressed(Point2D p_point) {
         if (interactive_state != null && graphicsContext != null) {
             this.current_mouse_position =
-                    graphicsContext.coordinate_transform.screen_to_board(p_point);
+                    graphicsContext.coordinateTransform.screen_to_board(p_point);
             set_interactive_state(interactive_state.mouse_pressed(this.current_mouse_position));
         }
     }
@@ -708,7 +709,7 @@ public class BoardHandling extends BoardHandlingImpl {
     public void mouse_dragged(Point2D p_point) {
         if (interactive_state != null && graphicsContext != null) {
             this.current_mouse_position =
-                    graphicsContext.coordinate_transform.screen_to_board(p_point);
+                    graphicsContext.coordinateTransform.screen_to_board(p_point);
             InteractiveState return_state =
                     interactive_state.mouse_dragged(this.current_mouse_position);
             if (return_state != interactive_state) {
@@ -755,7 +756,7 @@ public class BoardHandling extends BoardHandlingImpl {
         InteractiveState return_state = interactive_state.key_typed(p_key_char);
         if (return_state != null && return_state != interactive_state) {
             set_interactive_state(return_state);
-            panel.boardFrame.hilight_selected_button();
+            panel.boardFrame.hilightSelectedButton();
             repaint();
         }
 
@@ -842,7 +843,7 @@ public class BoardHandling extends BoardHandlingImpl {
             board = (RoutingBoard) designObjectInputStream.readObject();
             settings = (Settings) designObjectInputStream.readObject();
             settings.set_logfile(this.activityReplayFile);
-            coordinate_transform = (CoordinateTransform) designObjectInputStream.readObject();
+            coordinateTransform = (CoordinateTransform) designObjectInputStream.readObject();
             graphicsContext = (GraphicsContext) designObjectInputStream.readObject();
         } catch (Exception e) {
             FRLogger.error("Couldn't read design file", e);
@@ -939,13 +940,13 @@ public class BoardHandling extends BoardHandlingImpl {
     /**
      * Saves the currently edited board design to p_design_file.
      */
-    public boolean save_design_file(java.io.ObjectOutputStream p_object_stream) {
+    public boolean saveDesignFile(ObjectOutputStream objectOutputStream) {
         boolean result = true;
         try {
-            p_object_stream.writeObject(board);
-            p_object_stream.writeObject(settings);
-            p_object_stream.writeObject(coordinate_transform);
-            p_object_stream.writeObject(graphicsContext);
+            objectOutputStream.writeObject(board);
+            objectOutputStream.writeObject(settings);
+            objectOutputStream.writeObject(coordinateTransform);
+            objectOutputStream.writeObject(graphicsContext);
         } catch (Exception e) {
             screen_messages.setStatusMessage(resources.getString("save_error"));
             result = false;
@@ -956,11 +957,11 @@ public class BoardHandling extends BoardHandlingImpl {
     /**
      * Processes the actions stored in the input logfile.
      */
-    public void read_logfile(InputStream p_input_stream) {
+    public void readLogfile(InputStream inputStream) {
         if (boardIsReadOnly || !(interactive_state instanceof MenuState)) {
             return;
         }
-        this.interactiveActionThread = InteractiveActionThread.get_read_logfile_instance(this, p_input_stream);
+        this.interactiveActionThread = InteractiveActionThread.get_read_logfile_instance(this, inputStream);
         this.interactiveActionThread.start();
     }
 
@@ -982,7 +983,7 @@ public class BoardHandling extends BoardHandlingImpl {
             return;
         }
         FloatPoint location =
-                graphicsContext.coordinate_transform.screen_to_board(p_point);
+                graphicsContext.coordinateTransform.screen_to_board(p_point);
         InteractiveState new_state = RouteState.get_instance(location, this.interactive_state, this, activityReplayFile);
         set_interactive_state(new_state);
     }
@@ -995,7 +996,7 @@ public class BoardHandling extends BoardHandlingImpl {
             return;
         }
         FloatPoint location =
-                graphicsContext.coordinate_transform.screen_to_board(p_point);
+                graphicsContext.coordinateTransform.screen_to_board(p_point);
         InteractiveState return_state =
                 ((MenuState) interactive_state).select_items(location);
         set_interactive_state(return_state);
@@ -1035,7 +1036,7 @@ public class BoardHandling extends BoardHandlingImpl {
         if (boardIsReadOnly || !(this.interactive_state instanceof MenuState)) {
             return;
         }
-        FloatPoint location = graphicsContext.coordinate_transform.screen_to_board(p_location);
+        FloatPoint location = graphicsContext.coordinateTransform.screen_to_board(p_location);
         InteractiveState return_state = ((MenuState) interactive_state).swap_pin(location);
         set_interactive_state(return_state);
     }
@@ -1049,8 +1050,8 @@ public class BoardHandling extends BoardHandlingImpl {
         }
         IntBox bounding_box = this.board.get_bounding_box(((SelectedItemState) interactive_state).get_item_list());
         bounding_box = bounding_box.offset(this.board.rules.get_max_trace_half_width());
-        Point2D lower_left = this.graphicsContext.coordinate_transform.board_to_screen(bounding_box.ll.to_float());
-        Point2D upper_right = this.graphicsContext.coordinate_transform.board_to_screen(bounding_box.ur.to_float());
+        Point2D lower_left = this.graphicsContext.coordinateTransform.board_to_screen(bounding_box.ll.to_float());
+        Point2D upper_right = this.graphicsContext.coordinateTransform.board_to_screen(bounding_box.ur.to_float());
         this.panel.zoomFrame(lower_left, upper_right);
     }
 
@@ -1063,7 +1064,7 @@ public class BoardHandling extends BoardHandlingImpl {
             return;
         }
         FloatPoint location =
-                graphicsContext.coordinate_transform.screen_to_board(p_point);
+                graphicsContext.coordinateTransform.screen_to_board(p_point);
         InteractiveState return_state =
                 ((SelectedItemState) interactive_state).toggle_select(location);
         if (return_state != this.interactive_state) {
@@ -1167,7 +1168,7 @@ public class BoardHandling extends BoardHandlingImpl {
         }
         SelectedItemState curr_state = (SelectedItemState) interactive_state;
         Collection<Item> item_list = curr_state.get_item_list();
-        FloatPoint from_location = graphicsContext.coordinate_transform.screen_to_board(p_from_location);
+        FloatPoint from_location = graphicsContext.coordinateTransform.screen_to_board(p_from_location);
         InteractiveState new_state =
                 MoveItemState.get_instance(from_location, item_list, interactive_state, this, activityReplayFile);
         set_interactive_state(new_state);
@@ -1184,7 +1185,7 @@ public class BoardHandling extends BoardHandlingImpl {
         SelectedItemState curr_state = (SelectedItemState) interactive_state;
         curr_state.extent_to_whole_components();
         Collection<Item> item_list = curr_state.get_item_list();
-        FloatPoint from_location = graphicsContext.coordinate_transform.screen_to_board(p_from_location);
+        FloatPoint from_location = graphicsContext.coordinateTransform.screen_to_board(p_from_location);
         InteractiveState new_state =
                 CopyItemState.get_instance(from_location, item_list, interactive_state.return_state, this, activityReplayFile);
         set_interactive_state(new_state);
@@ -1334,7 +1335,7 @@ public class BoardHandling extends BoardHandlingImpl {
             // no interactive action when logfile is running
             return;
         }
-        FloatPoint location = graphicsContext.coordinate_transform.screen_to_board(p_point);
+        FloatPoint location = graphicsContext.coordinateTransform.screen_to_board(p_point);
         set_interactive_state(CircleConstructionState.get_instance(location, this.interactive_state, this, activityReplayFile));
     }
 
@@ -1346,7 +1347,7 @@ public class BoardHandling extends BoardHandlingImpl {
             // no interactive action when logfile is running
             return;
         }
-        FloatPoint location = graphicsContext.coordinate_transform.screen_to_board(p_point);
+        FloatPoint location = graphicsContext.coordinateTransform.screen_to_board(p_point);
         set_interactive_state(TileConstructionState.get_instance(location, this.interactive_state, this, activityReplayFile));
     }
 
@@ -1358,7 +1359,7 @@ public class BoardHandling extends BoardHandlingImpl {
             // no interactive action when logfile is running
             return;
         }
-        FloatPoint location = graphicsContext.coordinate_transform.screen_to_board(p_point);
+        FloatPoint location = graphicsContext.coordinateTransform.screen_to_board(p_point);
         set_interactive_state(PolygonShapeConstructionState.get_instance(location, this.interactive_state,
                                                                          this, activityReplayFile));
     }
@@ -1371,7 +1372,7 @@ public class BoardHandling extends BoardHandlingImpl {
             // no interactive action when logfile is running
             return;
         }
-        FloatPoint location = graphicsContext.coordinate_transform.screen_to_board(p_point);
+        FloatPoint location = graphicsContext.coordinateTransform.screen_to_board(p_point);
         InteractiveState new_state =
                 HoleConstructionState.get_instance(location, this.interactive_state, this, activityReplayFile);
         set_interactive_state(new_state);
@@ -1388,7 +1389,7 @@ public class BoardHandling extends BoardHandlingImpl {
             result = new Rectangle(0, 0, 0, 0);
         } else {
             IntBox offset_box = update_box.offset(board.get_max_trace_half_width());
-            result = graphicsContext.coordinate_transform.board_to_screen(offset_box);
+            result = graphicsContext.coordinateTransform.board_to_screen(offset_box);
         }
         return result;
     }
@@ -1424,7 +1425,7 @@ public class BoardHandling extends BoardHandlingImpl {
      */
     void move_mouse(FloatPoint p_to_location) {
         if (!boardIsReadOnly) {
-            panel.moveMouse(graphicsContext.coordinate_transform.board_to_screen(p_to_location));
+            panel.moveMouse(graphicsContext.coordinateTransform.board_to_screen(p_to_location));
         }
     }
 
@@ -1440,7 +1441,7 @@ public class BoardHandling extends BoardHandlingImpl {
             this.interactive_state = p_state;
             if (!this.boardIsReadOnly) {
                 p_state.set_toolbar();
-                this.panel.boardFrame.set_context_sensitive_help(this.panel, p_state.get_help_id());
+                this.panel.boardFrame.setContextSensitiveHelp(this.panel, p_state.get_help_id());
             }
         }
     }
@@ -1449,7 +1450,7 @@ public class BoardHandling extends BoardHandlingImpl {
      * Adjust the design bounds, so that also all items being still placed outside the board outline are contained in
      * the new bounds.
      */
-    public void adjust_design_bounds() {
+    public void adjustDesignBounds() {
         IntBox new_bounding_box = this.board.get_bounding_box();
         Collection<Item> board_items = this.board.get_items();
         for (Item curr_item : board_items) {
@@ -1467,7 +1468,7 @@ public class BoardHandling extends BoardHandlingImpl {
     public void dispose() {
         close_files();
         graphicsContext = null;
-        coordinate_transform = null;
+        coordinateTransform = null;
         settings = null;
         interactive_state = null;
         ratsnest = null;
@@ -1482,7 +1483,7 @@ public class BoardHandling extends BoardHandlingImpl {
     /**
      * For transforming coordinates between the user and the board coordinate space
      */
-    public CoordinateTransform coordinate_transform = null;
+    public CoordinateTransform coordinateTransform = null;
     /**
      * The text message fields displayed on the screen
      */
@@ -1525,5 +1526,9 @@ public class BoardHandling extends BoardHandlingImpl {
 
     public GraphicsContext getGraphicsContext() {
         return graphicsContext;
+    }
+
+    public CoordinateTransform getCoordinateTransform() {
+        return coordinateTransform;
     }
 }

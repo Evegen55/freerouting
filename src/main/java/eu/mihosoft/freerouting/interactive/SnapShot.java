@@ -54,7 +54,7 @@ public class SnapShot implements java.io.Serializable
         this.interactive_state_no = get_no(p_board_handling.interactive_state);
         this.graphics_context = new eu.mihosoft.freerouting.boardgraphics.GraphicsContext(p_board_handling.graphicsContext);
         this.viewport_position = new java.awt.Point(p_board_handling.get_panel().getViewportPosition());
-        this.subwindow_filters = p_board_handling.get_panel().boardFrame.get_snapshot_subwindow_selections();
+        this.subwindow_filters = p_board_handling.get_panel().boardFrame.getSnapshotSubwindowSelections();
     }
     
     public String toString()
@@ -136,7 +136,7 @@ public class SnapShot implements java.io.Serializable
         }  
         if (snapshot_attributes.info_list_selections)
         {
-            p_board_handling.get_panel().boardFrame.set_snapshot_subwindow_selections(this.subwindow_filters);
+            p_board_handling.get_panel().boardFrame.setSnapshotSubwindowSelections(this.subwindow_filters);
         }
     }
     

@@ -196,7 +196,7 @@ public class WindowAutorouteDetailParameter extends BoardSavableSubWindow
         main_panel.add(applyValuesNote, gridbag_constraints);
 
 
-        p_board_frame.set_context_sensitive_help(this, "WindowAutorouteDetailParameter");
+        p_board_frame.setContextSensitiveHelp(this, "WindowAutorouteDetailParameter");
 
         this.refresh();
         this.pack();

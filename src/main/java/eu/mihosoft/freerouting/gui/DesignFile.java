@@ -164,7 +164,7 @@ public class DesignFile {
                 boardFrame.screenMessages.setStatusMessage(resources.getString("message_3"));
                 return;
             }
-            try (OutputStream outputStream = new FileOutputStream(selectedFile)) {
+            try (final OutputStream outputStream = new FileOutputStream(selectedFile)) {
                 if (boardFrame.getBoardPanel()
                         .getBoardHandling()
                         .exportToDsnFile(outputStream, designName, false)
@@ -200,7 +200,7 @@ public class DesignFile {
         FRLogger.info("Saving '" + outputFileName + "'...");
         final File currOutputFile = new File(getParent(), outputFileName);
 
-        try (OutputStream outputStream = new FileOutputStream(currOutputFile)) {
+        try (final OutputStream outputStream = new FileOutputStream(currOutputFile)) {
             if (boardFrame.getBoardPanel()
                     .getBoardHandling()
                     .exportSpecctraSessionFile(designFileName, outputStream)

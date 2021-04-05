@@ -130,7 +130,7 @@ public class WindowSelectParameter extends BoardSavableSubWindow
         gridbag.setConstraints(empty_label, gridbag_constraints);
         main_panel.add(empty_label);
         
-        p_board_frame.set_context_sensitive_help(this, "WindowSelectParameter");
+        p_board_frame.setContextSensitiveHelp(this, "WindowSelectParameter");
         
         this.refresh();
         this.pack();

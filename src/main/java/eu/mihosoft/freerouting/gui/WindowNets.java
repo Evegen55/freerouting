@@ -55,7 +55,7 @@ public class WindowNets extends WindowObjectListWithFilter
         curr_button_panel.add(filter_incompletes_button);
         filter_incompletes_button.setToolTipText(resources.getString("filter_incompletes_tooltip"));
         filter_incompletes_button.addActionListener(new FilterIncompletesListener());
-        p_board_frame.set_context_sensitive_help(this, "WindowObjectList_Nets");
+        p_board_frame.setContextSensitiveHelp(this, "WindowObjectList_Nets");
     }
     
     /**

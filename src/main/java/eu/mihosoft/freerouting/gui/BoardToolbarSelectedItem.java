@@ -301,7 +301,7 @@ class BoardToolbarSelectedItem extends javax.swing.JToolBar
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
             {
-                board_frame.zoom_all();
+                board_frame.zoomAll();
             }
         });
         this.add(display_all_button);

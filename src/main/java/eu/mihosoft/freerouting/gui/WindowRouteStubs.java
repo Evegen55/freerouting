@@ -45,7 +45,7 @@ public class WindowRouteStubs extends WindowObjectListWithFilter
         this.resources = java.util.ResourceBundle.getBundle("eu.mihosoft.freerouting.gui.CleanupWindows", p_board_frame.get_locale());
         this.setTitle(resources.getString("route_stubs"));
         this.list_empty_message.setText(resources.getString("no_route_stubs_found"));
-        p_board_frame.set_context_sensitive_help(this, "WindowObjectList_RouteStubs");
+        p_board_frame.setContextSensitiveHelp(this, "WindowObjectList_RouteStubs");
     }
     
     protected void fill_list()
@@ -164,7 +164,7 @@ public class WindowRouteStubs extends WindowObjectListWithFilter
         {
             eu.mihosoft.freerouting.interactive.BoardHandling board_handling = board_frame.boardPanel.boardHandling;
             this.stub_item = p_stub;
-            this.location = board_handling.coordinate_transform.board_to_user(p_location);
+            this.location = board_handling.coordinateTransform.board_to_user(p_location);
             this.layer_no  = p_layer_no;
             int net_no = p_stub.get_net_no(0);
             this.net = board_handling.getRoutingBoard().rules.nets.get(net_no);

@@ -89,7 +89,7 @@ public class WindowNetClasses extends BoardSavableSubWindow
         filter_incompletes_button.setToolTipText(resources.getString("filter_incompletes_tooltip"));
         filter_incompletes_button.addActionListener(new FilterIncompletesListener());
 
-        p_board_frame.set_context_sensitive_help(this, "WindowNetClasses");
+        p_board_frame.setContextSensitiveHelp(this, "WindowNetClasses");
 
         this.add(main_panel);
         this.pack();
@@ -262,7 +262,7 @@ public class WindowNetClasses extends BoardSavableSubWindow
 
         public void actionPerformed(java.awt.event.ActionEvent p_evt)
         {
-            board_frame.assign_net_classes_window.setVisible(true);
+            board_frame.assignNetClassesWindow.setVisible(true);
         }
     }
 
@@ -386,7 +386,7 @@ public class WindowNetClasses extends BoardSavableSubWindow
                     }
                 }
             }
-            eu.mihosoft.freerouting.board.CoordinateTransform coordinate_transform = board_frame.boardPanel.boardHandling.coordinate_transform;
+            eu.mihosoft.freerouting.board.CoordinateTransform coordinate_transform = board_frame.boardPanel.boardHandling.coordinateTransform;
             WindowObjectInfo new_window =
                     WindowObjectInfo.display(resources.getString("contained_nets"), contained_nets, board_frame, coordinate_transform);
             java.awt.Point loc = getLocation();
@@ -469,14 +469,14 @@ public class WindowNetClasses extends BoardSavableSubWindow
                 this.data[i][ColumnName.SHOVE_FIXED.ordinal()] = curr_net_class.is_shove_fixed() || !curr_net_class.get_pull_tight();
                 this.data[i][ColumnName.CYCLES_WITH_AREAS.ordinal()] = curr_net_class.get_ignore_cycles_with_areas();
                 double min_trace_length =
-                        board_frame.boardPanel.boardHandling.coordinate_transform.board_to_user(curr_net_class.get_minimum_trace_length());
+                        board_frame.boardPanel.boardHandling.coordinateTransform.board_to_user(curr_net_class.get_minimum_trace_length());
                 if (min_trace_length <= 0)
                 {
                     min_trace_length = 0;
                 }
                 this.data[i][ColumnName.MIN_TRACE_LENGTH.ordinal()] = (float) min_trace_length;
                 double max_trace_length =
-                        board_frame.boardPanel.boardHandling.coordinate_transform.board_to_user(curr_net_class.get_maximum_trace_length());
+                        board_frame.boardPanel.boardHandling.coordinateTransform.board_to_user(curr_net_class.get_maximum_trace_length());
                 if (max_trace_length <= 0)
                 {
                     max_trace_length = -1;
@@ -506,7 +506,7 @@ public class WindowNetClasses extends BoardSavableSubWindow
                 }
                 else
                 {
-                    trace_width = (float) board_handling.coordinate_transform.board_to_user(2 * curr_net_class.get_trace_half_width(0));
+                    trace_width = (float) board_handling.coordinateTransform.board_to_user(2 * curr_net_class.get_trace_half_width(0));
                 }
 
             }
@@ -529,7 +529,7 @@ public class WindowNetClasses extends BoardSavableSubWindow
                     if (first_inner_signal_layer_no < layer_structure.arr.length - 1)
                     {
 
-                        trace_width = (float) board_handling.coordinate_transform.board_to_user(2 * curr_net_class.get_trace_half_width(first_inner_signal_layer_no));
+                        trace_width = (float) board_handling.coordinateTransform.board_to_user(2 * curr_net_class.get_trace_half_width(first_inner_signal_layer_no));
                     }
                     else
                     {
@@ -539,7 +539,7 @@ public class WindowNetClasses extends BoardSavableSubWindow
             }
             else
             {
-                trace_width = (float) board_handling.coordinate_transform.board_to_user(2 * curr_net_class.get_trace_half_width(p_layer.index));
+                trace_width = (float) board_handling.coordinateTransform.board_to_user(2 * curr_net_class.get_trace_half_width(p_layer.index));
             }
             this.data[p_rule_no][ColumnName.TRACE_WIDTH.ordinal()] = trace_width;
             fireTableCellUpdated(p_rule_no, ColumnName.TRACE_WIDTH.ordinal());
@@ -594,7 +594,7 @@ public class WindowNetClasses extends BoardSavableSubWindow
                     return; // name exists already
                 }
                 net_rule.set_name(new_name);
-                board_frame.via_window.refresh();
+                board_frame.viaWindow.refresh();
             }
             else if (p_col == ColumnName.VIA_RULE.ordinal())
             {
@@ -657,7 +657,7 @@ public class WindowNetClasses extends BoardSavableSubWindow
                     curr_value = (float) 0;
                     p_value = curr_value;
                 }
-                double min_trace_length = Math.round(board_frame.boardPanel.boardHandling.coordinate_transform.user_to_board(curr_value));
+                double min_trace_length = Math.round(board_frame.boardPanel.boardHandling.coordinateTransform.user_to_board(curr_value));
                 net_rule.set_minimum_trace_length(min_trace_length);
                 board_frame.boardPanel.boardHandling.recalculate_length_violations();
             }
@@ -688,7 +688,7 @@ public class WindowNetClasses extends BoardSavableSubWindow
                     p_value = curr_value - 1;
                 }
 
-                double max_trace_length = Math.round(board_frame.boardPanel.boardHandling.coordinate_transform.user_to_board(curr_value));
+                double max_trace_length = Math.round(board_frame.boardPanel.boardHandling.coordinateTransform.user_to_board(curr_value));
                 net_rule.set_maximum_trace_length(max_trace_length);
                 board_frame.boardPanel.boardHandling.recalculate_length_violations();
             }
@@ -742,7 +742,7 @@ public class WindowNetClasses extends BoardSavableSubWindow
                 }
                 else
                 {
-                    curr_half_width = (int) Math.round(board_frame.boardPanel.boardHandling.coordinate_transform.user_to_board(0.5 * curr_value));
+                    curr_half_width = (int) Math.round(board_frame.boardPanel.boardHandling.coordinateTransform.user_to_board(0.5 * curr_value));
                     if (curr_half_width <= 0)
                     {
                         return;

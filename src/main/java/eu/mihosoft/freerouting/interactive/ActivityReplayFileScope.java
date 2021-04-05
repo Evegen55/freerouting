@@ -1280,8 +1280,8 @@ public abstract class ActivityReplayFileScope
         public InteractiveState read_scope(ActivityReplayFile p_activityReplayFile, InteractiveState p_return_state, BoardHandling p_board_handling)
         {
             java.awt.geom.Point2D lower_left =
-                    p_board_handling.graphicsContext.coordinate_transform.board_to_screen(p_activityReplayFile.read_corner());
-            java.awt.geom.Point2D upper_right = p_board_handling.graphicsContext.coordinate_transform.board_to_screen(p_activityReplayFile.read_corner());
+                    p_board_handling.graphicsContext.coordinateTransform.board_to_screen(p_activityReplayFile.read_corner());
+            java.awt.geom.Point2D upper_right = p_board_handling.graphicsContext.coordinateTransform.board_to_screen(p_activityReplayFile.read_corner());
             p_board_handling.get_panel().zoomFrame(lower_left, upper_right);
             p_board_handling.repaint();
             return p_return_state;

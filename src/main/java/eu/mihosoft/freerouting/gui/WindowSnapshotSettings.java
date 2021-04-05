@@ -183,7 +183,7 @@ public class WindowSnapshotSettings extends BoardSavableSubWindow
         main_panel.add(info_list_filter_check_box, gridbag_constraints);
         this.info_list_filter_check_box.addActionListener(new InfoListFilterListener());
         
-        p_board_frame.set_context_sensitive_help(this, "WindowSnapshots_SnapshotSettings");
+        p_board_frame.setContextSensitiveHelp(this, "WindowSnapshots_SnapshotSettings");
         
         
         this.refresh();

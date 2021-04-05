@@ -44,7 +44,7 @@ public class BoardMenuRules extends javax.swing.JMenu
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
             {
-                rules_menu.board_frame.clearance_matrix_window.setVisible(true);
+                rules_menu.board_frame.clearanceMatrixWindow.setVisible(true);
             }
         });
         rules_menu.add(clearance_window);
@@ -55,7 +55,7 @@ public class BoardMenuRules extends javax.swing.JMenu
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
             {
-                rules_menu.board_frame.via_window.setVisible(true);
+                rules_menu.board_frame.viaWindow.setVisible(true);
             }
         });
         rules_menu.add(via_window);
@@ -66,7 +66,7 @@ public class BoardMenuRules extends javax.swing.JMenu
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
             {
-                rules_menu.board_frame.net_info_window.setVisible(true);
+                rules_menu.board_frame.netInfoWindow.setVisible(true);
             }
         });
         
@@ -78,7 +78,7 @@ public class BoardMenuRules extends javax.swing.JMenu
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
             {
-                rules_menu.board_frame.edit_net_rules_window.setVisible(true);
+                rules_menu.board_frame.editNetRulesWindow.setVisible(true);
             }
         });
         rules_menu.add(net_class_window);

@@ -56,7 +56,7 @@ public class WindowAssignNetClass extends BoardSavableSubWindow
         this.main_panel.add(scroll_pane, java.awt.BorderLayout.CENTER);
         add_net_class_combo_box();
         
-        p_board_frame.set_context_sensitive_help(this, "WindowNetClasses_AssignNetClass");
+        p_board_frame.setContextSensitiveHelp(this, "WindowNetClasses_AssignNetClass");
         
         this.add(main_panel);
         this.pack();

@@ -43,7 +43,7 @@ public class BoardMenuParameter extends javax.swing.JMenu
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
             {
-                parameter_menu.board_frame.select_parameter_window.setVisible(true);
+                parameter_menu.board_frame.selectParameterWindow.setVisible(true);
             }
         });
         
@@ -55,7 +55,7 @@ public class BoardMenuParameter extends javax.swing.JMenu
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
             {
-                parameter_menu.board_frame.route_parameter_window.setVisible(true);
+                parameter_menu.board_frame.routeParameterWindow.setVisible(true);
             }
         });
         
@@ -67,7 +67,7 @@ public class BoardMenuParameter extends javax.swing.JMenu
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
             {
-                parameter_menu.board_frame.autoroute_parameter_window.setVisible(true);
+                parameter_menu.board_frame.autorouteParameterWindow.setVisible(true);
             }
         });
         
@@ -79,7 +79,7 @@ public class BoardMenuParameter extends javax.swing.JMenu
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
             {
-                parameter_menu.board_frame.move_parameter_window.setVisible(true);
+                parameter_menu.board_frame.moveParameterWindow.setVisible(true);
             }
         });
         

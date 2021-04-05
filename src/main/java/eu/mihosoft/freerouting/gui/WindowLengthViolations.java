@@ -46,7 +46,7 @@ public class WindowLengthViolations  extends WindowObjectListWithFilter
         this.resources = java.util.ResourceBundle.getBundle("eu.mihosoft.freerouting.gui.WindowLengthViolations", p_board_frame.get_locale());
         this.setTitle(resources.getString("title"));
         this.list_empty_message.setText(resources.getString("list_empty"));
-        p_board_frame.set_context_sensitive_help(this, "WindowObjectList_LengthViolations");
+        p_board_frame.setContextSensitiveHelp(this, "WindowObjectList_LengthViolations");
     }
     
     protected void fill_list()
@@ -106,7 +106,7 @@ public class WindowLengthViolations  extends WindowObjectListWithFilter
         
         public String toString()
         {
-            eu.mihosoft.freerouting.board.CoordinateTransform coordinate_transform = board_frame.boardPanel.boardHandling.coordinate_transform;
+            eu.mihosoft.freerouting.board.CoordinateTransform coordinate_transform = board_frame.boardPanel.boardHandling.coordinateTransform;
             NetClass net_class = this.net.get_class();
             Float allowed_length;
             String allowed_string;

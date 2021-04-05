@@ -42,7 +42,7 @@ public class WindowComponents extends WindowObjectListWithFilter
         java.util.ResourceBundle resources = 
                 java.util.ResourceBundle.getBundle("eu.mihosoft.freerouting.gui.Default", p_board_frame.get_locale());
         this.setTitle(resources.getString("components"));
-        p_board_frame.set_context_sensitive_help(this, "WindowObjectList_BoardComponents");
+        p_board_frame.setContextSensitiveHelp(this, "WindowObjectList_BoardComponents");
     }
     
     /**

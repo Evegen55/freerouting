@@ -174,7 +174,7 @@ public class WindowAutorouteParameter extends BoardSavableSubWindow {
 
         main_panel.add(detail_button);
 
-        p_board_frame.set_context_sensitive_help(this, "WindowAutorouteParameter");
+        p_board_frame.setContextSensitiveHelp(this, "WindowAutorouteParameter");
 
         this.refresh();
         this.pack();
@@ -212,14 +212,14 @@ public class WindowAutorouteParameter extends BoardSavableSubWindow {
         super.dispose();
     }
 
-    public void parent_iconified() {
-        detail_window.parent_iconified();
-        super.parent_iconified();
+    public void parentIconified() {
+        detail_window.parentIconified();
+        super.parentIconified();
     }
 
-    public void parent_deiconified() {
-        detail_window.parent_deiconified();
-        super.parent_deiconified();
+    public void parentDeiconified() {
+        detail_window.parentDeiconified();
+        super.parentDeiconified();
     }
 
     private class DetailListener implements java.awt.event.ActionListener {

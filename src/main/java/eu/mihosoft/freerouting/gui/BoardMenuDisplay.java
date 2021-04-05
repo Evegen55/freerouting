@@ -43,7 +43,7 @@ public class BoardMenuDisplay extends javax.swing.JMenu
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
             {
-                display_menu.board_frame.object_visibility_window.setVisible(true);
+                display_menu.board_frame.objectVisibilityWindow.setVisible(true);
             }
         });
         
@@ -56,7 +56,7 @@ public class BoardMenuDisplay extends javax.swing.JMenu
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
             {
-                display_menu.board_frame.layer_visibility_window.setVisible(true);
+                display_menu.board_frame.layerVisibilityWindow.setVisible(true);
             }
         });
         
@@ -69,7 +69,7 @@ public class BoardMenuDisplay extends javax.swing.JMenu
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
             {
-                display_menu.board_frame.color_manager.setVisible(true);
+                display_menu.board_frame.colorManager.setVisible(true);
             }
         });
         
@@ -81,7 +81,7 @@ public class BoardMenuDisplay extends javax.swing.JMenu
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
             {
-                display_menu.board_frame.display_misc_window.setVisible(true);
+                display_menu.board_frame.displayMiscWindow.setVisible(true);
             }
         });
         

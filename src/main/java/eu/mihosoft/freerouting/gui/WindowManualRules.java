@@ -108,7 +108,7 @@ public class WindowManualRules extends BoardSavableSubWindow
         gridbag.setConstraints(empty_label, gridbag_constraints);
         main_panel.add(empty_label);
 
-        p_board_frame.set_context_sensitive_help(this, "WindowManualRules");
+        p_board_frame.setContextSensitiveHelp(this, "WindowManualRules");
 
         this.pack();
         this.setResizable(false);
@@ -145,7 +145,7 @@ public class WindowManualRules extends BoardSavableSubWindow
         }
         else
         {
-            Float trace_width = (float) board_handling.coordinate_transform.board_to_user(2 * p_half_width);
+            Float trace_width = (float) board_handling.coordinateTransform.board_to_user(2 * p_half_width);
             this.trace_width_field.setValue(trace_width);
         }
     }
@@ -264,7 +264,7 @@ public class WindowManualRules extends BoardSavableSubWindow
                 {
                     return;
                 }
-                double board_value = board_handling.coordinate_transform.user_to_board(input_value);
+                double board_value = board_handling.coordinateTransform.user_to_board(input_value);
                 int new_half_width = (int) Math.round(0.5 * board_value);
                 board_handling.set_manual_trace_half_width(layer_combo_box.get_selected_layer().index, new_half_width);
                 set_trace_width_field(new_half_width);

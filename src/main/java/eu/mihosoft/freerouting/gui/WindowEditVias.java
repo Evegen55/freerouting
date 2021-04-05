@@ -65,7 +65,7 @@ public class WindowEditVias extends BoardSavableSubWindow
         remove_via_button.addActionListener(new RemoveViaListener());
         via_info_button_panel.add(remove_via_button);
         
-        p_board_frame.set_context_sensitive_help(this, "WindowVia_EditVia");
+        p_board_frame.setContextSensitiveHelp(this, "WindowVia_EditVia");
         
         this.add(main_panel);
         this.pack();
@@ -293,7 +293,7 @@ public class WindowEditVias extends BoardSavableSubWindow
                     return;
                 }
                 via_info.set_name(new_name);
-                board_frame.via_window.refresh();
+                board_frame.viaWindow.refresh();
             }
             else if (p_col == ColumnName.PADSTACK.ordinal())
             {

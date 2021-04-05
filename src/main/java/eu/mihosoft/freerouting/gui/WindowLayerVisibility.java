@@ -49,7 +49,7 @@ public class WindowLayerVisibility extends WindowVisibility
         {
             result.set_slider_value(i, board_panel.boardHandling.graphicsContext.get_raw_layer_visibility(i));
         }
-        p_board_frame.set_context_sensitive_help(result, "WindowDisplay_LayerVisibility");
+        p_board_frame.setContextSensitiveHelp(result, "WindowDisplay_LayerVisibility");
         return result;
     }
     

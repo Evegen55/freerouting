@@ -905,7 +905,7 @@ public class SelectedItemState extends InteractiveState
      */
     public SelectedItemState info()
     {
-        WindowObjectInfo.display(this.item_list, hdlg.get_panel().boardFrame, hdlg.coordinate_transform, new java.awt.Point(100, 100));
+        WindowObjectInfo.display(this.item_list, hdlg.get_panel().boardFrame, hdlg.coordinateTransform, new java.awt.Point(100, 100));
         return this;
     }
 
@@ -939,7 +939,7 @@ public class SelectedItemState extends InteractiveState
 
     public void set_toolbar()
     {
-        hdlg.get_panel().boardFrame.set_select_toolbar();
+        hdlg.get_panel().boardFrame.setSelectToolbar();
     }
 
     public void display_default_message()

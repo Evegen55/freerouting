@@ -272,7 +272,7 @@ public class WindowRouteParameter extends BoardSavableSubWindow
             main_panel.add(detail_button);
         }
         
-        p_board_frame.set_context_sensitive_help(this, "WindowRouteParameter");
+        p_board_frame.setContextSensitiveHelp(this, "WindowRouteParameter");
         
         this.refresh();
         this.pack();
@@ -375,7 +375,7 @@ public class WindowRouteParameter extends BoardSavableSubWindow
         this.neckdown_check_box.setSelected(this.board_handling.settings.get_automatic_neckdown());
         
         double edge_to_turn_dist = this.board_handling.getRoutingBoard().rules.get_pin_edge_to_turn_dist();
-        edge_to_turn_dist = this.board_handling.coordinate_transform.board_to_user(edge_to_turn_dist);
+        edge_to_turn_dist = this.board_handling.coordinateTransform.board_to_user(edge_to_turn_dist);
         this.edge_to_turn_dist_field.setValue(edge_to_turn_dist);
         this.restrict_pin_exit_directions_check_box.setSelected(edge_to_turn_dist > 0);
         
@@ -394,18 +394,18 @@ public class WindowRouteParameter extends BoardSavableSubWindow
         }
     }
     
-    public void parent_iconified()
+    public void parentIconified()
     {
-        manual_rule_window.parent_iconified();
-        detail_window.parent_iconified();
-        super.parent_iconified();
+        manual_rule_window.parentIconified();
+        detail_window.parentIconified();
+        super.parentIconified();
     }
     
-    public void parent_deiconified()
+    public void parentDeiconified()
     {
-        manual_rule_window.parent_deiconified();
-        detail_window.parent_deiconified();
-        super.parent_deiconified();
+        manual_rule_window.parentDeiconified();
+        detail_window.parentDeiconified();
+        super.parentDeiconified();
     }
     
     private void set_pull_tight_region_width(int p_slider_value)
@@ -655,7 +655,7 @@ public class WindowRouteParameter extends BoardSavableSubWindow
             {
                 eu.mihosoft.freerouting.rules.BoardRules board_rules = board_handling.getRoutingBoard().rules;
                 double edge_to_turn_dist =
-                        board_handling.coordinate_transform.board_to_user(board_rules.get_min_trace_half_width());
+                        board_handling.coordinateTransform.board_to_user(board_rules.get_min_trace_half_width());
                 board_handling.set_pin_edge_to_turn_dist(edge_to_turn_dist);
             }
             else
@@ -698,7 +698,7 @@ public class WindowRouteParameter extends BoardSavableSubWindow
             {
                 // restore the text field.
                 double edge_to_turn_dist = board_handling.getRoutingBoard().rules.get_pin_edge_to_turn_dist();
-                edge_to_turn_dist = board_handling.coordinate_transform.board_to_user(edge_to_turn_dist);
+                edge_to_turn_dist = board_handling.coordinateTransform.board_to_user(edge_to_turn_dist);
                 edge_to_turn_dist_field.setValue(edge_to_turn_dist);
                 key_input_completed = true;
             }

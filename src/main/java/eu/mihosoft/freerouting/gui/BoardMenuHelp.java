@@ -65,7 +65,7 @@ public class BoardMenuHelp extends BoardMenuHelpReduced
     private void initialize_help(java.util.Locale p_locale)
     {
         // try to find the helpset and create a HelpBroker object
-        if (BoardFrame.help_broker == null)
+        if (BoardFrame.helpBroker == null)
         {
             String language = p_locale.getLanguage();
             String helpset_name;
@@ -91,22 +91,22 @@ public class BoardMenuHelp extends BoardMenuHelpReduced
                 }
                 else
                 {
-                    BoardFrame.help_set = new HelpSet(null, hsURL);
+                    BoardFrame.helpSet = new HelpSet(null, hsURL);
                 }
             }
             catch (HelpSetException ee)
             {
                 FRLogger.error("HelpSet " + helpset_name + " could not be opened.", ee);
             }
-            if (BoardFrame.help_set != null)
+            if (BoardFrame.helpSet != null)
             {
-                BoardFrame.help_broker = BoardFrame.help_set.createHelpBroker();
+                BoardFrame.helpBroker = BoardFrame.helpSet.createHelpBroker();
             }
-            if (BoardFrame.help_broker != null)
+            if (BoardFrame.helpBroker != null)
             {
                 // CSH.DisplayHelpFromSource is a convenience class to display the helpset
-                contents_help = new CSH.DisplayHelpFromSource(BoardFrame.help_broker);
-                direct_help = new CSH.DisplayHelpAfterTracking(BoardFrame.help_broker);
+                contents_help = new CSH.DisplayHelpFromSource(BoardFrame.helpBroker);
+                direct_help = new CSH.DisplayHelpAfterTracking(BoardFrame.helpBroker);
             }
         }
     }

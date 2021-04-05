@@ -88,7 +88,7 @@ public class WindowClearanceMatrix extends BoardSavableSubWindow
         
         main_panel.add(south_panel, java.awt.BorderLayout.SOUTH);
         
-        p_board_frame.set_context_sensitive_help(this, "WindowClearanceMatrix");
+        p_board_frame.setContextSensitiveHelp(this, "WindowClearanceMatrix");
         
         this.add(main_panel);
         this.pack();
@@ -436,7 +436,7 @@ public class WindowClearanceMatrix extends BoardSavableSubWindow
                 }
                 message += resources.getString("change_anyway");
                 int selected_option =
-                        javax.swing.JOptionPane.showConfirmDialog(board_frame.clearance_matrix_window, message, null, javax.swing.JOptionPane.YES_NO_OPTION);
+                        javax.swing.JOptionPane.showConfirmDialog(board_frame.clearanceMatrixWindow, message, null, javax.swing.JOptionPane.YES_NO_OPTION);
                 if (selected_option != javax.swing.JOptionPane.YES_OPTION)
                 {
                     return;
@@ -448,7 +448,7 @@ public class WindowClearanceMatrix extends BoardSavableSubWindow
             fireTableCellUpdated(p_row, p_col);
             fireTableCellUpdated(p_col - 1, p_row + 1);
             
-            int board_value = (int) Math.round(board_handling.coordinate_transform.user_to_board((number_value).doubleValue()));
+            int board_value = (int) Math.round(board_handling.coordinateTransform.user_to_board((number_value).doubleValue()));
             int layer_no = layer_combo_box.get_selected_layer().index;
             if (layer_no == ComboBoxLayer.ALL_LAYER_INDEX)
             {
@@ -512,7 +512,7 @@ public class WindowClearanceMatrix extends BoardSavableSubWindow
                         else
                         {
                             Float curr_table_value =
-                                    (float) board_handling.coordinate_transform.board_to_user(clearance_matrix.value(i, j, 0));
+                                    (float) board_handling.coordinateTransform.board_to_user(clearance_matrix.value(i, j, 0));
                             this.data[i][j + 1] = curr_table_value;
                         }
                     }
@@ -527,14 +527,14 @@ public class WindowClearanceMatrix extends BoardSavableSubWindow
                         else
                         {
                             Float curr_table_value =
-                                    (float) board_handling.coordinate_transform.board_to_user(clearance_matrix.value(i, j, 1));
+                                    (float) board_handling.coordinateTransform.board_to_user(clearance_matrix.value(i, j, 1));
                             this.data[i][j + 1] = curr_table_value;
                         }
                     }
                     else
                     {
                         Float curr_table_value =
-                                (float) board_handling.coordinate_transform.board_to_user(clearance_matrix.value(i, j, p_layer));
+                                (float) board_handling.coordinateTransform.board_to_user(clearance_matrix.value(i, j, p_layer));
                         this.data[i][j + 1] = curr_table_value;
                     }
                 }
