@@ -114,13 +114,13 @@ public class CoordinateTransform implements Serializable {
     }
 
     public PrintableShape.Circle board_to_user(eu.mihosoft.freerouting.geometry.planar.Circle p_circle, java.util.Locale p_locale) {
-        return new PrintableShape.Circle(board_to_user(p_circle.center.to_float()),
+        return new PrintableShape.Circle(board_to_user(p_circle.center.toFloat()),
                                          board_to_user(p_circle.radius), p_locale);
     }
 
     public PrintableShape.Rectangle board_to_user(eu.mihosoft.freerouting.geometry.planar.IntBox p_box, java.util.Locale p_locale) {
-        return new PrintableShape.Rectangle(board_to_user(p_box.ll.to_float()),
-                                            board_to_user(p_box.ur.to_float()), p_locale);
+        return new PrintableShape.Rectangle(board_to_user(p_box.ll.toFloat()),
+                                            board_to_user(p_box.ur.toFloat()), p_locale);
     }
 
     public PrintableShape.Polygon board_to_user(eu.mihosoft.freerouting.geometry.planar.PolylineShape p_shape, java.util.Locale p_locale) {

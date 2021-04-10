@@ -104,7 +104,7 @@ public class ForcedPadAlgo
                 this.board.set_shove_failing_obstacle(curr_shove_via);
                 return CheckDrillResult.NOT_DRILLABLE;
             }
-            Vector delta = new_via_center[0].difference_by(curr_shove_via.get_center());
+            Vector delta = new_via_center[0].differenceBy(curr_shove_via.get_center());
             Collection<Item> ignore_items = new java.util.LinkedList<Item>();
             if (!MoveDrillItemAlgo.check(curr_shove_via, delta,
                     p_max_recursion_depth, p_max_via_recursion_depth - 1, ignore_items,
@@ -342,8 +342,8 @@ public class ForcedPadAlgo
     private static  TileShape calc_check_chape_for_from_side(TileShape p_shape,
             Point p_shape_center, Line p_border_line)
     {
-        FloatPoint shape_center = p_shape_center.to_float();
-        FloatPoint offset_projection = shape_center.projection_approx(p_border_line);
+        FloatPoint shape_center = p_shape_center.toFloat();
+        FloatPoint offset_projection = shape_center.projectionApprox(p_border_line);
         // Make shure, that direction restrictions are retained.
         Line [] line_arr = new Line[3];
         Direction curr_dir = p_border_line.direction();

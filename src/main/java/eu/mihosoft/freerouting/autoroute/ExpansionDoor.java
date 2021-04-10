@@ -162,7 +162,7 @@ public class ExpansionDoor implements ExpandableObject
                 // CompleteFreeSpaceExpansionRoom inside other room
                 return new FloatLine[0];
             }
-            if (door_line_segment.b.distance_square(door_line_segment.a) < 4 * offset * offset)
+            if (door_line_segment.b.distanceSquare(door_line_segment.a) < 4 * offset * offset)
             {
                 // door is small, 2 dimensional small doors are not yet expanded.
                 return new FloatLine[0];
@@ -214,7 +214,7 @@ public class ExpansionDoor implements ExpandableObject
         {
             return null;
         }
-        return new FloatLine(first_corner.to_float(), second_corner.to_float());
+        return new FloatLine(first_corner.toFloat(), second_corner.toFloat());
     }
 
     /**

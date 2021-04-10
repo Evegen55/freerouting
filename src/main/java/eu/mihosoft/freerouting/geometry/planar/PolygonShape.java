@@ -66,7 +66,7 @@ public class PolygonShape extends PolylineShape
         if (last_corner_no >= 2)
         {
             last_point_collinear =
-                    curr_corners[last_corner_no].side_of(curr_corners[last_corner_no - 1], curr_corners[0])
+                    curr_corners[last_corner_no].sideOf(curr_corners[last_corner_no - 1], curr_corners[0])
                     == Side.COLLINEAR;
         }
         if (last_point_collinear)
@@ -81,7 +81,7 @@ public class PolygonShape extends PolylineShape
         if (last_corner_no - first_corner_no >= 2)
         {
             first_point_collinear =
-                    curr_corners[0].side_of(curr_corners[1], curr_corners[last_corner_no])
+                    curr_corners[0].sideOf(curr_corners[1], curr_corners[last_corner_no])
                     == Side.COLLINEAR;
         }
         
@@ -92,10 +92,10 @@ public class PolygonShape extends PolylineShape
         }
         // search the point with the lowest y and then with the lowest x
         int start_corner_no = first_corner_no;
-        FloatPoint start_corner = curr_corners[start_corner_no].to_float();
+        FloatPoint start_corner = curr_corners[start_corner_no].toFloat();
         for (int i = start_corner_no + 1; i <= last_corner_no; ++i)
         {
-            FloatPoint curr_corner = curr_corners[i].to_float();
+            FloatPoint curr_corner = curr_corners[i].toFloat();
             if (curr_corner.y < start_corner.y ||
                     curr_corner.y == start_corner.y && curr_corner.x < start_corner.x)
             {
@@ -278,7 +278,7 @@ public class PolygonShape extends PolylineShape
         Point[] new_corners = new Point[corners.length];
         for (int i = 0; i < corners.length; ++i)
         {
-            new_corners[i] = corners[i].translate_by(p_vector);
+            new_corners[i] = corners[i].translateBy(p_vector);
         }
         return new PolygonShape(new_corners);
     }
@@ -298,7 +298,7 @@ public class PolygonShape extends PolylineShape
             double ury = Integer.MIN_VALUE;
             for (int i = 0; i < corners.length; ++i)
             {
-                FloatPoint curr = corners[i].to_float();
+                FloatPoint curr = corners[i].toFloat();
                 llx = Math.min(llx, curr.x);
                 lly = Math.min(lly, curr.y);
                 urx = Math.max(urx, curr.x);
@@ -324,7 +324,7 @@ public class PolygonShape extends PolylineShape
             double urx = Integer.MIN_VALUE;
             for (int i = 0; i < corners.length; ++i)
             {
-                FloatPoint curr = corners[i].to_float();
+                FloatPoint curr = corners[i].toFloat();
                 lx = Math.min(lx, curr.x);
                 ly = Math.min(ly, curr.y);
                 rx = Math.max(rx, curr.x);
@@ -361,7 +361,7 @@ public class PolygonShape extends PolylineShape
         
         for (int ind = 0; ind < corners.length; ++ind)
         {
-            if (next_point.side_of(prev_point, curr_point) == Side.ON_THE_RIGHT)
+            if (next_point.sideOf(prev_point, curr_point) == Side.ON_THE_RIGHT)
                 return false;
             prev_point = curr_point;
             curr_point = next_point;
@@ -408,7 +408,7 @@ public class PolygonShape extends PolylineShape
             {
                 next_point = corners[ind + 1];
             }
-            if (next_point.side_of(prev_point, curr_point) != Side.ON_THE_LEFT)
+            if (next_point.sideOf(prev_point, curr_point) != Side.ON_THE_LEFT)
             {
                 //skip curr_point;
                 Point[] new_corners = new Point[corners.length - 1];
@@ -454,11 +454,11 @@ public class PolygonShape extends PolylineShape
         // where xi, yi are the coordinates of the i-th corner of this polygon.
         
         double result = 0;
-        FloatPoint prev_corner = corners[corners.length - 2].to_float();
-        FloatPoint curr_corner = corners[corners.length - 1].to_float();
+        FloatPoint prev_corner = corners[corners.length - 2].toFloat();
+        FloatPoint curr_corner = corners[corners.length - 1].toFloat();
         for (int i = 0; i < corners.length; ++i)
         {
-            FloatPoint next_corner = corners[i].to_float();
+            FloatPoint next_corner = corners[i].toFloat();
             result += curr_corner.x * (next_corner.y - prev_corner.y);
             prev_corner = curr_corner;
             curr_corner = next_corner;
@@ -515,7 +515,7 @@ public class PolygonShape extends PolylineShape
         for (int i = 0; i < convex_shapes.length; ++i)
         {
             FloatPoint curr_nearest_point = convex_shapes[i].nearest_point_approx(p_from_point);
-            double curr_dist = curr_nearest_point.distance_square(p_from_point);
+            double curr_dist = curr_nearest_point.distanceSquare(p_from_point);
             if (curr_dist < min_dist)
             {
                 min_dist = curr_dist;
@@ -530,7 +530,7 @@ public class PolygonShape extends PolylineShape
         Point[] new_corners = new Point[corners.length];
         for (int i = 0; i < corners.length; ++i)
         {
-            new_corners[i] = corners[i].turn_90_degree(p_factor, p_pole);
+            new_corners[i] = corners[i].turn90Degree(p_factor, p_pole);
         }
         return new PolygonShape(new_corners);
     }
@@ -544,7 +544,7 @@ public class PolygonShape extends PolylineShape
         Point[] new_corners = new Point[corners.length];
         for (int i = 0; i < corners.length; ++i)
         {
-            new_corners[i] = corners[i].to_float().rotate(p_angle, p_pole).round();
+            new_corners[i] = corners[i].toFloat().rotate(p_angle, p_pole).round();
         }
         return new PolygonShape(new_corners);
     }
@@ -554,7 +554,7 @@ public class PolygonShape extends PolylineShape
         Point[] new_corners = new Point[corners.length];
         for (int i = 0; i < corners.length; ++i)
         {
-            new_corners[i] = corners[i].mirror_vertical(p_pole);
+            new_corners[i] = corners[i].mirrorVertical(p_pole);
         }
         return new PolygonShape(new_corners);
     }
@@ -564,7 +564,7 @@ public class PolygonShape extends PolylineShape
         Point[] new_corners = new Point[corners.length];
         for (int i = 0; i < corners.length; ++i)
         {
-            new_corners[i] = corners[i].mirror_horizontal(p_pole);
+            new_corners[i] = corners[i].mirrorHorizontal(p_pole);
         }
         return new PolygonShape(new_corners);
     }
@@ -624,7 +624,7 @@ public class PolygonShape extends PolylineShape
                 next_corner = corners[start_corner_no + 1];
             else
                 next_corner = corners[0];
-            if (next_corner.side_of(prev_corner, curr_corner) == Side.ON_THE_RIGHT)
+            if (next_corner.sideOf(prev_corner, curr_corner) == Side.ON_THE_RIGHT)
             {
                 // concave corner found
                 concave_corner_no = start_corner_no;
@@ -708,20 +708,20 @@ public class PolygonShape extends PolylineShape
          */
         DivisionPoint(int p_concave_corner_no)
         {
-            FloatPoint concave_corner = corners[p_concave_corner_no].to_float();
+            FloatPoint concave_corner = corners[p_concave_corner_no].toFloat();
             FloatPoint before_concave_corner;
             
             if (p_concave_corner_no != 0)
-                before_concave_corner =  corners[p_concave_corner_no - 1].to_float();
+                before_concave_corner =  corners[p_concave_corner_no - 1].toFloat();
             else
-                before_concave_corner = corners[corners.length - 1].to_float();
+                before_concave_corner = corners[corners.length - 1].toFloat();
             
             FloatPoint after_concave_corner;
             
             if (p_concave_corner_no == corners.length - 1)
-                after_concave_corner = corners[0].to_float();
+                after_concave_corner = corners[0].toFloat();
             else
-                after_concave_corner = corners [p_concave_corner_no + 1].to_float();
+                after_concave_corner = corners [p_concave_corner_no + 1].toFloat();
             
             boolean search_right = before_concave_corner.y > concave_corner.y ||
                     concave_corner.y > after_concave_corner.y;
@@ -746,7 +746,7 @@ public class PolygonShape extends PolylineShape
                 corner_before_curr_projection = corners[corner_no_after_curr_projection - 1];
             else
                 corner_before_curr_projection = corners[corners.length - 1];
-            FloatPoint corner_before_projection_approx = corner_before_curr_projection.to_float();
+            FloatPoint corner_before_projection_approx = corner_before_curr_projection.toFloat();
             
             double curr_dist;
             int loop_end = corners.length - 2;
@@ -754,7 +754,7 @@ public class PolygonShape extends PolylineShape
             for (int i = 0; i < loop_end; ++i)
             {
                 Point corner_after_curr_projection = corners[corner_no_after_curr_projection];
-                FloatPoint corner_after_projection_approx = corner_after_curr_projection.to_float();
+                FloatPoint corner_after_projection_approx = corner_after_curr_projection.toFloat();
                 if (corner_before_projection_approx.y != corner_after_projection_approx.y)
                     // try a horizontal division
                 {

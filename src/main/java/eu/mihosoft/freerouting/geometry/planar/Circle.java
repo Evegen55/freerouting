@@ -80,13 +80,13 @@ public class Circle implements ConvexShape, java.io.Serializable
     
     public FloatPoint centre_of_gravity()
     {
-        return center.to_float();
+        return center.toFloat();
     }
     
     public boolean is_outside(Point p_point)
     {
-        FloatPoint fp = p_point.to_float();
-        return fp.distance_square(center.to_float()) > (double) radius * radius;
+        FloatPoint fp = p_point.toFloat();
+        return fp.distanceSquare(center.toFloat()) > (double) radius * radius;
     }
     
     public boolean contains(Point p_point)
@@ -96,24 +96,24 @@ public class Circle implements ConvexShape, java.io.Serializable
     
     public boolean contains_inside(Point p_point)
     {
-        FloatPoint fp = p_point.to_float();
-        return fp.distance_square(center.to_float()) < (double) radius * radius;
+        FloatPoint fp = p_point.toFloat();
+        return fp.distanceSquare(center.toFloat()) < (double) radius * radius;
     }
     
     public boolean contains_on_border(Point p_point)
     {
-        FloatPoint fp = p_point.to_float();
-        return fp.distance_square(center.to_float()) == (double) radius * radius;
+        FloatPoint fp = p_point.toFloat();
+        return fp.distanceSquare(center.toFloat()) == (double) radius * radius;
     }
     
     public boolean contains(FloatPoint p_point)
     {
-        return p_point.distance_square(center.to_float()) <= (double) radius * radius;
+        return p_point.distanceSquare(center.toFloat()) <= (double) radius * radius;
     }
     
     public double distance(FloatPoint p_point)
     {
-        double d = p_point.distance(center.to_float()) - radius;
+        double d = p_point.distance(center.toFloat()) - radius;
         return Math.max(d, 0.0);
     }
     
@@ -188,9 +188,9 @@ public class Circle implements ConvexShape, java.io.Serializable
                 int curr_y = (int) Math.ceil(Math.cos(curr_angle) * this.radius);
                 border_delta = new IntVector(curr_x, curr_y);
             }
-            Point curr_a = this.center.translate_by(border_delta);
-            Point curr_b = curr_a.turn_90_degree(1, this.center);
-            Direction curr_dir = Direction.get_instance(curr_b.difference_by(this.center));
+            Point curr_a = this.center.translateBy(border_delta);
+            Point curr_b = curr_a.turn90Degree(1, this.center);
+            Direction curr_dir = Direction.get_instance(curr_b.differenceBy(this.center));
             Line curr_tangent = new Line(curr_a, curr_dir);
             tangent_line_arr [quadrant_division_count + i] = curr_tangent;
             tangent_line_arr [2 * quadrant_division_count + i] = curr_tangent.turn_90_degree(1, this.center);
@@ -219,26 +219,26 @@ public class Circle implements ConvexShape, java.io.Serializable
     
     public Circle turn_90_degree(int p_factor, IntPoint p_pole)
     {
-        IntPoint new_center = (IntPoint) center.turn_90_degree(p_factor, p_pole);
+        IntPoint new_center = (IntPoint) center.turn90Degree(p_factor, p_pole);
         return new Circle(new_center, radius);
     }
     
     public Circle rotate_approx(double p_angle, FloatPoint p_pole)
     {
-        IntPoint new_center = center.to_float().rotate(p_angle, p_pole).round();
+        IntPoint new_center = center.toFloat().rotate(p_angle, p_pole).round();
         return new Circle(new_center, radius);
     }
     
     
     public Circle mirror_vertical(IntPoint p_pole)
     {
-        IntPoint new_center = (IntPoint) center.mirror_vertical(p_pole);
+        IntPoint new_center = (IntPoint) center.mirrorVertical(p_pole);
         return new Circle(new_center, radius);
     }
     
     public Circle mirror_horizontal(IntPoint p_pole)
     {
-        IntPoint new_center = (IntPoint) center.mirror_horizontal(p_pole);
+        IntPoint new_center = (IntPoint) center.mirrorHorizontal(p_pole);
         return new Circle(new_center, radius);
     }
     
@@ -282,7 +282,7 @@ public class Circle implements ConvexShape, java.io.Serializable
             FRLogger.warn("Circle.translate_by only implemented for IntVectors till now");
             return this;
         }
-        IntPoint new_center = (IntPoint) center.translate_by(p_vector);
+        IntPoint new_center = (IntPoint) center.translateBy(p_vector);
         return new Circle(new_center, radius);
     }
     
@@ -295,7 +295,7 @@ public class Circle implements ConvexShape, java.io.Serializable
     
     public double border_distance(FloatPoint p_point)
     {
-        double d = p_point.distance(center.to_float()) - radius;
+        double d = p_point.distance(center.toFloat()) - radius;
         return Math.abs(d);
     }
     
@@ -324,21 +324,21 @@ public class Circle implements ConvexShape, java.io.Serializable
     {
         double d_square = radius + p_other.radius;
         d_square *= d_square;
-        return center.distance_square(p_other.center) <= d_square;
+        return center.distanceSquare(p_other.center) <= d_square;
     }
     public boolean intersects(IntBox p_box)
     {
-        return p_box.distance(center.to_float()) <= radius;
+        return p_box.distance(center.toFloat()) <= radius;
     }
     
     public boolean intersects(IntOctagon p_oct)
     {
-        return p_oct.distance(center.to_float()) <= radius;
+        return p_oct.distance(center.toFloat()) <= radius;
     }
     
     public boolean intersects(Simplex p_simplex)
     {
-        return p_simplex.distance(center.to_float()) <= radius;
+        return p_simplex.distance(center.toFloat()) <= radius;
     }
     
     public TileShape[] split_to_convex()

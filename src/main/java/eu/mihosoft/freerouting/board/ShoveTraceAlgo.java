@@ -111,7 +111,7 @@ public class ShoveTraceAlgo
                 this.board.set_shove_failing_obstacle(curr_shove_via);
                 return false;
             }
-            FloatPoint curr_shove_via_center = curr_shove_via.get_center().to_float();
+            FloatPoint curr_shove_via_center = curr_shove_via.get_center().toFloat();
             IntPoint[] try_via_centers =
                     MoveDrillItemAlgo.try_shove_via_points(p_trace_shape, p_layer, curr_shove_via, p_cl_type,
                     true, board);
@@ -121,9 +121,9 @@ public class ShoveTraceAlgo
             boolean shove_via_ok = false;
             for (int i = 0; i < try_via_centers.length; ++i)
             {
-                if (i == 0 || curr_shove_via_center.distance_square(try_via_centers[i].to_float()) <= max_dist_square)
+                if (i == 0 || curr_shove_via_center.distanceSquare(try_via_centers[i].toFloat()) <= max_dist_square)
                 {
-                    Vector delta = try_via_centers[i].difference_by(curr_shove_via.get_center());
+                    Vector delta = try_via_centers[i].differenceBy(curr_shove_via.get_center());
                     Collection<Item> ignore_items = new java.util.LinkedList<Item>();
                     if (MoveDrillItemAlgo.check(curr_shove_via, delta, p_max_recursion_depth,
                             p_max_via_recursion_depth - 1, ignore_items, this.board, p_time_limit))
@@ -272,7 +272,7 @@ public class ShoveTraceAlgo
                 {
                     return 0;
                 }
-                Vector delta = new_via_center[0].difference_by(curr_shove_via.get_center());
+                Vector delta = new_via_center[0].differenceBy(curr_shove_via.get_center());
                 Collection<Item> ignore_items = new java.util.LinkedList<Item>();
                 shove_via_ok = MoveDrillItemAlgo.check(curr_shove_via, delta, p_max_recursion_depth,
                         p_max_via_recursion_depth - 1, ignore_items, p_board, null);
@@ -280,8 +280,8 @@ public class ShoveTraceAlgo
 
             if (!shove_via_ok)
             {
-                FloatPoint via_center_appprox = curr_shove_via.get_center().to_float();
-                double projection = start_corner_appprox.scalar_product(end_corner_appprox, via_center_appprox);
+                FloatPoint via_center_appprox = curr_shove_via.get_center().toFloat();
+                double projection = start_corner_appprox.scalarProduct(end_corner_appprox, via_center_appprox);
                 projection /= segment_length;
                 IntBox via_box = curr_shove_via.get_tree_shape_on_layer(search_tree, p_layer).bounding_box();
                 double via_radius = 0.5 * via_box.max_width();
@@ -337,8 +337,8 @@ public class ShoveTraceAlgo
                             return 0;
                         }
                         double projection =
-                                Math.min(start_corner_appprox.scalar_product(end_corner_appprox, curr_line_segment.start_point_approx()),
-                                start_corner_appprox.scalar_product(end_corner_appprox, curr_line_segment.end_point_approx()));
+                                Math.min(start_corner_appprox.scalarProduct(end_corner_appprox, curr_line_segment.start_point_approx()),
+                                start_corner_appprox.scalarProduct(end_corner_appprox, curr_line_segment.end_point_approx()));
                         projection /= segment_length;
                         double curr_ok_length = shove_ok_length + projection - p_trace_half_width - curr_substitute_trace.get_half_width();
                         if (search_tree.is_clearance_compensation_used())

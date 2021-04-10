@@ -1050,8 +1050,8 @@ public class BoardHandling extends BoardHandlingImpl {
         }
         IntBox bounding_box = this.board.get_bounding_box(((SelectedItemState) interactive_state).get_item_list());
         bounding_box = bounding_box.offset(this.board.rules.get_max_trace_half_width());
-        Point2D lower_left = this.graphicsContext.coordinateTransform.board_to_screen(bounding_box.ll.to_float());
-        Point2D upper_right = this.graphicsContext.coordinateTransform.board_to_screen(bounding_box.ur.to_float());
+        Point2D lower_left = this.graphicsContext.coordinateTransform.board_to_screen(bounding_box.ll.toFloat());
+        Point2D upper_right = this.graphicsContext.coordinateTransform.board_to_screen(bounding_box.ur.toFloat());
         this.panel.zoomFrame(lower_left, upper_right);
     }
 

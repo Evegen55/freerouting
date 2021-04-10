@@ -111,7 +111,7 @@ public class RouteState extends InteractiveState
             Trace picked_trace = (Trace) picked_item;
             Point picked_corner = picked_trace.nearest_end_point(location);
             if (picked_corner instanceof IntPoint &&
-                    p_location.distance(picked_corner.to_float()) < 5 * picked_trace.get_half_width())
+                p_location.distance(picked_corner.toFloat()) < 5 * picked_trace.get_half_width())
             {
                 location = (IntPoint) picked_corner;
             }

@@ -109,7 +109,7 @@ public class CopyItemState extends InteractiveState
         current_position = p_new_position.round();
         if (!current_position.equals(previous_position))
         {
-            Vector translate_vector = current_position.difference_by(previous_position);
+            Vector translate_vector = current_position.differenceBy(previous_position);
             Iterator<eu.mihosoft.freerouting.board.Item> it = item_list.iterator();
             while (it.hasNext())
             {
@@ -172,7 +172,7 @@ public class CopyItemState extends InteractiveState
         // Contains the new created components after copying.
         Collection<Component> copied_components = new LinkedList<Component>();
         
-        Vector translate_vector = current_position.difference_by(start_position);
+        Vector translate_vector = current_position.differenceBy(start_position);
         Iterator<Item> it = item_list.iterator();
         while (it.hasNext())
         {
@@ -197,7 +197,7 @@ public class CopyItemState extends InteractiveState
                         FRLogger.warn("CopyItemState: component not found");
                         continue;
                     }
-                    Point new_location = old_component.get_location().translate_by(translate_vector);
+                    Point new_location = old_component.get_location().translateBy(translate_vector);
                     Package new_package;
                     if (layer_changed)
                     {
@@ -262,7 +262,7 @@ public class CopyItemState extends InteractiveState
         }
         if (activityReplayFile != null)
         {
-            activityReplayFile.add_corner(this.current_position.to_float());
+            activityReplayFile.add_corner(this.current_position.toFloat());
         }
         start_position = current_position;
         layer_changed = false;

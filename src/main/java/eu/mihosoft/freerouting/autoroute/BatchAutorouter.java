@@ -406,15 +406,15 @@ public class BatchAutorouter
             {
                 continue;
             }
-            FloatPoint curr_from_corner = ((DrillItem) curr_from_item).get_center().to_float();
+            FloatPoint curr_from_corner = ((DrillItem) curr_from_item).get_center().toFloat();
             for (Item curr_to_item : p_to_items)
             {
                 if (!(curr_to_item instanceof DrillItem))
                 {
                     continue;
                 }
-                FloatPoint curr_to_corner = ((DrillItem) curr_to_item).get_center().to_float();
-                double curr_distance = curr_from_corner.distance_square(curr_to_corner);
+                FloatPoint curr_to_corner = ((DrillItem) curr_to_item).get_center().toFloat();
+                double curr_distance = curr_from_corner.distanceSquare(curr_to_corner);
                 if (curr_distance < min_distance)
                 {
                     min_distance = curr_distance;

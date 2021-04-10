@@ -92,7 +92,7 @@ public class Component extends ScopeKeyword {
         p_par.file.new_line();
         p_par.identifier_type.write(p_component.name, p_par.file);
         if (p_component.is_placed()) {
-            double[] coor = p_par.coordinate_transform.board_to_dsn(p_component.get_location().to_float());
+            double[] coor = p_par.coordinate_transform.board_to_dsn(p_component.get_location().toFloat());
             for (int i = 0; i < coor.length; ++i) {
                 p_par.file.write(" ");
                 p_par.file.write((Double.valueOf(coor[i])).toString());

@@ -186,16 +186,16 @@ public class FloatLine
      */
     public FloatLine segment_projection(FloatLine p_line_segment)
     {
-        if (this.b.scalar_product(this.a, p_line_segment.a) < 0)
+        if (this.b.scalarProduct(this.a, p_line_segment.a) < 0)
         {
             return null;
         }
-        if (this.a.scalar_product(this.b, p_line_segment.b) < 0)
+        if (this.a.scalarProduct(this.b, p_line_segment.b) < 0)
         {
             return null;
         }
         FloatPoint projected_a;
-        if (this.a.scalar_product(this.b, p_line_segment.a) < 0)
+        if (this.a.scalarProduct(this.b, p_line_segment.a) < 0)
         {
             projected_a = this.a;
         }
@@ -208,7 +208,7 @@ public class FloatLine
             }
         }
         FloatPoint projected_b;
-        if (this.b.scalar_product(this.a, p_line_segment.b) < 0)
+        if (this.b.scalarProduct(this.a, p_line_segment.b) < 0)
         {
             projected_b = this.b;
         }
@@ -230,16 +230,16 @@ public class FloatLine
      */
     public FloatLine segment_projection_2(FloatLine p_line_segment)
     {
-        if (p_line_segment.a.scalar_product(p_line_segment.b, this.b) <= 0)
+        if (p_line_segment.a.scalarProduct(p_line_segment.b, this.b) <= 0)
         {
             return null;
         }
-        if ( p_line_segment.b.scalar_product(p_line_segment.a, this.a) <= 0)
+        if (p_line_segment.b.scalarProduct(p_line_segment.a, this.a) <= 0)
         {
             return null;
         }
         FloatPoint projected_a;
-        if (p_line_segment.a.scalar_product(p_line_segment.b, this.a) < 0)
+        if (p_line_segment.a.scalarProduct(p_line_segment.b, this.a) < 0)
         {
             FloatLine curr_perpendicular_line =
                     new FloatLine(p_line_segment.a, p_line_segment.b.turn_90_degree(1, p_line_segment.a));
@@ -256,7 +256,7 @@ public class FloatLine
         
         FloatPoint projected_b;
         
-        if (p_line_segment.b.scalar_product(p_line_segment.a, this.b) < 0)
+        if (p_line_segment.b.scalarProduct(p_line_segment.a, this.b) < 0)
         {
             FloatLine curr_perpendicular_line =
                     new FloatLine(p_line_segment.b, p_line_segment.a.turn_90_degree(1, p_line_segment.b));
@@ -306,7 +306,7 @@ public class FloatLine
         }
         // Now the projection is outside the line segment.
         FloatPoint result;
-        if (p_from_point.distance_square(this.a) <= p_from_point.distance_square(this.b))
+        if (p_from_point.distanceSquare(this.a) <= p_from_point.distanceSquare(this.b))
         {
             result = this.a;
         }

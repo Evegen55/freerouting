@@ -302,7 +302,7 @@ public class BatchOptRoute
                     Via curr_via = (Via) curr_item;
                     if (!curr_via.is_user_fixed())
                     {
-                        FloatPoint curr_via_center = curr_via.get_center().to_float();
+                        FloatPoint curr_via_center = curr_via.get_center().toFloat();
                         int curr_via_min_layer = curr_via.first_layer();
                         if (curr_via_center.x > min_item_coor.x ||
                                 curr_via_center.x == min_item_coor.x && (curr_via_center.y > min_item_coor.y || curr_via_center.y == min_item_coor.y && curr_via_min_layer > min_item_layer))
@@ -332,8 +332,8 @@ public class BatchOptRoute
                     Trace curr_trace = (Trace) curr_item;
                     if (!curr_trace.is_shove_fixed())
                     {
-                        FloatPoint first_corner = curr_trace.first_corner().to_float();
-                        FloatPoint last_corner = curr_trace.last_corner().to_float();
+                        FloatPoint first_corner = curr_trace.first_corner().toFloat();
+                        FloatPoint last_corner = curr_trace.last_corner().toFloat();
                         FloatPoint compare_corner;
                         if (first_corner.x < last_corner.x ||
                                 first_corner.x == last_corner.x && first_corner.y < last_corner.y)

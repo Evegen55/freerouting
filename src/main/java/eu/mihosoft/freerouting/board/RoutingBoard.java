@@ -193,9 +193,9 @@ public class RoutingBoard extends BasicBoard implements java.io.Serializable
     {
         start_marking_changed_area();
         FloatPoint[] board_corners = new FloatPoint[4];
-        board_corners[0] = bounding_box.ll.to_float();
+        board_corners[0] = bounding_box.ll.toFloat();
         board_corners[1] = new FloatPoint(bounding_box.ur.x, bounding_box.ll.y);
-        board_corners[2] = bounding_box.ur.to_float();
+        board_corners[2] = bounding_box.ur.toFloat();
         board_corners[3] = new FloatPoint(bounding_box.ll.x, bounding_box.ur.y);
         for (int i = 0; i < get_layer_count(); ++i)
         {
@@ -327,7 +327,7 @@ public class RoutingBoard extends BasicBoard implements java.io.Serializable
             }
             nearest_obstacle_point = intersection.nearest_point_approx(from_point);
 
-            double projection = from_point.scalar_product(to_point, nearest_obstacle_point) / line_length;
+            double projection = from_point.scalarProduct(to_point, nearest_obstacle_point) / line_length;
 
             projection = Math.max(0.0, projection - shorten_value - 1);
 
@@ -498,7 +498,7 @@ public class RoutingBoard extends BasicBoard implements java.io.Serializable
     {
         TileShape point_shape = TileShape.get_instance(p_location);
         Collection<Item> found_items = overlapping_items(point_shape, p_layer);
-        FloatPoint pick_location = p_location.to_float();
+        FloatPoint pick_location = p_location.toFloat();
         double min_dist = Integer.MAX_VALUE;
         Item nearest_item = null;
         Set<Item> ignore_set = null;
@@ -534,7 +534,7 @@ public class RoutingBoard extends BasicBoard implements java.io.Serializable
                 DrillItem curr_drill_item = (DrillItem) curr_item;
                 if (p_layer < 0 || curr_drill_item.is_on_layer(p_layer))
                 {
-                    FloatPoint drill_item_center = curr_drill_item.get_center().to_float();
+                    FloatPoint drill_item_center = curr_drill_item.get_center().toFloat();
                     curr_dist = drill_item_center.distance(pick_location);
                     if (curr_dist < min_dist || nearest_item instanceof Trace)
                     {
@@ -592,7 +592,7 @@ public class RoutingBoard extends BasicBoard implements java.io.Serializable
             IntOctagon tidy_clip_shape;
             if (p_tidy_width < Integer.MAX_VALUE)
             {
-                tidy_clip_shape = p_location.surrounding_octagon().enlarge(p_tidy_width);
+                tidy_clip_shape = p_location.surroundingOctagon().enlarge(p_tidy_width);
             }
             else
             {
@@ -862,7 +862,7 @@ public class RoutingBoard extends BasicBoard implements java.io.Serializable
         IntOctagon tidy_region = null;
         if (p_tidy_width < Integer.MAX_VALUE)
         {
-            tidy_region = new_corner.surrounding_octagon().enlarge(p_tidy_width);
+            tidy_region = new_corner.surroundingOctagon().enlarge(p_tidy_width);
         }
         int[] opt_net_no_arr;
         if (p_max_recursion_depth <= 0)

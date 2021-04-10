@@ -160,7 +160,7 @@ public class TileConstructionState extends CornerItemConstructionState
         while (new_length > 2)
         {
             IntPoint prev_corner =  corner_arr[new_length - 3];
-            Side last_corner_side = last_corner.side_of(prev_corner, curr_corner);
+            Side last_corner_side = last_corner.sideOf(prev_corner, curr_corner);
             if (last_corner_side == Side.ON_THE_LEFT)
             {
                 // side is ok, nothing to skip
@@ -228,7 +228,7 @@ public class TileConstructionState extends CornerItemConstructionState
         while (new_length > 3)
         {
             IntPoint last_corner =  corner_arr[new_length - 1];
-            if (last_corner.side_of(second_corner, first_corner) != Side.ON_THE_LEFT)
+            if (last_corner.sideOf(second_corner, first_corner) != Side.ON_THE_LEFT)
             {
                 break;
             }

@@ -115,7 +115,7 @@ public abstract class LocateFoundConnectionAlgo
             // may happen only in case of fanout
             this.target_item = null;
             ExpansionDrill curr_drill = (ExpansionDrill) p_maze_search_result.destination_door;
-            this.current_from_point = curr_drill.location.to_float();
+            this.current_from_point = curr_drill.location.toFloat();
             this.target_layer = curr_drill.first_layer + p_maze_search_result.section_no_of_door;
             at_fanout_end = true;
         }
@@ -300,7 +300,7 @@ public abstract class LocateFoundConnectionAlgo
         TileShape connection_shape =
                 ((Connectable) p_from_door.item).get_trace_connection_shape(p_search_tree, p_from_door.tree_entry_no);
         connection_shape = connection_shape.intersection(p_from_door.room.get_shape());
-        return connection_shape.centre_of_gravity().round().to_float();
+        return connection_shape.centre_of_gravity().round().toFloat();
     }
 
     /**
@@ -395,7 +395,7 @@ public abstract class LocateFoundConnectionAlgo
         {
             return this.current_from_point;
         }
-        return shrinked_room_shape.nearest_point_approx(this.current_from_point).round().to_float();
+        return shrinked_room_shape.nearest_point_approx(this.current_from_point).round().toFloat();
     }
 
     private static FloatPoint ninety_degree_corner(FloatPoint p_from_point, FloatPoint p_to_point,

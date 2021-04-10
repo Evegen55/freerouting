@@ -687,9 +687,9 @@ public class SessionToEagle extends javax.swing.JFrame
         this.out_file.write(";\n");
         
         double [] location_1 =
-                this.board.communication.coordinateTransform.board_to_dsn(p_pin_1.get_center().to_float());
+                this.board.communication.coordinateTransform.board_to_dsn(p_pin_1.get_center().toFloat());
         double [] location_2 =
-                this.board.communication.coordinateTransform.board_to_dsn(p_pin_2.get_center().to_float());
+                this.board.communication.coordinateTransform.board_to_dsn(p_pin_2.get_center().toFloat());
         
         this.out_file.write("PINSWAP ");
         this.out_file.write(" (");

@@ -242,7 +242,7 @@ public class MoveItemState extends InteractiveState
         move(hdlg.get_current_mouse_position());
         if (activityReplayFile != null)
         {
-            activityReplayFile.add_corner(this.current_position.to_float());
+            activityReplayFile.add_corner(this.current_position.toFloat());
         }
         return this;
     }
@@ -329,7 +329,7 @@ public class MoveItemState extends InteractiveState
         current_position = p_new_position.round();
         if (!current_position.equals(previous_position))
         {
-            Vector translate_vector = current_position.difference_by(previous_position);
+            Vector translate_vector = current_position.differenceBy(previous_position);
             if (this.grid_snap_component != null)
             {
                 translate_vector = adjust_to_placement_grid(translate_vector);
@@ -356,13 +356,13 @@ public class MoveItemState extends InteractiveState
     
     private Vector adjust_to_placement_grid(Vector p_vector)
     {
-        Point new_component_location = this.grid_snap_component.get_location().translate_by(p_vector);
+        Point new_component_location = this.grid_snap_component.get_location().translateBy(p_vector);
         IntPoint rounded_component_location =
-                new_component_location.to_float().round_to_grid(hdlg.settings.horizontal_component_grid,
-                hdlg.settings.vertical_component_grid);
-        Vector adjustment = rounded_component_location.difference_by(new_component_location);
+                new_component_location.toFloat().roundToGrid(hdlg.settings.horizontal_component_grid,
+                                                             hdlg.settings.vertical_component_grid);
+        Vector adjustment = rounded_component_location.differenceBy(new_component_location);
         Vector result = p_vector.add(adjustment);
-        this.current_position = this.previous_position.translate_by(result).to_float().round();
+        this.current_position = this.previous_position.translateBy(result).toFloat().round();
         return p_vector.add(adjustment);
     }
     
@@ -411,7 +411,7 @@ public class MoveItemState extends InteractiveState
             components.rotate(curr_component.no, p_angle_in_degree,  this.current_position);
         }
         this.clearance_violations = new java.util.LinkedList<ClearanceViolation>();
-        FloatPoint float_position = this.current_position.to_float();
+        FloatPoint float_position = this.current_position.toFloat();
         for (Item curr_item : this.item_list)
         {
             curr_item.rotate_approx(p_angle_in_degree,  float_position);

@@ -102,7 +102,7 @@ public class CalcFromSide
         {
             FRLogger.warn("CalcFromSide: this.no >= 0 expected");
         }
-        this.border_intersection = border_projection.to_float();
+        this.border_intersection = border_projection.toFloat();
     }
     
     /**
@@ -134,7 +134,7 @@ public class CalcFromSide
             if (prev_side != next_side)
             {
                 FloatPoint curr_intersection = p_shape.border_line(i - 1).intersection_approx(check_line);
-                if (curr_intersection.distance_square(start_corner) < curr_intersection.distance_square(end_corner))
+                if (curr_intersection.distanceSquare(start_corner) < curr_intersection.distanceSquare(end_corner))
                 {
                     front_side_no = i - 1;
                     break;

@@ -170,7 +170,7 @@ public class SessionFile
         p_file.new_line();
         p_file.write("(place ");
         p_identifier_type.write(p_component.name, p_file);
-        double[] location = p_coordinate_transform.board_to_dsn(p_component.get_location().to_float());
+        double[] location = p_coordinate_transform.board_to_dsn(p_component.get_location().toFloat());
         Integer x_coor = (int) Math.round(location[0]);
         Integer y_coor = (int) Math.round(location[1]);
         p_file.write(" ");
@@ -398,7 +398,7 @@ public class SessionFile
         int [] prev_coors = null;
         for (int i = 0; i < corner_arr.length; ++i)
         {
-            double[] curr_float_coors = p_coordinate_transform.board_to_dsn(corner_arr[i].to_float());
+            double[] curr_float_coors = p_coordinate_transform.board_to_dsn(corner_arr[i].toFloat());
             int [] curr_coors = new int[2];
             curr_coors[0] = (int) Math.round(curr_float_coors[0]);
             curr_coors[1] = (int) Math.round(curr_float_coors[1]);
@@ -430,7 +430,7 @@ public class SessionFile
             CoordinateTransform p_coordinate_transform, IndentFileWriter p_file) throws java.io.IOException
     {
         eu.mihosoft.freerouting.library.Padstack via_padstack = p_via.get_padstack();
-        FloatPoint via_location = p_via.get_center().to_float();
+        FloatPoint via_location = p_via.get_center().toFloat();
         p_file.start_scope();
         p_file.write("via ");
         p_identifier_type.write(via_padstack.name, p_file);

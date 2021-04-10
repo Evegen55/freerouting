@@ -79,8 +79,8 @@ public class NetIncompletes
         
         for (PlanarDelaunayTriangulation.ResultEdge curr_line : triangulation_lines)
         {
-            Edge new_edge = new Edge((NetItem) curr_line.start_object, curr_line.start_point.to_float(),
-                    (NetItem) curr_line.end_object, curr_line.end_point.to_float());
+            Edge new_edge = new Edge((NetItem) curr_line.start_object, curr_line.start_point.toFloat(),
+                    (NetItem) curr_line.end_object, curr_line.end_point.toFloat());
             sorted_edges.add(new_edge);
         }
         
@@ -185,7 +185,7 @@ public class NetIncompletes
         Collection<eu.mihosoft.freerouting.board.Pin> net_pins = this.net.get_pins();
         for (eu.mihosoft.freerouting.board.Pin curr_pin : net_pins)
         {
-            draw_length_violation_marker(curr_pin.get_center().to_float(), this.length_violation, p_graphics, p_graphics_context);
+            draw_length_violation_marker(curr_pin.get_center().toFloat(), this.length_violation, p_graphics, p_graphics_context);
         }
     }
     
@@ -296,7 +296,7 @@ public class NetIncompletes
             from_corner = p_from_corner;
             to_item = p_to_item;
             to_corner =  p_to_corner;
-            length_square = p_to_corner.distance_square(p_from_corner);
+            length_square = p_to_corner.distanceSquare(p_from_corner);
         }
         
         public final NetItem from_item;

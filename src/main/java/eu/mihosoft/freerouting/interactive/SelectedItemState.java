@@ -279,7 +279,7 @@ public class SelectedItemState extends InteractiveState
             Item curr_ob = it.next();
             if (curr_ob instanceof Via)
             {
-                FloatPoint curr_center = ((DrillItem) curr_ob).get_center().to_float();
+                FloatPoint curr_center = ((DrillItem) curr_ob).get_center().toFloat();
                 gravity_x += curr_center.x;
                 gravity_y += curr_center.y;
                 ++pin_count;
@@ -303,7 +303,7 @@ public class SelectedItemState extends InteractiveState
         for (int i = 0; i < pin_arr.length; ++i)
         {
             Via curr_via = (Via) it.next();
-            Vector rel_coor = curr_via.get_center().difference_by(gravity_point);
+            Vector rel_coor = curr_via.get_center().differenceBy(gravity_point);
             String pin_name = (Integer.valueOf(i + 1)).toString();
             pin_arr[i] = new Package.Pin(pin_name, curr_via.get_padstack().no, rel_coor, 0);
         }

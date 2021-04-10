@@ -338,9 +338,9 @@ public abstract class Trace extends Item implements Connectable, java.io.Seriali
     {
         Point p1 = first_corner();
         Point p2 = last_corner();
-        FloatPoint from_point = p_from_point.to_float();
-        double d1 = from_point.distance(p1.to_float());
-        double d2 = from_point.distance(p2.to_float());
+        FloatPoint from_point = p_from_point.toFloat();
+        double d1 = from_point.distance(p1.toFloat());
+        double d2 = from_point.distance(p2.toFloat());
         Point result;
         if (d1 < d2)
         {
@@ -468,7 +468,7 @@ public abstract class Trace extends Item implements Connectable, java.io.Seriali
         Point curr_end_point = this.first_corner();
         for (int i = 0; i < 2; ++i)
         {
-            IntOctagon curr_oct = curr_end_point.surrounding_octagon();
+            IntOctagon curr_oct = curr_end_point.surroundingOctagon();
             curr_oct = curr_oct.enlarge(this.half_width);
             Set<Item> curr_overlaps = this.board.overlapping_items_with_clearance(curr_oct, this.layer, new int[0], this.clearance_class_no());
             for (Item curr_item : curr_overlaps)
@@ -489,9 +489,9 @@ public abstract class Trace extends Item implements Connectable, java.io.Seriali
                 java.util.ResourceBundle.getBundle("eu.mihosoft.freerouting.board.ObjectInfoPanel", p_locale);
         p_window.append_bold(resources.getString("trace"));
         p_window.append(" " + resources.getString("from"));
-        p_window.append(this.first_corner().to_float());
+        p_window.append(this.first_corner().toFloat());
         p_window.append(resources.getString("to"));
-        p_window.append(this.last_corner().to_float());
+        p_window.append(this.last_corner().toFloat());
         p_window.append(resources.getString("on_layer") + " ");
         p_window.append(this.board.layer_structure.arr[this.layer].name);
         p_window.append(", " + resources.getString("width") + " ");

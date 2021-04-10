@@ -62,7 +62,7 @@ public abstract class DrillItem extends Item implements Connectable, java.io.Ser
     {
         if (center != null)
         {
-            center  = center.translate_by(p_vector);
+            center  = center.translateBy(p_vector);
         }
         this.clear_derived_data();
     }
@@ -72,7 +72,7 @@ public abstract class DrillItem extends Item implements Connectable, java.io.Ser
     {
         if (center != null)
         {
-            center  = center.turn_90_degree(p_factor, p_pole);
+            center  = center.turn90Degree(p_factor, p_pole);
         }
         this.clear_derived_data();
     }
@@ -81,7 +81,7 @@ public abstract class DrillItem extends Item implements Connectable, java.io.Ser
     {
         if (center != null)
         {
-            FloatPoint new_center  = center.to_float().rotate(Math.toRadians(p_angle_in_degree), p_pole);
+            FloatPoint new_center  = center.toFloat().rotate(Math.toRadians(p_angle_in_degree), p_pole);
             this.center = new_center.round();
         }
         this.clear_derived_data();
@@ -91,7 +91,7 @@ public abstract class DrillItem extends Item implements Connectable, java.io.Ser
     {
         if (center != null)
         {
-            center  = center.mirror_vertical(p_pole);
+            center  = center.mirrorVertical(p_pole);
         }
         this.clear_derived_data();
     }
@@ -127,11 +127,11 @@ public abstract class DrillItem extends Item implements Connectable, java.io.Ser
             // Make shure, that the traces will remain 90- or 45-degree.
             if (board.rules.get_trace_angle_restriction() == AngleRestriction.NINETY_DEGREE)
             {
-                add_corner = ((IntPoint)old_center).ninety_degree_corner((IntPoint)new_center, true);
+                add_corner = ((IntPoint)old_center).ninetyDegreeCorner((IntPoint)new_center, true);
             }
             else if (board.rules.get_trace_angle_restriction() == AngleRestriction.FORTYFIVE_DEGREE)
             {
-                add_corner = ((IntPoint)old_center).fortyfive_degree_corner((IntPoint)new_center, true);
+                add_corner = ((IntPoint)old_center).fortyfiveDegreeCorner((IntPoint)new_center, true);
             }
         }
         if (add_corner != null)
@@ -239,7 +239,7 @@ public abstract class DrillItem extends Item implements Connectable, java.io.Ser
     public double smallest_radius()
     {
         double result = Double.MAX_VALUE;
-        FloatPoint c = get_center().to_float();
+        FloatPoint c = get_center().toFloat();
         for (int i = 0; i < tile_shape_count(); ++i)
         {
             Shape curr_shape = get_shape(i);

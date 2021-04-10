@@ -116,7 +116,7 @@ public abstract class PolylineShape implements Shape, java.io.Serializable
      */
     public FloatPoint corner_approx(int p_no)
     {
-        return corner(p_no).to_float();
+        return corner(p_no).toFloat();
     }
     
     
@@ -359,7 +359,7 @@ public abstract class PolylineShape implements Shape, java.io.Serializable
         for (int i = 1; i < corner_count; ++i)
         {
             Point curr_corner = this.corner(i);
-            if (curr_corner.side_of(p_from_point, result) == Side.ON_THE_LEFT)
+            if (curr_corner.sideOf(p_from_point, result) == Side.ON_THE_LEFT)
             {
                 result = curr_corner;
             }
@@ -381,7 +381,7 @@ public abstract class PolylineShape implements Shape, java.io.Serializable
         for (int i = 1; i < corner_count; ++i)
         {
             Point curr_corner = this.corner(i);
-            if (curr_corner.side_of(p_from_point, result) == Side.ON_THE_RIGHT)
+            if (curr_corner.sideOf(p_from_point, result) == Side.ON_THE_RIGHT)
             {
                 result = curr_corner;
             }

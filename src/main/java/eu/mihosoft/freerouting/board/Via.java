@@ -71,7 +71,7 @@ public class Via extends DrillItem implements java.io.Serializable
             for (int i = 0; i < this.precalculated_shapes.length; ++i)
             {
                 int padstack_layer = i + this.first_layer();
-                Vector translate_vector = get_center().difference_by(Point.ZERO);
+                Vector translate_vector = get_center().differenceBy(Point.ZERO);
                 Shape curr_shape = padstack.get_shape(padstack_layer);
 
                 if (curr_shape == null)
@@ -251,7 +251,7 @@ public class Via extends DrillItem implements java.io.Serializable
                 java.util.ResourceBundle.getBundle("eu.mihosoft.freerouting.board.ObjectInfoPanel", p_locale);
         p_window.append_bold(resources.getString("via"));
         p_window.append(" " + resources.getString("at"));
-        p_window.append(this.get_center().to_float());
+        p_window.append(this.get_center().toFloat());
         p_window.append(", " + resources.getString("padstack"));
         p_window.append(padstack.name, resources.getString("padstack_info"), padstack);
         this.print_connectable_item_info(p_window, p_locale);

@@ -50,7 +50,7 @@ public class RationalPoint extends Point implements java.io.Serializable
     /**
      * approximates the coordinates of this point by float coordinates
      */
-    public FloatPoint to_float()
+    public FloatPoint toFloat()
     {
         double xd = x.doubleValue();
         double yd = y.doubleValue();
@@ -97,14 +97,14 @@ public class RationalPoint extends Point implements java.io.Serializable
         return (det.signum() == 0);
     }
     
-    public boolean is_infinite()
+    public boolean isInfinite()
     {
         return z.signum() == 0;
     }
     
-    public IntBox surrounding_box()
+    public IntBox surroundingBox()
     {
-        FloatPoint fp = to_float();
+        FloatPoint fp = toFloat();
         int llx = (int) Math.floor(fp.x);
         int lly = (int) Math.floor(fp.y);
         int urx = (int) Math.ceil(fp.x);
@@ -112,9 +112,9 @@ public class RationalPoint extends Point implements java.io.Serializable
         return new IntBox(llx, lly, urx, ury);
     }
     
-    public IntOctagon surrounding_octagon()
+    public IntOctagon surroundingOctagon()
     {
-        FloatPoint fp = to_float();
+        FloatPoint fp = toFloat();
         int lx = (int) Math.floor(fp.x);
         int ly = (int) Math.floor(fp.y);
         int rx = (int) Math.ceil(fp.x);
@@ -130,7 +130,7 @@ public class RationalPoint extends Point implements java.io.Serializable
         return new IntOctagon(lx, ly, rx, uy, ulx, lrx, llx, urx);
     }
     
-    public boolean is_contained_in(IntBox p_box)
+    public boolean isContainedIn(IntBox p_box)
     {
         BigInteger tmp = BigInteger.valueOf(p_box.ll.x).multiply(z);
         if (x.compareTo(tmp) < 0)
@@ -154,22 +154,22 @@ public class RationalPoint extends Point implements java.io.Serializable
     /**
      * returns the translation of this point by p_vector
      */
-    public Point translate_by(Vector p_vector)
+    public Point translateBy(Vector p_vector)
     {
         if (p_vector.equals(Vector.ZERO))
         {
             return this;
         }
-        return p_vector.add_to(this) ;
+        return p_vector.addTo(this) ;
     }
     
-    Point translate_by(IntVector p_vector)
+    Point translateBy(IntVector p_vector)
     {
         RationalVector vector = new RationalVector(p_vector);
-        return  translate_by(vector);
+        return  translateBy(vector);
     }
     
-    Point translate_by(RationalVector p_vector)
+    Point translateBy(RationalVector p_vector)
     {
         BigInteger[] v1 = new BigInteger[3];
         v1[0] = x;
@@ -187,19 +187,19 @@ public class RationalPoint extends Point implements java.io.Serializable
     /**
      * returns the difference vector of this point and p_other
      */
-    public Vector difference_by(Point p_other)
+    public Vector differenceBy(Point p_other)
     {
-        Vector tmp =  p_other.difference_by(this);
+        Vector tmp =  p_other.differenceBy(this);
         return tmp.negate();
     }
     
-    Vector difference_by(IntPoint p_other)
+    Vector differenceBy(IntPoint p_other)
     {
         RationalPoint other = new RationalPoint(p_other);
-        return difference_by(other);
+        return differenceBy(other);
     }
     
-    Vector difference_by(RationalPoint p_other)
+    Vector differenceBy(RationalPoint p_other)
     {
         BigInteger[] v1 = new BigInteger[3];
         v1[0] = x;
@@ -222,24 +222,24 @@ public class RationalPoint extends Point implements java.io.Serializable
      *                            f the line from p_1 to p_2;
      *     and Side.COLLINEAR, if this Point is collinear with p_1 and p_2.
      */
-    public Side side_of(Point p_1, Point p_2)
+    public Side sideOf(Point p_1, Point p_2)
     {
-        Vector v1 = difference_by(p_1);
-        Vector v2 = p_2.difference_by(p_1);
-        return v1.side_of(v2);
+        Vector v1 = differenceBy(p_1);
+        Vector v2 = p_2.differenceBy(p_1);
+        return v1.sideOf(v2);
     }
     
-    public Side side_of(Line p_line)
+    public Side sideOf(Line p_line)
     {
-        return side_of(p_line.a, p_line.b);
+        return sideOf(p_line.a, p_line.b);
     }
     
-    public Point perpendicular_projection(Line p_line)
+    public Point perpendicularProjection(Line p_line)
     {
         // this function is at the moment only implemented for lines
         // consisting of IntPoints.
         // The general implementation is still missing.
-        IntVector v = (IntVector)p_line.b.difference_by(p_line.a);
+        IntVector v = (IntVector)p_line.b.differenceBy(p_line.a);
         BigInteger vxvx = BigInteger.valueOf((long)v.x * v.x);
         BigInteger vyvy = BigInteger.valueOf((long)v.y * v.y);
         BigInteger vxvy = BigInteger.valueOf((long) v.x * v.y);
@@ -286,38 +286,38 @@ public class RationalPoint extends Point implements java.io.Serializable
         return new RationalPoint(proj_x, proj_y, denominator);
     }
     
-    public int compare_x(Point p_other)
+    public int compareX(Point p_other)
     {
-        return -p_other.compare_x(this);
+        return -p_other.compareX(this);
     }
     
     
-    public int compare_y(Point p_other)
+    public int compareY(Point p_other)
     {
-        return -p_other.compare_y(this);
+        return -p_other.compareY(this);
     }
     
-    int compare_x(RationalPoint p_other)
+    int compareX(RationalPoint p_other)
     {
         BigInteger tmp1 = this.x.multiply(p_other.z);
         BigInteger tmp2 = p_other.x.multiply(this.z);
         return tmp1.compareTo(tmp2);
     }
     
-    int compare_y(RationalPoint p_other)
+    int compareY(RationalPoint p_other)
     {
         BigInteger tmp1 = this.y.multiply(p_other.z);
         BigInteger tmp2 = p_other.y.multiply(this.z);
         return tmp1.compareTo(tmp2);
     }
     
-    int compare_x(IntPoint p_other)
+    int compareX(IntPoint p_other)
     {
         BigInteger tmp1 = this.z.multiply(BigInteger.valueOf(p_other.x));
         return this.x.compareTo(tmp1);
     }
     
-    int compare_y(IntPoint p_other)
+    int compareY(IntPoint p_other)
     {
         BigInteger tmp1 = this.z.multiply(BigInteger.valueOf(p_other.y));
         return this.y.compareTo(tmp1);

@@ -103,7 +103,7 @@ public class Component implements UndoableObjects.Storable, ObjectInfoPanel.Prin
     {
         if (location != null)
         {
-            location = location.translate_by(p_vector);
+            location = location.translateBy(p_vector);
         }
     }
     
@@ -127,7 +127,7 @@ public class Component implements UndoableObjects.Storable, ObjectInfoPanel.Prin
         }
         if (location != null)
         {
-            this.location = this.location.turn_90_degree(p_factor, p_pole);
+            this.location = this.location.turn90Degree(p_factor, p_pole);
         }
     }
     /**
@@ -156,7 +156,7 @@ public class Component implements UndoableObjects.Storable, ObjectInfoPanel.Prin
         }
         if (location != null)
         {
-            this.location = this.location.to_float().rotate(Math.toRadians(p_angle_in_degree), p_pole.to_float()).round();
+            this.location = this.location.toFloat().rotate(Math.toRadians(p_angle_in_degree), p_pole.toFloat()).round();
         }
     }
     
@@ -167,7 +167,7 @@ public class Component implements UndoableObjects.Storable, ObjectInfoPanel.Prin
     public void change_side(IntPoint p_pole)
     {
         this.on_front = !this.on_front;
-        this.location = this.location.mirror_vertical(p_pole);
+        this.location = this.location.mirrorVertical(p_pole);
     }
     
     /**
@@ -224,7 +224,7 @@ public class Component implements UndoableObjects.Storable, ObjectInfoPanel.Prin
         if (this.location != null)
         {
             p_window.append(" " + resources.getString("at") + " ");
-            p_window.append(this.location.to_float());
+            p_window.append(this.location.toFloat());
             
             p_window.append(", " + resources.getString("rotation") + " ");
             p_window.append_without_transforming(rotation_in_degree);

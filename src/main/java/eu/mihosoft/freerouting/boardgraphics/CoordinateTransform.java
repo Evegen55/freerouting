@@ -180,8 +180,8 @@ public class CoordinateTransform implements java.io.Serializable
      */
     public java.awt.Rectangle board_to_screen(IntBox p_box)
     {
-        Point2D corner_1 = board_to_screen(p_box.ll.to_float());
-        Point2D corner_2 = board_to_screen(p_box.ur.to_float());
+        Point2D corner_1 = board_to_screen(p_box.ll.toFloat());
+        Point2D corner_2 = board_to_screen(p_box.ur.toFloat());
         double ll_x = Math.min(corner_1.getX(), corner_2.getX());
         double ll_y = Math.min(corner_1.getY(), corner_2.getY());
         double dx = Math.abs(corner_2.getX() - corner_1.getX());

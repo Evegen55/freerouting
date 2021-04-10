@@ -101,7 +101,7 @@ public abstract class TileShape extends PolylineShape implements ConvexShape, ja
      */
     public static IntBox get_instance(Point p_point)
     {
-        return p_point.surrounding_box();
+        return p_point.surroundingBox();
     }
 
     /**
@@ -422,7 +422,7 @@ public abstract class TileShape extends PolylineShape implements ConvexShape, ja
         {
             return null;
         }
-        FloatPoint from_point_f = p_from_point.to_float();
+        FloatPoint from_point_f = p_from_point.toFloat();
         if (line_count == 1)
         {
             return border_line(0).perpendicular_projection(p_from_point);
@@ -435,7 +435,7 @@ public abstract class TileShape extends PolylineShape implements ConvexShape, ja
         for (int i = 0; i < line_count; ++i)
         {
             FloatPoint curr_corner_f = corner_approx(i);
-            double curr_dist = curr_corner_f.distance_square(from_point_f);
+            double curr_dist = curr_corner_f.distanceSquare(from_point_f);
             if (curr_dist < min_dist)
             {
                 min_dist = curr_dist;
@@ -454,8 +454,8 @@ public abstract class TileShape extends PolylineShape implements ConvexShape, ja
                     border_line(curr_ind).perpendicular_projection(p_from_point);
             if ((!corner_is_bounded(curr_ind) || border_line(prev_ind).side_of(projection) == Side.ON_THE_RIGHT) && (!corner_is_bounded(next_ind) || border_line(next_ind).side_of(projection) == Side.ON_THE_RIGHT))
             {
-                FloatPoint projection_f = projection.to_float();
-                double curr_dist = projection_f.distance_square(from_point_f);
+                FloatPoint projection_f = projection.toFloat();
+                double curr_dist = projection_f.distanceSquare(from_point_f);
                 if (curr_dist < min_dist)
                 {
                     min_dist = curr_dist;
@@ -503,7 +503,7 @@ public abstract class TileShape extends PolylineShape implements ConvexShape, ja
         if (line_count == 1)
         {
             FloatPoint[] result = new FloatPoint[1];
-            result[0] = p_from_point.projection_approx(border_line(0));
+            result[0] = p_from_point.projectionApprox(border_line(0));
             return result;
         }
         if (this.dimension() == 0)
@@ -525,7 +525,7 @@ public abstract class TileShape extends PolylineShape implements ConvexShape, ja
             if (corner_is_bounded(i))
             {
                 FloatPoint curr_corner = corner_approx(i);
-                double curr_dist = curr_corner.distance_square(p_from_point);
+                double curr_dist = curr_corner.distanceSquare(p_from_point);
                 for (int j = 0; j < result_count; ++j)
                 {
                     if (curr_dist < min_dists[j])
@@ -548,10 +548,10 @@ public abstract class TileShape extends PolylineShape implements ConvexShape, ja
 
         for (int next_ind = 0; next_ind < line_count; ++next_ind)
         {
-            FloatPoint projection = p_from_point.projection_approx(border_line(curr_ind));
+            FloatPoint projection = p_from_point.projectionApprox(border_line(curr_ind));
             if ((!corner_is_bounded(curr_ind) || border_line(prev_ind).side_of(projection) == Side.ON_THE_RIGHT) && (!corner_is_bounded(next_ind) || border_line(next_ind).side_of(projection) == Side.ON_THE_RIGHT))
             {
-                double curr_dist = projection.distance_square(p_from_point);
+                double curr_dist = projection.distanceSquare(p_from_point);
                 for (int j = 0; j < result_count; ++j)
                 {
                     if (curr_dist < min_dists[j])
@@ -579,7 +579,7 @@ public abstract class TileShape extends PolylineShape implements ConvexShape, ja
      */
     public int index_of_nearest_corner(Point p_from_point)
     {
-        FloatPoint from_point_f = p_from_point.to_float();
+        FloatPoint from_point_f = p_from_point.toFloat();
         int result = 0;
         int corner_count = border_line_count();
         double min_dist = Double.MIN_VALUE;
@@ -645,8 +645,8 @@ public abstract class TileShape extends PolylineShape implements ConvexShape, ja
                 FloatPoint curr_corner = p_shape.corner_approx(corner_no);
                 if (border_line(curr_ind).side_of(curr_corner) == Side.ON_THE_RIGHT)
                 {
-                    FloatPoint projection = curr_corner.projection_approx(border_line(curr_ind));
-                    double curr_dist = projection.distance_square(curr_corner);
+                    FloatPoint projection = curr_corner.projectionApprox(border_line(curr_ind));
+                    double curr_dist = projection.distanceSquare(curr_corner);
                     if (curr_dist > curr_max_dist)
                     {
                         curr_max_dist = curr_dist;
@@ -924,9 +924,9 @@ public abstract class TileShape extends PolylineShape implements ConvexShape, ja
         {
             return -1;
         }
-        FloatPoint from_point = p_from_point.to_float();
+        FloatPoint from_point = p_from_point.toFloat();
         Line intersection_line = new Line(p_from_point, p_direction);
-        FloatPoint second_line_point = intersection_line.b.to_float();
+        FloatPoint second_line_point = intersection_line.b.toFloat();
         int result = -1;
         double min_distance = Float.MAX_VALUE;
         for (int i = 0; i < this.border_line_count(); ++i)
@@ -937,10 +937,10 @@ public abstract class TileShape extends PolylineShape implements ConvexShape, ja
             {
                 continue; // lines are parallel
             }
-            double curr_distence = curr_intersection.distance_square(from_point);
+            double curr_distence = curr_intersection.distanceSquare(from_point);
             if (curr_distence < min_distance)
             {
-                boolean direction_ok = curr_border_line.side_of(second_line_point) == Side.ON_THE_LEFT || second_line_point.distance_square(curr_intersection) < curr_distence;
+                boolean direction_ok = curr_border_line.side_of(second_line_point) == Side.ON_THE_LEFT || second_line_point.distanceSquare(curr_intersection) < curr_distence;
                 if (direction_ok)
                 {
                     result = i;

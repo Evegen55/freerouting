@@ -67,11 +67,11 @@ public class DragItemState extends DragState
         IntPoint from_location = this.previous_location.round();
         if (hdlg.getRoutingBoard().rules.get_trace_angle_restriction() == AngleRestriction.NINETY_DEGREE)
         {
-            to_location = to_location.orthogonal_projection(from_location);
+            to_location = to_location.orthogonalProjection(from_location);
         }
         else if (hdlg.getRoutingBoard().rules.get_trace_angle_restriction() == AngleRestriction.FORTYFIVE_DEGREE)
         {
-            to_location = to_location.fortyfive_degree_projection(from_location);
+            to_location = to_location.fortyfiveDegreeProjection(from_location);
         }
         if (to_location.equals(from_location))
         {
@@ -83,8 +83,8 @@ public class DragItemState extends DragState
             return this;
         }
         MoveComponent move_component = null;
-        Vector rel_coor = to_location.difference_by(from_location);
-        double length = rel_coor.length_approx();
+        Vector rel_coor = to_location.differenceBy(from_location);
+        double length = rel_coor.lengthApprox();
         boolean shove_ok = false;
         for (int i = 0; i < 2; ++i)
         {
@@ -101,7 +101,7 @@ public class DragItemState extends DragState
                 double sample_width = 2 * hdlg.getRoutingBoard().get_min_trace_half_width();
                 if (length > sample_width)
                 {
-                    rel_coor = rel_coor.change_length_approx(sample_width);
+                    rel_coor = rel_coor.changeLengthApprox(sample_width);
                 }
             }
         }

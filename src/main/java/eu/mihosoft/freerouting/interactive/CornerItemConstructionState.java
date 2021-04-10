@@ -78,7 +78,7 @@ public class CornerItemConstructionState extends InteractiveState
     {
         super.mouse_moved();
         IntPoint curr_mouse_pos = hdlg.get_current_mouse_position().round();
-        this.snapped_mouse_position = (this.snap(curr_mouse_pos)).to_float();
+        this.snapped_mouse_position = (this.snap(curr_mouse_pos)).toFloat();
         hdlg.repaint();
         return this;
     }
@@ -103,11 +103,11 @@ public class CornerItemConstructionState extends InteractiveState
         java.util.Iterator<IntPoint> it = corner_list.iterator();
         for (int i = 0; i < corners.length - 1; ++i)
         {
-            corners[i] = (it.next()).to_float();
+            corners[i] = (it.next()).toFloat();
         }
         if (this.snapped_mouse_position == null)
         {
-            corners[corners.length - 1] = it.next().to_float();
+            corners[corners.length - 1] = it.next().toFloat();
         }
         else
         {
@@ -130,11 +130,11 @@ public class CornerItemConstructionState extends InteractiveState
         IntPoint add_corner = null;
         if (hdlg.getRoutingBoard().rules.get_trace_angle_restriction() == AngleRestriction.NINETY_DEGREE)
         {
-            add_corner = last_corner.ninety_degree_corner(first_corner, true);
+            add_corner = last_corner.ninetyDegreeCorner(first_corner, true);
         }
         else if (hdlg.getRoutingBoard().rules.get_trace_angle_restriction() == AngleRestriction.FORTYFIVE_DEGREE)
         {
-            add_corner = last_corner.fortyfive_degree_corner(first_corner, true);
+            add_corner = last_corner.fortyfiveDegreeCorner(first_corner, true);
         }
         if (add_corner != null)
         {
@@ -153,12 +153,12 @@ public class CornerItemConstructionState extends InteractiveState
         if (hdlg.getRoutingBoard().rules.get_trace_angle_restriction() == AngleRestriction.NINETY_DEGREE && !list_empty)
         {
             IntPoint last_corner = corner_list.getLast();
-            result = p_point.orthogonal_projection(last_corner);
+            result = p_point.orthogonalProjection(last_corner);
         }
         else if (hdlg.getRoutingBoard().rules.get_trace_angle_restriction() == AngleRestriction.FORTYFIVE_DEGREE && !list_empty)
         {
             IntPoint last_corner = corner_list.getLast();
-            result = p_point.fortyfive_degree_projection(last_corner);
+            result = p_point.fortyfiveDegreeProjection(last_corner);
         }
         else
         {

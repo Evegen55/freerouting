@@ -216,7 +216,7 @@ public class GraphicsContext implements java.io.Serializable {
             this.draw(closed_draw_corners, p_draw_half_width, p_color, p_g, p_translucency_factor);
         } else if (p_shape instanceof Circle) {
             Circle curr_circle = (Circle) p_shape;
-            this.draw_circle(curr_circle.center.to_float(), curr_circle.radius, p_draw_half_width,
+            this.draw_circle(curr_circle.center.toFloat(), curr_circle.radius, p_draw_half_width,
                              p_color, p_g, p_translucency_factor);
         }
     }
@@ -239,7 +239,7 @@ public class GraphicsContext implements java.io.Serializable {
         if (p_color == null) {
             return;
         }
-        Point2D center = coordinateTransform.board_to_screen(p_circle.center.to_float());
+        Point2D center = coordinateTransform.board_to_screen(p_circle.center.toFloat());
         double radius = coordinateTransform.board_to_screen(p_circle.radius);
         if (!point_near_rectangle(center.getX(), center.getY(), p_g.getClip().getBounds(), radius)) {
             return;

@@ -345,7 +345,7 @@ public class PolylineTrace extends Trace implements java.io.Serializable
         board.remove_item(other_trace);
         if (board instanceof RoutingBoard)
         {
-            ((RoutingBoard) board).join_changed_area(start_corner.to_float(), get_layer());
+            ((RoutingBoard) board).join_changed_area(start_corner.toFloat(), get_layer());
         }
         return true;
     }
@@ -470,7 +470,7 @@ public class PolylineTrace extends Trace implements java.io.Serializable
         board.remove_item(other_trace);
         if (board instanceof RoutingBoard)
         {
-            ((RoutingBoard) board).join_changed_area(end_corner.to_float(), get_layer());
+            ((RoutingBoard) board).join_changed_area(end_corner.toFloat(), get_layer());
         }
         return true;
     }
@@ -1141,7 +1141,7 @@ public class PolylineTrace extends Trace implements java.io.Serializable
         {
             return false;
         }
-        double end_line_length = end_corner.to_float().distance(prev_end_corner.to_float());
+        double end_line_length = end_corner.toFloat().distance(prev_end_corner.toFloat());
         double curr_clearance = board.clearance_value(this.clearance_class_no(), contact_pin.clearance_class_no(), this.get_layer());
         double add_width = Math.max(edge_to_turn_dist, curr_clearance + 1);
         double preserve_length = matching_exit_restriction.min_length + this.get_half_width() + add_width;
@@ -1232,7 +1232,7 @@ public class PolylineTrace extends Trace implements java.io.Serializable
             int curr_intersecting_border_line_no = offset_pin_shape.intersecting_border_line_no(pin_center, curr_exit_restriction.direction);
             Line curr_pin_exit_ray = new Line(pin_center, curr_exit_restriction.direction);
             FloatPoint curr_exit_corner = curr_pin_exit_ray.intersection_approx(offset_pin_shape.border_line(curr_intersecting_border_line_no));
-            double curr_exit_corner_distance = curr_exit_corner.distance_square(trace_entry_location_approx);
+            double curr_exit_corner_distance = curr_exit_corner.distanceSquare(trace_entry_location_approx);
             boolean new_nearest_corner_found = false;
             if (curr_exit_corner_distance + TOLERANCE < min_exit_corner_distance)
             {
@@ -1244,8 +1244,8 @@ public class PolylineTrace extends Trace implements java.io.Serializable
                 for (int i = 1; i < trace_polyline.corner_count(); ++i)
                 {
                     FloatPoint curr_trace_corner = trace_polyline.corner_approx(i);
-                    double curr_trace_corner_distance = curr_trace_corner.distance_square(curr_exit_corner);
-                    double old_trace_corner_distance = curr_trace_corner.distance_square(nearest_exit_corner);
+                    double curr_trace_corner_distance = curr_trace_corner.distanceSquare(curr_exit_corner);
+                    double old_trace_corner_distance = curr_trace_corner.distanceSquare(nearest_exit_corner);
                     if (curr_trace_corner_distance + TOLERANCE < old_trace_corner_distance)
                     {
                         new_nearest_corner_found = true;
@@ -1380,7 +1380,7 @@ public class PolylineTrace extends Trace implements java.io.Serializable
         {
             double half_width = this.get_half_width();
             if (trace_polyline.arr.length > 3 &&
-                    trace_polyline.corner_approx(0).distance_square(trace_polyline.corner_approx(1)) <= half_width * half_width)
+                trace_polyline.corner_approx(0).distanceSquare(trace_polyline.corner_approx(1)) <= half_width * half_width)
             {
                 // check also for sharp angle with the second line
                 check_swap =

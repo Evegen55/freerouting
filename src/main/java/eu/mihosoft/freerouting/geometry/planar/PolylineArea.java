@@ -124,7 +124,7 @@ public class PolylineArea implements Area, java.io.Serializable
         for (int i = 0; i < convex_shapes.length; ++i)
         {
             FloatPoint curr_nearest_point = convex_shapes[i].nearest_point_approx(p_from_point);
-            double curr_dist = curr_nearest_point.distance_square(p_from_point);
+            double curr_dist = curr_nearest_point.distanceSquare(p_from_point);
             if (curr_dist < min_dist)
             {
                 min_dist = curr_dist;

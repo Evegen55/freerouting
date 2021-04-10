@@ -1000,7 +1000,7 @@ public class BasicBoard implements java.io.Serializable {
      * checks, if p_point is contained in the bounding box of this board.
      */
     public boolean contains(Point p_point) {
-        return p_point.is_contained_in(bounding_box);
+        return p_point.isContainedIn(bounding_box);
     }
 
     /**

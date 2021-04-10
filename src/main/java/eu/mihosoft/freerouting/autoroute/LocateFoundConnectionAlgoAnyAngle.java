@@ -67,7 +67,7 @@ class LocateFoundConnectionAlgoAnyAngle extends LocateFoundConnectionAlgo
         {
             if (this.current_to_door_index == this.current_target_door_index)
             {
-                FloatPoint nearest_point = this.current_target_shape.nearest_point(this.current_from_point.round()).to_float();
+                FloatPoint nearest_point = this.current_target_shape.nearest_point(this.current_from_point.round()).toFloat();
                 ++this.current_to_door_index;
                 result.add(nearest_point);
             }
@@ -84,13 +84,13 @@ class LocateFoundConnectionAlgoAnyAngle extends LocateFoundConnectionAlgo
         if (this.current_from_point.side_of(door_left_corner, door_right_corner) != Side.ON_THE_RIGHT)
         {
             // the door is already crossed at this.from_point
-            if (this.current_from_point.scalar_product(this.previous_from_point, door_left_corner) >= 0)
+            if (this.current_from_point.scalarProduct(this.previous_from_point, door_left_corner) >= 0)
             {
                 // Also the left corner of the door is passed.
                 // That may not be the case if the door line is crossed almost parallel.
                 door_left_corner = null;
             }
-            if(this.current_from_point.scalar_product(this.previous_from_point, door_right_corner) >= 0)
+            if(this.current_from_point.scalarProduct(this.previous_from_point, door_right_corner) >= 0)
             {
                 // Also the right corner of the door is passed.
                 door_right_corner = null;
@@ -170,13 +170,13 @@ class LocateFoundConnectionAlgoAnyAngle extends LocateFoundConnectionAlgo
             if (this.current_from_point.side_of(next_left_corner, next_right_corner) != Side.ON_THE_RIGHT)
             {
                 // the door may be already crossed at this.from_point
-                if (door_left_corner == null && this.current_from_point.scalar_product(this.previous_from_point, next_left_corner) >= 0)
+                if (door_left_corner == null && this.current_from_point.scalarProduct(this.previous_from_point, next_left_corner) >= 0)
                 {
                     // Also the left corner of the door is passed.
                     // That may not be the case if the door line is crossed almost parallel.
                     next_left_corner = null;
                 }
-                if(door_right_corner == null && this.current_from_point.scalar_product(this.previous_from_point, next_right_corner) >= 0)
+                if(door_right_corner == null && this.current_from_point.scalarProduct(this.previous_from_point, next_right_corner) >= 0)
                 {
                     // Also the right corner of the door is passed.
                     next_right_corner = null;
@@ -257,7 +257,7 @@ class LocateFoundConnectionAlgoAnyAngle extends LocateFoundConnectionAlgo
         
         if (end_of_trace)
         {
-            FloatPoint nearest_point = this.current_target_shape.nearest_point(this.current_from_point.round()).to_float();
+            FloatPoint nearest_point = this.current_target_shape.nearest_point(this.current_from_point.round()).toFloat();
             result_corner = nearest_point;
             if (left_tangent_point != null && nearest_point.side_of(this.current_from_point, left_tangent_point) == Side.ON_THE_LEFT)
             {

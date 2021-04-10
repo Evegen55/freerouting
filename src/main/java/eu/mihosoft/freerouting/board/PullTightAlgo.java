@@ -263,8 +263,8 @@ public abstract class PullTightAlgo
                 p_line_arr[p_no - 2].intersection(p_line_arr[p_no - 1]);
         Point next_corner =
                 p_line_arr[p_no + 1].intersection(p_line_arr[p_no + 2]);
-        double prev_dist = translate_line.signed_distance(prev_corner.to_float());
-        double next_dist = translate_line.signed_distance(next_corner.to_float());
+        double prev_dist = translate_line.signed_distance(prev_corner.toFloat());
+        double next_dist = translate_line.signed_distance(next_corner.toFloat());
         if (Signum.of(prev_dist) != Signum.of(next_dist))
         {
             // the 2 corners are at different sides of translate_line
@@ -383,8 +383,8 @@ public abstract class PullTightAlgo
             {
                 FloatPoint prev_corner = curr_polyline.corner_approx(i - 1);
                 FloatPoint curr_corner = curr_polyline.corner_approx(i);
-                try_skip = curr_corner.distance_square(prev_corner) <
-                        c_min_corner_dist_square;
+                try_skip = curr_corner.distanceSquare(prev_corner) <
+                           c_min_corner_dist_square;
             }
 
             if (try_skip)

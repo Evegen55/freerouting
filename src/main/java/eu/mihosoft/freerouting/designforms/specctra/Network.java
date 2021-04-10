@@ -1350,7 +1350,7 @@ public class Network extends ScopeKeyword
         {
             return; // component is not yet placed.
         }
-        Vector component_translation = component_location.difference_by(Point.ZERO);
+        Vector component_translation = component_location.differenceBy(Point.ZERO);
         eu.mihosoft.freerouting.board.FixedState fixed_state;
         if (p_location.position_fixed)
         {

@@ -82,7 +82,7 @@ public class MoveComponent
             }
             if (curr_item instanceof DrillItem)
             {
-                item_centers.add(((DrillItem) curr_item).get_center().to_float());
+                item_centers.add(((DrillItem) curr_item).get_center().toFloat());
             }
         }
         // calculate the gravity point of all item centers
@@ -110,8 +110,8 @@ public class MoveComponent
             {
                 item_center = curr_item.bounding_box().centre_of_gravity().round();
             }
-            Vector compare_vector = gravity_point.difference_by(item_center);
-            double curr_projection = compare_vector.scalar_product(translate_vector);
+            Vector compare_vector = gravity_point.differenceBy(item_center);
+            double curr_projection = compare_vector.scalarProduct(translate_vector);
             item_group_arr[i] = new SortedItem(curr_item, curr_projection);
         }
         // sort the items, in the direction of p_translate_vector, so that
@@ -137,7 +137,7 @@ public class MoveComponent
             if (item_group_arr[i].item instanceof DrillItem)
             {
                 DrillItem curr_drill_item = (DrillItem) item_group_arr[i].item;
-                if (this.translate_vector.length_approx() >= curr_drill_item.min_width())
+                if (this.translate_vector.lengthApprox() >= curr_drill_item.min_width())
                 {
                     // a clearance violation with a connecting trace may occur
                     move_ok = false;

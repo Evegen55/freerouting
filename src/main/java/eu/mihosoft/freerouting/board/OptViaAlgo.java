@@ -176,7 +176,7 @@ public class OptViaAlgo
         {
             return false;
         }
-        Vector delta = new_location.difference_by(via_center);
+        Vector delta = new_location.differenceBy(via_center);
         if (!MoveDrillItemAlgo.insert(p_via, delta, 9, 9, null, p_board))
         {
             FRLogger.warn("OptViaAlgo.opt_via_location: move via failed");
@@ -277,7 +277,7 @@ public class OptViaAlgo
         {
             check_corner = trace_polyline.corner(trace_polyline.corner_count() - 2);
         }
-        IntPoint rounded_check_corner = check_corner.to_float().round();
+        IntPoint rounded_check_corner = check_corner.toFloat().round();
         int trace_half_width = contact_trace.get_half_width();
         int trace_layer = contact_trace.get_layer();
         int trace_cl_class_no = contact_trace.clearance_class_no();
@@ -298,19 +298,19 @@ public class OptViaAlgo
             {
                 prev_corner = trace_polyline.corner(trace_polyline.corner_count() - 3);
             }
-            FloatPoint float_check_corner = check_corner.to_float();
-            FloatPoint float_via_center = via_center.to_float();
-            FloatPoint float_prev_corner = prev_corner.to_float();
-            if (float_check_corner.scalar_product(float_via_center, float_prev_corner) != 0)
+            FloatPoint float_check_corner = check_corner.toFloat();
+            FloatPoint float_via_center = via_center.toFloat();
+            FloatPoint float_prev_corner = prev_corner.toFloat();
+            if (float_check_corner.scalarProduct(float_via_center, float_prev_corner) != 0)
             {
                 FloatLine curr_line = new FloatLine(float_check_corner, float_prev_corner);
                 Point projection = curr_line.perpendicular_projection(float_via_center).round();
-                Vector diff_vector = projection.difference_by(via_center);
+                Vector diff_vector = projection.differenceBy(via_center);
                 boolean projection_ok = true;
                 AngleRestriction angle_restriction = p_board.rules.get_trace_angle_restriction();
                 if (projection.equals(via_center) ||
-                        angle_restriction == AngleRestriction.NINETY_DEGREE && !diff_vector.is_orthogonal() ||
-                        angle_restriction == AngleRestriction.FORTYFIVE_DEGREE && !diff_vector.is_multiple_of_45_degree())
+                        angle_restriction == AngleRestriction.NINETY_DEGREE && !diff_vector.isOrthogonal() ||
+                        angle_restriction == AngleRestriction.FORTYFIVE_DEGREE && !diff_vector.isMultipleOf45Degree())
                 {
                     projection_ok = false;
                 }
@@ -353,7 +353,7 @@ public class OptViaAlgo
                 return false;
             }
         }
-        Vector diff_vector = new_via_location.difference_by(via_center);
+        Vector diff_vector = new_via_location.differenceBy(via_center);
         if (!MoveDrillItemAlgo.insert(p_via, diff_vector, 9, 9, null, p_board))
         {
             FRLogger.warn("OptViaAlgo.opt_plane_or_fanout_via: move via failed");
@@ -393,8 +393,8 @@ public class OptViaAlgo
         {
             return null;
         }
-        FloatPoint float_from_location = from_location.to_float();
-        FloatPoint float_to_location = p_to_location.to_float();
+        FloatPoint float_from_location = from_location.toFloat();
+        FloatPoint float_to_location = p_to_location.toFloat();
         FloatPoint new_float_to_location;
         if (ok_length >= Integer.MAX_VALUE)
         {
@@ -405,7 +405,7 @@ public class OptViaAlgo
             new_float_to_location = float_from_location.change_length(float_to_location, ok_length);
         }
         Point new_to_location = new_float_to_location.round();
-        Vector delta = new_to_location.difference_by(from_location);
+        Vector delta = new_to_location.differenceBy(from_location);
         boolean check_ok =
                 MoveDrillItemAlgo.check(p_via, delta, 0, 0, null, p_board, null);
         
@@ -427,7 +427,7 @@ public class OptViaAlgo
         {
             Point check_point = float_from_location.change_length(float_to_location, ok_length + curr_length).round();
             
-            delta = check_point.difference_by(from_location);
+            delta = check_point.differenceBy(from_location);
             if (MoveDrillItemAlgo.check(p_via, delta, 0, 0, null, p_board, null))
             {
                 ok_length += curr_length;
@@ -454,9 +454,9 @@ public class OptViaAlgo
             return false;
         }
         
-        Vector delta = p_to_location.difference_by(from_location);
+        Vector delta = p_to_location.differenceBy(from_location);
         
-        if ( p_board.rules.get_trace_angle_restriction() == AngleRestriction.NONE && delta.length_approx() <= 1.5)
+        if ( p_board.rules.get_trace_angle_restriction() == AngleRestriction.NONE && delta.lengthApprox() <= 1.5)
         {
             // PullTightAlgoAnyAngle.reduce_corners mmay not be able to remove the new generated overlap
             // because of numerical stability problems
@@ -496,13 +496,13 @@ public class OptViaAlgo
     {
         Point   via_location = p_via.get_center();
         
-        Vector first_delta = p_first_trace_from_corner.difference_by(via_location);
-        Vector second_delta = p_second_trace_from_corner.difference_by(via_location);
-        double scalar_product = first_delta.scalar_product(second_delta);
+        Vector first_delta = p_first_trace_from_corner.differenceBy(via_location);
+        Vector second_delta = p_second_trace_from_corner.differenceBy(via_location);
+        double scalar_product = first_delta.scalarProduct(second_delta);
         
-        FloatPoint float_via_location = via_location.to_float();
-        FloatPoint float_first_trace_from_corner = p_first_trace_from_corner.to_float();
-        FloatPoint float_second_trace_from_corner = p_second_trace_from_corner.to_float();
+        FloatPoint float_via_location = via_location.toFloat();
+        FloatPoint float_first_trace_from_corner = p_first_trace_from_corner.toFloat();
+        FloatPoint float_second_trace_from_corner = p_second_trace_from_corner.toFloat();
         double first_trace_from_corner_distance = float_via_location.distance(float_first_trace_from_corner);
         double second_trace_from_corner_distance = float_via_location.distance(float_second_trace_from_corner);
         IntPoint rounded_first_trace_from_corner = float_first_trace_from_corner.round();
@@ -510,7 +510,7 @@ public class OptViaAlgo
         
         // handle case of overlapping lines first
         
-        if (via_location.side_of(p_first_trace_from_corner, p_second_trace_from_corner) == Side.COLLINEAR
+        if (via_location.sideOf(p_first_trace_from_corner, p_second_trace_from_corner) == Side.COLLINEAR
                 && scalar_product > 0)
         {
             if (second_trace_from_corner_distance < first_trace_from_corner_distance)
@@ -524,11 +524,11 @@ public class OptViaAlgo
         Point result = null;
         
         double curr_weighted_distance_1 =
-                float_via_location.weighted_distance(float_first_trace_from_corner, p_first_trace_costs.horizontal,
-                p_first_trace_costs.vertical);
+                float_via_location.weightedDistance(float_first_trace_from_corner, p_first_trace_costs.horizontal,
+                                                    p_first_trace_costs.vertical);
         double curr_weighted_distance_2 =
-                float_via_location.weighted_distance(float_first_trace_from_corner, p_second_trace_costs.horizontal,
-                p_second_trace_costs.vertical);
+                float_via_location.weightedDistance(float_first_trace_from_corner, p_second_trace_costs.horizontal,
+                                                    p_second_trace_costs.vertical);
         
         if (curr_weighted_distance_1 > curr_weighted_distance_2)
         {
@@ -542,11 +542,11 @@ public class OptViaAlgo
         }
         
         curr_weighted_distance_1 =
-                float_via_location.weighted_distance(float_second_trace_from_corner, p_second_trace_costs.horizontal,
-                p_second_trace_costs.vertical);
+                float_via_location.weightedDistance(float_second_trace_from_corner, p_second_trace_costs.horizontal,
+                                                    p_second_trace_costs.vertical);
         curr_weighted_distance_2 =
-                float_via_location.weighted_distance(float_second_trace_from_corner, p_first_trace_costs.horizontal,
-                p_first_trace_costs.vertical);
+                float_via_location.weightedDistance(float_second_trace_from_corner, p_first_trace_costs.horizontal,
+                                                    p_first_trace_costs.vertical);
         
         if (curr_weighted_distance_1 > curr_weighted_distance_2)
         {
@@ -584,11 +584,11 @@ public class OptViaAlgo
                 float_to_point_2 = float_second_trace_from_corner;
             }
             curr_weighted_distance_1 =
-                    float_to_point_1.weighted_distance(float_to_point_2, p_first_trace_costs.horizontal,
-                    p_first_trace_costs.vertical);
+                    float_to_point_1.weightedDistance(float_to_point_2, p_first_trace_costs.horizontal,
+                                                      p_first_trace_costs.vertical);
             curr_weighted_distance_2 =
-                    float_to_point_1.weighted_distance(float_to_point_2, p_second_trace_costs.horizontal,
-                    p_second_trace_costs.vertical);
+                    float_to_point_1.weightedDistance(float_to_point_2, p_second_trace_costs.horizontal,
+                                                      p_second_trace_costs.vertical);
             
             if (curr_weighted_distance_1 > curr_weighted_distance_2)
             {
@@ -620,19 +620,19 @@ public class OptViaAlgo
         
         // try decomposition in axisparallel parts
         
-        if (!first_delta.is_orthogonal())
+        if (!first_delta.isOrthogonal())
         {
             FloatPoint float_check_location = new FloatPoint(float_via_location.x, float_first_trace_from_corner.y);
             
             curr_weighted_distance_1 =
-                    float_via_location.weighted_distance(float_first_trace_from_corner, p_first_trace_costs.horizontal,
-                    p_first_trace_costs.vertical);
+                    float_via_location.weightedDistance(float_first_trace_from_corner, p_first_trace_costs.horizontal,
+                                                        p_first_trace_costs.vertical);
             curr_weighted_distance_2 =
-                    float_via_location.weighted_distance(float_check_location, p_second_trace_costs.horizontal,
-                    p_second_trace_costs.vertical);
+                    float_via_location.weightedDistance(float_check_location, p_second_trace_costs.horizontal,
+                                                        p_second_trace_costs.vertical);
             double curr_weighted_distance_3 =
-                    float_check_location.weighted_distance(float_first_trace_from_corner, p_first_trace_costs.horizontal,
-                    p_first_trace_costs.vertical);
+                    float_check_location.weightedDistance(float_first_trace_from_corner, p_first_trace_costs.horizontal,
+                                                          p_first_trace_costs.vertical);
             
             if (curr_weighted_distance_1 > curr_weighted_distance_2 + curr_weighted_distance_3)
             {
@@ -650,11 +650,11 @@ public class OptViaAlgo
             float_check_location = new FloatPoint(float_first_trace_from_corner.x, float_via_location.y);
             
             curr_weighted_distance_2 =
-                    float_via_location.weighted_distance(float_check_location, p_second_trace_costs.horizontal,
-                    p_second_trace_costs.vertical);
+                    float_via_location.weightedDistance(float_check_location, p_second_trace_costs.horizontal,
+                                                        p_second_trace_costs.vertical);
             curr_weighted_distance_3 =
-                    float_check_location.weighted_distance(float_first_trace_from_corner, p_first_trace_costs.horizontal,
-                    p_first_trace_costs.vertical);
+                    float_check_location.weightedDistance(float_first_trace_from_corner, p_first_trace_costs.horizontal,
+                                                          p_first_trace_costs.vertical);
             
             if (curr_weighted_distance_1 > curr_weighted_distance_2 + curr_weighted_distance_3)
             {
@@ -670,19 +670,19 @@ public class OptViaAlgo
             }
         }
         
-        if (!second_delta.is_orthogonal())
+        if (!second_delta.isOrthogonal())
         {
             FloatPoint float_check_location = new FloatPoint(float_via_location.x, float_second_trace_from_corner.y);
             
             curr_weighted_distance_1 =
-                    float_via_location.weighted_distance(float_second_trace_from_corner, p_second_trace_costs.horizontal,
-                    p_second_trace_costs.vertical);
+                    float_via_location.weightedDistance(float_second_trace_from_corner, p_second_trace_costs.horizontal,
+                                                        p_second_trace_costs.vertical);
             curr_weighted_distance_2 =
-                    float_via_location.weighted_distance(float_check_location, p_first_trace_costs.horizontal,
-                    p_first_trace_costs.vertical);
+                    float_via_location.weightedDistance(float_check_location, p_first_trace_costs.horizontal,
+                                                        p_first_trace_costs.vertical);
             double curr_weighted_distance_3 =
-                    float_check_location.weighted_distance(float_second_trace_from_corner, p_second_trace_costs.horizontal,
-                    p_second_trace_costs.vertical);
+                    float_check_location.weightedDistance(float_second_trace_from_corner, p_second_trace_costs.horizontal,
+                                                          p_second_trace_costs.vertical);
             
             if (curr_weighted_distance_1 > curr_weighted_distance_2 + curr_weighted_distance_3)
             {
@@ -700,11 +700,11 @@ public class OptViaAlgo
             float_check_location = new FloatPoint(float_second_trace_from_corner.x, float_via_location.y);
             
             curr_weighted_distance_2 =
-                    float_via_location.weighted_distance(float_check_location, p_first_trace_costs.horizontal,
-                    p_first_trace_costs.vertical);
+                    float_via_location.weightedDistance(float_check_location, p_first_trace_costs.horizontal,
+                                                        p_first_trace_costs.vertical);
             curr_weighted_distance_3 =
-                    float_check_location.weighted_distance(float_second_trace_from_corner, p_second_trace_costs.horizontal,
-                    p_second_trace_costs.vertical);
+                    float_check_location.weightedDistance(float_second_trace_from_corner, p_second_trace_costs.horizontal,
+                                                          p_second_trace_costs.vertical);
             
             if (curr_weighted_distance_1 > curr_weighted_distance_2 + curr_weighted_distance_3)
             {

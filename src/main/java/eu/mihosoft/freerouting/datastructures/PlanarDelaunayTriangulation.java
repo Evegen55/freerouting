@@ -398,7 +398,7 @@ public class PlanarDelaunayTriangulation
          */
         public Side side_of(Corner p_1, Corner p_2)
         {
-            return this.coor.side_of(p_1.coor, p_2.coor);
+            return this.coor.sideOf(p_1.coor, p_2.coor);
         }
         
         public final PlanarDelaunayTriangulation.Storable object;
@@ -496,9 +496,9 @@ public class PlanarDelaunayTriangulation
             Corner left_opposite_corner = this.left_triangle.opposite_corner(this);
             Corner right_opposite_corner = this.right_triangle.opposite_corner(this);
             
-            boolean inside_circle  = right_opposite_corner.coor.to_float().inside_circle(
-                    this.start_corner.coor.to_float(),left_opposite_corner.coor.to_float(),
-                    this.end_corner.coor.to_float());
+            boolean inside_circle  = right_opposite_corner.coor.toFloat().inside_circle(
+                    this.start_corner.coor.toFloat(), left_opposite_corner.coor.toFloat(),
+                    this.end_corner.coor.toFloat());
             return !inside_circle;
         }
         

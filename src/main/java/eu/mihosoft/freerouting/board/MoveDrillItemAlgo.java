@@ -227,18 +227,18 @@ public class MoveDrillItemAlgo
             double max_dist = 0.5 * curr_via.get_shape_on_layer(p_layer).bounding_box().max_width() + shape_radius;
             double max_dist_square = max_dist * max_dist;
             IntPoint curr_via_center = (IntPoint) curr_via.get_center();
-            FloatPoint check_via_center = curr_via_center.to_float();
+            FloatPoint check_via_center = curr_via_center.toFloat();
             Vector rel_coor = null;
             for (int i = 0; i < try_via_centers.length; ++i)
             {
-                if (i == 0 || check_via_center.distance_square(try_via_centers[i].to_float()) <= max_dist_square)
+                if (i == 0 || check_via_center.distanceSquare(try_via_centers[i].toFloat()) <= max_dist_square)
                 {
                     Collection<Item> ignore_items = new java.util.LinkedList<Item>();
                     if (p_ignore_items != null)
                     {
                         ignore_items.addAll(p_ignore_items);
                     }
-                    rel_coor = try_via_centers[i].difference_by(curr_via_center);
+                    rel_coor = try_via_centers[i].differenceBy(curr_via_center);
                     // No time limit here because the item database is already changed.
                     boolean shove_ok = check(curr_via, rel_coor, p_max_recursion_depth, 
                             p_max_via_recursion_depth - 1, ignore_items, p_board, null);
@@ -338,8 +338,8 @@ public class MoveDrillItemAlgo
             try_via_centers = new IntPoint[shove_deltas.length];
             for (int i = 0; i < try_via_centers.length; ++i)
             {
-                Vector curr_delta = shove_deltas[i].round().difference_by(Point.ZERO);
-                try_via_centers[i] = (IntPoint) curr_via_center.translate_by(curr_delta);
+                Vector curr_delta = shove_deltas[i].round().differenceBy(Point.ZERO);
+                try_via_centers[i] = (IntPoint) curr_via_center.translateBy(curr_delta);
             }
         }
         return try_via_centers;

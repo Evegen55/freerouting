@@ -114,8 +114,8 @@ public class CoordinateTransform implements java.io.Serializable
         double [] result = new double[4 * p_lines.length];
         for (int i = 0; i < p_lines.length; ++ i)
         {
-            FloatPoint a = p_lines[i].a.to_float();
-            FloatPoint b = p_lines[i].b.to_float();
+            FloatPoint a = p_lines[i].a.toFloat();
+            FloatPoint b = p_lines[i].b.toFloat();
             result[4 * i] = board_to_dsn(a.x) + base_x;
             result[4 * i + 1] = board_to_dsn(a.y) + base_y;
             result[4 * i + 2] = board_to_dsn(b.x) + base_x;
@@ -146,7 +146,7 @@ public class CoordinateTransform implements java.io.Serializable
     public double[]  board_to_dsn(Vector p_vector)
     {
         double [] result = new double[2];
-        FloatPoint v = p_vector.to_float();
+        FloatPoint v = p_vector.toFloat();
         result [0] = board_to_dsn(v.x);
         result [1] = board_to_dsn(v.y);
         return result;
@@ -218,7 +218,7 @@ public class CoordinateTransform implements java.io.Serializable
         {
             eu.mihosoft.freerouting.geometry.planar.Circle board_circle = (eu.mihosoft.freerouting.geometry.planar.Circle) p_board_shape;
             double diameter = 2 * board_to_dsn(board_circle.radius);
-            double [] center_coor = board_to_dsn(board_circle.center.to_float());
+            double [] center_coor = board_to_dsn(board_circle.center.toFloat());
             result  = new Circle(p_layer, diameter, center_coor[0], center_coor[1]);
         }
         else
@@ -249,7 +249,7 @@ public class CoordinateTransform implements java.io.Serializable
         {
             eu.mihosoft.freerouting.geometry.planar.Circle board_circle = (eu.mihosoft.freerouting.geometry.planar.Circle) p_board_shape;
             double diameter = 2 * board_to_dsn(board_circle.radius);
-            double [] center_coor = board_to_dsn_rel(board_circle.center.to_float());
+            double [] center_coor = board_to_dsn_rel(board_circle.center.toFloat());
             result  = new Circle(p_layer, diameter, center_coor[0], center_coor[1]);
         }
         else

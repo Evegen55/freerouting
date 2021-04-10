@@ -106,18 +106,18 @@ public class WindowRouteStubs extends WindowObjectListWithFilter
                         stub_layer = first_contact_last_layer;
                     }
                 }
-                stub_location = ((eu.mihosoft.freerouting.board.Via)curr_item).get_center().to_float();
+                stub_location = ((eu.mihosoft.freerouting.board.Via)curr_item).get_center().toFloat();
             }
             else
             {
                 eu.mihosoft.freerouting.board.Trace curr_trace = (eu.mihosoft.freerouting.board.Trace) curr_item;
                 if  (curr_trace.get_start_contacts().isEmpty())
                 {
-                    stub_location = curr_trace.first_corner().to_float();
+                    stub_location = curr_trace.first_corner().toFloat();
                 }
                 else if (curr_trace.get_end_contacts().isEmpty())
                 {
-                    stub_location = curr_trace.last_corner().to_float();
+                    stub_location = curr_trace.last_corner().toFloat();
                 }
                 else
                 {

@@ -64,7 +64,7 @@ public class Line implements Comparable<Line>, java.io.Serializable
     public Line(Point p_a, Direction p_dir)
     {
         a = p_a;
-        b = p_a.translate_by(p_dir.get_vector());
+        b = p_a.translateBy(p_dir.get_vector());
         dir = p_dir;
         if (!(a instanceof IntPoint && b instanceof IntPoint))
         {
@@ -77,7 +77,7 @@ public class Line implements Comparable<Line>, java.io.Serializable
      */
     public static Line get_instance(Point p_a, Direction p_dir)
     {
-        Point b = p_a.translate_by(p_dir.get_vector());
+        Point b = p_a.translateBy(p_dir.get_vector());
         return new Line(p_a, b);
     }
     
@@ -136,7 +136,7 @@ public class Line implements Comparable<Line>, java.io.Serializable
     {
         if (dir == null)
         {
-            Vector d = b.difference_by(a);
+            Vector d = b.differenceBy(a);
             dir = Direction.get_instance(d);
         }
         return dir;
@@ -150,7 +150,7 @@ public class Line implements Comparable<Line>, java.io.Serializable
      */
     public Side side_of(Point p_point)
     {
-        Side result = p_point.side_of(this);
+        Side result = p_point.sideOf(this);
         return result.negate();
     }
     
@@ -294,8 +294,8 @@ public class Line implements Comparable<Line>, java.io.Serializable
         // this function is at the moment only implemented for lines
         // consisting of IntPoints.
         // The general implementation is still missing.
-        IntVector delta_1 = (IntVector)b.difference_by(a);
-        IntVector delta_2 = (IntVector)p_other.b.difference_by(p_other.a);
+        IntVector delta_1 = (IntVector)b.differenceBy(a);
+        IntVector delta_2 = (IntVector)p_other.b.differenceBy(p_other.a);
         // Separate handling for orthogonal and 45 degree lines for better perpormance
         if (delta_1.x == 0 ) // this line is vertical
         {
@@ -443,7 +443,7 @@ public class Line implements Comparable<Line>, java.io.Serializable
      */
     public Point perpendicular_projection(Point p_point)
     {
-        return p_point.perpendicular_projection(this);
+        return p_point.perpendicularProjection(this);
     }
     
     /**
@@ -485,8 +485,8 @@ public class Line implements Comparable<Line>, java.io.Serializable
         {
             return this;
         }
-        Point new_a = a.translate_by(p_vector);
-        Point new_b = b.translate_by(p_vector);
+        Point new_a = a.translateBy(p_vector);
+        Point new_b = b.translateBy(p_vector);
         return new Line(new_a, new_b);
     }
     
@@ -549,9 +549,9 @@ public class Line implements Comparable<Line>, java.io.Serializable
      */
     public double cos_angle( Line p_other)
     {
-        Vector v1 = b.difference_by(a);
-        Vector v2 = p_other.b.difference_by(p_other.a);
-        return v1.cos_angle(v2);
+        Vector v1 = b.differenceBy(a);
+        Vector v2 = p_other.b.differenceBy(p_other.a);
+        return v1.cosAngle(v2);
     }
     
     /**
@@ -629,8 +629,8 @@ public class Line implements Comparable<Line>, java.io.Serializable
      */
     public double function_value_approx(double p_x)
     {
-        FloatPoint p1 = a.to_float();
-        FloatPoint p2 = b.to_float();
+        FloatPoint p1 = a.toFloat();
+        FloatPoint p2 = b.toFloat();
         double dx = p2.x - p1.x;
         if (dx == 0)
         {
@@ -649,8 +649,8 @@ public class Line implements Comparable<Line>, java.io.Serializable
      */
     public double function_in_y_value_approx(double p_y)
     {
-        FloatPoint p1 = a.to_float();
-        FloatPoint p2 = b.to_float();
+        FloatPoint p1 = a.toFloat();
+        FloatPoint p2 = b.toFloat();
         double dy = p2.y - p1.y;
         if (dy == 0)
         {
@@ -678,20 +678,20 @@ public class Line implements Comparable<Line>, java.io.Serializable
         Direction dir1 = this.direction().turn_45_degree(2);
         Direction dir2 = this.direction().turn_45_degree(6);
         
-        Point check_point_1 = p_from_point.translate_by(dir1.get_vector());
+        Point check_point_1 = p_from_point.translateBy(dir1.get_vector());
         if (this.side_of(check_point_1) != line_side)
         {
             return dir1;
         }
-        Point check_point_2 = p_from_point.translate_by(dir2.get_vector());
+        Point check_point_2 = p_from_point.translateBy(dir2.get_vector());
         if (this.side_of(check_point_2) != line_side)
         {
             return dir2;
         }
-        FloatPoint nearest_line_point = p_from_point.to_float().projection_approx(this);
+        FloatPoint nearest_line_point = p_from_point.toFloat().projectionApprox(this);
         Direction result;
-        if (nearest_line_point.distance_square(check_point_1.to_float()) <=
-                nearest_line_point.distance_square(check_point_2.to_float()))
+        if (nearest_line_point.distanceSquare(check_point_1.toFloat()) <=
+            nearest_line_point.distanceSquare(check_point_2.toFloat()))
         {
             result = dir1;
         }
@@ -707,24 +707,24 @@ public class Line implements Comparable<Line>, java.io.Serializable
      */
     public Line turn_90_degree(int p_factor, IntPoint p_pole)
     {
-        Point new_a = a.turn_90_degree(p_factor, p_pole);
-        Point new_b = b.turn_90_degree(p_factor, p_pole);
+        Point new_a = a.turn90Degree(p_factor, p_pole);
+        Point new_b = b.turn90Degree(p_factor, p_pole);
         return new Line(new_a, new_b);
     }
     
     /** Mirrors this line at the vertical line through p_pole */
     public Line mirror_vertical(IntPoint p_pole)
     {
-        Point new_a = b.mirror_vertical(p_pole);
-        Point new_b = a.mirror_vertical(p_pole);
+        Point new_a = b.mirrorVertical(p_pole);
+        Point new_b = a.mirrorVertical(p_pole);
         return new Line(new_a, new_b);
     }
     
     /** Mirrors this line at the horizontal line through p_pole */
     public Line mirror_horizontal(IntPoint p_pole)
     {
-        Point new_a = b.mirror_horizontal(p_pole);
-        Point new_b = a.mirror_horizontal(p_pole);
+        Point new_a = b.mirrorHorizontal(p_pole);
+        Point new_b = a.mirrorHorizontal(p_pole);
         return new Line(new_a, new_b);
     }
     

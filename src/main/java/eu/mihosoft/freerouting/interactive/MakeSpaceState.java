@@ -85,7 +85,7 @@ public class MakeSpaceState extends DragState
         if (hdlg.getRoutingBoard().rules.get_trace_angle_restriction() == AngleRestriction.NONE &&
             !route_end.equals(p_to_location.round()))
         {
-            hdlg.move_mouse(route_end.to_float());
+            hdlg.move_mouse(route_end.toFloat());
         }
         hdlg.recalculate_length_violations();
         hdlg.repaint();

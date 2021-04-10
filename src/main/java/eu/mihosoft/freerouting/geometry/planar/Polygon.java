@@ -95,7 +95,7 @@ public class Polygon implements java.io.Serializable
                 Point next = i.next();
 	        prev_i.next();
 
-	        if(curr.side_of(prev, next) == Side.COLLINEAR)
+	        if(curr.sideOf(prev, next) == Side.COLLINEAR)
 	        {
 	            prev_i.remove();
 	            corner_removed = true;
@@ -147,7 +147,7 @@ public class Polygon implements java.io.Serializable
         {
             return 0;
         }
-        Vector first_side_vector = corner_arr[1].difference_by(corner_arr[0]);
+        Vector first_side_vector = corner_arr[1].differenceBy(corner_arr[0]);
         Vector prev_side_vector = first_side_vector;
         int corner_count = corner_arr.length;
         // Skip the last corner, if it is equal to the first corner.
@@ -161,7 +161,7 @@ public class Polygon implements java.io.Serializable
             Vector next_side_vector;
             if (i == corner_count - 1)
             {
-                next_side_vector = corner_arr[0].difference_by(corner_arr[i]);
+                next_side_vector = corner_arr[0].differenceBy(corner_arr[i]);
             }
             else if (i == corner_count)
             {
@@ -169,9 +169,9 @@ public class Polygon implements java.io.Serializable
             }
             else
             {
-                  next_side_vector = corner_arr[i + 1].difference_by(corner_arr[i]);
+                  next_side_vector = corner_arr[i + 1].differenceBy(corner_arr[i]);
             }
-            angle_sum +=  prev_side_vector.angle_approx(next_side_vector);
+            angle_sum +=  prev_side_vector.angleApprox(next_side_vector);
             prev_side_vector = next_side_vector;
         }
         angle_sum /= 2.0 * Math.PI;

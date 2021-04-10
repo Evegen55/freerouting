@@ -82,7 +82,7 @@ public class ForcedViaAlgo
             is_90_degree = false;
         }
         
-        CalcFromSide from_side = calculate_from_side(p_location.to_float(), tile_shape, p_room_shape.to_Simplex(), check_radius, is_90_degree);
+        CalcFromSide from_side = calculate_from_side(p_location.toFloat(), tile_shape, p_room_shape.to_Simplex(), check_radius, is_90_degree);
         if (from_side == null)
         {
             return ForcedPadAlgo.CheckDrillResult.NOT_DRILLABLE;
@@ -99,7 +99,7 @@ public class ForcedViaAlgo
     public static boolean check(ViaInfo p_via_info, Point p_location, int[] p_net_no_arr, int p_max_recursion_depth,
             int p_max_via_recursion_depth, RoutingBoard p_board)
     {
-        Vector translate_vector = p_location.difference_by(Point.ZERO);
+        Vector translate_vector = p_location.differenceBy(Point.ZERO);
         int calc_from_side_offset = p_board.get_min_trace_half_width();
         ForcedPadAlgo forced_pad_algo = new ForcedPadAlgo(p_board);
         Padstack via_padstack = p_via_info.get_padstack();
@@ -145,7 +145,7 @@ public class ForcedViaAlgo
             int p_trace_clearance_class_no, int [] p_trace_pen_halfwidth_arr, int p_max_recursion_depth,
             int p_max_via_recursion_depth, RoutingBoard p_board)
     {
-        Vector translate_vector = p_location.difference_by(Point.ZERO);
+        Vector translate_vector = p_location.differenceBy(Point.ZERO);
         int calc_from_side_offset = p_board.get_min_trace_half_width();
         ForcedPadAlgo forced_pad_algo = new ForcedPadAlgo(p_board);
         Padstack via_padstack = p_via_info.get_padstack();

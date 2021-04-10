@@ -79,7 +79,7 @@ public class StitchRouteState extends RouteState
         }
         // draw a line from the routing end point to the cursor
         FloatPoint [] draw_points = new FloatPoint[2];
-        draw_points[0] = route.get_last_corner().to_float();
+        draw_points[0] = route.get_last_corner().toFloat();
         draw_points[1] = hdlg.get_current_mouse_position();
         java.awt.Color draw_color = hdlg.graphicsContext.get_hilight_color();
         double display_width = hdlg.get_trace_halfwidth(route.net_no_arr[0], hdlg.settings.layer);

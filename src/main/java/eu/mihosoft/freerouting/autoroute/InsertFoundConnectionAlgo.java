@@ -255,12 +255,12 @@ public class InsertFoundConnectionAlgo
         {
             return null;
         }
-        FloatPoint pin_center = p_pin.get_center().to_float();
+        FloatPoint pin_center = p_pin.get_center().toFloat();
         double curr_clearance =
                 this.board.rules.clearance_matrix.value(ctrl.trace_clearance_class_no, p_pin.clearance_class_no(), p_layer);
         double pin_neck_down_distance =
                 2 * (0.5 * p_pin.get_max_width(p_layer) + curr_clearance);
-        if (pin_center.distance(p_to_corner.to_float()) >= pin_neck_down_distance)
+        if (pin_center.distance(p_to_corner.toFloat()) >= pin_neck_down_distance)
         {
             return null;
         }
@@ -271,8 +271,8 @@ public class InsertFoundConnectionAlgo
             return null;
         }
 
-        FloatPoint float_from_corner = p_from_corner.to_float();
-        FloatPoint float_to_corner = p_to_corner.to_float();
+        FloatPoint float_from_corner = p_from_corner.toFloat();
+        FloatPoint float_to_corner = p_to_corner.toFloat();
 
         final int TOLERANCE = 2;
 

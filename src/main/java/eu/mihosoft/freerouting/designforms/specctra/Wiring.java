@@ -166,7 +166,7 @@ class Wiring extends ScopeKeyword
     private static void write_via_scope(WriteScopeParameter p_par, Via p_via) throws java.io.IOException
     {
         eu.mihosoft.freerouting.library.Padstack via_padstack = p_via.get_padstack();
-        FloatPoint via_location = p_via.get_center().to_float();
+        FloatPoint via_location = p_via.get_center().toFloat();
         double [] via_coor = p_par.coordinate_transform.board_to_dsn(via_location);
         int net_no;
         eu.mihosoft.freerouting.rules.Net via_net;
@@ -229,7 +229,7 @@ class Wiring extends ScopeKeyword
             FloatPoint[] float_corner_arr = new FloatPoint [corner_arr.length];
             for (int i = 0; i < corner_arr.length; ++i)
             {
-                float_corner_arr[i] = corner_arr[i].to_float();
+                float_corner_arr[i] = corner_arr[i].toFloat();
             }
             double [] coors =  p_par.coordinate_transform.board_to_dsn(float_corner_arr);
             PolygonPath curr_path = new PolygonPath(curr_layer, wire_width, coors);

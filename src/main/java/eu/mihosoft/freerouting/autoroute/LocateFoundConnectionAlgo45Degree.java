@@ -184,7 +184,7 @@ public class LocateFoundConnectionAlgo45Degree extends LocateFoundConnectionAlgo
     
     private static FloatPoint round_to_integer(FloatPoint p_point)
     {
-        return p_point.round().to_float();
+        return p_point.round().toFloat();
     }
     
     /**
