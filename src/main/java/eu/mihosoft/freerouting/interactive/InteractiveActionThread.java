@@ -47,9 +47,9 @@ public abstract class InteractiveActionThread extends Thread implements eu.mihos
         return new AutorouteThread(p_board_handling);
     }
 
-    public static InteractiveActionThread get_batch_autorouter_instance(BoardHandling p_board_handling)
+    public static InteractiveActionThread getBatchAutorouterInstance(BoardHandling boardHandling)
     {
-        return new BatchAutorouterThread(p_board_handling);
+        return new BatchAutorouterThread(boardHandling);
     }
 
     public static InteractiveActionThread get_fanout_instance(BoardHandling p_board_handling)
@@ -172,7 +172,7 @@ public abstract class InteractiveActionThread extends Thread implements eu.mihos
             boolean saved_board_read_only = hdlg.is_board_read_only();
             hdlg.set_board_read_only(true);
             String start_message = resources.getString("logfile") + " " + resources.getString("stop_message");
-            hdlg.screen_messages.set_status_message(start_message);
+            hdlg.screen_messages.setStatusMessage(start_message);
             hdlg.screen_messages.set_write_protected(true);
             boolean done = false;
             InteractiveState previous_state = hdlg.interactive_state;
@@ -182,7 +182,7 @@ public abstract class InteractiveActionThread extends Thread implements eu.mihos
             }
             boolean interrupted = false;
             int debug_counter = 0;
-            hdlg.get_panel().board_frame.refresh_windows();
+            hdlg.get_panel().boardFrame.refreshWindows();
             hdlg.paint_immediately = true;
             while (!done)
             {
@@ -225,7 +225,7 @@ public abstract class InteractiveActionThread extends Thread implements eu.mihos
             {
                 FRLogger.error("ReadLogfileThread: unable to close input stream", e);
             }
-            hdlg.get_panel().board_frame.refresh_windows();
+            hdlg.get_panel().boardFrame.refreshWindows();
             hdlg.screen_messages.set_write_protected(false);
             String curr_message;
             if (interrupted)
@@ -237,9 +237,9 @@ public abstract class InteractiveActionThread extends Thread implements eu.mihos
                 curr_message = resources.getString("completed");
             }
             String end_message = resources.getString("logfile") + " " + curr_message;
-            hdlg.screen_messages.set_status_message(end_message);
+            hdlg.screen_messages.setStatusMessage(end_message);
             hdlg.set_board_read_only(saved_board_read_only);
-            hdlg.get_panel().board_frame.repaint_all();
+            hdlg.get_panel().boardFrame.repaintAll();
         }
         private final java.io.InputStream input_stream;
     }

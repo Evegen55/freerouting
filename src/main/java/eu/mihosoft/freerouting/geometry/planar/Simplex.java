@@ -743,7 +743,7 @@ public class Simplex extends TileShape implements java.io.Serializable
         for (int i = 1; i < arr.length; ++i)
         {
             Point curr_corner = corner(i);
-            if (curr_corner.side_of(pole, right_most_corner) == Side.ON_THE_RIGHT)
+            if (curr_corner.sideOf(pole, right_most_corner) == Side.ON_THE_RIGHT)
             {
                 right_most_corner = curr_corner;
                 result = i;
@@ -989,7 +989,7 @@ public class Simplex extends TileShape implements java.io.Serializable
             {
                 check_cross_first_line = inner_corner_no > 0 &&
                         last_curr_dir.determinant(first_direction) > 0 &&
-                        last_curr_dir.get_vector().scalar_product(first_direction.get_vector()) < 0;
+                                         last_curr_dir.get_vector().scalarProduct(first_direction.get_vector()) < 0;
                 // scalar_product checked to ignore backcrossing at
                 // small inner_corner_no
             }
@@ -1314,7 +1314,7 @@ public class Simplex extends TileShape implements java.io.Serializable
         {
             Line outer_line = p_outer_simplex.arr[outer_line_no];
             IntDirection curr_projection_dir =
-                    (IntDirection)inner_corner.perpendicular_direction(outer_line);
+                    (IntDirection)inner_corner.perpendicularDirection(outer_line);
             if (curr_projection_dir == Direction.NULL)
             {
                 Line [] result = new Line[1];
@@ -1324,7 +1324,7 @@ public class Simplex extends TileShape implements java.io.Serializable
             boolean projection_visible = prev_inner_dir.determinant(curr_projection_dir) >= 0;
             if (projection_visible)
             {
-                double curr_distance = Math.abs(outer_line.signed_distance(inner_corner.to_float()));
+                double curr_distance = Math.abs(outer_line.signed_distance(inner_corner.toFloat()));
                 boolean second_division_necessary =
                         curr_projection_dir.determinant(next_inner_dir) < 0;
                 // may occor at a sharp angle
@@ -1347,7 +1347,7 @@ public class Simplex extends TileShape implements java.io.Serializable
                             ++tmp_outer_line_no;
                         }
                         curr_second_projection_dir =
-                                (IntDirection)inner_corner.perpendicular_direction(
+                                (IntDirection)inner_corner.perpendicularDirection(
                                 p_outer_simplex.arr[tmp_outer_line_no]);
                         
                         if (curr_second_projection_dir == Direction.NULL)
@@ -1371,7 +1371,7 @@ public class Simplex extends TileShape implements java.io.Serializable
                                 curr_second_projection_dir.determinant(next_inner_dir) >= 0;
                     }
                     curr_distance +=
-                            Math.abs(p_outer_simplex.arr[tmp_outer_line_no].signed_distance(inner_corner.to_float()));
+                            Math.abs(p_outer_simplex.arr[tmp_outer_line_no].signed_distance(inner_corner.toFloat()));
                 }
                 if (curr_distance < min_distance)
                 {

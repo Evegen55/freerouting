@@ -82,7 +82,7 @@ public class InteractiveState
     public InteractiveState mouse_moved()
     {
         FloatPoint mouse_position =
-                hdlg.coordinate_transform.board_to_user(hdlg.get_current_mouse_position());
+                hdlg.coordinateTransform.board_to_user(hdlg.get_current_mouse_position());
         hdlg.screen_messages.set_mouse_position(mouse_position);
         return this;
     }
@@ -112,11 +112,11 @@ public class InteractiveState
     /**
      * Action to be taken, when the mouse wheel was turned..
      */
-    public InteractiveState mouse_wheel_moved(int p_rotation)
+    public InteractiveState mouseWheelMoved(int p_rotation)
     {
         java.awt.geom.Point2D screen_mouse_pos =
-                hdlg.graphics_context.coordinate_transform.board_to_screen(hdlg.get_current_mouse_position());
-        hdlg.get_panel().zoom_with_mouse_wheel(screen_mouse_pos, p_rotation);
+                hdlg.graphicsContext.coordinateTransform.board_to_screen(hdlg.get_current_mouse_position());
+        hdlg.get_panel().zoomWithMouseWheel(screen_mouse_pos, p_rotation);
         return this;
     }
     
@@ -128,14 +128,14 @@ public class InteractiveState
     {
         InteractiveState result = this;
         java.awt.geom.Point2D screen_mouse_pos =
-                hdlg.graphics_context.coordinate_transform.board_to_screen(hdlg.get_current_mouse_position());
+                hdlg.graphicsContext.coordinateTransform.board_to_screen(hdlg.get_current_mouse_position());
         if (p_key_char == 'a')
         {
-            hdlg.get_panel().board_frame.zoom_all();
+            hdlg.get_panel().boardFrame.zoomAll();
         }
         else if (p_key_char == 'c')
         {
-            hdlg.get_panel().center_display(screen_mouse_pos);
+            hdlg.get_panel().centerDisplay(screen_mouse_pos);
         }
         else if (p_key_char == 'f')
         {
@@ -143,28 +143,28 @@ public class InteractiveState
         }
         else if (p_key_char =='h')
         {
-            hdlg.get_panel().board_frame.select_previous_snapshot();
+            hdlg.get_panel().boardFrame.selectPreviousSnapshot();
         }
         if (p_key_char == 'j')
         {
-            hdlg.get_panel().board_frame.goto_selected_snapshot();
+            hdlg.get_panel().boardFrame.gotoSelectedSnapshot();
         }
         else if (p_key_char =='k')
         {
-            hdlg.get_panel().board_frame.select_next_snapshot();
+            hdlg.get_panel().boardFrame.selectNextSnapshot();
         }
         else if (p_key_char == 'o')
         {
-            hdlg.get_panel().zoom_out(screen_mouse_pos);
+            hdlg.get_panel().zoomOut(screen_mouse_pos);
         }
         else if (p_key_char == 'z')
         {
-            hdlg.get_panel().zoom_in(screen_mouse_pos);
+            hdlg.get_panel().zoomIn(screen_mouse_pos);
         }
         else if (p_key_char == ',')
         {
             // toggle the crosshair cursor
-            hdlg.get_panel().set_custom_crosshair_cursor(!hdlg.get_panel().is_custom_cross_hair_cursor());
+            hdlg.get_panel().setCustomCrosshairCursor(!hdlg.get_panel().isCustomCrossHairCursor());
         }
         else if (p_key_char == '\n' || p_key_char == ' ')
         {
@@ -177,7 +177,7 @@ public class InteractiveState
         else if (Character.isDigit(p_key_char))
         {
             // change the current layer to the p_key_char-ths signal layer
-            eu.mihosoft.freerouting.board.LayerStructure layer_structure = hdlg.get_routing_board().layer_structure;
+            eu.mihosoft.freerouting.board.LayerStructure layer_structure = hdlg.getRoutingBoard().layer_structure;
             int d = Character.digit(p_key_char, 10);
             d = Math.min(d, layer_structure.signal_layer_count());
             // Board layers start at 0, keyboard input for layers starts at 1.

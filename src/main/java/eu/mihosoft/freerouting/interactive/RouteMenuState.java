@@ -53,7 +53,7 @@ public class RouteMenuState extends MenuState
     
     public void display_default_message()
     {
-        hdlg.screen_messages.set_status_message(" in route menu");
+        hdlg.screen_messages.setStatusMessage(" in route menu");
     }
     
     public String get_help_id()

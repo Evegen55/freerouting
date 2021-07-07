@@ -71,7 +71,7 @@ public class ForcedPadAlgo
             this.board.set_shove_failing_obstacle(board.get_outline());
             return CheckDrillResult.NOT_DRILLABLE;
         }
-        ShapeSearchTree search_tree = this.board.search_tree_manager.get_default_tree();
+        ShapeSearchTree search_tree = this.board.searchTreeManager.get_default_tree();
         ShapeTraceEntries shape_entries =
                 new ShapeTraceEntries(p_pad_shape, p_layer, p_net_no_arr, p_cl_type, p_from_side, board);
         Collection<Item> obstacles = search_tree.overlapping_items_with_clearance(p_pad_shape, p_layer, new int[0], p_cl_type);
@@ -104,7 +104,7 @@ public class ForcedPadAlgo
                 this.board.set_shove_failing_obstacle(curr_shove_via);
                 return CheckDrillResult.NOT_DRILLABLE;
             }
-            Vector delta = new_via_center[0].difference_by(curr_shove_via.get_center());
+            Vector delta = new_via_center[0].differenceBy(curr_shove_via.get_center());
             Collection<Item> ignore_items = new java.util.LinkedList<Item>();
             if (!MoveDrillItemAlgo.check(curr_shove_via, delta,
                     p_max_recursion_depth, p_max_via_recursion_depth - 1, ignore_items,
@@ -203,7 +203,7 @@ public class ForcedPadAlgo
         {
             return false;
         }
-        ShapeSearchTree search_tree = this.board.search_tree_manager.get_default_tree();
+        ShapeSearchTree search_tree = this.board.searchTreeManager.get_default_tree();
         ShapeTraceEntries shape_entries =
                 new ShapeTraceEntries(p_pad_shape, p_layer, p_net_no_arr, p_cl_type, p_from_side, board);
         Collection<Item> obstacles = search_tree.overlapping_items_with_clearance(p_pad_shape, p_layer, new int[0], p_cl_type);
@@ -342,8 +342,8 @@ public class ForcedPadAlgo
     private static  TileShape calc_check_chape_for_from_side(TileShape p_shape,
             Point p_shape_center, Line p_border_line)
     {
-        FloatPoint shape_center = p_shape_center.to_float();
-        FloatPoint offset_projection = shape_center.projection_approx(p_border_line);
+        FloatPoint shape_center = p_shape_center.toFloat();
+        FloatPoint offset_projection = shape_center.projectionApprox(p_border_line);
         // Make shure, that direction restrictions are retained.
         Line [] line_arr = new Line[3];
         Direction curr_dir = p_border_line.direction();

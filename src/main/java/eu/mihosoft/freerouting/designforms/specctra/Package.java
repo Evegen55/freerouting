@@ -60,7 +60,7 @@ public class Package
             Collection<Shape.ReadAreaScopeResult> keepouts = new LinkedList<Shape.ReadAreaScopeResult>();
             Collection<Shape.ReadAreaScopeResult> via_keepouts = new LinkedList<Shape.ReadAreaScopeResult>();
             Collection<Shape.ReadAreaScopeResult> place_keepouts = new LinkedList<Shape.ReadAreaScopeResult>();
-            Object next_token = p_scanner.next_token();
+            Object next_token = p_scanner.nextToken();
             if ( !(next_token instanceof String))
             {
                 FRLogger.warn("Package.read_scope: String expected");
@@ -71,7 +71,7 @@ public class Package
             for (;;)
             {
                 Object prev_token = next_token;
-                next_token = p_scanner.next_token();
+                next_token = p_scanner.nextToken();
                 
                 if (next_token == null)
                 {
@@ -106,7 +106,7 @@ public class Package
                             outline.add(curr_shape);
                         }
                         // overread closing bracket
-                        next_token = p_scanner.next_token();
+                        next_token = p_scanner.nextToken();
                         if (next_token != Keyword.CLOSED_BRACKET)
                         {
                             FRLogger.warn("Package.read_scope: closed bracket expected");
@@ -275,7 +275,7 @@ public class Package
             // Read the padstack name.
             p_scanner.yybegin(SpecctraFileScanner.NAME);
             String padstack_name = null;
-            Object next_token = p_scanner.next_token();
+            Object next_token = p_scanner.nextToken();
             if ( next_token instanceof String)
             {
                 padstack_name = (String) next_token;
@@ -292,11 +292,11 @@ public class Package
             double rotation = 0;
             
             p_scanner.yybegin(SpecctraFileScanner.NAME); // to be able to handle pin names starting with a digit.
-            next_token = p_scanner.next_token();
+            next_token = p_scanner.nextToken();
             if (next_token == Keyword.OPEN_BRACKET)
             {
                 // read the padstack rotation
-                next_token = p_scanner.next_token();
+                next_token = p_scanner.nextToken();
                 if (next_token == Keyword.ROTATE)
                 {
                     rotation = read_rotation(p_scanner);
@@ -306,7 +306,7 @@ public class Package
                     ScopeKeyword.skip_scope(p_scanner);
                 }
                 p_scanner.yybegin(SpecctraFileScanner.NAME);
-                next_token = p_scanner.next_token();
+                next_token = p_scanner.nextToken();
             }
             // Read the pin name.
             String pin_name = null;
@@ -327,7 +327,7 @@ public class Package
             double []  pin_coor = new double [2];
             for (int i = 0; i < 2; ++i)
             {
-                next_token = p_scanner.next_token();
+                next_token = p_scanner.nextToken();
                 if (next_token instanceof Double)
                 {
                     pin_coor[i] = ((Double) next_token).doubleValue();
@@ -346,7 +346,7 @@ public class Package
             for (;;)
             {
                 Object prev_token = next_token;
-                next_token = p_scanner.next_token();
+                next_token = p_scanner.nextToken();
                 
                 if (next_token == null)
                 {
@@ -384,7 +384,7 @@ public class Package
         double result = 0;
         try
         {
-            Object next_token = p_scanner.next_token();
+            Object next_token = p_scanner.nextToken();
             if (next_token instanceof Integer)
             {
                 result = ((Integer)next_token).intValue();
@@ -398,7 +398,7 @@ public class Package
                 FRLogger.warn("Package.read_rotation: number expected");
             }
             // Overread The closing bracket.
-            next_token = p_scanner.next_token();
+            next_token = p_scanner.nextToken();
             if (next_token != Keyword.CLOSED_BRACKET)
             {
                 FRLogger.warn("Package.read_rotation: closing bracket expected");
@@ -458,10 +458,10 @@ public class Package
     
     private static boolean read_placement_side(Scanner p_scanner) throws java.io.IOException
     {
-        Object next_token = p_scanner.next_token();
+        Object next_token = p_scanner.nextToken();
         boolean result = (next_token != Keyword.BACK);
         
-        next_token = p_scanner.next_token();
+        next_token = p_scanner.nextToken();
         if (next_token != Keyword.CLOSED_BRACKET)
         {
             FRLogger.warn("Package.read_placement_side: closing bracket expected");

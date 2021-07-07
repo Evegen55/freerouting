@@ -67,7 +67,7 @@ public class SortedRoomNeighbours
     public static CompleteExpansionRoom calculate(ExpansionRoom p_room, AutorouteEngine p_autoroute_engine)
     {
         int net_no = p_autoroute_engine.get_net_no();
-        TestLevel test_level = p_autoroute_engine.board.get_test_level();
+        TestLevel test_level = p_autoroute_engine.board.getTestLevel();
         SortedRoomNeighbours room_neighbours = calculate_neighbours(p_room, net_no, p_autoroute_engine.autoroute_search_tree,
                 p_autoroute_engine.generate_room_id_no(), test_level);
         
@@ -500,8 +500,8 @@ public class SortedRoomNeighbours
                             // neighbour to the first corner of the next neighbour to cut off
                             // the outstanding corners of the room shape in the empty space.
                             // That is only tried in the first pass of the loop.
-                            IntPoint cut_line_start = prev_neighbour.last_corner().to_float().round();
-                            IntPoint cut_line_end = next_neighbour.first_corner().to_float().round();
+                            IntPoint cut_line_start = prev_neighbour.last_corner().toFloat().round();
+                            IntPoint cut_line_end = next_neighbour.first_corner().toFloat().round();
                             Line cut_line = new Line(cut_line_start, cut_line_end);
                             TileShape cut_half_plane = TileShape.get_instance(cut_line);
                             ((CompleteFreeSpaceExpansionRoom)this.completed_room).set_shape(this.completed_room.get_shape().intersection(cut_half_plane));
@@ -714,8 +714,8 @@ public class SortedRoomNeighbours
                 return compare_value;
             }
             FloatPoint compare_corner = room_shape.corner_approx(touching_side_no_of_room);
-            double this_distance = this.first_corner().to_float().distance(compare_corner);
-            double other_distance = p_other.first_corner().to_float().distance(compare_corner);
+            double this_distance = this.first_corner().toFloat().distance(compare_corner);
+            double other_distance = p_other.first_corner().toFloat().distance(compare_corner);
             double delta_distance = this_distance - other_distance;
             if (Math.abs(delta_distance) <= c_dist_tolerance)
             {
@@ -723,8 +723,8 @@ public class SortedRoomNeighbours
                 if (this.first_corner().equals(p_other.first_corner()))
                 {
                     // in this case compare the last corners
-                    double this_distance2 = this.last_corner().to_float().distance(compare_corner);
-                    double other_distance2 = p_other.last_corner().to_float().distance(compare_corner);
+                    double this_distance2 = this.last_corner().toFloat().distance(compare_corner);
+                    double other_distance2 = p_other.last_corner().toFloat().distance(compare_corner);
                     delta_distance = this_distance2 - other_distance2;
                     if (Math.abs(delta_distance) <= c_dist_tolerance)
                     {

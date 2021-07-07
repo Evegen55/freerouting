@@ -14,7 +14,7 @@ import eu.mihosoft.freerouting.rules.BoardRules;
 public interface IBoardHandling {
     java.util.Locale get_locale();
 
-    RoutingBoard get_routing_board();
+    RoutingBoard getRoutingBoard();
 
     void initialize_manual_trace_half_widths();
 
@@ -22,5 +22,5 @@ public interface IBoardHandling {
                       PolylineShape[] p_outline_shapes, String p_outline_clearance_class_name,
                       BoardRules p_rules, eu.mihosoft.freerouting.board.Communication p_board_communication, TestLevel p_test_level);
 
-    Settings get_settings();
+    Settings getSettings();
 }

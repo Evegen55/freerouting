@@ -55,7 +55,7 @@ public class BatchFanout
     private BatchFanout(InteractiveActionThread p_thread)
     {
         this.thread = p_thread;
-        this.routing_board = p_thread.hdlg.get_routing_board();
+        this.routing_board = p_thread.hdlg.getRoutingBoard();
         Collection<eu.mihosoft.freerouting.board.Pin> board_smd_pin_list = routing_board.get_smd_pins();
         this.sorted_components = new java.util.TreeSet<Component>();
         for (int i = 1; i <= routing_board.components.count(); ++i)
@@ -79,7 +79,7 @@ public class BatchFanout
         int routed_count = 0;
         int not_routed_count = 0;
         int insert_error_count = 0;
-        int ripup_costs = this.thread.hdlg.get_settings().autoroute_settings.get_start_ripup_costs() * (p_pass_no + 1);
+        int ripup_costs = this.thread.hdlg.getSettings().autorouteSettings.get_start_ripup_costs() * (p_pass_no + 1);
         for (Component curr_component : this.sorted_components)
         {
             this.thread.hdlg.screen_messages.set_batch_fanout_info(p_pass_no + 1, components_to_go);
@@ -89,7 +89,7 @@ public class BatchFanout
                 TimeLimit time_limit = new TimeLimit((int) max_milliseconds);
                 this.routing_board.start_marking_changed_area();
                 AutorouteEngine.AutorouteResult curr_result =
-                        this.routing_board.fanout(curr_pin.board_pin, this.thread.hdlg.get_settings(), ripup_costs, this.thread, time_limit);
+                        this.routing_board.fanout(curr_pin.board_pin, this.thread.hdlg.getSettings(), ripup_costs, this.thread, time_limit);
                 if (curr_result == AutorouteEngine.AutorouteResult.ROUTED)
                 {
                     ++routed_count;
@@ -113,7 +113,7 @@ public class BatchFanout
             }
             --components_to_go;
         }
-        if (this.routing_board.get_test_level() != eu.mihosoft.freerouting.board.TestLevel.RELEASE_VERSION)
+        if (this.routing_board.getTestLevel() != eu.mihosoft.freerouting.board.TestLevel.RELEASE_VERSION)
         {
             FRLogger.warn("fanout pass: " + (p_pass_no + 1) + ", routed: " + routed_count
                     + ", not routed: " + not_routed_count + ", errors: " + insert_error_count);
@@ -145,7 +145,7 @@ public class BatchFanout
             double y = 0;
             for (eu.mihosoft.freerouting.board.Pin curr_pin : curr_pin_list)
             {
-                FloatPoint curr_point = curr_pin.get_center().to_float();
+                FloatPoint curr_point = curr_pin.get_center().toFloat();
                 x += curr_point.x;
                 y += curr_point.y;
             }
@@ -197,7 +197,7 @@ public class BatchFanout
             Pin(eu.mihosoft.freerouting.board.Pin p_board_pin)
             {
                 this.board_pin = p_board_pin;
-                FloatPoint pin_location = p_board_pin.get_center().to_float();
+                FloatPoint pin_location = p_board_pin.get_center().toFloat();
                 this.distance_to_component_center = pin_location.distance(gravity_center_of_smd_pins);
             }
 

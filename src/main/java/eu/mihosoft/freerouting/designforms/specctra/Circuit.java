@@ -48,7 +48,7 @@ public class Circuit
             Object prev_token = next_token;
             try
             {
-                next_token = p_scanner.next_token();
+                next_token = p_scanner.nextToken();
             }
             catch (java.io.IOException e)
             {
@@ -102,7 +102,7 @@ public class Circuit
         {
             try
             {
-                next_token = p_scanner.next_token();
+                next_token = p_scanner.nextToken();
             }
             catch (java.io.IOException e)
             {
@@ -129,7 +129,7 @@ public class Circuit
             Object prev_token = next_token;
             try
             {
-                next_token = p_scanner.next_token();
+                next_token = p_scanner.nextToken();
             }
             catch (java.io.IOException e)
             {

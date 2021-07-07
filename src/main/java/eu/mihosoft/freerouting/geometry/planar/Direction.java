@@ -79,7 +79,7 @@ public abstract class  Direction implements Comparable<Direction>, java.io.Seria
      */
     public static Direction get_instance( Vector p_vector )
     {
-        return p_vector.to_normalized_direction();
+        return p_vector.toNormalizedDirection();
     }
     
     /**
@@ -92,7 +92,7 @@ public abstract class  Direction implements Comparable<Direction>, java.io.Seria
         {
             return null;
         }
-        return get_instance(p_to.difference_by( p_from ));
+        return get_instance(p_to.differenceBy(p_from ));
     }
     
     /**
@@ -173,7 +173,7 @@ public abstract class  Direction implements Comparable<Direction>, java.io.Seria
      */
     public Side side_of(Direction p_other)
     {
-        return this.get_vector().side_of(p_other.get_vector());
+        return this.get_vector().sideOf(p_other.get_vector());
     }
     
     /**
@@ -194,8 +194,8 @@ public abstract class  Direction implements Comparable<Direction>, java.io.Seria
      */
     public Direction middle_approx(Direction p_other)
     {
-        FloatPoint v1 = get_vector().to_float();
-        FloatPoint v2 = p_other.get_vector().to_float();
+        FloatPoint v1 = get_vector().toFloat();
+        FloatPoint v2 = p_other.get_vector().toFloat();
         double length1 = v1.size();
         double length2 = v2.size();
         double x = v1.x / length1 + v2.x /length2;
@@ -245,7 +245,7 @@ public abstract class  Direction implements Comparable<Direction>, java.io.Seria
      */
     public double angle_approx()
     {
-        return this.get_vector().angle_approx();
+        return this.get_vector().angleApprox();
     }
     
     // auxiliary functions needed because the virtual function mechanism

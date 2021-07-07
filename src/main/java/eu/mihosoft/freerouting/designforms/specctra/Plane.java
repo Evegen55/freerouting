@@ -50,7 +50,7 @@ public class Plane extends ScopeKeyword
         Shape.ReadAreaScopeResult conduction_area = null;
         try
         {
-            Object next_token = p_par.scanner.next_token();
+            Object next_token = p_par.scanner.nextToken();
             if (!(next_token instanceof String))
             {
                 FRLogger.warn("Plane.read_scope: String expected");

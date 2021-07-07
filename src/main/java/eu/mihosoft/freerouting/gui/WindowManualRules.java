@@ -33,7 +33,7 @@ public class WindowManualRules extends BoardSavableSubWindow
     /** Creates a new instance of TraceWidthWindow */
     public WindowManualRules(BoardFrame p_board_frame)
     {
-        this.board_handling = p_board_frame.board_panel.board_handling;
+        this.board_handling = p_board_frame.boardPanel.boardHandling;
         java.util.ResourceBundle resources =
                 java.util.ResourceBundle.getBundle("eu.mihosoft.freerouting.gui.WindowManualRule", p_board_frame.get_locale());
         this.setTitle(resources.getString("title"));
@@ -53,7 +53,7 @@ public class WindowManualRules extends BoardSavableSubWindow
         gridbag.setConstraints(via_rule_label, gridbag_constraints);
         main_panel.add(via_rule_label);
 
-        eu.mihosoft.freerouting.board.RoutingBoard routing_board = this.board_handling.get_routing_board();
+        eu.mihosoft.freerouting.board.RoutingBoard routing_board = this.board_handling.getRoutingBoard();
         this.via_rule_combo_box = new javax.swing.JComboBox<>(routing_board.rules.via_rules);
         gridbag_constraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridbag.setConstraints(this.via_rule_combo_box, gridbag_constraints);
@@ -98,7 +98,7 @@ public class WindowManualRules extends BoardSavableSubWindow
         main_panel.add(layer_label);
 
         this.layer_combo_box =
-                new ComboBoxLayer(this.board_handling.get_routing_board().layer_structure, p_board_frame.get_locale());
+                new ComboBoxLayer(this.board_handling.getRoutingBoard().layer_structure, p_board_frame.get_locale());
         gridbag_constraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridbag.setConstraints(this.layer_combo_box, gridbag_constraints);
         main_panel.add(this.layer_combo_box);
@@ -108,7 +108,7 @@ public class WindowManualRules extends BoardSavableSubWindow
         gridbag.setConstraints(empty_label, gridbag_constraints);
         main_panel.add(empty_label);
 
-        p_board_frame.set_context_sensitive_help(this, "WindowManualRules");
+        p_board_frame.setContextSensitiveHelp(this, "WindowManualRules");
 
         this.pack();
         this.setResizable(false);
@@ -119,10 +119,10 @@ public class WindowManualRules extends BoardSavableSubWindow
      */
     public void refresh()
     {
-        eu.mihosoft.freerouting.board.RoutingBoard routing_board = board_handling.get_routing_board();
+        eu.mihosoft.freerouting.board.RoutingBoard routing_board = board_handling.getRoutingBoard();
         javax.swing.ComboBoxModel<eu.mihosoft.freerouting.rules.ViaRule> new_model = new javax.swing.DefaultComboBoxModel<>(routing_board.rules.via_rules);
         this.via_rule_combo_box.setModel(new_model);
-        eu.mihosoft.freerouting.rules.ClearanceMatrix clearance_matrix = board_handling.get_routing_board().rules.clearance_matrix;
+        eu.mihosoft.freerouting.rules.ClearanceMatrix clearance_matrix = board_handling.getRoutingBoard().rules.clearance_matrix;
         if (this.clearance_combo_box.get_class_count() != routing_board.rules.clearance_matrix.get_class_count())
         {
             this.clearance_combo_box.adjust(clearance_matrix);
@@ -145,7 +145,7 @@ public class WindowManualRules extends BoardSavableSubWindow
         }
         else
         {
-            Float trace_width = (float) board_handling.coordinate_transform.board_to_user(2 * p_half_width);
+            Float trace_width = (float) board_handling.coordinateTransform.board_to_user(2 * p_half_width);
             this.trace_width_field.setValue(trace_width);
         }
     }
@@ -264,7 +264,7 @@ public class WindowManualRules extends BoardSavableSubWindow
                 {
                     return;
                 }
-                double board_value = board_handling.coordinate_transform.user_to_board(input_value);
+                double board_value = board_handling.coordinateTransform.user_to_board(input_value);
                 int new_half_width = (int) Math.round(0.5 * board_value);
                 board_handling.set_manual_trace_half_width(layer_combo_box.get_selected_layer().index, new_half_width);
                 set_trace_width_field(new_half_width);

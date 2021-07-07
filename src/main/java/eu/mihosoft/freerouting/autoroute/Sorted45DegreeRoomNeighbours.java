@@ -401,7 +401,7 @@ public class Sorted45DegreeRoomNeighbours
             {
                 FloatPoint prev_corner = this.room_shape.corner_approx(i);
                 FloatPoint next_corner = this.room_shape.corner_approx(this.room_shape.next_no(i));
-                if(prev_corner.distance_square(next_corner) > 1)
+                if(prev_corner.distanceSquare(next_corner) > 1)
                 {
                     try_remove_edge_lines = true;
                     break;

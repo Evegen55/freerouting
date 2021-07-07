@@ -25,6 +25,8 @@ package eu.mihosoft.freerouting.designforms.specctra;
 
 import eu.mihosoft.freerouting.logger.FRLogger;
 
+import static eu.mihosoft.freerouting.designforms.specctra.Keyword.CLOSED_BRACKET;
+
 /**
  * Class for reading resolution scopes from dsn-files.
  *
@@ -44,7 +46,7 @@ public class Resolution extends ScopeKeyword
         try
         {
             // read the unit
-            Object next_token = p_par.scanner.next_token();
+            Object next_token = p_par.scanner.nextToken();
             if (!(next_token instanceof String))
             {
                 FRLogger.warn("Resolution.read_scope: string expected");
@@ -57,7 +59,7 @@ public class Resolution extends ScopeKeyword
                 return false;
             }
             // read the scale factor
-            next_token = p_par.scanner.next_token();
+            next_token = p_par.scanner.nextToken();
             if (!(next_token instanceof Integer))
             {
                 FRLogger.warn("Resolution.read_scope: integer expected");
@@ -65,7 +67,7 @@ public class Resolution extends ScopeKeyword
             }
             p_par.resolution = ((Integer)next_token).intValue();
             // overread the closing bracket
-            next_token = p_par.scanner.next_token();
+            next_token = p_par.scanner.nextToken();
             if (next_token != CLOSED_BRACKET)
             {
                 FRLogger.warn("Resolution.read_scope: closing bracket expected");

@@ -65,7 +65,7 @@ public class WindowEditVias extends BoardSavableSubWindow
         remove_via_button.addActionListener(new RemoveViaListener());
         via_info_button_panel.add(remove_via_button);
         
-        p_board_frame.set_context_sensitive_help(this, "WindowVia_EditVia");
+        p_board_frame.setContextSensitiveHelp(this, "WindowVia_EditVia");
         
         this.add(main_panel);
         this.pack();
@@ -100,7 +100,7 @@ public class WindowEditVias extends BoardSavableSubWindow
     
     private void add_combobox_items()
     {
-        eu.mihosoft.freerouting.board.RoutingBoard routing_board = board_frame.board_panel.board_handling.get_routing_board();
+        eu.mihosoft.freerouting.board.RoutingBoard routing_board = board_frame.boardPanel.boardHandling.getRoutingBoard();
         for (int i = 0; i < routing_board.rules.clearance_matrix.get_class_count(); ++i)
         {
             cl_class_combo_box.addItem(routing_board.rules.clearance_matrix.get_name(i));
@@ -121,7 +121,7 @@ public class WindowEditVias extends BoardSavableSubWindow
         this.main_panel.remove(this.scroll_pane);
         this.add_table();
         this.pack();
-        this.board_frame.refresh_windows();
+        this.board_frame.refreshWindows();
     }
     
     private final BoardFrame board_frame;
@@ -144,7 +144,7 @@ public class WindowEditVias extends BoardSavableSubWindow
     {
         public void actionPerformed(java.awt.event.ActionEvent p_evt)
         {
-            eu.mihosoft.freerouting.board.RoutingBoard routing_board = board_frame.board_panel.board_handling.get_routing_board();
+            eu.mihosoft.freerouting.board.RoutingBoard routing_board = board_frame.boardPanel.boardHandling.getRoutingBoard();
             ViaInfos via_infos = routing_board.rules.via_infos;
             Integer no = 1;
             String new_name = null;
@@ -173,7 +173,7 @@ public class WindowEditVias extends BoardSavableSubWindow
         {
             if (table_model.getRowCount() <= 1)
             {
-                board_frame.screen_messages.set_status_message(resources.getString("message_1"));
+                board_frame.screenMessages.setStatusMessage(resources.getString("message_1"));
                 return;
             }
             int selected_row = table.getSelectedRow();
@@ -186,7 +186,7 @@ public class WindowEditVias extends BoardSavableSubWindow
             {
                 return;
             }
-            BoardRules board_rules = board_frame.board_panel.board_handling.get_routing_board().rules;
+            BoardRules board_rules = board_frame.boardPanel.boardHandling.getRoutingBoard().rules;
             ViaInfo via_info = board_rules.via_infos.get((String) via_name);
             // Check, if via_info is used in a via rule.
             for (eu.mihosoft.freerouting.rules.ViaRule curr_rule : board_rules.via_rules)
@@ -194,7 +194,7 @@ public class WindowEditVias extends BoardSavableSubWindow
                 if (curr_rule.contains(via_info))
                 {
                     String message = resources.getString("message_2") + " " + curr_rule.name;
-                    board_frame.screen_messages.set_status_message(message);
+                    board_frame.screenMessages.setStatusMessage(message);
                     return;
                 }
             }
@@ -203,7 +203,7 @@ public class WindowEditVias extends BoardSavableSubWindow
                 adjust_table();
                 String message = resources.getString("via") + "via " + via_info.get_name() + " "
                         + resources.getString("removed");
-                board_frame.screen_messages.set_status_message(message);
+                board_frame.screenMessages.setStatusMessage(message);
             }
         }
     }
@@ -221,7 +221,7 @@ public class WindowEditVias extends BoardSavableSubWindow
             {
                column_names[i] =  resources.getString((ColumnName.values()[i]).toString());
             }
-            eu.mihosoft.freerouting.rules.BoardRules board_rules = board_frame.board_panel.board_handling.get_routing_board().rules;
+            eu.mihosoft.freerouting.rules.BoardRules board_rules = board_frame.boardPanel.boardHandling.getRoutingBoard().rules;
             data = new Object[board_rules.via_infos.count()][];
             for (int i = 0; i < data.length; ++i)
             {
@@ -233,7 +233,7 @@ public class WindowEditVias extends BoardSavableSubWindow
         /** Calculates the the valus in this table */
         public void set_values()
         {
-            eu.mihosoft.freerouting.rules.BoardRules board_rules = board_frame.board_panel.board_handling.get_routing_board().rules;
+            eu.mihosoft.freerouting.rules.BoardRules board_rules = board_frame.boardPanel.boardHandling.getRoutingBoard().rules;
             for (int i = 0; i < data.length; ++i)
             {
                 ViaInfo curr_via = board_rules.via_infos.get(i);
@@ -266,7 +266,7 @@ public class WindowEditVias extends BoardSavableSubWindow
         
         public void setValueAt(Object p_value, int p_row, int p_col)
         {
-            eu.mihosoft.freerouting.board.RoutingBoard routing_board =  board_frame.board_panel.board_handling.get_routing_board();
+            eu.mihosoft.freerouting.board.RoutingBoard routing_board =  board_frame.boardPanel.boardHandling.getRoutingBoard();
             BoardRules board_rules = routing_board.rules;
             Object via_name = getValueAt(p_row, ColumnName.NAME.ordinal());
             if (!(via_name instanceof String))
@@ -293,7 +293,7 @@ public class WindowEditVias extends BoardSavableSubWindow
                     return;
                 }
                 via_info.set_name(new_name);
-                board_frame.via_window.refresh();
+                board_frame.viaWindow.refresh();
             }
             else if (p_col == ColumnName.PADSTACK.ordinal())
             {

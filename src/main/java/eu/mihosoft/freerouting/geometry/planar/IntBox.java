@@ -460,15 +460,15 @@ public class IntBox extends RegularTileShape implements java.io.Serializable
         {
             return this;
         }
-        IntPoint new_ll = (IntPoint)ll.translate_by(p_rel_coor);
-        IntPoint new_ur = (IntPoint)ur.translate_by(p_rel_coor);
+        IntPoint new_ll = (IntPoint)ll.translateBy(p_rel_coor);
+        IntPoint new_ur = (IntPoint)ur.translateBy(p_rel_coor);
         return new IntBox(new_ll, new_ur);
     }
     
     public IntBox turn_90_degree(int p_factor, IntPoint p_pole)
     {
-        IntPoint p1 = (IntPoint) ll.turn_90_degree(p_factor, p_pole);
-        IntPoint p2 = (IntPoint) ur.turn_90_degree(p_factor, p_pole);
+        IntPoint p1 = (IntPoint) ll.turn90Degree(p_factor, p_pole);
+        IntPoint p2 = (IntPoint) ur.turn90Degree(p_factor, p_pole);
         
         int llx = Math.min(p1.x, p2.x);
         int lly = Math.min(p1.y, p2.y);

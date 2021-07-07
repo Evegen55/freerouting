@@ -518,7 +518,7 @@ public class MazeSearchAlgo
             else
             {
                 // expand only doors on the opposite side of the room from the shape_entry.
-                if (p_to_door.dimension == 1 && i == 0 && line_sections[0].b.distance_square(line_sections[0].a) < 1)
+                if (p_to_door.dimension == 1 && i == 0 && line_sections[0].b.distanceSquare(line_sections[0].a) < 1)
                 {
                     // p_to_door is small belonging to a via or thin room
                     continue;
@@ -549,7 +549,7 @@ public class MazeSearchAlgo
             TileShape door_shape = p_door.get_shape();
             if (door_shape.is_empty())
             {
-                if (this.autoroute_engine.board.get_test_level().ordinal() >= eu.mihosoft.freerouting.board.TestLevel.ALL_DEBUGGING_OUTPUT.ordinal())
+                if (this.autoroute_engine.board.getTestLevel().ordinal() >= eu.mihosoft.freerouting.board.TestLevel.ALL_DEBUGGING_OUTPUT.ordinal())
                 {
                     FRLogger.warn("MazeSearchAlgo:check_door_width door_shape is empty");
                 }
@@ -593,8 +593,8 @@ public class MazeSearchAlgo
         int layer = p_from_element.next_room.get_layer();
         FloatPoint shape_entry_middle = p_shape_entry.a.middle_point(p_shape_entry.b);
         double expansion_value = p_from_element.expansion_value + p_add_costs
-                + shape_entry_middle.weighted_distance(p_from_element.shape_entry.a.middle_point(p_from_element.shape_entry.b),
-                ctrl.trace_costs[layer].horizontal, ctrl.trace_costs[layer].vertical);
+                + shape_entry_middle.weightedDistance(p_from_element.shape_entry.a.middle_point(p_from_element.shape_entry.b),
+                                                      ctrl.trace_costs[layer].horizontal, ctrl.trace_costs[layer].vertical);
         double sorting_value = expansion_value + this.destination_distance.calculate(shape_entry_middle, layer);
         boolean room_ripped = p_add_costs > 0 && p_adjustment == MazeSearchElement.Adjustment.NONE || p_from_element.already_checked && p_from_element.room_ripped;
 
@@ -631,7 +631,7 @@ public class MazeSearchAlgo
             Item from_item = ((TargetItemExpansionDoor) p_from_element.backtrack_door).item;
             if (from_item instanceof eu.mihosoft.freerouting.board.Pin)
             {
-                FloatPoint nearest_exit_corner = ((eu.mihosoft.freerouting.board.Pin) from_item).nearest_trace_exit_corner(p_drill.location.to_float(), trace_half_width, layer);
+                FloatPoint nearest_exit_corner = ((eu.mihosoft.freerouting.board.Pin) from_item).nearest_trace_exit_corner(p_drill.location.toFloat(), trace_half_width, layer);
                 if (nearest_exit_corner != null)
                 {
                     compare_corner = nearest_exit_corner;
@@ -643,8 +643,8 @@ public class MazeSearchAlgo
         FloatLine shape_entry = new FloatLine(nearest_point, nearest_point);
         int section_no = layer - p_drill.first_layer;
         double expansion_value = p_from_element.expansion_value + p_add_costs
-                + nearest_point.weighted_distance(compare_corner,
-                ctrl.trace_costs[layer].horizontal, ctrl.trace_costs[layer].vertical);
+                + nearest_point.weightedDistance(compare_corner,
+                                                 ctrl.trace_costs[layer].horizontal, ctrl.trace_costs[layer].vertical);
         ExpandableObject new_backtrack_door;
         int new_section_no_of_backtrack_door;
         if (p_from_element.door instanceof DrillPage)
@@ -681,8 +681,8 @@ public class MazeSearchAlgo
                 p_drill_page.shape.nearest_point(from_element_shape_entry_middle);
         double expansion_value = p_from_element.expansion_value + ctrl.min_normal_via_cost;
         double sorting_value =
-                expansion_value + nearest_point.weighted_distance(from_element_shape_entry_middle,
-                ctrl.trace_costs[layer].horizontal, ctrl.trace_costs[layer].vertical) + this.destination_distance.calculate(nearest_point, layer);
+                expansion_value + nearest_point.weightedDistance(from_element_shape_entry_middle,
+                                                                 ctrl.trace_costs[layer].horizontal, ctrl.trace_costs[layer].vertical) + this.destination_distance.calculate(nearest_point, layer);
         MazeListElement new_element =
                 new MazeListElement(p_drill_page, layer, p_from_element.door, p_from_element.section_no_of_door,
                 expansion_value, sorting_value, p_from_element.next_room, p_from_element.shape_entry,
@@ -1314,7 +1314,7 @@ public class MazeSearchAlgo
             {
                 result_a = p_to_segment.a;
             }
-            else if (first_projection.a.distance_square(p_to_segment.a) <= second_projection.a.distance_square(p_to_segment.a))
+            else if (first_projection.a.distanceSquare(p_to_segment.a) <= second_projection.a.distanceSquare(p_to_segment.a))
             {
                 result_a = first_projection.a;
             }
@@ -1327,7 +1327,7 @@ public class MazeSearchAlgo
             {
                 result_b = p_to_segment.b;
             }
-            else if (first_projection.b.distance_square(p_to_segment.b) <= second_projection.b.distance_square(p_to_segment.b))
+            else if (first_projection.b.distanceSquare(p_to_segment.b) <= second_projection.b.distanceSquare(p_to_segment.b))
             {
                 result_b = first_projection.b;
             }
@@ -1369,7 +1369,7 @@ public class MazeSearchAlgo
         {
             // skip lines of lenghth 0
             FloatPoint next_corner = door_shape.corner_approx(i);
-            if (next_corner.distance_square(prev_corner) > 1)
+            if (next_corner.distanceSquare(prev_corner) > 1)
             {
                 door_line = door_shape.border_line(i - 1);
                 break;

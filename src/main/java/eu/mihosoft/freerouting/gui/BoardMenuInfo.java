@@ -4,7 +4,7 @@
  *
  *   Copyright (C) 2017 Michael Hoffer <info@michaelhoffer.de>
  *   Website www.freerouting.mihosoft.eu
-*
+ *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
  *   the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +13,7 @@
  *   This program is distributed in the hope that it will be useful,
  *   but WITHOUT ANY WARRANTY; without even the implied warranty of
  *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License at <http://www.gnu.org/licenses/> 
+ *   GNU General Public License at <http://www.gnu.org/licenses/>
  *   for more details.
  *
  * BoardLibraryMenu.java
@@ -23,120 +23,72 @@
 
 package eu.mihosoft.freerouting.gui;
 
+import javax.swing.*;
+
+import static java.util.ResourceBundle.getBundle;
+
 /**
- *
  * @author Alfons Wirtz
  */
-public class BoardMenuInfo extends javax.swing.JMenu
-{
-    /** Returns a new info menu for the board frame. */
-    public static BoardMenuInfo get_instance(BoardFrame p_board_frame)
-    {
-        final BoardMenuInfo info_menu = new BoardMenuInfo(p_board_frame);
-        
-        info_menu.setText(info_menu.resources.getString("info"));
-        
-        javax.swing.JMenuItem package_window = new javax.swing.JMenuItem();
-        package_window.setText(info_menu.resources.getString("library_packages"));
-        package_window.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                info_menu.board_frame.packages_window.setVisible(true);
-            }
-        });
-        info_menu.add(package_window);
-        
-        javax.swing.JMenuItem padstacks_window = new javax.swing.JMenuItem();
-        padstacks_window.setText(info_menu.resources.getString("library_padstacks"));
-        padstacks_window.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                info_menu.board_frame.padstacks_window.setVisible(true);
-            }
-        });
-        info_menu.add(padstacks_window);
-        
-        javax.swing.JMenuItem components_window = new javax.swing.JMenuItem();
-        components_window.setText(info_menu.resources.getString("board_components"));
-        components_window.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                info_menu.board_frame.components_window.setVisible(true);
-            }
-        });
-        info_menu.add(components_window);
-        
-        javax.swing.JMenuItem incompletes_window = new javax.swing.JMenuItem();
-        incompletes_window.setText(info_menu.resources.getString("incompletes"));
-        incompletes_window.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                info_menu.board_frame.incompletes_window.setVisible(true);
-            }
-        });
-        info_menu.add(incompletes_window);
-        
-        
-        javax.swing.JMenuItem length_violations_window = new javax.swing.JMenuItem();
-        length_violations_window.setText(info_menu.resources.getString("length_violations"));
-        length_violations_window.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                info_menu.board_frame.length_violations_window.setVisible(true);
-            }
-        });
-        info_menu.add(length_violations_window);
-        
-        javax.swing.JMenuItem clearance_violations_window = new javax.swing.JMenuItem();
-        clearance_violations_window.setText(info_menu.resources.getString("clearance_violations"));
-        clearance_violations_window.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                info_menu.board_frame.clearance_violations_window.setVisible(true);
-            }
-        });
-        info_menu.add(clearance_violations_window);
-        
-        javax.swing.JMenuItem unconnnected_route_window = new javax.swing.JMenuItem();
-        unconnnected_route_window.setText(info_menu.resources.getString("unconnected_route"));
-        unconnnected_route_window.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                info_menu.board_frame.unconnected_route_window.setVisible(true);
-            }
-        });
-        info_menu.add(unconnnected_route_window);
-        
-        javax.swing.JMenuItem route_stubs_window = new javax.swing.JMenuItem();
-        route_stubs_window.setText(info_menu.resources.getString("route_stubs"));
-        route_stubs_window.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                info_menu.board_frame.route_stubs_window.setVisible(true);
-            }
-        });
-        info_menu.add(route_stubs_window);
-        
-        return info_menu;
-    }
-    
-    /** Creates a new instance of BoardLibraryMenu */
-    private BoardMenuInfo(BoardFrame p_board_frame)
-    {
-        board_frame = p_board_frame;
-        resources = java.util.ResourceBundle.getBundle("eu.mihosoft.freerouting.gui.BoardMenuInfo", p_board_frame.get_locale());
-    }
-    
-    
-    
-    private final BoardFrame board_frame;
+public class BoardMenuInfo extends JMenu {
+    private final BoardFrame boardFrame;
     private final java.util.ResourceBundle resources;
+
+    private BoardMenuInfo(BoardFrame boardFrame) {
+        this.boardFrame = boardFrame;
+        resources = getBundle("eu.mihosoft.freerouting.gui.BoardMenuInfo", boardFrame.get_locale());
+    }
+
+    /**
+     * Returns a new info menu for the board frame.
+     */
+    public static BoardMenuInfo getInstance(BoardFrame boardFrame) {
+        final BoardMenuInfo infoMenu = new BoardMenuInfo(boardFrame);
+
+        infoMenu.setText(infoMenu.resources.getString("info"));
+
+        final JMenuItem packageWindow = new JMenuItem();
+        packageWindow.setText(infoMenu.resources.getString("library_packages"));
+        packageWindow.addActionListener(evt -> infoMenu.boardFrame.getPackagesWindow().setVisible(true));
+        infoMenu.add(packageWindow);
+
+        final JMenuItem padstacksWindow = new JMenuItem();
+        padstacksWindow.setText(infoMenu.resources.getString("library_padstacks"));
+        padstacksWindow.addActionListener(evt -> infoMenu.boardFrame.getPadstacksWindow().setVisible(true));
+        infoMenu.add(padstacksWindow);
+
+        final JMenuItem componentsWindow = new JMenuItem();
+        componentsWindow.setText(infoMenu.resources.getString("board_components"));
+        componentsWindow.addActionListener(evt -> infoMenu.boardFrame.getComponentsWindow().setVisible(true));
+        infoMenu.add(componentsWindow);
+
+        final JMenuItem incompletesWindow = new JMenuItem();
+        incompletesWindow.setText(infoMenu.resources.getString("incompletes"));
+        incompletesWindow.addActionListener(evt -> infoMenu.boardFrame.getIncompletesWindow().setVisible(true));
+        infoMenu.add(incompletesWindow);
+
+
+        final JMenuItem lengthViolationsWindow = new JMenuItem();
+        lengthViolationsWindow.setText(infoMenu.resources.getString("length_violations"));
+        lengthViolationsWindow.addActionListener(evt -> infoMenu.boardFrame.getLengthViolationsWindow().setVisible(true));
+        infoMenu.add(lengthViolationsWindow);
+
+        final JMenuItem clearanceViolationsWindow = new JMenuItem();
+        clearanceViolationsWindow.setText(infoMenu.resources.getString("clearance_violations"));
+        clearanceViolationsWindow.addActionListener(evt -> infoMenu.boardFrame.getClearanceViolationsWindow().setVisible(true));
+        infoMenu.add(clearanceViolationsWindow);
+
+        final JMenuItem unconnnectedRouteWindow = new JMenuItem();
+        unconnnectedRouteWindow.setText(infoMenu.resources.getString("unconnected_route"));
+        unconnnectedRouteWindow.addActionListener(evt -> infoMenu.boardFrame.getUnconnectedRouteWindow().setVisible(true));
+        infoMenu.add(unconnnectedRouteWindow);
+
+        final JMenuItem routeStubsWindow = new JMenuItem();
+        routeStubsWindow.setText(infoMenu.resources.getString("route_stubs"));
+        routeStubsWindow.addActionListener(evt -> infoMenu.boardFrame.getRouteStubsWindow().setVisible(true));
+        infoMenu.add(routeStubsWindow);
+
+        return infoMenu;
+    }
+
 }

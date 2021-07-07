@@ -42,7 +42,7 @@ public class WindowIncompletes extends WindowObjectListWithFilter
                 java.util.ResourceBundle.getBundle("eu.mihosoft.freerouting.gui.Default", p_board_frame.get_locale());
         this.setTitle(resources.getString("incompletes"));
         this.list_empty_message.setText(resources.getString("route_completed"));
-        p_board_frame.set_context_sensitive_help(this, "WindowObjectList_Incompletes");
+        p_board_frame.setContextSensitiveHelp(this, "WindowObjectList_Incompletes");
     }
     
     
@@ -51,7 +51,7 @@ public class WindowIncompletes extends WindowObjectListWithFilter
      */
     protected void fill_list()
     {
-        RatsNest ratsnest = board_frame.board_panel.board_handling.get_ratsnest();
+        RatsNest ratsnest = board_frame.boardPanel.boardHandling.get_ratsnest();
         RatsNest.AirLine[] sorted_arr = ratsnest.get_airlines();
         
         java.util.Arrays.sort(sorted_arr);
@@ -77,7 +77,7 @@ public class WindowIncompletes extends WindowObjectListWithFilter
             selected_items.add(curr_airline.to_item);
             
         }
-        board_frame.board_panel.board_handling.select_items(selected_items);
-        board_frame.board_panel.board_handling.zoom_selection();
+        board_frame.boardPanel.boardHandling.select_items(selected_items);
+        board_frame.boardPanel.boardHandling.zoom_selection();
     }
 }

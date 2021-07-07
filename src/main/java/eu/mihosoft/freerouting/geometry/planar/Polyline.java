@@ -416,7 +416,7 @@ public class Polyline implements java.io.Serializable
             // current center line translated to the right
             
             // create the front line of the offset shape
-            Side  next_dir_from_curr_dir = next_dir.side_of(curr_dir);
+            Side  next_dir_from_curr_dir = next_dir.sideOf(curr_dir);
             // left turn from curr_line to next_line
             if (next_dir_from_curr_dir == Side.ON_THE_LEFT)
             {
@@ -433,7 +433,7 @@ public class Polyline implements java.io.Serializable
             // current left line in opposite direction
             
             // create the back line of the offset shape
-            Side  curr_dir_from_prev_dir = curr_dir.side_of(prev_dir);
+            Side  curr_dir_from_prev_dir = curr_dir.sideOf(prev_dir);
             // left turn from prev_line to curr_line
             if (curr_dir_from_prev_dir == Side.ON_THE_LEFT)
             {
@@ -464,7 +464,7 @@ public class Polyline implements java.io.Serializable
             boolean direction_changed = false;
             for (int j = i + 2; j < arr.length - 1; ++j)
             {
-                if (corner_approx(j - 1).distance_square(check_distance_corner)
+                if (corner_approx(j - 1).distanceSquare(check_distance_corner)
                 > check_dist_square)
                 {
                     break;
@@ -475,7 +475,7 @@ public class Polyline implements java.io.Serializable
                 }
                 Vector tmp_next_dir = arr[j].direction().get_vector();
                 Line next_border_line = null;
-                Side tmp_next_dir_from_tmp_curr_dir = tmp_next_dir.side_of(tmp_curr_dir);
+                Side tmp_next_dir_from_tmp_curr_dir = tmp_next_dir.sideOf(tmp_curr_dir);
                 direction_changed =
                         tmp_next_dir_from_tmp_curr_dir != next_dir_from_curr_dir;
                 if (!direction_changed)
@@ -515,7 +515,7 @@ public class Polyline implements java.io.Serializable
             direction_changed = false;
             for (int j = i - 2; j >= 1; --j)
             {
-                if (corner_approx(j).distance_square(check_distance_corner)
+                if (corner_approx(j).distanceSquare(check_distance_corner)
                 > check_dist_square)
                 {
                     break;
@@ -526,12 +526,12 @@ public class Polyline implements java.io.Serializable
                 }
                 Vector tmp_prev_dir = arr[j].direction().get_vector();
                 Line prev_border_line = null;
-                Side tmp_curr_dir_from_tmp_prev_dir = tmp_curr_dir.side_of(tmp_prev_dir);
+                Side tmp_curr_dir_from_tmp_prev_dir = tmp_curr_dir.sideOf(tmp_prev_dir);
                 direction_changed =
                         tmp_curr_dir_from_tmp_prev_dir != curr_dir_from_prev_dir;
                 if (!direction_changed)
                 {
-                    if (tmp_curr_dir.side_of(tmp_prev_dir) == Side.ON_THE_LEFT)
+                    if (tmp_curr_dir.sideOf(tmp_prev_dir) == Side.ON_THE_LEFT)
                     {
                         prev_border_line = arr[j].translate(-p_half_width);
                     }
@@ -787,7 +787,7 @@ public class Polyline implements java.io.Serializable
         final double c_tolerance = 1;
         for (int i = 1; i < arr.length - 1; ++i)
         {
-            FloatPoint projection = p_from_point.projection_approx(arr[i]);
+            FloatPoint projection = p_from_point.projectionApprox(arr[i]);
             double curr_distance = projection.distance(p_from_point);
             if (curr_distance < min_distance)
             {
@@ -1015,13 +1015,13 @@ public class Polyline implements java.io.Serializable
      */
     public LineSegment projection_line(Point p_from_point)
     {
-        FloatPoint from_point = p_from_point.to_float();
+        FloatPoint from_point = p_from_point.toFloat();
         double min_distance = Double.MAX_VALUE;
         Line result_line = null;
         Line nearest_line = null;
         for (int i = 1; i < arr.length - 1; ++i)
         {
-            FloatPoint projection = from_point.projection_approx(arr[i]);
+            FloatPoint projection = from_point.projectionApprox(arr[i]);
             double curr_distance = projection.distance(from_point);
             if (curr_distance < min_distance)
             {

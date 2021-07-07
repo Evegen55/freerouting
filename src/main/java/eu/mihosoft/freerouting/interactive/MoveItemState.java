@@ -58,13 +58,13 @@ public class MoveItemState extends InteractiveState
         java.util.ResourceBundle resources = java.util.ResourceBundle.getBundle("eu.mihosoft.freerouting.interactive.InteractiveState", p_board_handling.get_locale());
         if (p_item_list.isEmpty())
         {
-            p_board_handling.screen_messages.set_status_message(resources.getString("move_component_failed_because_no_item_selected"));
+            p_board_handling.screen_messages.setStatusMessage(resources.getString("move_component_failed_because_no_item_selected"));
             return null;
         }
         // extend p_item_list to full  components
         Set<Item> item_list = new TreeSet<Item>();
         Set<Component> component_list = new TreeSet<Component>();
-        eu.mihosoft.freerouting.board.BasicBoard routing_board = p_board_handling.get_routing_board();
+        eu.mihosoft.freerouting.board.BasicBoard routing_board = p_board_handling.getRoutingBoard();
         Component grid_snap_component = null;
         for (Item curr_item : p_item_list)
         {
@@ -105,7 +105,7 @@ public class MoveItemState extends InteractiveState
         {
             if (curr_item.is_user_fixed())
             {
-                p_board_handling.screen_messages.set_status_message(resources.getString("some_items_cannot_be_moved_because_they_are_fixed"));
+                p_board_handling.screen_messages.setStatusMessage(resources.getString("some_items_cannot_be_moved_because_they_are_fixed"));
                 move_ok = false;
                 obstacle_items.add(curr_item);
                 fixed_items.add(curr_item);
@@ -163,12 +163,12 @@ public class MoveItemState extends InteractiveState
                 if (fixed_items.size() > 0)
                 {
                     ((SelectedItemState)p_parent_state).get_item_list().addAll(fixed_items);
-                    p_board_handling.screen_messages.set_status_message(resources.getString("please_unfix_selected_items_before_moving"));
+                    p_board_handling.screen_messages.setStatusMessage(resources.getString("please_unfix_selected_items_before_moving"));
                 }
                 else
                 {
                     ((SelectedItemState)p_parent_state).get_item_list().addAll(obstacle_items);
-                    p_board_handling.screen_messages.set_status_message(resources.getString("please_unroute_or_extend_selection_before_moving"));
+                    p_board_handling.screen_messages.setStatusMessage(resources.getString("please_unroute_or_extend_selection_before_moving"));
                 }
             }
             return null;
@@ -191,14 +191,14 @@ public class MoveItemState extends InteractiveState
         {
             activityReplayFile.start_scope(ActivityReplayFileScope.MOVE_ITEMS, p_location);
         }
-        eu.mihosoft.freerouting.board.BasicBoard routing_board = hdlg.get_routing_board();
-        this.observers_activated = !hdlg.get_routing_board().observers_active();
+        eu.mihosoft.freerouting.board.BasicBoard routing_board = hdlg.getRoutingBoard();
+        this.observers_activated = !hdlg.getRoutingBoard().observers_active();
         if (this.observers_activated)
         {
-            hdlg.get_routing_board().start_notify_observers();
+            hdlg.getRoutingBoard().start_notify_observers();
         }
         // make the situation restorable by undo
-        routing_board.generate_snapshot();
+        routing_board.generateSnapshot();
         
         for (Item curr_item : p_item_list)
         {
@@ -230,7 +230,7 @@ public class MoveItemState extends InteractiveState
                 return;
             }
         }
-        Collection<Item> new_item_list = hdlg.get_routing_board().get_connectable_items(p_net_no);
+        Collection<Item> new_item_list = hdlg.getRoutingBoard().get_connectable_items(p_net_no);
         new_item_list.add(p_item);
         NetItems new_net_items = new NetItems(p_net_no, new_item_list);
         this.net_items_list.add(new_net_items);
@@ -242,7 +242,7 @@ public class MoveItemState extends InteractiveState
         move(hdlg.get_current_mouse_position());
         if (activityReplayFile != null)
         {
-            activityReplayFile.add_corner(this.current_position.to_float());
+            activityReplayFile.add_corner(this.current_position.toFloat());
         }
         return this;
     }
@@ -264,11 +264,11 @@ public class MoveItemState extends InteractiveState
         {
             if (curr_item.clearance_violation_count() > 0)
             {
-                hdlg.screen_messages.set_status_message(resources.getString("insertion_failed_because_of_obstacles"));
+                hdlg.screen_messages.setStatusMessage(resources.getString("insertion_failed_because_of_obstacles"));
                 return this;
             }
         }
-        eu.mihosoft.freerouting.board.BasicBoard routing_board = hdlg.get_routing_board();
+        eu.mihosoft.freerouting.board.BasicBoard routing_board = hdlg.getRoutingBoard();
         for (Item curr_item : this.item_list)
         {
             routing_board.insert_item(curr_item);
@@ -289,14 +289,14 @@ public class MoveItemState extends InteractiveState
         {
             activityReplayFile.start_scope(ActivityReplayFileScope.COMPLETE_SCOPE);
         }
-        hdlg.screen_messages.set_status_message(resources.getString("move_completed"));
+        hdlg.screen_messages.setStatusMessage(resources.getString("move_completed"));
         hdlg.repaint();
         return this.return_state;
     }
     
     public InteractiveState cancel()
     {
-        hdlg.get_routing_board().undo(null);
+        hdlg.getRoutingBoard().undo(null);
         for (NetItems curr_net_items : this.net_items_list)
         {
             this.hdlg.update_ratsnest(curr_net_items.net_no);
@@ -308,11 +308,11 @@ public class MoveItemState extends InteractiveState
         return this.return_state;
     }
     
-    public InteractiveState mouse_wheel_moved(int p_rotation)
+    public InteractiveState mouseWheelMoved(int p_rotation)
     {
         if (hdlg.settings.zoom_with_wheel)
         {
-            super.mouse_wheel_moved(p_rotation);
+            super.mouseWheelMoved(p_rotation);
         }
         else
         {
@@ -329,12 +329,12 @@ public class MoveItemState extends InteractiveState
         current_position = p_new_position.round();
         if (!current_position.equals(previous_position))
         {
-            Vector translate_vector = current_position.difference_by(previous_position);
+            Vector translate_vector = current_position.differenceBy(previous_position);
             if (this.grid_snap_component != null)
             {
                 translate_vector = adjust_to_placement_grid(translate_vector);
             }
-            eu.mihosoft.freerouting.board.Components components = hdlg.get_routing_board().components;
+            eu.mihosoft.freerouting.board.Components components = hdlg.getRoutingBoard().components;
             for (Component curr_component : this.component_list)
             {
                 components.move(curr_component.no, translate_vector);
@@ -356,13 +356,13 @@ public class MoveItemState extends InteractiveState
     
     private Vector adjust_to_placement_grid(Vector p_vector)
     {
-        Point new_component_location = this.grid_snap_component.get_location().translate_by(p_vector);
+        Point new_component_location = this.grid_snap_component.get_location().translateBy(p_vector);
         IntPoint rounded_component_location =
-                new_component_location.to_float().round_to_grid(hdlg.settings.horizontal_component_grid,
-                hdlg.settings.vertical_component_grid);
-        Vector adjustment = rounded_component_location.difference_by(new_component_location);
+                new_component_location.toFloat().roundToGrid(hdlg.settings.horizontal_component_grid,
+                                                             hdlg.settings.vertical_component_grid);
+        Vector adjustment = rounded_component_location.differenceBy(new_component_location);
         Vector result = p_vector.add(adjustment);
-        this.current_position = this.previous_position.translate_by(result).to_float().round();
+        this.current_position = this.previous_position.translateBy(result).toFloat().round();
         return p_vector.add(adjustment);
     }
     
@@ -376,7 +376,7 @@ public class MoveItemState extends InteractiveState
         {
             return;
         }
-        eu.mihosoft.freerouting.board.Components components = hdlg.get_routing_board().components;
+        eu.mihosoft.freerouting.board.Components components = hdlg.getRoutingBoard().components;
         for (Component curr_component : this.component_list)
         {
             components.turn_90_degree(curr_component.no, p_factor, current_position);
@@ -405,13 +405,13 @@ public class MoveItemState extends InteractiveState
         {
             return;
         }
-        eu.mihosoft.freerouting.board.Components components = hdlg.get_routing_board().components;
+        eu.mihosoft.freerouting.board.Components components = hdlg.getRoutingBoard().components;
         for (Component curr_component : this.component_list)
         {
             components.rotate(curr_component.no, p_angle_in_degree,  this.current_position);
         }
         this.clearance_violations = new java.util.LinkedList<ClearanceViolation>();
-        FloatPoint float_position = this.current_position.to_float();
+        FloatPoint float_position = this.current_position.toFloat();
         for (Item curr_item : this.item_list)
         {
             curr_item.rotate_approx(p_angle_in_degree,  float_position);
@@ -451,8 +451,8 @@ public class MoveItemState extends InteractiveState
     public void change_placement_side()
     {
         // Check, that all items can be mirrored
-        LayerStructure layer_structure = hdlg.get_routing_board().layer_structure;
-        BoardLibrary board_library = hdlg.get_routing_board().library;
+        LayerStructure layer_structure = hdlg.getRoutingBoard().layer_structure;
+        BoardLibrary board_library = hdlg.getRoutingBoard().library;
         boolean placement_side_changable = true;
         for(Item curr_item : item_list)
         {
@@ -478,11 +478,11 @@ public class MoveItemState extends InteractiveState
         }
         if (!placement_side_changable)
         {
-            hdlg.screen_messages.set_status_message(resources.getString("cannot_change_placement_side"));
+            hdlg.screen_messages.setStatusMessage(resources.getString("cannot_change_placement_side"));
             return;
         }
         
-        eu.mihosoft.freerouting.board.Components components = hdlg.get_routing_board().components;
+        eu.mihosoft.freerouting.board.Components components = hdlg.getRoutingBoard().components;
         for (Component curr_component : this.component_list)
         {
             components.change_side(curr_component.no, current_position);
@@ -517,7 +517,7 @@ public class MoveItemState extends InteractiveState
             }
             else if (component_to_reset.get_rotation_in_degree() != curr_component.get_rotation_in_degree())
             {
-                hdlg.screen_messages.set_status_message(resources.getString("unable_to_reset_components_with_different_rotations"));
+                hdlg.screen_messages.setStatusMessage(resources.getString("unable_to_reset_components_with_different_rotations"));
                 return;
             }
         }
@@ -526,7 +526,7 @@ public class MoveItemState extends InteractiveState
             return;
         }
         double rotation = component_to_reset.get_rotation_in_degree();
-        if (!hdlg.get_routing_board().components.get_flip_style_rotate_first() || component_to_reset.placed_on_front())
+        if (!hdlg.getRoutingBoard().components.get_flip_style_rotate_first() || component_to_reset.placed_on_front())
         {
             rotation = 360 - rotation;
         }
@@ -573,7 +573,7 @@ public class MoveItemState extends InteractiveState
     
     public javax.swing.JPopupMenu get_popup_menu()
     {
-        return hdlg.get_panel().popup_menu_move;
+        return hdlg.get_panel().popupMenuMove;
     }
     
     public String get_help_id()
@@ -589,14 +589,14 @@ public class MoveItemState extends InteractiveState
         }
         for (Item curr_item : this.item_list)
         {
-            curr_item.draw(p_graphics, hdlg.graphics_context);
+            curr_item.draw(p_graphics, hdlg.graphicsContext);
         }
         if (this.clearance_violations != null)
         {
-            java.awt.Color draw_color = hdlg.graphics_context.get_violations_color();
+            java.awt.Color draw_color = hdlg.graphicsContext.get_violations_color();
             for (ClearanceViolation curr_violation : this.clearance_violations)
             {
-                hdlg.graphics_context.fill_area(curr_violation.shape, p_graphics, draw_color, 1);
+                hdlg.graphicsContext.fill_area(curr_violation.shape, p_graphics, draw_color, 1);
             }
         }
     }

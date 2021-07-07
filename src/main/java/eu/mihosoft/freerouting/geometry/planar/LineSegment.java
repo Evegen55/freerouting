@@ -131,7 +131,7 @@ public class LineSegment implements java.io.Serializable
         FloatPoint result;
         if (precalculated_start_point != null)
         {
-            result = precalculated_start_point.to_float();
+            result = precalculated_start_point.toFloat();
         }
         else
         {
@@ -148,7 +148,7 @@ public class LineSegment implements java.io.Serializable
         FloatPoint result;
         if (precalculated_end_point != null)
         {
-            result = precalculated_end_point.to_float();
+            result = precalculated_end_point.toFloat();
         }
         else
         {
@@ -208,7 +208,7 @@ public class LineSegment implements java.io.Serializable
     public Simplex to_simplex()
     {
         Line[] line_arr = new Line[4];
-        if (this.end_point().side_of(this.start) == Side.ON_THE_RIGHT)
+        if (this.end_point().sideOf(this.start) == Side.ON_THE_RIGHT)
         {
             line_arr[0] = this.start.opposite();
         }
@@ -218,7 +218,7 @@ public class LineSegment implements java.io.Serializable
         }
         line_arr[1] = this.middle;
         line_arr[2] = this.middle.opposite();
-        if (this.start_point().side_of(this.end) == Side.ON_THE_RIGHT)
+        if (this.start_point().sideOf(this.end) == Side.ON_THE_RIGHT)
         {
             line_arr[3] = this.end.opposite();
         }
@@ -326,8 +326,8 @@ public class LineSegment implements java.io.Serializable
         {
             return new Line[0];
         }
-        Side start_point_side = start_point().side_of(p_other.middle);
-        Side end_point_side = end_point().side_of(p_other.middle);
+        Side start_point_side = start_point().sideOf(p_other.middle);
+        Side end_point_side = end_point().sideOf(p_other.middle);
         if (start_point_side == Side.COLLINEAR && end_point_side == Side.COLLINEAR)
         {
             // there may be an overlap
@@ -335,7 +335,7 @@ public class LineSegment implements java.io.Serializable
             LineSegment other_sorted = p_other.sort_endpoints_in_x_y();
             LineSegment left_line;
             LineSegment right_line;
-            if (this_sorted.start_point().compare_x_y(other_sorted.start_point()) <= 0)
+            if (this_sorted.start_point().compareXY(other_sorted.start_point()) <= 0)
             {
                 left_line = this_sorted;
                 right_line = other_sorted;
@@ -345,7 +345,7 @@ public class LineSegment implements java.io.Serializable
                 left_line = other_sorted;
                 right_line = this_sorted;
             }
-            int cmp = left_line.end_point().compare_x_y(right_line.start_point());
+            int cmp = left_line.end_point().compareXY(right_line.start_point());
             if (cmp < 0)
             {
                 // end point of the left line is to the lsft of the start point of the right line
@@ -361,7 +361,7 @@ public class LineSegment implements java.io.Serializable
             // now there is a real overlap
             Line[] result = new Line[2];
             result[0] = right_line.start;
-            if (right_line.end_point().compare_x_y(left_line.end_point()) >= 0)
+            if (right_line.end_point().compareXY(left_line.end_point()) >= 0)
             {
                 result[1] = left_line.end;
             }
@@ -372,7 +372,7 @@ public class LineSegment implements java.io.Serializable
             return result;
         }
         if (start_point_side == end_point_side ||
-                p_other.start_point().side_of(this.middle) == p_other.end_point().side_of(this.middle))
+            p_other.start_point().sideOf(this.middle) == p_other.end_point().sideOf(this.middle))
         {
             return new Line[0]; // no intersection possible
         }
@@ -409,8 +409,8 @@ public class LineSegment implements java.io.Serializable
      */
     public IntPoint[] stair_approximation(double p_width, boolean p_to_the_right)
     {
-        IntPoint start_point = this.start_point().to_float().round();
-        IntPoint end_point = this.end_point().to_float().round();
+        IntPoint start_point = this.start_point().toFloat().round();
+        IntPoint end_point = this.end_point().toFloat().round();
         if (start_point.equals(end_point))
         {
             return new IntPoint[0];
@@ -512,15 +512,15 @@ public class LineSegment implements java.io.Serializable
      */
     public IntPoint[] stair_approximation_45(double p_width, boolean p_to_the_right)
     {
-        IntPoint start_point = this.start_point().to_float().round();
-        IntPoint end_point = this.end_point().to_float().round();
+        IntPoint start_point = this.start_point().toFloat().round();
+        IntPoint end_point = this.end_point().toFloat().round();
         if (start_point.equals(end_point))
         {
             return new IntPoint[0];
 
         }
-        IntVector delta = end_point.difference_by(start_point);
-        if (delta.is_multiple_of_45_degree())
+        IntVector delta = end_point.differenceBy(start_point);
+        if (delta.isMultipleOf45Degree())
         {
             IntPoint[] result = new IntPoint[2];
             result[0] = start_point;
@@ -825,10 +825,10 @@ public class LineSegment implements java.io.Serializable
         if (intersection_count == 2)
         {
             // assure the correct order
-            FloatPoint is0 = intersection[0].to_float();
-            FloatPoint is1 = intersection[1].to_float();
-            FloatPoint curr_start = line_start.to_float();
-            if (curr_start.distance_square(is1) < curr_start.distance_square(is0))
+            FloatPoint is0 = intersection[0].toFloat();
+            FloatPoint is1 = intersection[1].toFloat();
+            FloatPoint curr_start = line_start.toFloat();
+            if (curr_start.distanceSquare(is1) < curr_start.distanceSquare(is0))
             // swap the result points
             {
                 int tmp = result[0];
@@ -855,7 +855,7 @@ public class LineSegment implements java.io.Serializable
      */
     public LineSegment sort_endpoints_in_x_y()
     {
-        boolean swap_endlines = (start_point().compare_x_y(end_point()) > 0);
+        boolean swap_endlines = (start_point().compareXY(end_point()) > 0);
         LineSegment result;
 
         if (swap_endlines)

@@ -109,7 +109,7 @@ public class CopyItemState extends InteractiveState
         current_position = p_new_position.round();
         if (!current_position.equals(previous_position))
         {
-            Vector translate_vector = current_position.difference_by(previous_position);
+            Vector translate_vector = current_position.differenceBy(previous_position);
             Iterator<eu.mihosoft.freerouting.board.Item> it = item_list.iterator();
             while (it.hasNext())
             {
@@ -148,7 +148,7 @@ public class CopyItemState extends InteractiveState
         }
         Map<Padstack, Padstack> padstack_pairs = new TreeMap<Padstack, Padstack>(); // Contains old and new padstacks after layer change.
         
-        RoutingBoard board = hdlg.get_routing_board();
+        RoutingBoard board = hdlg.getRoutingBoard();
         if (layer_changed)
         {
             // create new via padstacks
@@ -172,7 +172,7 @@ public class CopyItemState extends InteractiveState
         // Contains the new created components after copying.
         Collection<Component> copied_components = new LinkedList<Component>();
         
-        Vector translate_vector = current_position.difference_by(start_position);
+        Vector translate_vector = current_position.differenceBy(start_position);
         Iterator<Item> it = item_list.iterator();
         while (it.hasNext())
         {
@@ -197,7 +197,7 @@ public class CopyItemState extends InteractiveState
                         FRLogger.warn("CopyItemState: component not found");
                         continue;
                     }
-                    Point new_location = old_component.get_location().translate_by(translate_vector);
+                    Point new_location = old_component.get_location().translateBy(translate_vector);
                     Package new_package;
                     if (layer_changed)
                     {
@@ -242,7 +242,7 @@ public class CopyItemState extends InteractiveState
                 if (first_time)
                 {
                     // make the current situation restorable by undo
-                    board.generate_snapshot();
+                    board.generateSnapshot();
                     first_time = false;
                 }
                 board.insert_item(curr_item.copy(0));
@@ -254,15 +254,15 @@ public class CopyItemState extends InteractiveState
         }
         if (all_items_inserted)
         {
-            hdlg.screen_messages.set_status_message(resources.getString("all_items_inserted"));
+            hdlg.screen_messages.setStatusMessage(resources.getString("all_items_inserted"));
         }
         else
         {
-            hdlg.screen_messages.set_status_message(resources.getString("some_items_not_inserted_because_of_obstacles"));
+            hdlg.screen_messages.setStatusMessage(resources.getString("some_items_not_inserted_because_of_obstacles"));
         }
         if (activityReplayFile != null)
         {
-            activityReplayFile.add_corner(this.current_position.to_float());
+            activityReplayFile.add_corner(this.current_position.toFloat());
         }
         start_position = current_position;
         layer_changed = false;
@@ -292,14 +292,14 @@ public class CopyItemState extends InteractiveState
         while (it.hasNext())
         {
             Item curr_item = it.next();
-            curr_item.draw(p_graphics, hdlg.graphics_context, hdlg.graphics_context.get_hilight_color(),
-            hdlg.graphics_context.get_hilight_color_intensity());
+            curr_item.draw(p_graphics, hdlg.graphicsContext, hdlg.graphicsContext.get_hilight_color(),
+                           hdlg.graphicsContext.get_hilight_color_intensity());
         }
     }
     
     public javax.swing.JPopupMenu get_popup_menu()
     {
-        return hdlg.get_panel().popup_menu_copy;
+        return hdlg.get_panel().popupMenuCopy;
     }
     
     /**

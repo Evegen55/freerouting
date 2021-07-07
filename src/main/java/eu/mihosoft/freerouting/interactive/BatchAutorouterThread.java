@@ -45,7 +45,7 @@ public class BatchAutorouterThread extends InteractiveActionThread
     protected BatchAutorouterThread(BoardHandling p_board_handling)
     {
         super(p_board_handling);
-        AutorouteSettings autoroute_settings = p_board_handling.get_settings().autoroute_settings;
+        AutorouteSettings autoroute_settings = p_board_handling.getSettings().autorouteSettings;
         this.batch_autorouter = new BatchAutorouter(this, !autoroute_settings.get_with_fanout(), true, autoroute_settings.get_start_ripup_costs());
         this.batch_opt_route = new BatchOptRoute(this);
 
@@ -70,23 +70,23 @@ public class BatchAutorouterThread extends InteractiveActionThread
                 hdlg.get_ratsnest().hide();
             }
             String start_message = resources.getString("batch_autorouter") + " " + resources.getString("stop_message");
-            hdlg.screen_messages.set_status_message(start_message);
+            hdlg.screen_messages.setStatusMessage(start_message);
             boolean fanout_first =
-                    hdlg.get_settings().autoroute_settings.get_with_fanout() &&
-                    hdlg.get_settings().autoroute_settings.get_start_pass_no() <= 1;
+                    hdlg.getSettings().autorouteSettings.get_with_fanout() &&
+                    hdlg.getSettings().autorouteSettings.getStartPassNo() <= 1;
             if (fanout_first)
             {
                 BatchFanout.fanout_board(this);
             }
-            if (hdlg.get_settings().autoroute_settings.get_with_autoroute() && !this.is_stop_requested())
+            if (hdlg.getSettings().autorouteSettings.get_with_autoroute() && !this.is_stop_requested())
             {
                 batch_autorouter.autoroute_passes();
             }
-            hdlg.get_routing_board().finish_autoroute();
-            if (hdlg.get_settings().autoroute_settings.get_with_postroute() && !this.is_stop_requested())
+            hdlg.getRoutingBoard().finish_autoroute();
+            if (hdlg.getSettings().autorouteSettings.get_with_postroute() && !this.is_stop_requested())
             {
                 String opt_message = resources.getString("batch_optimizer") + " " + resources.getString("stop_message");
-                hdlg.screen_messages.set_status_message(opt_message);
+                hdlg.screen_messages.setStatusMessage(opt_message);
                 this.batch_opt_route.optimize_board();
                 String curr_message;
                 if (this.is_stop_requested())
@@ -98,7 +98,7 @@ public class BatchAutorouterThread extends InteractiveActionThread
                     curr_message = resources.getString("completed");
                 }
                 String end_message = resources.getString("postroute") + " " + curr_message;
-                hdlg.screen_messages.set_status_message(end_message);
+                hdlg.screen_messages.setStatusMessage(end_message);
             }
             else
             {
@@ -115,7 +115,7 @@ public class BatchAutorouterThread extends InteractiveActionThread
                 Integer incomplete_count = hdlg.get_ratsnest().incomplete_count();
                 String end_message = resources.getString("autoroute") + " " + curr_message + ", " + incomplete_count.toString() +
                         " " + resources.getString("connections_not_found");
-                hdlg.screen_messages.set_status_message(end_message);
+                hdlg.screen_messages.setStatusMessage(end_message);
             }
 
             hdlg.set_board_read_only(saved_board_read_only);
@@ -125,10 +125,10 @@ public class BatchAutorouterThread extends InteractiveActionThread
                 hdlg.get_ratsnest().show();
             }
 
-            hdlg.get_panel().board_frame.refresh_windows();
-            if (hdlg.get_routing_board().rules.get_trace_angle_restriction() == eu.mihosoft.freerouting.board.AngleRestriction.FORTYFIVE_DEGREE && hdlg.get_routing_board().get_test_level() != eu.mihosoft.freerouting.board.TestLevel.RELEASE_VERSION)
+            hdlg.get_panel().boardFrame.refreshWindows();
+            if (hdlg.getRoutingBoard().rules.get_trace_angle_restriction() == eu.mihosoft.freerouting.board.AngleRestriction.FORTYFIVE_DEGREE && hdlg.getRoutingBoard().getTestLevel() != eu.mihosoft.freerouting.board.TestLevel.RELEASE_VERSION)
             {
-                eu.mihosoft.freerouting.tests.Validate.multiple_of_45_degree("after eu.mihosoft.freerouting.autoroute: ", hdlg.get_routing_board());
+                eu.mihosoft.freerouting.tests.Validate.multiple_of_45_degree("after eu.mihosoft.freerouting.autoroute: ", hdlg.getRoutingBoard());
             }
         } catch (Exception e)
         {
@@ -157,24 +157,24 @@ public class BatchAutorouterThread extends InteractiveActionThread
             draw_line[0] = curr_air_line.a;
             draw_line[1] = curr_air_line.b;
             // draw the incomplete
-            java.awt.Color draw_color = this.hdlg.graphics_context.get_incomplete_color();
-            double draw_width = Math.min (this.hdlg.get_routing_board().communication.get_resolution(Unit.MIL) * 3, 300);  // problem with low resolution on Kicad300;
-            this.hdlg.graphics_context.draw(draw_line, draw_width, draw_color, p_graphics, 1);
+            java.awt.Color draw_color = this.hdlg.graphicsContext.get_incomplete_color();
+            double draw_width = Math.min (this.hdlg.getRoutingBoard().communication.get_resolution(Unit.MIL) * 3, 300);  // problem with low resolution on Kicad300;
+            this.hdlg.graphicsContext.draw(draw_line, draw_width, draw_color, p_graphics, 1);
         }
         FloatPoint current_opt_position = batch_opt_route.get_current_position();
-        int radius = 10 * this.hdlg.get_routing_board().rules.get_default_trace_half_width(0);
+        int radius = 10 * this.hdlg.getRoutingBoard().rules.get_default_trace_half_width(0);
         if (current_opt_position != null)
         {
             final int draw_width = 1;
-            java.awt.Color draw_color = this.hdlg.graphics_context.get_incomplete_color();
+            java.awt.Color draw_color = this.hdlg.graphicsContext.get_incomplete_color();
             FloatPoint[] draw_points = new FloatPoint[2];
             draw_points[0] = new FloatPoint(current_opt_position.x - radius, current_opt_position.y - radius);
             draw_points[1] = new FloatPoint(current_opt_position.x + radius, current_opt_position.y + radius);
-            this.hdlg.graphics_context.draw(draw_points, draw_width, draw_color, p_graphics, 1);
+            this.hdlg.graphicsContext.draw(draw_points, draw_width, draw_color, p_graphics, 1);
             draw_points[0] = new FloatPoint(current_opt_position.x + radius, current_opt_position.y - radius);
             draw_points[1] = new FloatPoint(current_opt_position.x - radius, current_opt_position.y + radius);
-            this.hdlg.graphics_context.draw(draw_points, draw_width, draw_color, p_graphics, 1);
-            this.hdlg.graphics_context.draw_circle(current_opt_position, radius, draw_width, draw_color, p_graphics, 1);
+            this.hdlg.graphicsContext.draw(draw_points, draw_width, draw_color, p_graphics, 1);
+            this.hdlg.graphicsContext.draw_circle(current_opt_position, radius, draw_width, draw_color, p_graphics, 1);
         }
     }
     private final BatchAutorouter batch_autorouter;

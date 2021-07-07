@@ -35,7 +35,7 @@ public class WindowSnapshotSettings extends BoardSavableSubWindow
     /** Creates a new instance of WindowSnapshotSettings */
     public WindowSnapshotSettings(BoardFrame p_board_frame)
     {
-        this.board_handling = p_board_frame.board_panel.board_handling;
+        this.board_handling = p_board_frame.boardPanel.boardHandling;
         
         java.util.ResourceBundle resources = 
                 java.util.ResourceBundle.getBundle("eu.mihosoft.freerouting.gui.WindowSnapshotSettings", p_board_frame.get_locale());
@@ -183,7 +183,7 @@ public class WindowSnapshotSettings extends BoardSavableSubWindow
         main_panel.add(info_list_filter_check_box, gridbag_constraints);
         this.info_list_filter_check_box.addActionListener(new InfoListFilterListener());
         
-        p_board_frame.set_context_sensitive_help(this, "WindowSnapshots_SnapshotSettings");
+        p_board_frame.setContextSensitiveHelp(this, "WindowSnapshots_SnapshotSettings");
         
         
         this.refresh();

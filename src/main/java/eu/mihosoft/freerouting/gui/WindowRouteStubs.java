@@ -45,12 +45,12 @@ public class WindowRouteStubs extends WindowObjectListWithFilter
         this.resources = java.util.ResourceBundle.getBundle("eu.mihosoft.freerouting.gui.CleanupWindows", p_board_frame.get_locale());
         this.setTitle(resources.getString("route_stubs"));
         this.list_empty_message.setText(resources.getString("no_route_stubs_found"));
-        p_board_frame.set_context_sensitive_help(this, "WindowObjectList_RouteStubs");
+        p_board_frame.setContextSensitiveHelp(this, "WindowObjectList_RouteStubs");
     }
     
     protected void fill_list()
     {
-        eu.mihosoft.freerouting.board.BasicBoard routing_board = this.board_frame.board_panel.board_handling.get_routing_board();
+        eu.mihosoft.freerouting.board.BasicBoard routing_board = this.board_frame.boardPanel.boardHandling.getRoutingBoard();
         
         SortedSet<RouteStubInfo> route_stub_info_set = new java.util.TreeSet<RouteStubInfo>();
         
@@ -106,18 +106,18 @@ public class WindowRouteStubs extends WindowObjectListWithFilter
                         stub_layer = first_contact_last_layer;
                     }
                 }
-                stub_location = ((eu.mihosoft.freerouting.board.Via)curr_item).get_center().to_float();
+                stub_location = ((eu.mihosoft.freerouting.board.Via)curr_item).get_center().toFloat();
             }
             else
             {
                 eu.mihosoft.freerouting.board.Trace curr_trace = (eu.mihosoft.freerouting.board.Trace) curr_item;
                 if  (curr_trace.get_start_contacts().isEmpty())
                 {
-                    stub_location = curr_trace.first_corner().to_float();
+                    stub_location = curr_trace.first_corner().toFloat();
                 }
                 else if (curr_trace.get_end_contacts().isEmpty())
                 {
-                    stub_location = curr_trace.last_corner().to_float();
+                    stub_location = curr_trace.last_corner().toFloat();
                 }
                 else
                 {
@@ -148,7 +148,7 @@ public class WindowRouteStubs extends WindowObjectListWithFilter
         {
             selected_items.add(((RouteStubInfo)selected_list_values.get(i)).stub_item);
         }
-        eu.mihosoft.freerouting.interactive.BoardHandling board_handling = board_frame.board_panel.board_handling;
+        eu.mihosoft.freerouting.interactive.BoardHandling board_handling = board_frame.boardPanel.boardHandling;
         board_handling.select_items(selected_items);
         board_handling.zoom_selection();
     }
@@ -162,12 +162,12 @@ public class WindowRouteStubs extends WindowObjectListWithFilter
     {
         public RouteStubInfo(Item p_stub, FloatPoint p_location, int p_layer_no)
         {
-            eu.mihosoft.freerouting.interactive.BoardHandling board_handling = board_frame.board_panel.board_handling;
+            eu.mihosoft.freerouting.interactive.BoardHandling board_handling = board_frame.boardPanel.boardHandling;
             this.stub_item = p_stub;
-            this.location = board_handling.coordinate_transform.board_to_user(p_location);
+            this.location = board_handling.coordinateTransform.board_to_user(p_location);
             this.layer_no  = p_layer_no;
             int net_no = p_stub.get_net_no(0);
-            this.net = board_handling.get_routing_board().rules.nets.get(net_no);
+            this.net = board_handling.getRoutingBoard().rules.nets.get(net_no);
         }
         
         public String toString()
@@ -181,7 +181,7 @@ public class WindowRouteStubs extends WindowObjectListWithFilter
             {
                 item_string = resources.getString("via");
             }
-            String layer_name = board_frame.board_panel.board_handling.get_routing_board().layer_structure.arr[layer_no].name;
+            String layer_name = board_frame.boardPanel.boardHandling.getRoutingBoard().layer_structure.arr[layer_no].name;
             String result = item_string + " " + resources.getString("stub_net") + " " + this.net.name + " " +
                     resources.getString("at") + " " + this.location.to_string(board_frame.get_locale()) + " " +
                     resources.getString("on_layer") + " " + layer_name;

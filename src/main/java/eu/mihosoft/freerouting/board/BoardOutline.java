@@ -308,12 +308,12 @@ public class BoardOutline extends Item implements java.io.Serializable
             return;
         }
         keepout_outside_outline = p_value;
-        if (this.board == null || this.board.search_tree_manager == null)
+        if (this.board == null || this.board.searchTreeManager == null)
         {
             return;
         }
-        this.board.search_tree_manager.remove(this);
-        this.board.search_tree_manager.insert(this);
+        this.board.searchTreeManager.remove(this);
+        this.board.searchTreeManager.insert(this);
 
     }
 

@@ -124,7 +124,7 @@ public class Package implements Comparable<Package>, eu.mihosoft.freerouting.boa
             Padstack curr_padstack = this.package_list.padstack_list.get(curr_pin.padstack_no);
             p_window.append(curr_padstack.name, resources.getString("padstack_info"), curr_padstack);
             p_window.append(" " + resources.getString("at") + " ");
-            p_window.append(curr_pin.relative_location.to_float());
+            p_window.append(curr_pin.relative_location.toFloat());
             p_window.append(", "  + resources.getString("rotation") + " ");
             p_window.append_without_transforming(curr_pin.rotation_in_degree);
         }

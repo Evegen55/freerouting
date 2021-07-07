@@ -35,7 +35,7 @@ public class WindowMoveParameter extends BoardSavableSubWindow
     /** Creates a new instance of WindowMoveParameter */
     public WindowMoveParameter(BoardFrame p_board_frame)
     {
-        this.board_handling = p_board_frame.board_panel.board_handling;
+        this.board_handling = p_board_frame.boardPanel.boardHandling;
         java.util.ResourceBundle resources = 
                 java.util.ResourceBundle.getBundle("eu.mihosoft.freerouting.gui.WindowMoveParameter", p_board_frame.get_locale());
         this.setTitle(resources.getString("title"));
@@ -120,7 +120,7 @@ public class WindowMoveParameter extends BoardSavableSubWindow
         gridbag.setConstraints(rotate_button, gridbag_constraints);
         main_panel.add(rotate_button, gridbag_constraints);
         
-        p_board_frame.set_context_sensitive_help(this, "WindowMoveParameter");
+        p_board_frame.setContextSensitiveHelp(this, "WindowMoveParameter");
         
         this.refresh();
         this.pack();
@@ -135,7 +135,7 @@ public class WindowMoveParameter extends BoardSavableSubWindow
         }
         else
         {
-            Float grid_width =(float) board_handling.coordinate_transform.board_to_user(p_value);
+            Float grid_width =(float) board_handling.coordinateTransform.board_to_user(p_value);
             this.horizontal_grid_field.setValue(grid_width);
         }
     }
@@ -148,7 +148,7 @@ public class WindowMoveParameter extends BoardSavableSubWindow
         }
         else
         {
-            Float grid_width =(float) board_handling.coordinate_transform.board_to_user(p_value);
+            Float grid_width =(float) board_handling.coordinateTransform.board_to_user(p_value);
             this.vertical_grid_field.setValue(grid_width);
         }
     }
@@ -180,7 +180,7 @@ public class WindowMoveParameter extends BoardSavableSubWindow
                     input_value = 0;
                 }
                 board_handling.settings.set_horizontal_component_grid
-                        ((int) Math.round(board_handling.coordinate_transform.user_to_board(input_value)));
+                        ((int) Math.round(board_handling.coordinateTransform.user_to_board(input_value)));
                 set_horizontal_grid_field(board_handling.settings.get_horizontal_component_grid());
             }
             else
@@ -226,7 +226,7 @@ public class WindowMoveParameter extends BoardSavableSubWindow
                     input_value = 0;
                 }
                 board_handling.settings.set_vertical_component_grid
-                        ((int) Math.round(board_handling.coordinate_transform.user_to_board(input_value)));
+                        ((int) Math.round(board_handling.coordinateTransform.user_to_board(input_value)));
                 set_vertical_grid_field(board_handling.settings.get_vertical_component_grid());
             }
             else

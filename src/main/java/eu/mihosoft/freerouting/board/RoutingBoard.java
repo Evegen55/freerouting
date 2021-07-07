@@ -34,7 +34,6 @@ import java.util.Iterator;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
-import java.util.concurrent.ExecutionException;
 
 import eu.mihosoft.freerouting.datastructures.UndoableObjects;
 import eu.mihosoft.freerouting.datastructures.Stoppable;
@@ -194,9 +193,9 @@ public class RoutingBoard extends BasicBoard implements java.io.Serializable
     {
         start_marking_changed_area();
         FloatPoint[] board_corners = new FloatPoint[4];
-        board_corners[0] = bounding_box.ll.to_float();
+        board_corners[0] = bounding_box.ll.toFloat();
         board_corners[1] = new FloatPoint(bounding_box.ur.x, bounding_box.ll.y);
-        board_corners[2] = bounding_box.ur.to_float();
+        board_corners[2] = bounding_box.ur.toFloat();
         board_corners[3] = new FloatPoint(bounding_box.ll.x, bounding_box.ur.y);
         for (int i = 0; i < get_layer_count(); ++i)
         {
@@ -290,7 +289,7 @@ public class RoutingBoard extends BasicBoard implements java.io.Serializable
         FloatPoint to_point = p_line_segment.end_point_approx();
         double line_length = to_point.distance(from_point);
         double ok_length = Integer.MAX_VALUE;
-        ShapeSearchTree default_tree = this.search_tree_manager.get_default_tree();
+        ShapeSearchTree default_tree = this.searchTreeManager.get_default_tree();
 
         Collection<TreeEntry> obstacle_entries = default_tree.overlapping_tree_entries_with_clearance(shape_to_check, p_layer, p_net_no_arr, p_cl_class_no);
 
@@ -328,7 +327,7 @@ public class RoutingBoard extends BasicBoard implements java.io.Serializable
             }
             nearest_obstacle_point = intersection.nearest_point_approx(from_point);
 
-            double projection = from_point.scalar_product(to_point, nearest_obstacle_point) / line_length;
+            double projection = from_point.scalarProduct(to_point, nearest_obstacle_point) / line_length;
 
             projection = Math.max(0.0, projection - shorten_value - 1);
 
@@ -499,7 +498,7 @@ public class RoutingBoard extends BasicBoard implements java.io.Serializable
     {
         TileShape point_shape = TileShape.get_instance(p_location);
         Collection<Item> found_items = overlapping_items(point_shape, p_layer);
-        FloatPoint pick_location = p_location.to_float();
+        FloatPoint pick_location = p_location.toFloat();
         double min_dist = Integer.MAX_VALUE;
         Item nearest_item = null;
         Set<Item> ignore_set = null;
@@ -535,7 +534,7 @@ public class RoutingBoard extends BasicBoard implements java.io.Serializable
                 DrillItem curr_drill_item = (DrillItem) curr_item;
                 if (p_layer < 0 || curr_drill_item.is_on_layer(p_layer))
                 {
-                    FloatPoint drill_item_center = curr_drill_item.get_center().to_float();
+                    FloatPoint drill_item_center = curr_drill_item.get_center().toFloat();
                     curr_dist = drill_item_center.distance(pick_location);
                     if (curr_dist < min_dist || nearest_item instanceof Trace)
                     {
@@ -593,7 +592,7 @@ public class RoutingBoard extends BasicBoard implements java.io.Serializable
             IntOctagon tidy_clip_shape;
             if (p_tidy_width < Integer.MAX_VALUE)
             {
-                tidy_clip_shape = p_location.surrounding_octagon().enlarge(p_tidy_width);
+                tidy_clip_shape = p_location.surroundingOctagon().enlarge(p_tidy_width);
             }
             else
             {
@@ -662,7 +661,7 @@ public class RoutingBoard extends BasicBoard implements java.io.Serializable
             int p_clearance_class_no, int p_max_recursion_depth, int p_max_via_recursion_depth,
             int p_max_spring_over_recursion_depth)
     {
-        ShapeSearchTree search_tree = search_tree_manager.get_default_tree();
+        ShapeSearchTree search_tree = searchTreeManager.get_default_tree();
         int compensated_half_width = p_half_width + search_tree.clearance_compensation_value(p_clearance_class_no, p_layer);
         TileShape[] trace_shapes = p_polyline.offset_shapes(compensated_half_width,
                 0, p_polyline.arr.length - 1);
@@ -727,7 +726,7 @@ public class RoutingBoard extends BasicBoard implements java.io.Serializable
                 picked_trace = curr_picked_trace;
             }
         }
-        ShapeSearchTree search_tree = search_tree_manager.get_default_tree();
+        ShapeSearchTree search_tree = searchTreeManager.get_default_tree();
         int compensated_half_width = p_half_width + search_tree.clearance_compensation_value(p_clearance_class_no, p_layer);
         ShoveTraceAlgo shove_trace_algo = new ShoveTraceAlgo(this);
         Polyline new_polyline = shove_trace_algo.spring_over_obstacles(p_polyline,
@@ -863,7 +862,7 @@ public class RoutingBoard extends BasicBoard implements java.io.Serializable
         IntOctagon tidy_region = null;
         if (p_tidy_width < Integer.MAX_VALUE)
         {
-            tidy_region = new_corner.surrounding_octagon().enlarge(p_tidy_width);
+            tidy_region = new_corner.surroundingOctagon().enlarge(p_tidy_width);
         }
         int[] opt_net_no_arr;
         if (p_max_recursion_depth <= 0)
@@ -953,7 +952,7 @@ public class RoutingBoard extends BasicBoard implements java.io.Serializable
             FRLogger.warn("RoutingBoard.autoroute: net_count > 1 not yet implemented");
         }
         int route_net_no = p_item.get_net_no(0);
-        AutorouteControl ctrl_settings = new AutorouteControl(this, route_net_no, p_settings, p_via_costs, p_settings.autoroute_settings.get_trace_cost_arr());
+        AutorouteControl ctrl_settings = new AutorouteControl(this, route_net_no, p_settings, p_via_costs, p_settings.autorouteSettings.get_trace_cost_arr());
         ctrl_settings.remove_unconnected_vias = false;
         Set<Item> route_start_set = p_item.get_connected_set(route_net_no);
         eu.mihosoft.freerouting.rules.Net route_net = rules.nets.get(route_net_no);
@@ -1241,7 +1240,7 @@ public class RoutingBoard extends BasicBoard implements java.io.Serializable
         this.rules.set_ignore_conduction(!p_value);
         if (something_changed)
         {
-            this.search_tree_manager.reinsert_tree_items();
+            this.searchTreeManager.reinsert_tree_items();
         }
     }
 

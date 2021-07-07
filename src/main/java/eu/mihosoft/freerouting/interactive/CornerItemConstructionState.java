@@ -78,7 +78,7 @@ public class CornerItemConstructionState extends InteractiveState
     {
         super.mouse_moved();
         IntPoint curr_mouse_pos = hdlg.get_current_mouse_position().round();
-        this.snapped_mouse_position = (this.snap(curr_mouse_pos)).to_float();
+        this.snapped_mouse_position = (this.snap(curr_mouse_pos)).toFloat();
         hdlg.repaint();
         return this;
     }
@@ -86,7 +86,7 @@ public class CornerItemConstructionState extends InteractiveState
     
     public javax.swing.JPopupMenu get_popup_menu()
     {
-        return hdlg.get_panel().popup_menu_corneritem_construction;
+        return hdlg.get_panel().popupMenuCornerItemConstruction;
     }
     
     /**
@@ -103,17 +103,17 @@ public class CornerItemConstructionState extends InteractiveState
         java.util.Iterator<IntPoint> it = corner_list.iterator();
         for (int i = 0; i < corners.length - 1; ++i)
         {
-            corners[i] = (it.next()).to_float();
+            corners[i] = (it.next()).toFloat();
         }
         if (this.snapped_mouse_position == null)
         {
-            corners[corners.length - 1] = it.next().to_float();
+            corners[corners.length - 1] = it.next().toFloat();
         }
         else
         {
             corners[corners.length - 1] = this.snapped_mouse_position;
         }
-        hdlg.graphics_context.draw(corners, 300, java.awt.Color.white, p_graphics, 0.5);
+        hdlg.graphicsContext.draw(corners, 300, java.awt.Color.white, p_graphics, 0.5);
     }
     
     /**
@@ -121,20 +121,20 @@ public class CornerItemConstructionState extends InteractiveState
      */
     protected void add_corner_for_snap_angle()
     {
-        if (hdlg.get_routing_board().rules.get_trace_angle_restriction() == AngleRestriction.NONE)
+        if (hdlg.getRoutingBoard().rules.get_trace_angle_restriction() == AngleRestriction.NONE)
         {
             return;
         }
         IntPoint first_corner =  corner_list.getFirst();
         IntPoint last_corner =  corner_list.getLast();
         IntPoint add_corner = null;
-        if (hdlg.get_routing_board().rules.get_trace_angle_restriction() == AngleRestriction.NINETY_DEGREE)
+        if (hdlg.getRoutingBoard().rules.get_trace_angle_restriction() == AngleRestriction.NINETY_DEGREE)
         {
-            add_corner = last_corner.ninety_degree_corner(first_corner, true);
+            add_corner = last_corner.ninetyDegreeCorner(first_corner, true);
         }
-        else if (hdlg.get_routing_board().rules.get_trace_angle_restriction() == AngleRestriction.FORTYFIVE_DEGREE)
+        else if (hdlg.getRoutingBoard().rules.get_trace_angle_restriction() == AngleRestriction.FORTYFIVE_DEGREE)
         {
-            add_corner = last_corner.fortyfive_degree_corner(first_corner, true);
+            add_corner = last_corner.fortyfiveDegreeCorner(first_corner, true);
         }
         if (add_corner != null)
         {
@@ -150,15 +150,15 @@ public class CornerItemConstructionState extends InteractiveState
     {
         IntPoint result;
         boolean list_empty = (corner_list.size() == 0);
-        if (hdlg.get_routing_board().rules.get_trace_angle_restriction() == AngleRestriction.NINETY_DEGREE && !list_empty)
+        if (hdlg.getRoutingBoard().rules.get_trace_angle_restriction() == AngleRestriction.NINETY_DEGREE && !list_empty)
         {
             IntPoint last_corner = corner_list.getLast();
-            result = p_point.orthogonal_projection(last_corner);
+            result = p_point.orthogonalProjection(last_corner);
         }
-        else if (hdlg.get_routing_board().rules.get_trace_angle_restriction() == AngleRestriction.FORTYFIVE_DEGREE && !list_empty)
+        else if (hdlg.getRoutingBoard().rules.get_trace_angle_restriction() == AngleRestriction.FORTYFIVE_DEGREE && !list_empty)
         {
             IntPoint last_corner = corner_list.getLast();
-            result = p_point.fortyfive_degree_projection(last_corner);
+            result = p_point.fortyfiveDegreeProjection(last_corner);
         }
         else
         {

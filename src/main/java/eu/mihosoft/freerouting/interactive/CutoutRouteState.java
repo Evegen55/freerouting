@@ -76,7 +76,7 @@ public class CutoutRouteState extends SelectRegionState
         {
             new_instance.activityReplayFile.add_corner(p_location);
         }
-        new_instance.hdlg.screen_messages.set_status_message(new_instance.resources.getString("drag_left_mouse_button_to_select_cutout_rectangle"));
+        new_instance.hdlg.screen_messages.setStatusMessage(new_instance.resources.getString("drag_left_mouse_button_to_select_cutout_rectangle"));
         return new_instance;
     }
     
@@ -93,7 +93,7 @@ public class CutoutRouteState extends SelectRegionState
     
     public InteractiveState complete()
     {
-        hdlg.screen_messages.set_status_message("");
+        hdlg.screen_messages.setStatusMessage("");
         corner2 = hdlg.get_current_mouse_position();
         if (activityReplayFile != null)
         {
@@ -113,7 +113,7 @@ public class CutoutRouteState extends SelectRegionState
             return;
         }
         
-        hdlg.get_routing_board().generate_snapshot();
+        hdlg.getRoutingBoard().generateSnapshot();
         
         IntPoint p1 = this.corner1.round() ;
         IntPoint p2 = this.corner2.round() ;
@@ -147,8 +147,8 @@ public class CutoutRouteState extends SelectRegionState
         for (PolylineTrace curr_trace : this.trace_list)
         {
             
-            curr_trace.draw(p_graphics, hdlg.graphics_context, hdlg.graphics_context.get_hilight_color(),
-                    hdlg.graphics_context.get_hilight_color_intensity());
+            curr_trace.draw(p_graphics, hdlg.graphicsContext, hdlg.graphicsContext.get_hilight_color(),
+                            hdlg.graphicsContext.get_hilight_color_intensity());
         }
         super.draw(p_graphics);
     }

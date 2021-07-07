@@ -123,7 +123,7 @@ class PullTightAlgo45 extends PullTightAlgo
             }
             if (curr_corner[1].equals(curr_corner[2]) ||
                     corner_no < p_polyline.arr.length - 2 &&
-                    curr_corner[3].side_of(curr_corner[1], curr_corner[2]) == Side.COLLINEAR)
+                    curr_corner[3].sideOf(curr_corner[1], curr_corner[2]) == Side.COLLINEAR)
             {
                 // corners in the middle af a line can be skipped
                 ++corner_no;
@@ -143,14 +143,14 @@ class PullTightAlgo45 extends PullTightAlgo
             if (curr_corner_in_clip_shape[1] && curr_corner_in_clip_shape[2] && curr_corner_in_clip_shape[3])
             {
                 // translate the line from curr_corner[2] to curr_corner[1] to curr_corner[3]
-                Vector delta = curr_corner[3].difference_by(curr_corner[2]);
-                new_corner = curr_corner[1].translate_by(delta);
+                Vector delta = curr_corner[3].differenceBy(curr_corner[2]);
+                new_corner = curr_corner[1].translateBy(delta);
                 if (curr_corner[3].equals(curr_corner[2]))
                 {
                     // just remove multiple corner
                     corner_removed = true;
                 }
-                else if (new_corner.side_of(curr_corner[0], curr_corner[1]) == Side.COLLINEAR)
+                else if (new_corner.sideOf(curr_corner[0], curr_corner[1]) == Side.COLLINEAR)
                 {
                     curr_check_points[0] = new_corner;
                     curr_check_points[1] = curr_corner[1];
@@ -192,14 +192,14 @@ class PullTightAlgo45 extends PullTightAlgo
             {
                 // the first try has failed. Try to translate the line from
                 // corner_2 to corner_1 to corner_0
-                Vector delta = curr_corner[0].difference_by(curr_corner[1]);
-                new_corner = curr_corner[2].translate_by(delta);
+                Vector delta = curr_corner[0].differenceBy(curr_corner[1]);
+                new_corner = curr_corner[2].translateBy(delta);
                 if (curr_corner[0].equals(curr_corner[1]))
                 {
                     // just remove multiple corner
                     corner_removed = true;
                 }
-                else if (new_corner.side_of(curr_corner[2], curr_corner[3]) == Side.COLLINEAR)
+                else if (new_corner.sideOf(curr_corner[2], curr_corner[3]) == Side.COLLINEAR)
                 {
                     curr_check_points[0] = new_corner;
                     curr_check_points[1] = curr_corner[0];
@@ -238,9 +238,9 @@ class PullTightAlgo45 extends PullTightAlgo
                         curr_clip_shape == null || !curr_clip_shape.is_outside(curr_corner[1]);
                 if (board.changed_area != null)
                 {
-                    board.changed_area.join(new_corner.to_float(), curr_layer);
-                    board.changed_area.join(curr_corner[1].to_float(), curr_layer);
-                    board.changed_area.join(curr_corner[2].to_float(), curr_layer);
+                    board.changed_area.join(new_corner.toFloat(), curr_layer);
+                    board.changed_area.join(curr_corner[1].toFloat(), curr_layer);
+                    board.changed_area.join(curr_corner[2].toFloat(), curr_layer);
                 }
             }
             else
@@ -606,7 +606,7 @@ class PullTightAlgo45 extends PullTightAlgo
                     curr_other_trace_line = contact_trace_polyline.arr[curr_corner_no + 1].opposite();
                     curr_other_prev_trace_line = contact_trace_polyline.arr[curr_corner_no];
                 }
-                Side curr_prev_corner_side = curr_prev_end_corner.side_of(curr_other_trace_line);
+                Side curr_prev_corner_side = curr_prev_end_corner.sideOf(curr_other_trace_line);
                 Signum curr_projection = line_direction.projection(curr_other_trace_line.direction());
                 boolean other_trace_found = false;
                 if (curr_projection == Signum.POSITIVE && curr_prev_corner_side != Side.COLLINEAR)
@@ -650,9 +650,9 @@ class PullTightAlgo45 extends PullTightAlgo
             {
                 new_line_dir = other_trace_line.direction().turn_45_degree(6);
             }
-            Line translate_line = Line.get_instance(curr_end_corner.to_float().round(), new_line_dir);
+            Line translate_line = Line.get_instance(curr_end_corner.toFloat().round(), new_line_dir);
             double translate_dist = (Limits.sqrt2 - 1) * this.curr_half_width;
-            double prev_corner_dist = Math.abs(translate_line.signed_distance(curr_prev_end_corner.to_float()));
+            double prev_corner_dist = Math.abs(translate_line.signed_distance(curr_prev_end_corner.toFloat()));
             double other_dist = Math.abs(translate_line.signed_distance(other_trace_corner_approx));
             translate_dist = Math.min(translate_dist, prev_corner_dist);
             translate_dist = Math.min(translate_dist, other_dist);
@@ -743,7 +743,7 @@ class PullTightAlgo45 extends PullTightAlgo
                     curr_other_trace_line = contact_trace_polyline.arr[curr_corner_no + 1].opposite();
                     curr_other_prev_trace_line = contact_trace_polyline.arr[curr_corner_no];
                 }
-                Side curr_prev_corner_side = curr_prev_end_corner.side_of(curr_other_trace_line);
+                Side curr_prev_corner_side = curr_prev_end_corner.sideOf(curr_other_trace_line);
                 Signum curr_projection = line_direction.projection(curr_other_trace_line.direction());
                 boolean other_trace_found = false;
                 if (curr_projection == Signum.POSITIVE && curr_prev_corner_side != Side.COLLINEAR)
@@ -787,9 +787,9 @@ class PullTightAlgo45 extends PullTightAlgo
             {
                 new_line_dir = other_trace_line.direction().turn_45_degree(2);
             }
-            Line translate_line = Line.get_instance(curr_end_corner.to_float().round(), new_line_dir);
+            Line translate_line = Line.get_instance(curr_end_corner.toFloat().round(), new_line_dir);
             double translate_dist = (Limits.sqrt2 - 1) * this.curr_half_width;
-            double prev_corner_dist = Math.abs(translate_line.signed_distance(curr_prev_end_corner.to_float()));
+            double prev_corner_dist = Math.abs(translate_line.signed_distance(curr_prev_end_corner.toFloat()));
             double other_dist = Math.abs(translate_line.signed_distance(other_trace_corner_approx));
             translate_dist = Math.min(translate_dist, prev_corner_dist);
             translate_dist = Math.min(translate_dist, other_dist);

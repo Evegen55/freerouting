@@ -108,13 +108,13 @@ public class MazeShoveTraceAlgo
             FloatPoint door_center = from_door_shape.centre_of_gravity();
             FloatPoint corner_1 = trace_polyline.corner_approx(trace_corner_no);
             FloatPoint corner_2 = trace_polyline.corner_approx(trace_corner_no + 1);
-            if (corner_1.distance_square(corner_2) < 1)
+            if (corner_1.distanceSquare(corner_2) < 1)
             {
                 // shove_line_segment may be reduced to a point
                 return false;
             }
             boolean shove_into_direction_of_trace_start =
-                    door_center.distance_square(corner_2) < door_center.distance_square(corner_1);
+                    door_center.distanceSquare(corner_2) < door_center.distanceSquare(corner_1);
             shove_line_segment = new LineSegment(trace_polyline, trace_corner_no + 1);
             if (shove_into_direction_of_trace_start)
             {
@@ -134,8 +134,8 @@ public class MazeShoveTraceAlgo
             FloatLine polar_line_segment = from_door_shape.polar_line_segment(from_point);
             
             boolean door_line_swapped =
-                    polar_line_segment.b.distance_square(door_line_segment.a) <
-                    polar_line_segment.a.distance_square(door_line_segment.a);
+                    polar_line_segment.b.distanceSquare(door_line_segment.a) <
+                    polar_line_segment.a.distanceSquare(door_line_segment.a);
             
             boolean section_ok;
             // shove only from the right most section to the right or from the left most section to the left.
@@ -147,15 +147,15 @@ public class MazeShoveTraceAlgo
             {
                 section_ok =
                         p_list_element.section_no_of_door == p_list_element.door.maze_search_element_count() - 1
-                        && (p_list_element.shape_entry.a.distance_square(door_line_segment.b) <= check_dist_square
-                        || p_list_element.shape_entry.b.distance_square(door_line_segment.b) <= check_dist_square);
+                        && (p_list_element.shape_entry.a.distanceSquare(door_line_segment.b) <= check_dist_square
+                        || p_list_element.shape_entry.b.distanceSquare(door_line_segment.b) <= check_dist_square);
             }
             else
             {
                 section_ok =
                         p_list_element.section_no_of_door == 0
-                        && (p_list_element.shape_entry.a.distance_square(door_line_segment.a) <= check_dist_square
-                        || p_list_element.shape_entry.b.distance_square(door_line_segment.a) <= check_dist_square);
+                        && (p_list_element.shape_entry.a.distanceSquare(door_line_segment.a) <= check_dist_square
+                        || p_list_element.shape_entry.b.distanceSquare(door_line_segment.a) <= check_dist_square);
             }
             if (!section_ok)
             {
@@ -224,7 +224,7 @@ public class MazeShoveTraceAlgo
         
         FloatPoint from_corner = shove_line_segment.start_point_approx();
         FloatPoint to_corner = shove_line_segment.end_point_approx();
-        boolean segment_ist_point = from_corner.distance_square(to_corner) < 0.1;
+        boolean segment_ist_point = from_corner.distanceSquare(to_corner) < 0.1;
         
         if (!segment_ist_point)
         {
@@ -254,7 +254,7 @@ public class MazeShoveTraceAlgo
         }
         else
         {
-            from_door_compare_distance = to_corner.distance_square(from_door_shape.corner_approx(0));
+            from_door_compare_distance = to_corner.distanceSquare(from_door_shape.corner_approx(0));
         }
         
         for (ExpansionDoor curr_door : room_doors)
@@ -295,7 +295,7 @@ public class MazeShoveTraceAlgo
                 FloatLine curr_door_segment = curr_door_shape.diagonal_corner_segment();
                 if (curr_door_segment == null)
                 {
-                    if (p_board.get_test_level() == eu.mihosoft.freerouting.board.TestLevel.ALL_DEBUGGING_OUTPUT)
+                    if (p_board.getTestLevel() == eu.mihosoft.freerouting.board.TestLevel.ALL_DEBUGGING_OUTPUT)
                     {
                         FRLogger.warn("MazeShoveTraceAlgo.check_shove_trace_line: door shape is empty");
                     }
@@ -319,7 +319,7 @@ public class MazeShoveTraceAlgo
                 }
                 FloatLine curr_door_line = curr_door_shape.polar_line_segment(from_corner);
                 FloatPoint curr_door_nearest_corner;
-                if (curr_door_line.a.distance_square(from_corner) <= curr_door_line.b.distance_square(from_corner))
+                if (curr_door_line.a.distanceSquare(from_corner) <= curr_door_line.b.distanceSquare(from_corner))
                 {
                     curr_door_nearest_corner = curr_door_line.a;
                 }
@@ -327,12 +327,12 @@ public class MazeShoveTraceAlgo
                 {
                     curr_door_nearest_corner = curr_door_line.b;
                 }
-                if (to_corner.distance_square(curr_door_nearest_corner) >= from_door_compare_distance)
+                if (to_corner.distanceSquare(curr_door_nearest_corner) >= from_door_compare_distance)
                 {
                     // curr_door is not located into the direction of to_corner.
                     continue;
                 }
-                FloatPoint curr_door_projection = curr_door_nearest_corner.projection_approx(shove_line);
+                FloatPoint curr_door_projection = curr_door_nearest_corner.projectionApprox(shove_line);
                 
                 if (curr_door_projection.distance(from_corner) + compensated_trace_half_width <= shove_width)
                 {
@@ -341,7 +341,7 @@ public class MazeShoveTraceAlgo
                     {
                         FloatLine curr_line_section = line_sections[i];
                         FloatPoint curr_section_nearest_corner;
-                        if (curr_line_section.a.distance_square(from_corner) <= curr_line_section.b.distance_square(from_corner))
+                        if (curr_line_section.a.distanceSquare(from_corner) <= curr_line_section.b.distanceSquare(from_corner))
                         {
                             curr_section_nearest_corner = curr_line_section.a;
                         }
@@ -349,7 +349,7 @@ public class MazeShoveTraceAlgo
                         {
                             curr_section_nearest_corner = curr_line_section.b;
                         }
-                        FloatPoint curr_section_projection = curr_section_nearest_corner.projection_approx(shove_line);
+                        FloatPoint curr_section_projection = curr_section_nearest_corner.projectionApprox(shove_line);
                         if (curr_section_projection.distance(from_corner) <= shove_width)
                         {
                             p_to_door_list.add(new DoorSection(curr_door, i, curr_line_section));

@@ -267,7 +267,7 @@ public class WindowObjectInfo extends BoardTemporarySubWindow implements eu.miho
     public boolean append(eu.mihosoft.freerouting.geometry.planar.FloatPoint p_point)
     {
         eu.mihosoft.freerouting.geometry.planar.FloatPoint transformed_point = this.coordinate_transform.board_to_user(p_point);
-        return append(transformed_point.to_string(board_frame.get_locale()));
+        return append(transformed_point.to_string(boardFrame.get_locale()));
     }
     
     /**
@@ -401,7 +401,7 @@ public class WindowObjectInfo extends BoardTemporarySubWindow implements eu.miho
         
         public void actionPerformed(java.awt.event.ActionEvent p_evt)
         {
-            WindowObjectInfo new_window = display(this.title, this.objects, board_frame, coordinate_transform);
+            WindowObjectInfo new_window = display(this.title, this.objects, boardFrame, coordinate_transform);
             
             java.awt.Point loc = getLocation();
             java.awt.Point new_window_location =

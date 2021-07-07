@@ -59,11 +59,11 @@ public abstract class Shape
         Shape result = null;
         try
         {
-            Object next_token = p_scanner.next_token();
+            Object next_token = p_scanner.nextToken();
             if (next_token == Keyword.OPEN_BRACKET)
             {
                 // overread the open bracket
-                next_token = p_scanner.next_token();
+                next_token = p_scanner.nextToken();
             }
 
             if (next_token == Keyword.RECTANGLE)
@@ -107,8 +107,8 @@ public abstract class Shape
         try
         {
             Layer layer = null;
-            Object next_token = p_scanner.next_token();
-            if (next_token == Keyword.PCB_SCOPE)
+            Object next_token = p_scanner.nextToken();
+            if (next_token == ScopeKeyword.ScopeKeywordLib.PCB_SCOPE)
             {
                 layer = Layer.PCB;
             }
@@ -141,7 +141,7 @@ public abstract class Shape
             // read the width and the corners of the path
             for (;;)
             {
-                next_token = p_scanner.next_token();
+                next_token = p_scanner.nextToken();
                 if (next_token == Keyword.CLOSED_BRACKET)
                 {
                     break;
@@ -212,7 +212,7 @@ public abstract class Shape
         Object next_token = null;
         try
         {
-            next_token = p_scanner.next_token();
+            next_token = p_scanner.nextToken();
         }
         catch (java.io.IOException e)
         {
@@ -239,7 +239,7 @@ public abstract class Shape
             Object prev_token = next_token;
             try
             {
-                next_token = p_scanner.next_token();
+                next_token = p_scanner.nextToken();
             }
             catch (java.io.IOException e)
             {
@@ -267,7 +267,7 @@ public abstract class Shape
                     // overread closing bracket
                     try
                     {
-                        next_token = p_scanner.next_token();
+                        next_token = p_scanner.nextToken();
                     }
                     catch (java.io.IOException e)
                     {
@@ -310,8 +310,8 @@ public abstract class Shape
             Layer rect_layer = null;
             double[] rect_coor = new double[4];
 
-            Object next_token = p_scanner.next_token();
-            if (next_token == Keyword.PCB_SCOPE)
+            Object next_token = p_scanner.nextToken();
+            if (next_token == ScopeKeyword.ScopeKeywordLib.PCB_SCOPE)
             {
                 rect_layer = Layer.PCB;
             }
@@ -344,7 +344,7 @@ public abstract class Shape
             // fill the the rectangle
             for (int i = 0; i < 4; ++i)
             {
-                next_token = p_scanner.next_token();
+                next_token = p_scanner.nextToken();
                 if (next_token instanceof Double)
                 {
                     rect_coor[i] = ((Double) next_token).doubleValue();
@@ -361,7 +361,7 @@ public abstract class Shape
             }
             // overread the closing bracket
 
-            next_token = p_scanner.next_token();
+            next_token = p_scanner.nextToken();
             if (next_token != Keyword.CLOSED_BRACKET)
             {
                 FRLogger.warn("Shape.read_rectangle_scope ) expected");
@@ -390,8 +390,8 @@ public abstract class Shape
         {
             Layer polygon_layer = null;
             boolean layer_ok = true;
-            Object next_token = p_scanner.next_token();
-            if (next_token == Keyword.PCB_SCOPE)
+            Object next_token = p_scanner.nextToken();
+            if (next_token == ScopeKeyword.ScopeKeywordLib.PCB_SCOPE)
             {
                 polygon_layer = Layer.PCB;
             }
@@ -424,14 +424,14 @@ public abstract class Shape
             }
 
             // overread the aperture width
-            next_token = p_scanner.next_token();
+            next_token = p_scanner.nextToken();
 
             Collection<Object> coor_list = new LinkedList<Object>();
 
             // read the coordinates of the polygon
             for (;;)
             {
-                next_token = p_scanner.next_token();
+                next_token = p_scanner.nextToken();
                 if (next_token == null)
                 {
                     FRLogger.warn("Shape.read_polygon_scope: unexpected end of file");
@@ -441,7 +441,7 @@ public abstract class Shape
                 {
                     // unknown scope
                     ScopeKeyword.skip_scope(p_scanner);
-                    next_token = p_scanner.next_token();
+                    next_token = p_scanner.nextToken();
                 }
                 if (next_token == Keyword.CLOSED_BRACKET)
                 {
@@ -493,8 +493,8 @@ public abstract class Shape
             boolean layer_ok = true;
             double[] circle_coor = new double[3];
 
-            Object next_token = p_scanner.next_token();
-            if (next_token == Keyword.PCB_SCOPE)
+            Object next_token = p_scanner.nextToken();
+            if (next_token == ScopeKeyword.ScopeKeywordLib.PCB_SCOPE)
             {
                 circle_layer = Layer.PCB;
             }
@@ -529,7 +529,7 @@ public abstract class Shape
             int curr_index = 0;
             for (;;)
             {
-                next_token = p_scanner.next_token();
+                next_token = p_scanner.nextToken();
                 if (next_token == Keyword.CLOSED_BRACKET)
                 {
                     break;
@@ -576,8 +576,8 @@ public abstract class Shape
         {
             Layer layer = null;
             boolean layer_ok = true;
-            Object next_token = p_scanner.next_token();
-            if (next_token == Keyword.PCB_SCOPE)
+            Object next_token = p_scanner.nextToken();
+            if (next_token == ScopeKeyword.ScopeKeywordLib.PCB_SCOPE)
             {
                 layer = Layer.PCB;
             }
@@ -613,12 +613,12 @@ public abstract class Shape
             // read the width and the corners of the path
             for (;;)
             {
-                next_token = p_scanner.next_token();
+                next_token = p_scanner.nextToken();
                 if (next_token == Keyword.OPEN_BRACKET)
                 {
                     // unknown scope
                     ScopeKeyword.skip_scope(p_scanner);
-                    next_token = p_scanner.next_token();
+                    next_token = p_scanner.nextToken();
                 }
                 if (next_token == Keyword.CLOSED_BRACKET)
                 {

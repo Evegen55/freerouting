@@ -195,8 +195,8 @@ public class ObstacleArea extends Item implements java.io.Serializable
         {
             this.rotation_in_degree += 360;
         }
-        Point rel_location = Point.ZERO.translate_by(this.translation);
-        this.translation = rel_location.turn_90_degree(p_factor, p_pole).difference_by(Point.ZERO);
+        Point rel_location = Point.ZERO.translateBy(this.translation);
+        this.translation = rel_location.turn90Degree(p_factor, p_pole).differenceBy(Point.ZERO);
         this.clear_derived_data();
     }
     
@@ -216,8 +216,8 @@ public class ObstacleArea extends Item implements java.io.Serializable
         {
             this.rotation_in_degree += 360;
         }
-        FloatPoint new_translation = this.translation.to_float().rotate(Math.toRadians(p_angle_in_degree), p_pole);
-        this.translation = new_translation.round().difference_by(Point.ZERO);
+        FloatPoint new_translation = this.translation.toFloat().rotate(Math.toRadians(p_angle_in_degree), p_pole);
+        this.translation = new_translation.round().differenceBy(Point.ZERO);
         this.clear_derived_data();
     }
     
@@ -228,8 +228,8 @@ public class ObstacleArea extends Item implements java.io.Serializable
         {
             this.layer = board.get_layer_count() - this.layer - 1;
         }
-        Point rel_location = Point.ZERO.translate_by(this.translation);
-        this.translation = rel_location.mirror_vertical(p_pole).difference_by(Point.ZERO);
+        Point rel_location = Point.ZERO.translateBy(this.translation);
+        this.translation = rel_location.mirrorVertical(p_pole).differenceBy(Point.ZERO);
         this.clear_derived_data();
     }
     
@@ -268,7 +268,7 @@ public class ObstacleArea extends Item implements java.io.Serializable
         p_graphics_context.fill_area(this.get_area(), p_g, color, intensity);
         if (intensity > 0 && display_tree_shapes)
         {
-            ShapeSearchTree default_tree = this.board.search_tree_manager.get_default_tree();
+            ShapeSearchTree default_tree = this.board.searchTreeManager.get_default_tree();
             for (int i = 0; i < this.tree_shape_count(default_tree); ++i)
             {
                 p_graphics_context.draw_boundary(this.get_tree_shape(default_tree, i), 1, Color.white, p_g, 1);

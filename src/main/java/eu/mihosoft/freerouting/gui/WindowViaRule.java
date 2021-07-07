@@ -100,7 +100,7 @@ public class WindowViaRule extends javax.swing.JFrame
         move_down_button.addActionListener(new MoveDownListener());
         button_panel.add(move_down_button);
         
-        p_board_frame.set_context_sensitive_help(this, "WindowVia_EditViaRule");
+        p_board_frame.setContextSensitiveHelp(this, "WindowVia_EditViaRule");
         
         this.add(main_panel);
         this.pack();

@@ -48,7 +48,7 @@ public abstract class Rule
             Object prev_token = next_token;
             try
             {
-                next_token = p_scanner.next_token();
+                next_token = p_scanner.nextToken();
             }
             catch (java.io.IOException e)
             {
@@ -102,7 +102,7 @@ public abstract class Rule
             for (;;)
             {
                 p_scanner.yybegin(SpecctraFileScanner.LAYER_NAME);
-                Object next_token = p_scanner.next_token();
+                Object next_token = p_scanner.nextToken();
                 if (next_token == Keyword.OPEN_BRACKET)
                 {
                     break;
@@ -117,7 +117,7 @@ public abstract class Rule
             }
             for (;;)
             {
-                Object next_token = p_scanner.next_token();
+                Object next_token = p_scanner.nextToken();
                 if (next_token == Keyword.CLOSED_BRACKET)
                 {
                     break;
@@ -144,7 +144,7 @@ public abstract class Rule
         try
         {
             double value;
-            Object next_token = p_scanner.next_token();
+            Object next_token = p_scanner.nextToken();
             if (next_token instanceof Double)
             {
                 value = ((Double) next_token).doubleValue();
@@ -158,7 +158,7 @@ public abstract class Rule
                 FRLogger.warn("Rule.read_width_rule: number expected");
                 return null;
             }
-            next_token = p_scanner.next_token();
+            next_token = p_scanner.nextToken();
             if (next_token != Keyword.CLOSED_BRACKET)
             {
                 FRLogger.warn("Rule.read_width_rule: closing bracket expected");
@@ -284,7 +284,7 @@ public abstract class Rule
         try
         {
             double value;
-            Object next_token = p_scanner.next_token();
+            Object next_token = p_scanner.nextToken();
             if (next_token instanceof Double)
             {
                 value = ((Double) next_token).doubleValue();
@@ -299,7 +299,7 @@ public abstract class Rule
                 return null;
             }
             Collection<String> class_pairs = new LinkedList<String> ();
-            next_token = p_scanner.next_token();
+            next_token = p_scanner.nextToken();
             if (next_token != Keyword.CLOSED_BRACKET)
             {
                 if (next_token != Keyword.OPEN_BRACKET)
@@ -307,7 +307,7 @@ public abstract class Rule
                     FRLogger.warn("Rule.read_clearance_rule: ( expected");
                     return null;
                 }
-                next_token = p_scanner.next_token();
+                next_token = p_scanner.nextToken();
                 if (next_token != Keyword.TYPE)
                 {
                     FRLogger.warn("Rule.read_clearance_rule: type expected");
@@ -316,7 +316,7 @@ public abstract class Rule
                 for (;;)
                 {
                     p_scanner.yybegin(SpecctraFileScanner.IGNORE_QUOTE);
-                    next_token = p_scanner.next_token();
+                    next_token = p_scanner.nextToken();
                     if (next_token == Keyword.CLOSED_BRACKET)
                     {
                         break;
@@ -328,7 +328,7 @@ public abstract class Rule
                     }
                     class_pairs.add((String)next_token);
                 }
-                next_token = p_scanner.next_token();
+                next_token = p_scanner.nextToken();
                 if (next_token != Keyword.CLOSED_BRACKET)
                 {
                     FRLogger.warn("Rule.read_clearance_rule: closing bracket expected");

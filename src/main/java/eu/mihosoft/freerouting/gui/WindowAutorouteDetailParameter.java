@@ -35,7 +35,7 @@ public class WindowAutorouteDetailParameter extends BoardSavableSubWindow
     /** Creates a new instance of WindowAutorouteDetailParameter */
     public WindowAutorouteDetailParameter(BoardFrame p_board_frame)
     {
-        this.board_handling = p_board_frame.board_panel.board_handling;
+        this.board_handling = p_board_frame.boardPanel.boardHandling;
         java.util.ResourceBundle resources =
                 java.util.ResourceBundle.getBundle("eu.mihosoft.freerouting.gui.WindowAutorouteParameter", p_board_frame.get_locale());
         this.setTitle(resources.getString("detail_autoroute_parameter"));
@@ -121,7 +121,7 @@ public class WindowAutorouteDetailParameter extends BoardSavableSubWindow
         speed_combo_box.addItem(this.speed_slow);
         speed_combo_box.addActionListener(new SpeedListener());
 
-        if (this.board_handling.get_routing_board().get_test_level() != eu.mihosoft.freerouting.board.TestLevel.RELEASE_VERSION)
+        if (this.board_handling.getRoutingBoard().getTestLevel() != eu.mihosoft.freerouting.board.TestLevel.RELEASE_VERSION)
         {
             gridbag_constraints.gridwidth = 2;
             javax.swing.JLabel speed_label = new javax.swing.JLabel();
@@ -155,7 +155,7 @@ public class WindowAutorouteDetailParameter extends BoardSavableSubWindow
         gridbag.setConstraints(against_pref_dir_label, gridbag_constraints);
         main_panel.add(against_pref_dir_label);
 
-        eu.mihosoft.freerouting.board.LayerStructure layer_structure = this.board_handling.get_routing_board().layer_structure;
+        eu.mihosoft.freerouting.board.LayerStructure layer_structure = this.board_handling.getRoutingBoard().layer_structure;
         int signal_layer_count = layer_structure.signal_layer_count();
         layer_name_arr = new javax.swing.JLabel[signal_layer_count];
         preferred_direction_trace_cost_arr = new javax.swing.JFormattedTextField[signal_layer_count];
@@ -196,7 +196,7 @@ public class WindowAutorouteDetailParameter extends BoardSavableSubWindow
         main_panel.add(applyValuesNote, gridbag_constraints);
 
 
-        p_board_frame.set_context_sensitive_help(this, "WindowAutorouteDetailParameter");
+        p_board_frame.setContextSensitiveHelp(this, "WindowAutorouteDetailParameter");
 
         this.refresh();
         this.pack();
@@ -208,12 +208,12 @@ public class WindowAutorouteDetailParameter extends BoardSavableSubWindow
      */
     public void refresh()
     {
-        eu.mihosoft.freerouting.interactive.AutorouteSettings settings = this.board_handling.settings.autoroute_settings;
-        eu.mihosoft.freerouting.board.LayerStructure layer_structure = this.board_handling.get_routing_board().layer_structure;
+        eu.mihosoft.freerouting.interactive.AutorouteSettings settings = this.board_handling.settings.autorouteSettings;
+        eu.mihosoft.freerouting.board.LayerStructure layer_structure = this.board_handling.getRoutingBoard().layer_structure;
         this.via_cost_field.setValue(settings.get_via_costs());
         this.plane_via_cost_field.setValue(settings.get_plane_via_costs());
         this.start_ripup_costs.setValue(settings.get_start_ripup_costs());
-        this.start_pass_no.setValue(settings.get_start_pass_no());
+        this.start_pass_no.setValue(settings.getStartPassNo());
         for (int i = 0; i < preferred_direction_trace_cost_arr.length; ++i)
         {
             this.preferred_direction_trace_cost_arr[i].setValue(settings.get_preferred_direction_trace_costs(layer_structure.get_layer_no(i)));
@@ -247,7 +247,7 @@ public class WindowAutorouteDetailParameter extends BoardSavableSubWindow
         {
             if (p_evt.getKeyChar() == '\n')
             {
-                int old_value = board_handling.settings.autoroute_settings.get_via_costs();
+                int old_value = board_handling.settings.autorouteSettings.get_via_costs();
                 Object input = via_cost_field.getValue();
                 int input_value;
                 if (input instanceof Number)
@@ -263,7 +263,7 @@ public class WindowAutorouteDetailParameter extends BoardSavableSubWindow
                     input_value = old_value;
                     via_cost_field.setValue(old_value);
                 }
-                board_handling.settings.autoroute_settings.set_via_costs(input_value);
+                board_handling.settings.autorouteSettings.set_via_costs(input_value);
                 via_cost_field.setValue(input_value);
                 via_cost_input_completed = true;
 
@@ -298,7 +298,7 @@ public class WindowAutorouteDetailParameter extends BoardSavableSubWindow
         {
             if (p_evt.getKeyChar() == '\n')
             {
-                int old_value = board_handling.settings.autoroute_settings.get_plane_via_costs();
+                int old_value = board_handling.settings.autorouteSettings.get_plane_via_costs();
                 Object input = plane_via_cost_field.getValue();
                 int input_value;
                 if (input instanceof Number)
@@ -314,7 +314,7 @@ public class WindowAutorouteDetailParameter extends BoardSavableSubWindow
                     input_value = old_value;
                     plane_via_cost_field.setValue(old_value);
                 }
-                board_handling.settings.autoroute_settings.set_plane_via_costs(input_value);
+                board_handling.settings.autorouteSettings.set_plane_via_costs(input_value);
                 plane_via_cost_field.setValue(input_value);
                 plane_via_cost_input_completed = true;
 
@@ -349,7 +349,7 @@ public class WindowAutorouteDetailParameter extends BoardSavableSubWindow
         {
             if (p_evt.getKeyChar() == '\n')
             {
-                int old_value = board_handling.settings.autoroute_settings.get_start_ripup_costs();
+                int old_value = board_handling.settings.autorouteSettings.get_start_ripup_costs();
                 Object input = start_ripup_costs.getValue();
                 int input_value;
                 if (input instanceof Number)
@@ -363,7 +363,7 @@ public class WindowAutorouteDetailParameter extends BoardSavableSubWindow
                 {
                     input_value = old_value;
                 }
-                board_handling.settings.autoroute_settings.set_start_ripup_costs(input_value);
+                board_handling.settings.autorouteSettings.set_start_ripup_costs(input_value);
                 start_ripup_costs.setValue(input_value);
                 start_ripup_cost_input_completed = true;
             } else
@@ -397,7 +397,7 @@ public class WindowAutorouteDetailParameter extends BoardSavableSubWindow
         {
             if (p_evt.getKeyChar() == '\n')
             {
-                int old_value = board_handling.settings.autoroute_settings.get_start_pass_no();
+                int old_value = board_handling.settings.autorouteSettings.getStartPassNo();
                 Object input = start_pass_no.getValue();
                 int input_value;
                 if (input instanceof Number)
@@ -423,13 +423,13 @@ public class WindowAutorouteDetailParameter extends BoardSavableSubWindow
 
     public void set_start_pass_no(int input_value)
     {
-        board_handling.settings.autoroute_settings.set_start_pass_no(input_value);
+        board_handling.settings.autorouteSettings.set_start_pass_no(input_value);
         start_pass_no.setValue(input_value);
     }
 
     public void set_stop_pass_no(int input_value)
     {
-        board_handling.settings.autoroute_settings.set_stop_pass_no(input_value);
+        board_handling.settings.autorouteSettings.setStopPassNo(input_value);
     }
 
     private class StartPassFieldFocusListener implements java.awt.event.FocusListener
@@ -453,12 +453,12 @@ public class WindowAutorouteDetailParameter extends BoardSavableSubWindow
 
         public void actionPerformed(java.awt.event.ActionEvent p_evt)
         {
-            boolean old_is_slow = board_handling.get_routing_board().rules.get_slow_autoroute_algorithm();
+            boolean old_is_slow = board_handling.getRoutingBoard().rules.get_slow_autoroute_algorithm();
             boolean new_is_slow = speed_combo_box.getSelectedItem() == speed_slow;
             if (old_is_slow != new_is_slow)
             {
-                board_handling.get_routing_board().rules.set_slow_autoroute_algorithm(new_is_slow);
-                board_handling.get_routing_board().search_tree_manager.reset_compensated_trees();
+                board_handling.getRoutingBoard().rules.set_slow_autoroute_algorithm(new_is_slow);
+                board_handling.getRoutingBoard().searchTreeManager.reset_compensated_trees();
             }
         }
     }
@@ -475,8 +475,8 @@ public class WindowAutorouteDetailParameter extends BoardSavableSubWindow
         {
             if (p_evt.getKeyChar() == '\n')
             {
-                int curr_layer_no = board_handling.get_routing_board().layer_structure.get_layer_no(this.signal_layer_no);
-                double old_value = board_handling.settings.autoroute_settings.get_preferred_direction_trace_costs(curr_layer_no);
+                int curr_layer_no = board_handling.getRoutingBoard().layer_structure.get_layer_no(this.signal_layer_no);
+                double old_value = board_handling.settings.autorouteSettings.get_preferred_direction_trace_costs(curr_layer_no);
                 Object input = preferred_direction_trace_cost_arr[this.signal_layer_no].getValue();
                 double input_value;
                 if (input instanceof Number)
@@ -490,7 +490,7 @@ public class WindowAutorouteDetailParameter extends BoardSavableSubWindow
                 {
                     input_value = old_value;
                 }
-                board_handling.settings.autoroute_settings.set_preferred_direction_trace_costs(curr_layer_no, input_value);
+                board_handling.settings.autorouteSettings.set_preferred_direction_trace_costs(curr_layer_no, input_value);
                 preferred_direction_trace_cost_arr[this.signal_layer_no].setValue(input_value);
                 preferred_direction_trace_costs_input_completed[this.signal_layer_no] = true;
 
@@ -537,8 +537,8 @@ public class WindowAutorouteDetailParameter extends BoardSavableSubWindow
         {
             if (p_evt.getKeyChar() == '\n')
             {
-                int curr_layer_no = board_handling.get_routing_board().layer_structure.get_layer_no(this.signal_layer_no);
-                double old_value = board_handling.settings.autoroute_settings.get_against_preferred_direction_trace_costs(curr_layer_no);
+                int curr_layer_no = board_handling.getRoutingBoard().layer_structure.get_layer_no(this.signal_layer_no);
+                double old_value = board_handling.settings.autorouteSettings.get_against_preferred_direction_trace_costs(curr_layer_no);
                 Object input = against_preferred_direction_trace_cost_arr[this.signal_layer_no].getValue();
                 double input_value;
                 if (input instanceof Number)
@@ -552,7 +552,7 @@ public class WindowAutorouteDetailParameter extends BoardSavableSubWindow
                 {
                     input_value = old_value;
                 }
-                board_handling.settings.autoroute_settings.set_against_preferred_direction_trace_costs(curr_layer_no, input_value);
+                board_handling.settings.autorouteSettings.set_against_preferred_direction_trace_costs(curr_layer_no, input_value);
                 against_preferred_direction_trace_cost_arr[this.signal_layer_no].setValue(input_value);
                 against_preferred_direction_trace_costs_input_completed[this.signal_layer_no] = true;
 

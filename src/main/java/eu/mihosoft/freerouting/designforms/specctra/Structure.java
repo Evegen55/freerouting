@@ -44,6 +44,8 @@ import eu.mihosoft.freerouting.datastructures.UndoableObjects.Storable;
 import eu.mihosoft.freerouting.board.FixedState;
 import eu.mihosoft.freerouting.board.TestLevel;
 
+import static eu.mihosoft.freerouting.designforms.specctra.Keyword.*;
+
 /**
  * Class for reading and writing structure scopes from dsn-files.
  *
@@ -77,7 +79,7 @@ class Structure extends ScopeKeyword
             Object prev_token = next_token;
             try
             {
-                next_token = p_par.scanner.next_token();
+                next_token = p_par.scanner.nextToken();
             }
             catch (java.io.IOException e)
             {
@@ -142,13 +144,13 @@ class Structure extends ScopeKeyword
                     }
                     place_keepout_list.add(Shape.read_area_scope(p_par.scanner, p_par.layer_structure, false));
                 }
-                else if (next_token == Keyword.PLANE_SCOPE)
+                else if (next_token == ScopeKeyword.ScopeKeywordLib.PLANE_SCOPE)
                 {
                     if (p_par.layer_structure == null)
                     {
                         p_par.layer_structure = new LayerStructure(board_construction_info.layer_info);
                     }
-                    Keyword.PLANE_SCOPE.read_scope(p_par);
+                    ScopeKeyword.ScopeKeywordLib.PLANE_SCOPE.read_scope(p_par);
                 }
                 else if (next_token == Keyword.AUTOROUTE_SETTINGS)
                 {
@@ -187,11 +189,11 @@ class Structure extends ScopeKeyword
         }
 
         boolean result = true;
-        if (p_par.board_handling.get_routing_board() == null)
+        if (p_par.board_handling.getRoutingBoard() == null)
         {
             result = create_board(p_par, board_construction_info);
         }
-        eu.mihosoft.freerouting.board.RoutingBoard board = p_par.board_handling.get_routing_board();
+        eu.mihosoft.freerouting.board.RoutingBoard board = p_par.board_handling.getRoutingBoard();
         if (board == null)
         {
             return false;
@@ -201,7 +203,7 @@ class Structure extends ScopeKeyword
             board.components.set_flip_style_rotate_first(true);
         }
         FixedState fixed_state;
-        if (board.get_test_level() == TestLevel.RELEASE_VERSION)
+        if (board.getTestLevel() == TestLevel.RELEASE_VERSION)
         {
             fixed_state = FixedState.SYSTEM_FIXED;
         }
@@ -289,7 +291,7 @@ class Structure extends ScopeKeyword
         p_par.board_handling.initialize_manual_trace_half_widths();
         if (p_par.autoroute_settings != null)
         {
-            p_par.board_handling.get_settings().autoroute_settings = p_par.autoroute_settings;
+            p_par.board_handling.getSettings().autorouteSettings = p_par.autoroute_settings;
         }
         return result;
     }
@@ -518,8 +520,8 @@ class Structure extends ScopeKeyword
             Object prev_token = null;
             for (;;)
             {
-                Object next_token = p_scanner.next_token();
-                if (next_token == Keyword.CLOSED_BRACKET)
+                Object next_token = p_scanner.nextToken();
+                if (next_token == CLOSED_BRACKET)
                 {
                     break;
                 }
@@ -571,7 +573,7 @@ class Structure extends ScopeKeyword
         {
             boolean layer_ok = true;
             boolean is_signal = true;
-            Object next_token = p_scanner.next_token();
+            Object next_token = p_scanner.nextToken();
             if (!(next_token instanceof String))
             {
                 FRLogger.warn("Structure.read_layer_scope: String expected");
@@ -579,18 +581,18 @@ class Structure extends ScopeKeyword
             }
             Collection<String> net_names = new LinkedList<String>();
             String layer_string = (String) next_token;
-            next_token = p_scanner.next_token();
-            while (next_token != Keyword.CLOSED_BRACKET)
+            next_token = p_scanner.nextToken();
+            while (next_token != CLOSED_BRACKET)
             {
                 if (next_token != Keyword.OPEN_BRACKET)
                 {
                     FRLogger.warn("Structure.read_layer_scope: ( expected");
                     return false;
                 }
-                next_token = p_scanner.next_token();
+                next_token = p_scanner.nextToken();
                 if (next_token == Keyword.TYPE)
                 {
-                    next_token = p_scanner.next_token();
+                    next_token = p_scanner.nextToken();
                     if (next_token == Keyword.POWER)
                     {
                         is_signal = false;
@@ -606,8 +608,8 @@ class Structure extends ScopeKeyword
                         }
                         layer_ok = false;
                     }
-                    next_token = p_scanner.next_token();
-                    if (next_token != Keyword.CLOSED_BRACKET)
+                    next_token = p_scanner.nextToken();
+                    if (next_token != CLOSED_BRACKET)
                     {
                         FRLogger.warn("Structure.read_layer_scope: ) expected");
                         return false;
@@ -623,8 +625,8 @@ class Structure extends ScopeKeyword
                     for (;;)
                     {
                         p_scanner.yybegin(SpecctraFileScanner.NAME);
-                        next_token = p_scanner.next_token();
-                        if (next_token == Keyword.CLOSED_BRACKET)
+                        next_token = p_scanner.nextToken();
+                        if (next_token == CLOSED_BRACKET)
                         {
                             break;
                         }
@@ -642,7 +644,7 @@ class Structure extends ScopeKeyword
                 {
                     skip_scope(p_scanner);
                 }
-                next_token = p_scanner.next_token();
+                next_token = p_scanner.nextToken();
             }
             if (layer_ok)
             {
@@ -668,14 +670,14 @@ class Structure extends ScopeKeyword
             Collection<String> spare_vias = new LinkedList<String>();
             for (;;)
             {
-                Object next_token = p_scanner.next_token();
-                if (next_token == Keyword.CLOSED_BRACKET)
+                Object next_token = p_scanner.nextToken();
+                if (next_token == CLOSED_BRACKET)
                 {
                     break;
                 }
                 if (next_token == Keyword.OPEN_BRACKET)
                 {
-                    next_token = p_scanner.next_token();
+                    next_token = p_scanner.nextToken();
                     if (next_token == Keyword.SPARE)
                     {
                         spare_vias = read_via_padstacks(p_scanner);
@@ -714,7 +716,7 @@ class Structure extends ScopeKeyword
             Object prev_token = next_token;
             try
             {
-                next_token = p_par.scanner.next_token();
+                next_token = p_par.scanner.nextToken();
             }
             catch (java.io.IOException e)
             {
@@ -750,7 +752,7 @@ class Structure extends ScopeKeyword
     {
         try
         {
-            Object next_token = p_scanner.next_token();
+            Object next_token = p_scanner.nextToken();
             eu.mihosoft.freerouting.board.AngleRestriction snap_angle;
             if (next_token == Keyword.NINETY_DEGREE)
             {
@@ -769,8 +771,8 @@ class Structure extends ScopeKeyword
                 FRLogger.warn("Structure.read_snap_angle_scope: unexpected token");
                 return null;
             }
-            next_token = p_scanner.next_token();
-            if (next_token != Keyword.CLOSED_BRACKET)
+            next_token = p_scanner.nextToken();
+            if (next_token != CLOSED_BRACKET)
             {
                 FRLogger.warn("Structure.read_selection_layer_scop: closing bracket expected");
                 return null;
@@ -919,7 +921,7 @@ class Structure extends ScopeKeyword
                 p_board_construction_info.outline_clearance_class_name, board_rules,
                 board_communication, p_par.test_level);
 
-        eu.mihosoft.freerouting.board.BasicBoard board = p_par.board_handling.get_routing_board();
+        eu.mihosoft.freerouting.board.BasicBoard board = p_par.board_handling.getRoutingBoard();
 
         // Insert the holes in the board outline as keepouts.
         for (PolylineShape curr_outline_hole : hole_shapes)
@@ -1279,7 +1281,7 @@ class Structure extends ScopeKeyword
             FRLogger.warn("Structure.insert_keepout: keepout is not an area");
             return true;
         }
-        eu.mihosoft.freerouting.board.BasicBoard board = p_par.board_handling.get_routing_board();
+        eu.mihosoft.freerouting.board.BasicBoard board = p_par.board_handling.getRoutingBoard();
         if (board == null)
         {
             FRLogger.warn("Structure.insert_keepout: eu.mihosoft.freerouting.board not initialized");

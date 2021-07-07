@@ -147,7 +147,7 @@ public class ShapeTraceEntries
         }
         PolylineTrace curr_trace = entries[0].trace;
         TileShape offset_shape;
-        ShapeSearchTree search_tree = this.board.search_tree_manager.get_default_tree();
+        ShapeSearchTree search_tree = this.board.searchTreeManager.get_default_tree();
         if (search_tree.is_clearance_compensation_used())
         {
             double curr_offset = curr_trace.get_compensated_half_width(search_tree) + c_offset_add;
@@ -256,7 +256,7 @@ public class ShapeTraceEntries
         }
         ConvexShape offset_shape;
         BasicBoard board = p_trace.board;
-        ShapeSearchTree search_tree = board.search_tree_manager.get_default_tree();
+        ShapeSearchTree search_tree = board.searchTreeManager.get_default_tree();
         if (search_tree.is_clearance_compensation_used())
         {
             double curr_offset = p_trace.get_compensated_half_width(search_tree) + c_offset_add;
@@ -311,7 +311,7 @@ public class ShapeTraceEntries
         board.item_list.insert(end_piece);
         end_piece.set_on_the_board(true);
         
-        board.search_tree_manager.reuse_entries_after_cutout(p_trace, start_piece, end_piece);
+        board.searchTreeManager.reuse_entries_after_cutout(p_trace, start_piece, end_piece);
         board.remove_item(p_trace);
         
         board.communication.observers.notify_new(start_piece);
@@ -325,7 +325,7 @@ public class ShapeTraceEntries
      */
     private boolean store_trace( PolylineTrace p_trace)
     {
-        ShapeSearchTree search_tree = this.board.search_tree_manager.get_default_tree();
+        ShapeSearchTree search_tree = this.board.searchTreeManager.get_default_tree();
         TileShape offset_shape;
         if (search_tree.is_clearance_compensation_used())
         {
@@ -450,7 +450,7 @@ public class ShapeTraceEntries
                             
                             if (projection_side >= 0)
                             {
-                                insert_entry_point(p_trace, trace_line_segment_no, projection_side, projection.to_float());
+                                insert_entry_point(p_trace, trace_line_segment_no, projection_side, projection.toFloat());
                             }
                         }
                     }
@@ -516,9 +516,9 @@ public class ShapeTraceEntries
         FloatPoint from_point_projection = null;
         if (from_side.border_intersection != null)
         {
-            from_point_projection = from_side.border_intersection.projection_approx(shape.border_line(from_side.no));
-            from_point_dist = from_point_projection.distance_square(compare_corner_1);
-            if (from_point_dist >= compare_corner_1.distance_square(compare_corner_2))
+            from_point_projection = from_side.border_intersection.projectionApprox(shape.border_line(from_side.no));
+            from_point_dist = from_point_projection.distanceSquare(compare_corner_1);
+            if (from_point_dist >= compare_corner_1.distanceSquare(compare_corner_2))
             {
                 from_side = new CalcFromSide(from_side.no, null);
             }
@@ -538,18 +538,18 @@ public class ShapeTraceEntries
             {
                 if (from_side.border_intersection != null)
                 {
-                    FloatPoint curr_projection = curr.entry_approx.projection_approx(shape.border_line(from_side.no));
-                    if ( curr_projection.distance_square(compare_corner_1) >= from_point_dist
-                            && curr_projection.distance_square(from_point_projection) <=
-                            curr_projection.distance_square(compare_corner_1))
+                    FloatPoint curr_projection = curr.entry_approx.projectionApprox(shape.border_line(from_side.no));
+                    if (curr_projection.distanceSquare(compare_corner_1) >= from_point_dist
+                            && curr_projection.distanceSquare(from_point_projection) <=
+                               curr_projection.distanceSquare(compare_corner_1))
                     {
                         break;
                     }
                 }
                 else
                 {
-                    if (curr.entry_approx.distance_square(compare_corner_2)
-                    <= curr.entry_approx.distance_square(compare_corner_1))
+                    if (curr.entry_approx.distanceSquare(compare_corner_2)
+                    <= curr.entry_approx.distanceSquare(compare_corner_1))
                     {
                         break;
                     }
@@ -877,8 +877,8 @@ public class ShapeTraceEntries
                 {
                     next_corner = shape.corner_approx(new_entry.edge_no + 1);
                 }
-                if( prev_corner.scalar_product(p_entry_approx, next_corner)
-                <= prev_corner.scalar_product(curr_next.entry_approx, next_corner))
+                if( prev_corner.scalarProduct(p_entry_approx, next_corner)
+                <= prev_corner.scalarProduct(curr_next.entry_approx, next_corner))
                     // the projection of the line from prev_corner to p_entry_approx
                     // onto the line from prev_corner to next_corner is smaller
                     // than the projection of the line from prev_corner to

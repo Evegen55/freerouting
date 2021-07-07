@@ -50,7 +50,7 @@ public class BatchOptRoute
     public BatchOptRoute(InteractiveActionThread p_thread)
     {
         this.thread = p_thread;
-        this.routing_board = p_thread.hdlg.get_routing_board();
+        this.routing_board = p_thread.hdlg.getRoutingBoard();
         this.sorted_route_items = null;
     }
 
@@ -59,7 +59,7 @@ public class BatchOptRoute
      */
     public void optimize_board()
     {
-        if (routing_board.get_test_level() != TestLevel.RELEASE_VERSION)
+        if (routing_board.getTestLevel() != TestLevel.RELEASE_VERSION)
         {
             FRLogger.warn("Before optimize: Via count: " + routing_board.get_vias().size() + ", trace length: " + Math.round(routing_board.cumulative_trace_length()));
         }
@@ -83,7 +83,7 @@ public class BatchOptRoute
     {
         boolean route_improved = false;
         int via_count_before = this.routing_board.get_vias().size();
-        double trace_length_before = this.thread.hdlg.coordinate_transform.board_to_user(this.routing_board.cumulative_trace_length());
+        double trace_length_before = this.thread.hdlg.coordinateTransform.board_to_user(this.routing_board.cumulative_trace_length());
         this.thread.hdlg.screen_messages.set_post_route_info(via_count_before, trace_length_before);
         this.sorted_route_items = new ReadSortedRouteItems();
         this.min_cumulative_trace_length_before = calc_weighted_trace_length(routing_board);
@@ -120,7 +120,7 @@ public class BatchOptRoute
         java.util.ResourceBundle resources =
                 java.util.ResourceBundle.getBundle("eu.mihosoft.freerouting.interactive.InteractiveState", this.thread.hdlg.get_locale());
         String start_message = resources.getString("batch_optimizer") + " " + resources.getString("stop_message") + "        " + resources.getString("pass") + " " + (Integer.valueOf(p_pass_no)).toString() + ": ";
-        this.thread.hdlg.screen_messages.set_status_message(start_message);
+        this.thread.hdlg.screen_messages.setStatusMessage(start_message);
         this.thread.hdlg.remove_ratsnest();
         int incomplete_count_before = this.thread.hdlg.get_ratsnest().incomplete_count();
         int via_count_before = this.routing_board.get_vias().size();
@@ -153,13 +153,13 @@ public class BatchOptRoute
                 return false;
             }
         }
-        routing_board.generate_snapshot();
+        routing_board.generateSnapshot();
         this.routing_board.remove_items(ripped_connections, false);
         for (int i = 0; i < p_item.net_count(); ++i)
         {
             this.routing_board.combine_traces(p_item.get_net_no(i));
         }
-        int ripup_costs = this.thread.hdlg.get_settings().autoroute_settings.get_start_ripup_costs();
+        int ripup_costs = this.thread.hdlg.getSettings().autorouteSettings.get_start_ripup_costs();
         if (this.use_increased_ripup_costs)
         {
             ripup_costs *= ADDITIONAL_RIPUP_COST_FACTOR_AT_START;
@@ -194,7 +194,7 @@ public class BatchOptRoute
                 this.min_cumulative_trace_length_before = Math.min(this.min_cumulative_trace_length_before, trace_length_after);
             }
             routing_board.pop_snapshot();
-            double new_trace_length = this.thread.hdlg.coordinate_transform.board_to_user(this.routing_board.cumulative_trace_length());
+            double new_trace_length = this.thread.hdlg.coordinateTransform.board_to_user(this.routing_board.cumulative_trace_length());
             this.thread.hdlg.screen_messages.set_post_route_info(via_count_after, new_trace_length);
         }
         else
@@ -302,7 +302,7 @@ public class BatchOptRoute
                     Via curr_via = (Via) curr_item;
                     if (!curr_via.is_user_fixed())
                     {
-                        FloatPoint curr_via_center = curr_via.get_center().to_float();
+                        FloatPoint curr_via_center = curr_via.get_center().toFloat();
                         int curr_via_min_layer = curr_via.first_layer();
                         if (curr_via_center.x > min_item_coor.x ||
                                 curr_via_center.x == min_item_coor.x && (curr_via_center.y > min_item_coor.y || curr_via_center.y == min_item_coor.y && curr_via_min_layer > min_item_layer))
@@ -332,8 +332,8 @@ public class BatchOptRoute
                     Trace curr_trace = (Trace) curr_item;
                     if (!curr_trace.is_shove_fixed())
                     {
-                        FloatPoint first_corner = curr_trace.first_corner().to_float();
-                        FloatPoint last_corner = curr_trace.last_corner().to_float();
+                        FloatPoint first_corner = curr_trace.first_corner().toFloat();
+                        FloatPoint last_corner = curr_trace.last_corner().toFloat();
                         FloatPoint compare_corner;
                         if (first_corner.x < last_corner.x ||
                                 first_corner.x == last_corner.x && first_corner.y < last_corner.y)

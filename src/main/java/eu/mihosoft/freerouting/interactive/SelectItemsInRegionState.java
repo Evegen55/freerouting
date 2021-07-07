@@ -63,7 +63,7 @@ public class SelectItemsInRegionState extends SelectRegionState
         {
             new_instance.activityReplayFile.add_corner(p_location);
         }
-        new_instance.hdlg.screen_messages.set_status_message(new_instance.resources.getString("drag_left_mouse_button_to_selects_items_in_region"));
+        new_instance.hdlg.screen_messages.setStatusMessage(new_instance.resources.getString("drag_left_mouse_button_to_selects_items_in_region"));
         return new_instance;
     }
 
@@ -82,7 +82,7 @@ public class SelectItemsInRegionState extends SelectRegionState
     {
         if (!hdlg.is_board_read_only())
         {
-            hdlg.screen_messages.set_status_message("");
+            hdlg.screen_messages.setStatusMessage("");
             corner2 = hdlg.get_current_mouse_position();
             if (activityReplayFile != null)
             {
@@ -111,7 +111,7 @@ public class SelectItemsInRegionState extends SelectRegionState
         {
             select_layer = hdlg.settings.layer;
         }
-        Set<Item> found_items = hdlg.settings.item_selection_filter.filter(hdlg.get_routing_board().overlapping_items(b, select_layer));
+        Set<Item> found_items = hdlg.settings.item_selection_filter.filter(hdlg.getRoutingBoard().overlapping_items(b, select_layer));
         if (hdlg.settings.select_on_all_visible_layers)
         {
             // remove items, which are not visible
@@ -122,7 +122,7 @@ public class SelectItemsInRegionState extends SelectRegionState
                 Item curr_item = it.next();
                 for (int i = curr_item.first_layer(); i <= curr_item.last_layer(); ++i)
                 {
-                    if (hdlg.graphics_context.get_layer_visibility(i) > 0)
+                    if (hdlg.graphicsContext.get_layer_visibility(i) > 0)
                     {
                         visible_items.add(curr_item);
                         break;
@@ -145,7 +145,7 @@ public class SelectItemsInRegionState extends SelectRegionState
         }
         else
         {
-            hdlg.screen_messages.set_status_message(resources.getString("nothing_selected"));
+            hdlg.screen_messages.setStatusMessage(resources.getString("nothing_selected"));
         }
     }
 }

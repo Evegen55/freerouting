@@ -71,26 +71,26 @@ public class Pin extends DrillItem implements java.io.Serializable
         double component_rotation = component.get_rotation_in_degree();
         if (!component.placed_on_front() && !board.components.get_flip_style_rotate_first())
         {
-            rel_location = package_pin.relative_location.mirror_at_y_axis();
+            rel_location = package_pin.relative_location.mirrorAtYAxis();
         }
         if (component_rotation % 90 == 0)
         {
             int component_ninety_degree_factor = ((int) component_rotation )/ 90;
             if (component_ninety_degree_factor != 0)
             {
-                rel_location = rel_location.turn_90_degree(component_ninety_degree_factor);
+                rel_location = rel_location.turn90Degree(component_ninety_degree_factor);
             }
         }
         else
         {
             // rotation may be not exact
-            FloatPoint location_approx = rel_location.to_float();
+            FloatPoint location_approx = rel_location.toFloat();
             location_approx = location_approx.rotate(Math.toRadians(component_rotation), FloatPoint.ZERO);
-            rel_location = location_approx.round().difference_by(Point.ZERO);
+            rel_location = location_approx.round().differenceBy(Point.ZERO);
         }
         if (!component.placed_on_front() && board.components.get_flip_style_rotate_first())
         {
-            rel_location = rel_location.mirror_at_y_axis();
+            rel_location = rel_location.mirrorAtYAxis();
         }
         return rel_location;
     }
@@ -104,7 +104,7 @@ public class Pin extends DrillItem implements java.io.Serializable
             
             // Calculate the pin center.
             Component component = board.components.get(this.get_component_no());
-            pin_center = component.get_location().translate_by(this.relative_location());
+            pin_center = component.get_location().translateBy(this.relative_location());
             
             // check that the pin center is inside the pin shape and correct it eventually
             
@@ -212,10 +212,10 @@ public class Pin extends DrillItem implements java.io.Serializable
             
             if (mirror_at_y_axis)
             {
-                rel_location = package_pin.relative_location.mirror_at_y_axis();
+                rel_location = package_pin.relative_location.mirrorAtYAxis();
             }
             
-            Vector component_translation = component.get_location().difference_by(Point.ZERO);
+            Vector component_translation = component.get_location().differenceBy(Point.ZERO);
             
             for (int index = 0; index < this.precalculated_shapes.length; ++index)
             {
@@ -333,7 +333,7 @@ public class Pin extends DrillItem implements java.io.Serializable
         TileShape pad_shape  = (TileShape) curr_shape;
         double component_rotation = component.get_rotation_in_degree();
         Point pin_center = this.get_center();
-        FloatPoint center_approx = pin_center.to_float();
+        FloatPoint center_approx = pin_center.toFloat();
         
         for (Direction curr_padstack_exit_direction : padstack_exit_directions)
         {
@@ -660,7 +660,7 @@ public class Pin extends DrillItem implements java.io.Serializable
         eu.mihosoft.freerouting.library.Padstack padstack = this.get_padstack();
         p_window.append(padstack.name, resources.getString("padstack_info"), padstack);
         p_window.append(" " +  resources.getString("at") + " ");
-        p_window.append(this.get_center().to_float());
+        p_window.append(this.get_center().toFloat());
         this.print_connectable_item_info(p_window, p_locale);
         p_window.newline();
     }
@@ -707,7 +707,7 @@ public class Pin extends DrillItem implements java.io.Serializable
             int curr_intersecting_border_line_no = offset_pin_shape.intersecting_border_line_no(pin_center, curr_exit_restriction.direction);
             Line curr_pin_exit_ray = new Line(pin_center, curr_exit_restriction.direction);
             FloatPoint curr_exit_corner = curr_pin_exit_ray.intersection_approx(offset_pin_shape.border_line(curr_intersecting_border_line_no));
-            double curr_exit_corner_distance = curr_exit_corner.distance_square(trace_entry_location_approx);
+            double curr_exit_corner_distance = curr_exit_corner.distanceSquare(trace_entry_location_approx);
             boolean new_nearest_corner_found = false;
             if (curr_exit_corner_distance + TOLERANCE < min_exit_corner_distance)
             {
@@ -719,8 +719,8 @@ public class Pin extends DrillItem implements java.io.Serializable
                 for (int i = 1; i < p_trace_polyline.corner_count(); ++i )
                 {
                     FloatPoint curr_trace_corner = p_trace_polyline.corner_approx(i);
-                    double curr_trace_corner_distance = curr_trace_corner.distance_square(curr_exit_corner);
-                    double old_trace_corner_distance = curr_trace_corner.distance_square(nearest_exit_corner);
+                    double curr_trace_corner_distance = curr_trace_corner.distanceSquare(curr_exit_corner);
+                    double old_trace_corner_distance = curr_trace_corner.distanceSquare(nearest_exit_corner);
                     if (curr_trace_corner_distance + TOLERANCE < old_trace_corner_distance)
                     {
                         new_nearest_corner_found = true;
@@ -774,7 +774,7 @@ public class Pin extends DrillItem implements java.io.Serializable
             int curr_intersecting_border_line_no = offset_pin_shape.intersecting_border_line_no(pin_center, curr_exit_restriction.direction);
             Line curr_pin_exit_ray = new Line(pin_center, curr_exit_restriction.direction);
             FloatPoint curr_exit_corner = curr_pin_exit_ray.intersection_approx(offset_pin_shape.border_line(curr_intersecting_border_line_no));
-            double curr_exit_corner_distance = curr_exit_corner.distance_square(p_from_point);
+            double curr_exit_corner_distance = curr_exit_corner.distanceSquare(p_from_point);
             if (curr_exit_corner_distance  < min_exit_corner_distance)
             {
                 min_exit_corner_distance = curr_exit_corner_distance;

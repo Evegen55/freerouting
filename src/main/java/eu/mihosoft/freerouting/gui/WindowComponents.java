@@ -42,7 +42,7 @@ public class WindowComponents extends WindowObjectListWithFilter
         java.util.ResourceBundle resources = 
                 java.util.ResourceBundle.getBundle("eu.mihosoft.freerouting.gui.Default", p_board_frame.get_locale());
         this.setTitle(resources.getString("components"));
-        p_board_frame.set_context_sensitive_help(this, "WindowObjectList_BoardComponents");
+        p_board_frame.setContextSensitiveHelp(this, "WindowObjectList_BoardComponents");
     }
     
     /**
@@ -50,7 +50,7 @@ public class WindowComponents extends WindowObjectListWithFilter
      */
     protected void fill_list()
     {
-        Components components = this.board_frame.board_panel.board_handling.get_routing_board().components;
+        Components components = this.board_frame.boardPanel.boardHandling.getRoutingBoard().components;
         Component[] sorted_arr = new Component[components.count()];
         for (int i = 0; i < sorted_arr.length; ++i)
         {
@@ -71,7 +71,7 @@ public class WindowComponents extends WindowObjectListWithFilter
         {
             return;
         }
-        eu.mihosoft.freerouting.board.RoutingBoard routing_board = board_frame.board_panel.board_handling.get_routing_board();
+        eu.mihosoft.freerouting.board.RoutingBoard routing_board = board_frame.boardPanel.boardHandling.getRoutingBoard();
         java.util.Set<eu.mihosoft.freerouting.board.Item> selected_items = new java.util.TreeSet<eu.mihosoft.freerouting.board.Item>();
         java.util.Collection<eu.mihosoft.freerouting.board.Item> board_items = routing_board.get_items();
         for (eu.mihosoft.freerouting.board.Item curr_item : board_items)
@@ -94,7 +94,7 @@ public class WindowComponents extends WindowObjectListWithFilter
                 }
             }
         }
-        board_frame.board_panel.board_handling.select_items(selected_items);
-        board_frame.board_panel.board_handling.zoom_selection();
+        board_frame.boardPanel.boardHandling.select_items(selected_items);
+        board_frame.boardPanel.boardHandling.zoom_selection();
     }
 }

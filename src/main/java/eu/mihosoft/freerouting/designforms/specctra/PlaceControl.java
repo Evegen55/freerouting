@@ -24,7 +24,7 @@
 package eu.mihosoft.freerouting.designforms.specctra;
 
 import eu.mihosoft.freerouting.logger.FRLogger;
-
+import static eu.mihosoft.freerouting.designforms.specctra.Keyword.*;
 /**
  * Class for reading place_control scopes from dsn-files.
  *
@@ -49,7 +49,7 @@ public class PlaceControl extends ScopeKeyword
             Object prev_token = next_token;
             try
             {
-                next_token = p_par.scanner.next_token();
+                next_token = p_par.scanner.nextToken();
             }
             catch (java.io.IOException e)
             {
@@ -76,7 +76,7 @@ public class PlaceControl extends ScopeKeyword
         }   
         if (flip_style_rotate_first)
         {
-            p_par.board_handling.get_routing_board().components.set_flip_style_rotate_first(true);
+            p_par.board_handling.getRoutingBoard().components.set_flip_style_rotate_first(true);
         }
         return true;
     }
@@ -89,7 +89,7 @@ public class PlaceControl extends ScopeKeyword
         try
         {
             boolean result = false;
-            Object next_token = p_scanner.next_token();
+            Object next_token = p_scanner.nextToken();
             if (next_token == ROTATE_FIRST)
             {
                 if (next_token == ROTATE_FIRST)
@@ -97,7 +97,7 @@ public class PlaceControl extends ScopeKeyword
                     result = true;
                 }
             }
-            next_token = p_scanner.next_token();
+            next_token = p_scanner.nextToken();
             if (next_token != CLOSED_BRACKET)
             {
                 FRLogger.warn("Structure.read_flip_style: closing bracket expected");

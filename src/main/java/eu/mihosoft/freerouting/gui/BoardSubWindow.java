@@ -4,7 +4,7 @@
  *
  *   Copyright (C) 2017 Michael Hoffer <info@michaelhoffer.de>
  *   Website www.freerouting.mihosoft.eu
-*
+ *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
  *   the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +13,7 @@
  *   This program is distributed in the hope that it will be useful,
  *   but WITHOUT ANY WARRANTY; without even the implied warranty of
  *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License at <http://www.gnu.org/licenses/> 
+ *   GNU General Public License at <http://www.gnu.org/licenses/>
  *   for more details.
  *
  * BoardSubwindow.java
@@ -24,25 +24,23 @@
 
 package eu.mihosoft.freerouting.gui;
 
+import javax.swing.*;
+
 /**
  * Subwindows of the board frame.
  *
  * @author Alfons Wirtz
  */
-public class BoardSubWindow extends javax.swing.JFrame
-{
-  
-    public void parent_iconified()
-    {
-        this.visible_before_iconifying = this.isVisible();
+public class BoardSubWindow extends JFrame {
+
+    private boolean visibleBeforeIconifying = false;
+
+    public void parentIconified() {
+        this.visibleBeforeIconifying = isVisible();
         this.setVisible(false);
     }
-    
-    public void parent_deiconified()
-    {
-        this.setVisible(this.visible_before_iconifying);
+
+    public void parentDeiconified() {
+        setVisible(visibleBeforeIconifying);
     }
-    
-    
-    private boolean visible_before_iconifying = false; 
 }

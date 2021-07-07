@@ -755,7 +755,7 @@ public class ShapeSearchTree extends eu.mihosoft.freerouting.datastructures.MinA
         int layer = p_incomplete_room.get_layer();
         if (shape_to_be_contained.is_empty())
         {
-            if (this.board.get_test_level().ordinal() >= TestLevel.ALL_DEBUGGING_OUTPUT.ordinal())
+            if (this.board.getTestLevel().ordinal() >= TestLevel.ALL_DEBUGGING_OUTPUT.ordinal())
             {
                 FRLogger.warn("ShapeSearchTree.restrain_shape: p_shape_to_be_contained is empty");
             }

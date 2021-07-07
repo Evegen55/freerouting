@@ -51,7 +51,7 @@ public class SessionToEagle extends javax.swing.JFrame
         
         boolean result = true;
         
-        double board_scale_factor = p_board.communication.coordinate_transform.board_to_dsn(1);
+        double board_scale_factor = p_board.communication.coordinateTransform.board_to_dsn(1);
         SessionToEagle new_instance = new SessionToEagle(scanner, file_writer, p_board,
                 p_board.communication.unit,  p_board.communication.resolution, board_scale_factor);
         
@@ -101,7 +101,7 @@ public class SessionToEagle extends javax.swing.JFrame
         Object next_token = null;
         for (int i = 0; i < 3; ++i)
         {
-            next_token = this.scanner.next_token();
+            next_token = this.scanner.nextToken();
             boolean keyword_ok = true;
             if (i == 0)
             {
@@ -166,7 +166,7 @@ public class SessionToEagle extends javax.swing.JFrame
         for (;;)
         {
             Object prev_token = next_token;
-            next_token = this.scanner.next_token();
+            next_token = this.scanner.nextToken();
             if (next_token == null)
             {
                 // end of file
@@ -187,7 +187,7 @@ public class SessionToEagle extends javax.swing.JFrame
                         return false;
                     }
                 }
-                else if (next_token == Keyword.PLACEMENT_SCOPE)
+                else if (next_token == ScopeKeyword.ScopeKeywordLib.PLACEMENT_SCOPE)
                 {
                     if (!process_placement_scope())
                     {
@@ -213,7 +213,7 @@ public class SessionToEagle extends javax.swing.JFrame
         for (;;)
         {
             Object prev_token = next_token;
-            next_token = this.scanner.next_token();
+            next_token = this.scanner.nextToken();
             if (next_token == null)
             {
                 // unexpected end of file
@@ -228,7 +228,7 @@ public class SessionToEagle extends javax.swing.JFrame
             if (prev_token == Keyword.OPEN_BRACKET)
             {
                 
-                if (next_token == Keyword.COMPONENT_SCOPE)
+                if (next_token == ScopeKeyword.ScopeKeywordLib.COMPONENT_SCOPE)
                 {
                     if (!process_component_placement())
                     {
@@ -292,7 +292,7 @@ public class SessionToEagle extends javax.swing.JFrame
         for (;;)
         {
             Object prev_token = next_token;
-            next_token = this.scanner.next_token();
+            next_token = this.scanner.nextToken();
             if (next_token == null)
             {
                 // unexpected end of file
@@ -330,7 +330,7 @@ public class SessionToEagle extends javax.swing.JFrame
         for (;;)
         {
             Object prev_token = next_token;
-            next_token = this.scanner.next_token();
+            next_token = this.scanner.nextToken();
             if (next_token == null)
             {
                 // unexpected end of file
@@ -363,7 +363,7 @@ public class SessionToEagle extends javax.swing.JFrame
     private boolean process_net_scope() throws java.io.IOException
     {
         // read the net name
-        Object next_token = this.scanner.next_token();
+        Object next_token = this.scanner.nextToken();
         if (!(next_token instanceof String))
         {
             FRLogger.warn("SessionToEagle.processnet_scope: String expected");
@@ -378,7 +378,7 @@ public class SessionToEagle extends javax.swing.JFrame
         for (;;)
         {
             Object prev_token = next_token;
-            next_token = this.scanner.next_token();
+            next_token = this.scanner.nextToken();
             if (next_token == null)
             {
                 // end of file
@@ -422,7 +422,7 @@ public class SessionToEagle extends javax.swing.JFrame
         for (;;)
         {
             Object prev_token = next_token;
-            next_token = this.scanner.next_token();
+            next_token = this.scanner.nextToken();
             if (next_token == null)
             {
                 FRLogger.warn("SessionToEagle.process_wire_scope: unexpected end of file");
@@ -493,7 +493,7 @@ public class SessionToEagle extends javax.swing.JFrame
     private boolean process_via_scope(String p_net_name) throws java.io.IOException
     {
         // read the padstack name
-        Object next_token = this.scanner.next_token();
+        Object next_token = this.scanner.nextToken();
         if (!(next_token instanceof String))
         {
             FRLogger.warn("SessionToEagle.process_via_scope: padstack name expected");
@@ -504,7 +504,7 @@ public class SessionToEagle extends javax.swing.JFrame
         double []location = new double [2];
         for (int i = 0; i < 2; ++i)
         {
-            next_token = this.scanner.next_token();
+            next_token = this.scanner.nextToken();
             if (next_token instanceof Double)
             {
                 location[i] = ((Double) next_token).doubleValue();
@@ -519,12 +519,12 @@ public class SessionToEagle extends javax.swing.JFrame
                 return false;
             }
         }
-        next_token = this.scanner.next_token();
+        next_token = this.scanner.nextToken();
         while (next_token == Keyword.OPEN_BRACKET)
         {
             // skip unknown scopes
             ScopeKeyword.skip_scope(this.scanner);
-            next_token = this.scanner.next_token();
+            next_token = this.scanner.nextToken();
         }
         if (next_token != Keyword.CLOSED_BRACKET)
         {
@@ -687,9 +687,9 @@ public class SessionToEagle extends javax.swing.JFrame
         this.out_file.write(";\n");
         
         double [] location_1 =
-                this.board.communication.coordinate_transform.board_to_dsn(p_pin_1.get_center().to_float());
+                this.board.communication.coordinateTransform.board_to_dsn(p_pin_1.get_center().toFloat());
         double [] location_2 =
-                this.board.communication.coordinate_transform.board_to_dsn(p_pin_2.get_center().to_float());
+                this.board.communication.coordinateTransform.board_to_dsn(p_pin_2.get_center().toFloat());
         
         this.out_file.write("PINSWAP ");
         this.out_file.write(" (");

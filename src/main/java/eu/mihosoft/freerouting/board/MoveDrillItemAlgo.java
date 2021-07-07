@@ -91,7 +91,7 @@ public class MoveDrillItemAlgo
         {
             attach_allowed = ((Via)p_drill_item).attach_allowed;
         }
-        ShapeSearchTree search_tree = p_board.search_tree_manager.get_default_tree();
+        ShapeSearchTree search_tree = p_board.searchTreeManager.get_default_tree();
         for (int curr_layer = p_drill_item.first_layer(); curr_layer <= p_drill_item.last_layer(); ++curr_layer)
         {
             int curr_ind = curr_layer - p_drill_item.first_layer();
@@ -144,7 +144,7 @@ public class MoveDrillItemAlgo
         ForcedPadAlgo forced_pad_algo = new ForcedPadAlgo(p_board);
         Collection<Item> ignore_items = new java.util.LinkedList<Item>();
         ignore_items.add(p_drill_item);
-        ShapeSearchTree search_tree = p_board.search_tree_manager.get_default_tree();
+        ShapeSearchTree search_tree = p_board.searchTreeManager.get_default_tree();
         for (int curr_layer = p_drill_item.first_layer(); curr_layer <= p_drill_item.last_layer(); ++curr_layer)
         {
             int curr_ind = curr_layer - p_drill_item.first_layer();
@@ -192,7 +192,7 @@ public class MoveDrillItemAlgo
             int p_max_via_recursion_depth, boolean p_copper_sharing_allowed,
             RoutingBoard p_board)
     {
-        ShapeSearchTree search_tree = p_board.search_tree_manager.get_default_tree();
+        ShapeSearchTree search_tree = p_board.searchTreeManager.get_default_tree();
         ShapeTraceEntries shape_entries =
                 new ShapeTraceEntries(p_obstacle_shape, p_layer, p_net_no_arr, p_cl_type, p_from_side, p_board);
         Collection<Item> obstacles =
@@ -227,18 +227,18 @@ public class MoveDrillItemAlgo
             double max_dist = 0.5 * curr_via.get_shape_on_layer(p_layer).bounding_box().max_width() + shape_radius;
             double max_dist_square = max_dist * max_dist;
             IntPoint curr_via_center = (IntPoint) curr_via.get_center();
-            FloatPoint check_via_center = curr_via_center.to_float();
+            FloatPoint check_via_center = curr_via_center.toFloat();
             Vector rel_coor = null;
             for (int i = 0; i < try_via_centers.length; ++i)
             {
-                if (i == 0 || check_via_center.distance_square(try_via_centers[i].to_float()) <= max_dist_square)
+                if (i == 0 || check_via_center.distanceSquare(try_via_centers[i].toFloat()) <= max_dist_square)
                 {
                     Collection<Item> ignore_items = new java.util.LinkedList<Item>();
                     if (p_ignore_items != null)
                     {
                         ignore_items.addAll(p_ignore_items);
                     }
-                    rel_coor = try_via_centers[i].difference_by(curr_via_center);
+                    rel_coor = try_via_centers[i].differenceBy(curr_via_center);
                     // No time limit here because the item database is already changed.
                     boolean shove_ok = check(curr_via, rel_coor, p_max_recursion_depth, 
                             p_max_via_recursion_depth - 1, ignore_items, p_board, null);
@@ -269,7 +269,7 @@ public class MoveDrillItemAlgo
     static IntPoint[] try_shove_via_points(TileShape p_obstacle_shape, int p_layer, Via p_via, int  p_cl_class_no,
             boolean p_extended_check, RoutingBoard p_board)
     {
-        ShapeSearchTree search_tree = p_board.search_tree_manager.get_default_tree();
+        ShapeSearchTree search_tree = p_board.searchTreeManager.get_default_tree();
         TileShape curr_via_shape = p_via.get_tree_shape_on_layer(search_tree, p_layer);
         if (curr_via_shape == null)
         {
@@ -338,8 +338,8 @@ public class MoveDrillItemAlgo
             try_via_centers = new IntPoint[shove_deltas.length];
             for (int i = 0; i < try_via_centers.length; ++i)
             {
-                Vector curr_delta = shove_deltas[i].round().difference_by(Point.ZERO);
-                try_via_centers[i] = (IntPoint) curr_via_center.translate_by(curr_delta);
+                Vector curr_delta = shove_deltas[i].round().differenceBy(Point.ZERO);
+                try_via_centers[i] = (IntPoint) curr_via_center.translateBy(curr_delta);
             }
         }
         return try_via_centers;

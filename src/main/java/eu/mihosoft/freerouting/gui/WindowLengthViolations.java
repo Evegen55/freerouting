@@ -46,13 +46,13 @@ public class WindowLengthViolations  extends WindowObjectListWithFilter
         this.resources = java.util.ResourceBundle.getBundle("eu.mihosoft.freerouting.gui.WindowLengthViolations", p_board_frame.get_locale());
         this.setTitle(resources.getString("title"));
         this.list_empty_message.setText(resources.getString("list_empty"));
-        p_board_frame.set_context_sensitive_help(this, "WindowObjectList_LengthViolations");
+        p_board_frame.setContextSensitiveHelp(this, "WindowObjectList_LengthViolations");
     }
     
     protected void fill_list()
     {
-        RatsNest ratsnest = this.board_frame.board_panel.board_handling.get_ratsnest();
-        Nets net_list = this.board_frame.board_panel.board_handling.get_routing_board().rules.nets;
+        RatsNest ratsnest = this.board_frame.boardPanel.boardHandling.get_ratsnest();
+        Nets net_list = this.board_frame.boardPanel.boardHandling.getRoutingBoard().rules.nets;
         java.util.SortedSet<LengthViolation> length_violations = new java.util.TreeSet<LengthViolation>();
         for (int net_index = 1; net_index <= net_list.max_net_no(); ++net_index)
         {
@@ -84,7 +84,7 @@ public class WindowLengthViolations  extends WindowObjectListWithFilter
             LengthViolation curr_violation = ((LengthViolation) selected_violations.get(i));
             selected_items.addAll(curr_violation.net.get_items());            
         }
-        eu.mihosoft.freerouting.interactive.BoardHandling board_handling = board_frame.board_panel.board_handling;
+        eu.mihosoft.freerouting.interactive.BoardHandling board_handling = board_frame.boardPanel.boardHandling;
         board_handling.select_items(selected_items);
         board_handling.zoom_selection();
     }
@@ -106,7 +106,7 @@ public class WindowLengthViolations  extends WindowObjectListWithFilter
         
         public String toString()
         {
-            eu.mihosoft.freerouting.board.CoordinateTransform coordinate_transform = board_frame.board_panel.board_handling.coordinate_transform;
+            eu.mihosoft.freerouting.board.CoordinateTransform coordinate_transform = board_frame.boardPanel.boardHandling.coordinateTransform;
             NetClass net_class = this.net.get_class();
             Float allowed_length;
             String allowed_string;

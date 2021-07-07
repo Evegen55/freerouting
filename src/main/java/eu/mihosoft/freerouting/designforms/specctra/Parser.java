@@ -24,7 +24,7 @@ package eu.mihosoft.freerouting.designforms.specctra;
 
 import eu.mihosoft.freerouting.board.Communication.SpecctraParserInfo;
 import eu.mihosoft.freerouting.logger.FRLogger;
-
+import static eu.mihosoft.freerouting.designforms.specctra.Keyword.*;
 /**
  * Class for reading and writing parser scopes from dsn-files.
  *
@@ -47,7 +47,7 @@ public class Parser extends ScopeKeyword
             Object prev_token = next_token;
             try
             {
-                next_token = p_par.scanner.next_token();
+                next_token = p_par.scanner.nextToken();
             }
             catch (java.io.IOException e)
             {
@@ -119,21 +119,21 @@ public class Parser extends ScopeKeyword
     {
         try
         {
-            Object next_token = p_par.scanner.next_token();
+            Object next_token = p_par.scanner.nextToken();
             if (!(next_token instanceof String))
             {
                 FRLogger.warn("Parser.read_write_solution: string expected");
                 return null;
             }
             String resolution_string = (String) next_token;
-            next_token = p_par.scanner.next_token();
+            next_token = p_par.scanner.nextToken();
             if (!(next_token instanceof Integer))
             {
                 FRLogger.warn("Parser.read_write_solution: integer expected expected");
                 return null;
             }
             int resolution_value = (Integer) next_token;
-            next_token = p_par.scanner.next_token();
+            next_token = p_par.scanner.nextToken();
             if (next_token != CLOSED_BRACKET)
             {
                 FRLogger.warn("Parser.read_write_solution: closing_bracket expected");
@@ -154,7 +154,7 @@ public class Parser extends ScopeKeyword
         {
             String[] result = new String[2];
             p_par.scanner.yybegin(SpecctraFileScanner.NAME);
-            Object next_token = p_par.scanner.next_token();
+            Object next_token = p_par.scanner.nextToken();
             if (!(next_token instanceof String))
             {
                 FRLogger.warn("Parser.read_constant: string expected");
@@ -162,14 +162,14 @@ public class Parser extends ScopeKeyword
             }
             result[0] = (String) next_token;
             p_par.scanner.yybegin(SpecctraFileScanner.NAME);
-            next_token = p_par.scanner.next_token();
+            next_token = p_par.scanner.nextToken();
             if (!(next_token instanceof String))
             {
                 FRLogger.warn("Parser.read_constant: string expected");
                 return null;
             }
             result[1] = (String) next_token;
-            next_token = p_par.scanner.next_token();
+            next_token = p_par.scanner.nextToken();
             if (next_token != CLOSED_BRACKET)
             {
                 FRLogger.warn("Parser.read_constant: closing_bracket expected");
@@ -251,14 +251,14 @@ public class Parser extends ScopeKeyword
     {
         try
         {
-            Object next_token = p_scanner.next_token();
+            Object next_token = p_scanner.nextToken();
             if (!(next_token instanceof String))
             {
                 FRLogger.warn("Parser.read_quote_char: string expected");
                 return null;
             }
             String result = (String) next_token;
-            next_token = p_scanner.next_token();
+            next_token = p_scanner.nextToken();
             if (next_token != CLOSED_BRACKET)
             {
                 FRLogger.warn("Parser.read_quote_char: closing bracket expected");

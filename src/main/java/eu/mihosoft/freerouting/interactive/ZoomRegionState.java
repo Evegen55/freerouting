@@ -49,7 +49,7 @@ public class ZoomRegionState extends SelectRegionState
     {
         ZoomRegionState new_instance = new ZoomRegionState(p_parent_state, p_board_handling, p_activityReplayFile);
         new_instance.corner1 = p_location;
-        new_instance.hdlg.screen_messages.set_status_message(new_instance.resources.getString("drag_left_mouse_button_to_create_region_to_display"));
+        new_instance.hdlg.screen_messages.setStatusMessage(new_instance.resources.getString("drag_left_mouse_button_to_create_region_to_display"));
         return new_instance;
     }
     
@@ -80,8 +80,8 @@ public class ZoomRegionState extends SelectRegionState
         {
             return;
         }
-        Point2D sc_corner1 = hdlg.graphics_context.coordinate_transform.board_to_screen(corner1) ;
-        Point2D sc_corner2 = hdlg.graphics_context.coordinate_transform.board_to_screen(corner2) ;
-        hdlg.get_panel().zoom_frame(sc_corner1, sc_corner2) ;
+        Point2D sc_corner1 = hdlg.graphicsContext.coordinateTransform.board_to_screen(corner1) ;
+        Point2D sc_corner2 = hdlg.graphicsContext.coordinateTransform.board_to_screen(corner2) ;
+        hdlg.get_panel().zoomFrame(sc_corner1, sc_corner2) ;
     }
 }

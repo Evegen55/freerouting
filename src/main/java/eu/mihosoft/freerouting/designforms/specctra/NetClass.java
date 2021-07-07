@@ -43,7 +43,7 @@ public class NetClass
         {
             // read the class name
             p_scanner.yybegin(SpecctraFileScanner.NAME);
-            Object next_token = p_scanner.next_token();
+            Object next_token = p_scanner.nextToken();
             if (!(next_token instanceof String))
             {
                 FRLogger.warn("NetClass.read_scope: String expected");
@@ -56,7 +56,7 @@ public class NetClass
             for (;;)
             {
                 p_scanner.yybegin(SpecctraFileScanner.NAME);
-                next_token = p_scanner.next_token();
+                next_token = p_scanner.nextToken();
                 if (next_token == Keyword.OPEN_BRACKET)
                 {
                     break;
@@ -88,7 +88,7 @@ public class NetClass
                 Object prev_token = next_token;
                 for (;;)
                 {
-                    next_token = p_scanner.next_token();
+                    next_token = p_scanner.nextToken();
                     if (next_token == null)
                     {
                         FRLogger.warn("NetClass.read_scope: unexpected end of file");
@@ -168,7 +168,7 @@ public class NetClass
             Object prev_token = null;
             for (;;)
             {
-                Object next_token = p_scanner.next_token();
+                Object next_token = p_scanner.nextToken();
                 if (next_token == null)
                 {
                     FRLogger.warn("ClassClass.read_scope: unexpected end of file");

@@ -48,7 +48,7 @@ import eu.mihosoft.freerouting.board.ItemSelectionFilter;
 import eu.mihosoft.freerouting.datastructures.IndentFileWriter;
 import eu.mihosoft.freerouting.datastructures.IdentifierType;
 import eu.mihosoft.freerouting.logger.FRLogger;
-
+import static eu.mihosoft.freerouting.designforms.specctra.Keyword.*;
 /**
  * Class for reading and writing wiring scopes from dsn-files.
  *
@@ -71,7 +71,7 @@ class Wiring extends ScopeKeyword
             Object prev_token = next_token;
             try
             {
-                next_token = p_par.scanner.next_token();
+                next_token = p_par.scanner.nextToken();
             }
             catch (java.io.IOException e)
             {
@@ -109,7 +109,7 @@ class Wiring extends ScopeKeyword
                 return false;
             }
         }
-        RoutingBoard board = p_par.board_handling.get_routing_board();
+        RoutingBoard board = p_par.board_handling.getRoutingBoard();
         for (int i = 1; i <= board.rules.nets.max_net_no(); ++i)
         {
             try {
@@ -166,7 +166,7 @@ class Wiring extends ScopeKeyword
     private static void write_via_scope(WriteScopeParameter p_par, Via p_via) throws java.io.IOException
     {
         eu.mihosoft.freerouting.library.Padstack via_padstack = p_via.get_padstack();
-        FloatPoint via_location = p_via.get_center().to_float();
+        FloatPoint via_location = p_via.get_center().toFloat();
         double [] via_coor = p_par.coordinate_transform.board_to_dsn(via_location);
         int net_no;
         eu.mihosoft.freerouting.rules.Net via_net;
@@ -229,7 +229,7 @@ class Wiring extends ScopeKeyword
             FloatPoint[] float_corner_arr = new FloatPoint [corner_arr.length];
             for (int i = 0; i < corner_arr.length; ++i)
             {
-                float_corner_arr[i] = corner_arr[i].to_float();
+                float_corner_arr[i] = corner_arr[i].toFloat();
             }
             double [] coors =  p_par.coordinate_transform.board_to_dsn(float_corner_arr);
             PolygonPath curr_path = new PolygonPath(curr_layer, wire_width, coors);
@@ -335,7 +335,7 @@ class Wiring extends ScopeKeyword
             Object prev_token = next_token;
             try
             {
-                next_token = p_par.scanner.next_token();
+                next_token = p_par.scanner.nextToken();
             }
             catch (java.io.IOException e)
             {
@@ -384,7 +384,7 @@ class Wiring extends ScopeKeyword
                     // overread the closing bracket
                     try
                     {
-                        next_token = p_par.scanner.next_token();
+                        next_token = p_par.scanner.nextToken();
                     }
                     catch (java.io.IOException e)
                     {
@@ -420,7 +420,7 @@ class Wiring extends ScopeKeyword
             FRLogger.warn("Wiring.read_wire_scope: shape missing");
             return null;
         }
-        RoutingBoard board = p_par.board_handling.get_routing_board();
+        RoutingBoard board = p_par.board_handling.getRoutingBoard();
         
         eu.mihosoft.freerouting.rules.NetClass net_class = board.rules.get_default_net_class();
         Collection<eu.mihosoft.freerouting.rules.Net> found_nets = get_subnets(net_id, board.rules);
@@ -601,7 +601,7 @@ class Wiring extends ScopeKeyword
         {
             eu.mihosoft.freerouting.board.FixedState fixed = eu.mihosoft.freerouting.board.FixedState.UNFIXED;
             // read the padstack name
-            Object next_token = p_par.scanner.next_token();
+            Object next_token = p_par.scanner.nextToken();
             if (!(next_token instanceof String))
             {
                 FRLogger.warn("Wiring.read_via_scope: padstack name expected");
@@ -612,7 +612,7 @@ class Wiring extends ScopeKeyword
             double []location = new double [2];
             for (int i = 0; i < 2; ++i)
             {
-                next_token = p_par.scanner.next_token();
+                next_token = p_par.scanner.nextToken();
                 if (next_token instanceof Double)
                 {
                     location[i] = ((Double) next_token).doubleValue();
@@ -632,7 +632,7 @@ class Wiring extends ScopeKeyword
             for (;;)
             {
                 Object prev_token = next_token;
-                next_token = p_par.scanner.next_token();
+                next_token = p_par.scanner.nextToken();
                 if (next_token == null)
                 {
                     FRLogger.warn("Wiring.read_via_scope: unexpected end of file");
@@ -663,7 +663,7 @@ class Wiring extends ScopeKeyword
                     }
                 }
             }
-            RoutingBoard board = p_par.board_handling.get_routing_board();
+            RoutingBoard board = p_par.board_handling.getRoutingBoard();
             eu.mihosoft.freerouting.library.Padstack curr_padstack = board.library.padstacks.get(padstack_name);
             if (curr_padstack == null)
             {
@@ -735,7 +735,7 @@ class Wiring extends ScopeKeyword
         try
         {
             eu.mihosoft.freerouting.board.FixedState result = eu.mihosoft.freerouting.board.FixedState.UNFIXED;
-            Object next_token = p_scanner.next_token();
+            Object next_token = p_scanner.nextToken();
             if (next_token == SHOVE_FIXED)
             {
                 result = eu.mihosoft.freerouting.board.FixedState.SHOVE_FIXED;
@@ -748,7 +748,7 @@ class Wiring extends ScopeKeyword
             {
                 result = eu.mihosoft.freerouting.board.FixedState.USER_FIXED;
             }
-            next_token = p_scanner.next_token();
+            next_token = p_scanner.nextToken();
             if (next_token != CLOSED_BRACKET)
             {
                 FRLogger.warn("Wiring.is_fixed: ) expected");
@@ -772,18 +772,18 @@ class Wiring extends ScopeKeyword
         {
             int subnet_number = 0;
             p_scanner.yybegin(SpecctraFileScanner.NAME);
-            Object next_token = p_scanner.next_token();
+            Object next_token = p_scanner.nextToken();
             if (!(next_token instanceof String))
             {
                 FRLogger.warn("Wiring:read_net_id: String expected");
                 return null;
             }
             String net_name = (String) next_token;
-            next_token = p_scanner.next_token();
+            next_token = p_scanner.nextToken();
             if (next_token instanceof Integer)
             {
                 subnet_number = (Integer) next_token;
-                next_token = p_scanner.next_token();
+                next_token = p_scanner.nextToken();
             }
             if (next_token != CLOSED_BRACKET)
             {

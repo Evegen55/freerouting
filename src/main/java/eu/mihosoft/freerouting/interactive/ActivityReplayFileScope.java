@@ -972,7 +972,7 @@ public abstract class ActivityReplayFileScope
         {
             int layer = p_activityReplayFile.read_int();
             int new_half_width = p_activityReplayFile.read_int();
-            p_board_handling.get_routing_board().rules.set_default_trace_half_width(layer, new_half_width);
+            p_board_handling.getRoutingBoard().rules.set_default_trace_half_width(layer, new_half_width);
             return p_return_state;
         }
     }
@@ -1047,7 +1047,7 @@ public abstract class ActivityReplayFileScope
         public InteractiveState read_scope(ActivityReplayFile p_activityReplayFile, InteractiveState p_return_state, BoardHandling p_board_handling)
         {
             int int_value = p_activityReplayFile.read_int();
-            p_board_handling.get_routing_board().change_conduction_is_obstacle(int_value == 0);
+            p_board_handling.getRoutingBoard().change_conduction_is_obstacle(int_value == 0);
             return p_return_state;
         }
     }
@@ -1079,11 +1079,11 @@ public abstract class ActivityReplayFileScope
             int new_clearance_type = p_activityReplayFile.read_int();
             if (new_clearance_type == 0)
             {
-                p_board_handling.get_routing_board().search_tree_manager.set_clearance_compensation_used(false);
+                p_board_handling.getRoutingBoard().searchTreeManager.set_clearance_compensation_used(false);
             }
             else
             {
-                p_board_handling.get_routing_board().search_tree_manager.set_clearance_compensation_used(true);
+                p_board_handling.getRoutingBoard().searchTreeManager.set_clearance_compensation_used(true);
             }
             return p_return_state;
         }
@@ -1145,7 +1145,7 @@ public abstract class ActivityReplayFileScope
         public InteractiveState read_scope(ActivityReplayFile p_activityReplayFile, InteractiveState p_return_state, BoardHandling p_board_handling)
         {
             int new_snap_angle_no = p_activityReplayFile.read_int();
-            p_board_handling.get_routing_board().rules.set_trace_angle_restriction(eu.mihosoft.freerouting.board.AngleRestriction.arr[new_snap_angle_no]);
+            p_board_handling.getRoutingBoard().rules.set_trace_angle_restriction(eu.mihosoft.freerouting.board.AngleRestriction.arr[new_snap_angle_no]);
             return p_return_state;
         }
     }
@@ -1219,7 +1219,7 @@ public abstract class ActivityReplayFileScope
         
         public InteractiveState read_scope(ActivityReplayFile p_activityReplayFile, InteractiveState p_return_state, BoardHandling p_board_handling)
         {
-            p_board_handling.get_routing_board().undo(null);
+            p_board_handling.getRoutingBoard().undo(null);
             p_board_handling.repaint();
             return p_return_state;
         }
@@ -1234,7 +1234,7 @@ public abstract class ActivityReplayFileScope
         
         public InteractiveState read_scope(ActivityReplayFile p_activityReplayFile, InteractiveState p_return_state, BoardHandling p_board_handling)
         {
-            p_board_handling.get_routing_board().redo(null);
+            p_board_handling.getRoutingBoard().redo(null);
             p_board_handling.repaint();
             return p_return_state;
         }
@@ -1249,7 +1249,7 @@ public abstract class ActivityReplayFileScope
         
         public InteractiveState read_scope(ActivityReplayFile p_activityReplayFile, InteractiveState p_return_state, BoardHandling p_board_handling)
         {
-            p_board_handling.get_routing_board().generate_snapshot();
+            p_board_handling.getRoutingBoard().generateSnapshot();
             return p_return_state;
         }
     }
@@ -1265,7 +1265,7 @@ public abstract class ActivityReplayFileScope
         {
             FloatPoint curr_location = p_activityReplayFile.read_corner();
             java.awt.geom.Point2D new_center = new java.awt.geom.Point2D.Double(curr_location.x, curr_location.y);
-            p_board_handling.get_panel().center_display(new_center);
+            p_board_handling.get_panel().centerDisplay(new_center);
             return p_return_state;
         }
     }
@@ -1280,9 +1280,9 @@ public abstract class ActivityReplayFileScope
         public InteractiveState read_scope(ActivityReplayFile p_activityReplayFile, InteractiveState p_return_state, BoardHandling p_board_handling)
         {
             java.awt.geom.Point2D lower_left =
-                    p_board_handling.graphics_context.coordinate_transform.board_to_screen(p_activityReplayFile.read_corner());
-            java.awt.geom.Point2D upper_right = p_board_handling.graphics_context.coordinate_transform.board_to_screen(p_activityReplayFile.read_corner());
-            p_board_handling.get_panel().zoom_frame(lower_left, upper_right);
+                    p_board_handling.graphicsContext.coordinateTransform.board_to_screen(p_activityReplayFile.read_corner());
+            java.awt.geom.Point2D upper_right = p_board_handling.graphicsContext.coordinateTransform.board_to_screen(p_activityReplayFile.read_corner());
+            p_board_handling.get_panel().zoomFrame(lower_left, upper_right);
             p_board_handling.repaint();
             return p_return_state;
         }

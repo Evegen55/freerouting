@@ -38,7 +38,7 @@ import eu.mihosoft.freerouting.logger.FRLogger;
 import eu.mihosoft.freerouting.rules.BoardRules;
 import eu.mihosoft.freerouting.rules.DefaultItemClearanceClasses.ItemClass;
 import eu.mihosoft.freerouting.board.RoutingBoard;
-
+import static eu.mihosoft.freerouting.designforms.specctra.Keyword.*;
 /**
  * Class for reading and writing net network from dsn-files.
  *
@@ -65,7 +65,7 @@ public class Network extends ScopeKeyword
             Object prev_token = next_token;
             try
             {
-                next_token = p_par.scanner.next_token();
+                next_token = p_par.scanner.nextToken();
             } catch (java.io.IOException e)
             {
                 FRLogger.error("Network.read_scope: IO error scanning file", e);
@@ -85,12 +85,12 @@ public class Network extends ScopeKeyword
             {
                 if (next_token == Keyword.NET)
                 {
-                    read_net_scope(p_par.scanner, p_par.netlist, p_par.board_handling.get_routing_board(),
+                    read_net_scope(p_par.scanner, p_par.netlist, p_par.board_handling.getRoutingBoard(),
                             p_par.coordinate_transform, p_par.layer_structure, p_par.board_handling.get_locale());
                 }
                 else if (next_token == Keyword.VIA)
                 {
-                    eu.mihosoft.freerouting.rules.ViaInfo curr_via_info = read_via_info(p_par.scanner, p_par.board_handling.get_routing_board());
+                    eu.mihosoft.freerouting.rules.ViaInfo curr_via_info = read_via_info(p_par.scanner, p_par.board_handling.getRoutingBoard());
                     if (curr_via_info == null)
                     {
                         return false;
@@ -99,7 +99,7 @@ public class Network extends ScopeKeyword
                 }
                 else if (next_token == Keyword.VIA_RULE)
                 {
-                    Collection<String> curr_via_rule = read_via_rule(p_par.scanner, p_par.board_handling.get_routing_board());
+                    Collection<String> curr_via_rule = read_via_rule(p_par.scanner, p_par.board_handling.getRoutingBoard());
                     if (curr_via_rule == null)
                     {
                         return false;
@@ -130,8 +130,8 @@ public class Network extends ScopeKeyword
                 }
             }
         }
-        insert_via_infos(via_infos, p_par.board_handling.get_routing_board(), p_par.via_at_smd_allowed);
-        insert_via_rules(via_rules, p_par.board_handling.get_routing_board());
+        insert_via_infos(via_infos, p_par.board_handling.getRoutingBoard(), p_par.via_at_smd_allowed);
+        insert_via_rules(via_rules, p_par.board_handling.getRoutingBoard());
         insert_net_classes(classes, p_par);
         insert_class_pairs(class_class_list, p_par);
         insert_compoments(p_par);
@@ -314,7 +314,7 @@ public class Network extends ScopeKeyword
         Object next_token;
         try
         {
-            next_token = p_scanner.next_token();
+            next_token = p_scanner.nextToken();
         } catch (java.io.IOException e)
         {
             FRLogger.error("Network.read_net_scope: IO error while scanning file", e);
@@ -329,7 +329,7 @@ public class Network extends ScopeKeyword
         int subnet_number = 1;
         try
         {
-            next_token = p_scanner.next_token();
+            next_token = p_scanner.nextToken();
         } catch (java.io.IOException e)
         {
             FRLogger.error("Network.read_net_scope: IO error while scanning file", e);
@@ -351,7 +351,7 @@ public class Network extends ScopeKeyword
                 Object prev_token = next_token;
                 try
                 {
-                    next_token = p_scanner.next_token();
+                    next_token = p_scanner.nextToken();
                 } catch (java.io.IOException e)
                 {
                     FRLogger.error("Network.read_net_scope: IO error scanning file", e);
@@ -512,7 +512,7 @@ public class Network extends ScopeKeyword
             try
             {
                 p_scanner.yybegin(SpecctraFileScanner.COMPONENT_NAME);
-                next_token = p_scanner.next_token();
+                next_token = p_scanner.nextToken();
             } catch (java.io.IOException e)
             {
                 FRLogger.error("Network.read_net_pins: IO error while scanning file", e);
@@ -531,9 +531,9 @@ public class Network extends ScopeKeyword
             try
             {
                 p_scanner.yybegin(SpecctraFileScanner.SPEC_CHAR);
-                next_token = p_scanner.next_token(); // overread the hyphen
+                next_token = p_scanner.nextToken(); // overread the hyphen
                 p_scanner.yybegin(SpecctraFileScanner.NAME);
-                next_token = p_scanner.next_token();
+                next_token = p_scanner.nextToken();
             } catch (java.io.IOException e)
             {
                 FRLogger.error("Network.read_net_pins: IO error while scanning file", e);
@@ -556,7 +556,7 @@ public class Network extends ScopeKeyword
         try
         {
             p_scanner.yybegin(SpecctraFileScanner.NAME);
-            Object next_token = p_scanner.next_token();
+            Object next_token = p_scanner.nextToken();
             if (!(next_token instanceof String))
             {
                 FRLogger.warn("Network.read_via_info: string expected");
@@ -564,7 +564,7 @@ public class Network extends ScopeKeyword
             }
             String name = (String) next_token;
             p_scanner.yybegin(SpecctraFileScanner.NAME);
-            next_token = p_scanner.next_token();
+            next_token = p_scanner.nextToken();
             if (!(next_token instanceof String))
             {
                 FRLogger.warn("Network.read_via_info: string expected");
@@ -584,7 +584,7 @@ public class Network extends ScopeKeyword
                 p_board.library.add_via_padstack(via_padstack);
             }
             p_scanner.yybegin(SpecctraFileScanner.NAME);
-            next_token = p_scanner.next_token();
+            next_token = p_scanner.nextToken();
             if (!(next_token instanceof String))
             {
                 FRLogger.warn("Network.read_via_info: string expected");
@@ -597,7 +597,7 @@ public class Network extends ScopeKeyword
                 clearance_class = BoardRules.default_clearance_class();
             }
             boolean attach_allowed = false;
-            next_token = p_scanner.next_token();
+            next_token = p_scanner.nextToken();
             if (next_token != Keyword.CLOSED_BRACKET)
             {
                 if (next_token != Keyword.ATTACH)
@@ -606,7 +606,7 @@ public class Network extends ScopeKeyword
                     return null;
                 }
                 attach_allowed = true;
-                next_token = p_scanner.next_token();
+                next_token = p_scanner.nextToken();
                 if (next_token != Keyword.CLOSED_BRACKET)
                 {
                     FRLogger.warn("Network.read_via_info: closing bracket expected");
@@ -629,7 +629,7 @@ public class Network extends ScopeKeyword
             for (;;)
             {
                 p_scanner.yybegin(SpecctraFileScanner.NAME);
-                Object next_token = p_scanner.next_token();
+                Object next_token = p_scanner.nextToken();
                 if (next_token == Keyword.CLOSED_BRACKET)
                 {
                     break;
@@ -749,7 +749,7 @@ public class Network extends ScopeKeyword
 
     private static void insert_net_classes(Collection<NetClass> p_net_classes, ReadScopeParameter p_par)
     {
-        eu.mihosoft.freerouting.board.BasicBoard routing_board = p_par.board_handling.get_routing_board();
+        eu.mihosoft.freerouting.board.BasicBoard routing_board = p_par.board_handling.getRoutingBoard();
         for (NetClass curr_class : p_net_classes)
         {
             insert_net_class(curr_class, p_par.layer_structure, routing_board, p_par.coordinate_transform, p_par.via_at_smd_allowed);
@@ -885,7 +885,7 @@ public class Network extends ScopeKeyword
         for (NetClass.ClassClass curr_class_class : p_class_classes)
         {
             java.util.Iterator<String> it1 = curr_class_class.class_names.iterator();
-            eu.mihosoft.freerouting.board.BasicBoard routing_board = p_par.board_handling.get_routing_board();
+            eu.mihosoft.freerouting.board.BasicBoard routing_board = p_par.board_handling.getRoutingBoard();
             while (it1.hasNext())
             {
                 String first_name = it1.next();
@@ -1229,7 +1229,7 @@ public class Network extends ScopeKeyword
      */
     private static boolean insert_logical_parts(ReadScopeParameter p_par)
     {
-        eu.mihosoft.freerouting.board.BasicBoard routing_board = p_par.board_handling.get_routing_board();
+        eu.mihosoft.freerouting.board.BasicBoard routing_board = p_par.board_handling.getRoutingBoard();
         for (PartLibrary.LogicalPart next_part : p_par.logical_parts)
         {
             eu.mihosoft.freerouting.library.Package lib_package = search_lib_package(next_part.name, p_par.logical_part_mappings, routing_board);
@@ -1323,7 +1323,7 @@ public class Network extends ScopeKeyword
     private static void insert_component(ComponentPlacement.ComponentLocation p_location, String p_lib_key,
             ReadScopeParameter p_par)
     {
-        eu.mihosoft.freerouting.board.RoutingBoard routing_board = p_par.board_handling.get_routing_board();
+        eu.mihosoft.freerouting.board.RoutingBoard routing_board = p_par.board_handling.getRoutingBoard();
         eu.mihosoft.freerouting.library.Package curr_front_package = routing_board.library.packages.get(p_lib_key, true);
         eu.mihosoft.freerouting.library.Package curr_back_package = routing_board.library.packages.get(p_lib_key, false);
         if (curr_front_package == null || curr_back_package == null)
@@ -1350,7 +1350,7 @@ public class Network extends ScopeKeyword
         {
             return; // component is not yet placed.
         }
-        Vector component_translation = component_location.difference_by(Point.ZERO);
+        Vector component_translation = component_location.differenceBy(Point.ZERO);
         eu.mihosoft.freerouting.board.FixedState fixed_state;
         if (p_location.position_fixed)
         {

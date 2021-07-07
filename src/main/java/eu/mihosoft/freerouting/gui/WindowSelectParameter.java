@@ -37,7 +37,7 @@ public class WindowSelectParameter extends BoardSavableSubWindow
     /** Creates a new instance of SelectWindow */
     public WindowSelectParameter(BoardFrame p_board_frame)
     {
-        this.board_handling = p_board_frame.board_panel.board_handling;
+        this.board_handling = p_board_frame.boardPanel.boardHandling;
         
         java.util.ResourceBundle resources = 
                 java.util.ResourceBundle.getBundle("eu.mihosoft.freerouting.gui.WindowSelectParameter", p_board_frame.get_locale());
@@ -105,7 +105,7 @@ public class WindowSelectParameter extends BoardSavableSubWindow
         
         // Create buttongroup for the current layer:
         
-        eu.mihosoft.freerouting.board.LayerStructure layer_structure = this.board_handling.get_routing_board().layer_structure;
+        eu.mihosoft.freerouting.board.LayerStructure layer_structure = this.board_handling.getRoutingBoard().layer_structure;
         int signal_layer_count = layer_structure.signal_layer_count();
         javax.swing.JLabel current_layer_label = new javax.swing.JLabel(resources.getString("current_layer"));
         current_layer_label.setToolTipText(resources.getString("current_layer_tooltip"));
@@ -130,7 +130,7 @@ public class WindowSelectParameter extends BoardSavableSubWindow
         gridbag.setConstraints(empty_label, gridbag_constraints);
         main_panel.add(empty_label);
         
-        p_board_frame.set_context_sensitive_help(this, "WindowSelectParameter");
+        p_board_frame.setContextSensitiveHelp(this, "WindowSelectParameter");
         
         this.refresh();
         this.pack();
@@ -163,7 +163,7 @@ public class WindowSelectParameter extends BoardSavableSubWindow
                 this.item_selection_choices[i].setSelected(item_selection_filter.is_selected(filter_values[i])) ;
             }
         }
-        eu.mihosoft.freerouting.board.LayerStructure layer_structure = this.board_handling.get_routing_board().layer_structure;
+        eu.mihosoft.freerouting.board.LayerStructure layer_structure = this.board_handling.getRoutingBoard().layer_structure;
         eu.mihosoft.freerouting.board.Layer current_layer = layer_structure.arr[this.board_handling.settings.get_layer()];
         layer_name_arr[layer_structure.get_signal_layer_no(current_layer)].setSelected(true);
     }

@@ -52,7 +52,7 @@ public class DynamicRouteState extends RouteState
     {
         if (this.observers_activated)
         {
-            hdlg.get_routing_board().end_notify_observers();
+            hdlg.getRoutingBoard().end_notify_observers();
             this.observers_activated = false;
         }
         if (activityReplayFile != null)
@@ -85,7 +85,7 @@ public class DynamicRouteState extends RouteState
     
     public javax.swing.JPopupMenu get_popup_menu()
     {
-        return hdlg.get_panel().popup_menu_dynamic_route;
+        return hdlg.get_panel().popupMenuDynamicRoute;
     }
     
     public String get_help_id()
